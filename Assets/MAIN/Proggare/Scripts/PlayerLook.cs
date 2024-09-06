@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerLook : MonoBehaviour
 {
     //Configurable Parameters
-    [SerializeField] float mouseSensitivity = 5f; 
+    [SerializeField] float mouseSensitivity = 5f;
 
     //Private Varibels
     Vector2 lookInput = Vector2.zero;  //To store the look input (mouse movement)
