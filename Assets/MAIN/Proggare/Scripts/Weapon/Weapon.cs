@@ -46,6 +46,10 @@ public class Weapon : MonoBehaviour
         if (currentFireDelay > 0) { currentFireDelay -= Time.deltaTime; }
         else { currentFireDelay = 0; if (animator != null) { animator.SetBool("Fire", false); } }
     }
+    private void OnEnable()
+    {
+        if (reloading) { StartCoroutine(ReloadRoutine()); }
+    }
     public virtual bool Fire()
     {
         //true

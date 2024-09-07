@@ -58,7 +58,7 @@ MonoBehaviour:
   weaponRange: 1000
   hitParticle: {fileID: 0}
   animator: {fileID: 0}
-  temporaryHitParticel: {fileID: 7800073073306841254, guid: 37400c48f3bb5e3488ed6c22a4c2cce1, type: 3}
+  temporaryHitParticel: {fileID: 4240791907686988539, guid: 480a3bb47f1f17949bf1be45374445ae, type: 3}
   spread: 5
   pellets: 10
 --- !u!1 &2515289539189300750
