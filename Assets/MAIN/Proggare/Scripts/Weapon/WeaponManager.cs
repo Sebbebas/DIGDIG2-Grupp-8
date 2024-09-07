@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
+//Sebbe
+
 public class WeaponManager : MonoBehaviour
 {
     //Configurable Parameters
@@ -18,6 +20,8 @@ public class WeaponManager : MonoBehaviour
 
     //Cached References
     InputAction scrollAction;
+    InputAction fireAction;
+    InputAction reloadAction;
     Transform weaponsParent;
 
     void Start()
@@ -32,20 +36,26 @@ public class WeaponManager : MonoBehaviour
         //Get the action map and the action
         var actionMap = inputActions.FindActionMap("Player");
         scrollAction = actionMap.FindAction("SwitchWeapon");
+        fireAction = actionMap.FindAction("Fire");
+        reloadAction = actionMap.FindAction("Reload");
 
         //Enable the action
         scrollAction.Enable();
+        fireAction.Enable();
+        reloadAction.Enable();
 
         //Subscribe to the performed callback
         scrollAction.performed += OnSwitchWeapon;
+        fireAction.performed += OnFire;
+        reloadAction.performed += OnReload;
     }
-
     private void OnDisable()
     {
         //Unsubscribe from the input when the object is disabled
         scrollAction.performed -= OnSwitchWeapon;
+        fireAction.performed -= OnFire;
+        reloadAction.performed -= OnReload;
     }
-
     void OnSwitchWeapon(InputAction.CallbackContext context)
     {
         //Get the scroll value (Vector2, using y-axis for scrolling)
@@ -67,7 +77,28 @@ public class WeaponManager : MonoBehaviour
 
         UpdateWeaponList();
     }
-
+    void OnFire(InputAction.CallbackContext context)
+    {
+        if (currentWeapon != null)
+        {
+            Weapon weaponComponent = currentWeapon.GetComponent<Weapon>();
+            if (weaponComponent != null)
+            {
+                weaponComponent.Fire();
+            }
+        }
+    }
+    void OnReload(InputAction.CallbackContext context)
+    {
+        if (currentWeapon != null)
+        {
+            Weapon weaponComponent = currentWeapon.GetComponent<Weapon>();
+            if (weaponComponent != null)
+            {
+                weaponComponent.Reload();
+            }
+        }
+    }
     void UpdateWeaponList()
     {
         if(WeaponsList.Count > 0) { WeaponsList.Clear(); }
