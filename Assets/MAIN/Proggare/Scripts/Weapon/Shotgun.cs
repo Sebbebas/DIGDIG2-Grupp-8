@@ -41,11 +41,12 @@ public class Shotgun : Weapon
             {
                 //Debug.Log("Hit object: " + hit.collider.gameObject.name);
 
+                //Object Transform
                 Vector3 hitPosition = hit.point;
                 Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
 
-                if (parentForBullets != null) { Instantiate(temporaryHitParticel, hitPosition, hitRotation, parentForBullets.transform); }
-                else { Instantiate(temporaryHitParticel, hitPosition, hitRotation); }
+                //InstansiateObjects
+                Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform);
             }
         }
     }

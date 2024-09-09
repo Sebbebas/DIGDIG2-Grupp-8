@@ -29,6 +29,7 @@ public class WeaponManager : MonoBehaviour
         //Get Cached References
         weaponsParent = GetComponent<Transform>();
 
+        AntiHierarchySpam();
         UpdateWeaponList();
     }
     private void OnEnable()
@@ -120,4 +121,12 @@ public class WeaponManager : MonoBehaviour
             else { weapon.gameObject.SetActive(true); }
         }
     }
+
+    #region AntiHierarchySpam
+    public void AntiHierarchySpam()
+    {
+        GameObject antiSpam = new("AntiHierarchySpam");
+        antiSpam.tag = "antiHierarchySpam";
+    }
+    #endregion
 }

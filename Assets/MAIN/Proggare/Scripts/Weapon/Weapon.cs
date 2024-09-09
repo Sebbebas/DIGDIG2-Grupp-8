@@ -1,6 +1,15 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.Audio;
+
+public enum AudioType
+{
+    fire = 0,
+    reload = 1,
+    pullout = 2,
+    equip = 3,
+}
 
 public class Weapon : MonoBehaviour
 {
@@ -16,7 +25,7 @@ public class Weapon : MonoBehaviour
     public float firedelay = 3f;
 
     [Header("Extra")]
-    [Tooltip("Instansiate bullets on this transform to not fill Hierarchy")] public GameObject parentForBullets;
+    [Tooltip("Instansiate Gameobjects on transform for a clearer Hierarchy")] public GameObject antiHierarchySpam;
     public LayerMask hitMask = 0;
     public float weaponRange = 100f;
     protected Camera mainCam = null;
@@ -24,11 +33,20 @@ public class Weapon : MonoBehaviour
     [Header("Effects")]
     public ParticleSystem hitParticle;
     public Animator animator;
+    public AudioClips[] audioFX;
+
+    [System.Serializable]
+    public struct AudioClips
+    {
+        public AudioType audioType;
+        public AudioClip audioClip;
+    }
 
     //Private Variabels
     private float currentFireDelay;
-    private bool reloading = false; 
+    private bool reloading = false;
 
+    #region Base Methods
     protected void Start()
     {
         mainCam = Camera.main;
@@ -48,8 +66,12 @@ public class Weapon : MonoBehaviour
     }
     private void OnEnable()
     {
+        if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
         if (reloading) { StartCoroutine(ReloadRoutine()); }
     }
+    #endregion
+
+    #region Virtual Bools
     public virtual bool Fire()
     {
         //true
@@ -59,6 +81,7 @@ public class Weapon : MonoBehaviour
             currentFireDelay = firedelay;
             if (animator != null) { animator.SetBool("Fire", true); }
             if (currentAmmo == 0) { Reload(); }
+            PlaySound(AudioType.fire);
             return true;
         }
         //false
@@ -80,8 +103,14 @@ public class Weapon : MonoBehaviour
     }
     public IEnumerator ReloadRoutine()
     {
+        //Before Wait
         reloading = true;
+        PlaySound(AudioType.reload);
+
+        //wait
         yield return new WaitForSeconds(reloadTime);
+        
+        //After Wait
         int ammoToAdd = magSize - currentAmmo;
 
         if (totalAmmo >= ammoToAdd)
@@ -98,4 +127,39 @@ public class Weapon : MonoBehaviour
         reloading = false;
         StopCoroutine(ReloadRoutine());
     }
+    #endregion
+
+    #region Audio Management
+    public void PlaySound(AudioType type)
+    {
+        foreach (var audio in audioFX)
+        {
+            if(audio.audioType == type)
+            {
+                PlaySoundEffect(audio.audioClip);
+            }
+        }
+    }
+    public void PlaySoundEffect(AudioClip clip)
+    {
+        //Create New Object
+        GameObject soundFX = new GameObject("SoundEffect");
+
+        //Set Transform
+        soundFX.transform.position = Camera.main.transform.position;
+        soundFX.transform.SetParent(antiHierarchySpam.transform);
+
+        //Add Components
+        soundFX.AddComponent<AudioSource>();
+        soundFX.AddComponent<Destroy>();
+
+        //Edit Components
+        soundFX.GetComponent<AudioSource>().playOnAwake = false;
+        soundFX.GetComponent<AudioSource>().clip = clip;
+        soundFX.GetComponent<Destroy>().SetAliveTime(clip.length);
+
+        //Destroy
+        soundFX.GetComponent<AudioSource>().Play();
+    }
+    #endregion
 }
