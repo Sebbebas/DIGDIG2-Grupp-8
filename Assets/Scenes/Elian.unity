@@ -433,14 +433,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2013584433156381555, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: controller
-      value: 
-      objectReference: {fileID: 1258132386}
-    - target: {fileID: 2013584433156381555, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: groundMask.m_Bits
-      value: 128
-      objectReference: {fileID: 0}
     - target: {fileID: 4327374827836331831, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_Name
       value: Player
@@ -543,7 +535,7 @@ GameObject:
   - component: {fileID: 1941779653}
   - component: {fileID: 1941779652}
   - component: {fileID: 1941779651}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
