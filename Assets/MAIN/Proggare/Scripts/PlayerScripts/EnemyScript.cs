@@ -10,7 +10,7 @@ public class EnemyScript : MonoBehaviour
 
         if (playerHealth != null)
         {
-            playerHealth.ApplyDamage(damageAmount);
+            //playerHealth.ApplyDamage(damageAmount);
         }
     }
 }
