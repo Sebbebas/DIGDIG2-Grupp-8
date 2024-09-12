@@ -106,6 +106,10 @@ public class PlayerHealth : MonoBehaviour
             speedMultiplier = 1f; //No slowdown
         }
     }
+    public void ApplyDamage(float damageAmount)
+    {
+        TakeDamage(damageAmount);
+    }
 
     private void ShowImage(Image image)
     {
