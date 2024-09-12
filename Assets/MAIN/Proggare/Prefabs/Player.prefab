@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 8486600987910310613}
   - component: {fileID: 688838284348425957}
   - component: {fileID: 2013584433156381555}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -466,6 +466,7 @@ MonoBehaviour:
   movementSpeed: 10
   acceleration: 1
   jumpForce: 5
+  slideSpeed: 15
 --- !u!1 &7220654110830225840
 GameObject:
   m_ObjectHideFlags: 0
