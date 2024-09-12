@@ -14,9 +14,18 @@ public class MainMenuController : MonoBehaviour
     public void OpenSettings()
     {
         // Load settings scene, or if it's an overlay, activate a settings menu UI
-        SceneManager.LoadScene("SettingsScene");
+        SceneManager.LoadScene("Settings");
         // Alternatively, activate/deactivate a settings panel
         // settingsPanel.SetActive(true); // Assuming you have a settings UI panel to open
+    }
+
+
+
+    public void OpenMainMenu()
+    {
+        
+        SceneManager.LoadScene("Main Menu");
+       
     }
 
     // This function will be called when the "Quit Game" button is pressed
