@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance = .4f;
     [SerializeField] LayerMask groundLayer;
+
+    [SerializeField] Transform cameraTransform;
 
     //Cached References
     InputAction moveAction;
@@ -45,8 +46,19 @@ public class PlayerMovement : MonoBehaviour
             jumpVelocity.y = -2f; // Reset velocity when grounded
         }
 
+        // Calculate movement direction based on camera's orientation
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+
+        // Flatten the forward and right vectors on the Y axis to prevent upward/downward movement
+        forward.y = 0;
+        right.y = 0;
+
+        forward.Normalize();
+        right.Normalize();
+
         //movement logic
-        Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
+        Vector3 move = forward * moveInput.y + right * moveInput.x;
         controller.Move(move * movementSpeed * Time.deltaTime);
 
         // Apply gravity
