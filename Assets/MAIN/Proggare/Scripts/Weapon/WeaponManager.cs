@@ -22,6 +22,7 @@ public class WeaponManager : MonoBehaviour
     InputAction scrollAction;
     InputAction fireAction;
     InputAction reloadAction;
+    InputAction throwAction;
     Transform weaponsParent;
 
     void Start()
@@ -34,21 +35,26 @@ public class WeaponManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        //Get the action map and the action
+        //Get player action map
         var actionMap = inputActions.FindActionMap("Player");
+
+        //Get actions
         scrollAction = actionMap.FindAction("SwitchWeapon");
         fireAction = actionMap.FindAction("Fire");
         reloadAction = actionMap.FindAction("Reload");
+        throwAction = actionMap.FindAction("Throw");
 
         //Enable the action
         scrollAction.Enable();
         fireAction.Enable();
         reloadAction.Enable();
+        throwAction.Enable();
 
         //Subscribe to the performed callback
         scrollAction.performed += OnSwitchWeapon;
         fireAction.performed += OnFire;
         reloadAction.performed += OnReload;
+        throwAction.performed += OnThrow;
     }
     private void OnDisable()
     {
@@ -94,11 +100,19 @@ public class WeaponManager : MonoBehaviour
         if (currentWeapon != null)
         {
             Weapon weaponComponent = currentWeapon.GetComponent<Weapon>();
+
             if (weaponComponent != null)
             {
                 weaponComponent.Reload();
             }
         }
+    }
+    void OnThrow(InputAction.CallbackContext context)
+    {
+        var grenadeScript = GetComponent<GrenadeManager>();
+        grenadeScript.ThrowGrenade();
+
+        Debug.Log(context.ToString());
     }
     void UpdateWeaponList()
     {

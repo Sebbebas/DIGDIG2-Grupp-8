@@ -36,7 +36,7 @@
                     "name": "Next",
                     "type": "Button",
                     "id": "b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -99,6 +99,15 @@
                     "name": "Reload",
                     "type": "Button",
                     "id": "eedc905e-69c8-4feb-b27e-17729bb9afb0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Throw",
+                    "type": "Button",
+                    "id": "a74dc3c9-7ef5-4da8-b8f7-d9994f4f3253",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -521,6 +530,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "239a274e-0267-4881-9659-a6b9d6af9029",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
