@@ -440,17 +440,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  movementSpeed: 10
+  movementSpeed: 7
+  speedMultiplier: 1.2
   acceleration: 1
   jumpForce: 3
   gravity: -98.1
   slideSpeed: 15
+  slideDuration: 0.5
+  slideCooldown: 2
   groundCheck: {fileID: 2478052181802027038}
   groundDistance: 0.4
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
-  cameraTransform: {fileID: 6859200243257892753}
+  camTransform: {fileID: 0}
+  normalCamHeight: 0.7
+  slideCamHeight: 0.5
+  camTransistionSpeed: 5
 --- !u!143 &7725862197874590656
 CharacterController:
   m_ObjectHideFlags: 0
