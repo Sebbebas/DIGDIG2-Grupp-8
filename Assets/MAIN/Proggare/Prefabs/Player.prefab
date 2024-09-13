@@ -453,10 +453,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
-  camTransform: {fileID: 0}
-  normalCamHeight: 0.7
-  slideCamHeight: 0.5
-  camTransistionSpeed: 5
+  camTransform: {fileID: 6859200243257892753}
 --- !u!143 &7725862197874590656
 CharacterController:
   m_ObjectHideFlags: 0
