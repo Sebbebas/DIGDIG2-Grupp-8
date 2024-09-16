@@ -10,13 +10,17 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement Variables")]
     [SerializeField] float movementSpeed = 10f;
-    [SerializeField, Tooltip("makes player speed faster when moving forward")] float speedMultiplier = 1.2f;
+    [SerializeField, Tooltip("Makes player speed faster when moving forward")] float speedMultiplier = 1.2f;
     [SerializeField] float acceleration = 1f;
     [SerializeField] float jumpForce = 5f;
     [SerializeField] float gravity = -9.81f;
+
+    [Header("Sliding")]
     [SerializeField] float slideSpeed = 15f;
     [SerializeField] float slideDuration = .5f;
     [SerializeField] float slideCooldown = 2f;
+    [SerializeField, Tooltip("To change camera height when sliding")] float slideSize = .8f;
+    [SerializeField, Tooltip("Multiplies with scale to get a value of 1")] float normalSize = 1.25f;
 
     [Header("Ground Check")]
     [SerializeField] Transform groundCheck;
@@ -25,9 +29,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] Transform camTransform;
-    //[SerializeField] float normalCamHeight = 1.8f;
-    //[SerializeField] float slideCamHeight = 1.2f;
-    //[SerializeField, Tooltip("speed of camera transition")] float camTransistionSpeed = 5f;
 
     //Cached References
     InputAction moveAction;
@@ -43,12 +44,10 @@ public class PlayerMovement : MonoBehaviour
     bool isSliding;
     float slideTimer;
     float slideCooldownTimer;
-    //float currentCamHeight;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        //currentCamHeight = normalCamHeight;
     }
 
     void Update()
@@ -73,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
             if (slideTimer <= 0f)
             {
                 isSliding = false; // End slide when timer runs out
+                transform.localScale *= normalSize;
             }
 
             // Move the player in the locked slide direction
@@ -107,12 +107,6 @@ public class PlayerMovement : MonoBehaviour
         // Apply gravity
         jumpVelocity.y += gravity * Time.deltaTime;
         controller.Move(jumpVelocity * Time.deltaTime);
-
-        //float targetCameraHeight = isSliding ? slideCamHeight : normalCamHeight;
-        //currentCamHeight = Mathf.Lerp(currentCamHeight, targetCameraHeight, Time.deltaTime);
-        //Vector3 camPos = camTransform.position;
-        //camPos.y = currentCamHeight;
-        //camTransform.position = camPos;
     }
 
     private void OnEnable()
@@ -182,7 +176,8 @@ public class PlayerMovement : MonoBehaviour
 
             isSliding = true;
             slideTimer = slideDuration;
-            slideCooldownTimer = slideCooldown; 
+            slideCooldownTimer = slideCooldown;
+            transform.localScale *= slideSize;
         }
     }
 }

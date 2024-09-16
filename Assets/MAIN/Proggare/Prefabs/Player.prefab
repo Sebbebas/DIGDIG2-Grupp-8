@@ -448,6 +448,8 @@ MonoBehaviour:
   slideSpeed: 15
   slideDuration: 0.5
   slideCooldown: 2
+  slideSize: 0.5
+  normalSize: 2
   groundCheck: {fileID: 2478052181802027038}
   groundDistance: 0.4
   groundLayer:
