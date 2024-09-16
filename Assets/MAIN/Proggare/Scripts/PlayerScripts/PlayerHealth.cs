@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     public Image stage1Image;
     public Image stage2Image;
     public Image stage3Image;
+    public Image stage4Image;
 
     private float speedMultiplier = 1f;
     private float slowdownPercentage = 0.05f;
@@ -85,6 +86,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void CheckHealthStages()
     {
+        if (currentHealth <= 0f)
+        {
+            ShowImage(stage4Image);
+            speedMultiplier = 1f - (slowdownPercentage * 10); //100% slowdown
+        }
         if (currentHealth <= 20f)
         {
             ShowImage(stage3Image);
@@ -124,5 +130,6 @@ public class PlayerHealth : MonoBehaviour
         if (stage1Image != null) stage1Image.enabled = false;
         if (stage2Image != null) stage2Image.enabled = false;
         if (stage3Image != null) stage3Image.enabled = false;
+        if (stage4Image != null) stage4Image.enabled = false;
     }
 }
