@@ -54,7 +54,7 @@ MonoBehaviour:
   antiHierarchySpam: {fileID: 0}
   hitMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 704
   weaponRange: 1000
   hitParticle: {fileID: 0}
   animator: {fileID: 0}
