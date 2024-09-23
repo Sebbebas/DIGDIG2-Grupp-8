@@ -17,14 +17,15 @@ public class Grenade : MonoBehaviour
     private void Start()
     {
         myRigidbody = GetComponent<Rigidbody>();
+
+        direction = FindObjectOfType<PlayerMovement>().transform.forward;
     }
     private void FixedUpdate()
     {
-        direction = transform.forward.normalized;
-        direction = direction + directionOffset.normalized;
-
         if (myRigidbody != null)
         {
+            direction += directionOffset.normalized;
+
             myRigidbody.AddForce(direction * speed);
         }
     }

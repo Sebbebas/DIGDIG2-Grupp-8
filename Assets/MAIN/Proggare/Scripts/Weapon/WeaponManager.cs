@@ -111,8 +111,6 @@ public class WeaponManager : MonoBehaviour
     {
         var grenadeScript = GetComponent<GrenadeManager>();
         grenadeScript.ThrowGrenade();
-
-        Debug.Log(context.ReadValue<int>());
     }
     void UpdateWeaponList()
     {
