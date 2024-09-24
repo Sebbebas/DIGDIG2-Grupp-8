@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Tooltip("Makes player speed faster when moving forward")] float speedMultiplier = 1.2f;
     [SerializeField] float acceleration = 1f;
     [SerializeField] float jumpForce = 5f;
-    [SerializeField] float gravity = -9.81f;
+    [SerializeField] float gravity = -98.1f;
 
     [Header("Sliding")]
     [SerializeField] float slideSpeed = 15f;
