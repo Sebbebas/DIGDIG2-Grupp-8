@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 1178789643277670596}
   - component: {fileID: 2597241439018764051}
   - component: {fileID: 3963355098470657002}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 688838284348425957}
   - component: {fileID: 2013584433156381555}
   - component: {fileID: 7725862197874590656}
+  - component: {fileID: 1312168213106435148}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -481,6 +482,24 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1312168213106435148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4327374827836331831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998281363c820874489c70bdcef46117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRadius: 15
+  sightRadius: 12.5
+  despawnRadius: 20
+  numberOfEnemies: 5
+  enemyPrefab: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+  player: {fileID: 7789529859971171444}
 --- !u!1 &4914785592842780219
 GameObject:
   m_ObjectHideFlags: 0

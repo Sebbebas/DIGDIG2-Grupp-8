@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 jumpVelocity;
     Vector3 slideDirection;
 
-    //private variables
+    //Private variables
     bool isGrounded;
     bool isSliding;
     float slideTimer;
@@ -56,31 +56,32 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded && jumpVelocity.y < 0)
         {
-            jumpVelocity.y = -2f; // Reset velocity when grounded
+            //Reset velocity when grounded
+            jumpVelocity.y = -2f; 
         }
 
-        // Decrease the slide cooldown timer
+        //Decrease the slide cooldown timer
         if (slideCooldownTimer > 0f)
         {
             slideCooldownTimer -= Time.deltaTime;
         }
 
-        // Sliding logic
+        //Sliding logic
         if (isSliding)
         {
             slideTimer -= Time.deltaTime;
             if (slideTimer <= 0f)
             {
-                isSliding = false; // End slide when timer runs out
+                isSliding = false;
                 transform.localScale *= normalSize;
             }
 
-            // Move the player in the locked slide direction
+            //Move the player in the locked slide direction
             controller.Move(slideDirection * slideSpeed * Time.deltaTime);
         }
         else
         {
-            // Calculate movement direction based on camera orientation
+            //Calculate movement direction based on camera orientation
             Vector3 forward = camTransform.forward;
             Vector3 right = camTransform.right;
 
@@ -90,21 +91,21 @@ public class PlayerMovement : MonoBehaviour
             forward.Normalize();
             right.Normalize();
 
-            // Calculate movement based on input and camera orientation
+            //Calculate movement based on input and camera orientation
             Vector3 move = forward * moveInput.y + right * moveInput.x;
 
-            // Apply forward speed multiplier if the player is moving forward
+            //Apply forward speed multiplier if the player is moving forward
             float currentSpeed = movementSpeed;
             if (moveInput.y > 0)
             {
                 currentSpeed *= speedMultiplier;
             }
 
-            // Moves the player
+            //Moves the player
             controller.Move(move * currentSpeed * Time.deltaTime);
         }
 
-        // Apply gravity
+        //Apply gravity
         jumpVelocity.y += gravity * Time.deltaTime;
         controller.Move(jumpVelocity * Time.deltaTime);
     }
@@ -160,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && (moveInput.y > 0 || Mathf.Abs(moveInput.x) > 0) && slideCooldownTimer <= 0f)
         {
-            // Lock the slide direction at the start of the slide
+            //Lock the slide direction at the start of the slide
             Vector3 forward = camTransform.forward;
             Vector3 right = camTransform.right;
 
@@ -170,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
             forward.Normalize();
             right.Normalize();
 
-            // Calculate slide direction based on input
+            //Calculate slide direction based on input
             slideDirection = forward * moveInput.y + right * moveInput.x;
             slideDirection.Normalize();
 
