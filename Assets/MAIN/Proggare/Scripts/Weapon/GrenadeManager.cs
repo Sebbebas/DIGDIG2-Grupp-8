@@ -4,6 +4,7 @@ public class GrenadeManager : MonoBehaviour
 {
     //Configurable Parameters
     [SerializeField] GameObject grenadePrefab;
+    [SerializeField] Vector3 spawnOffset;
 
     //Private Variabels
     [SerializeField] private GameObject antiHierarchySpam;
@@ -12,9 +13,11 @@ public class GrenadeManager : MonoBehaviour
     {
         antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam");
 
+        Vector3 spawnPos = GetComponentInParent<Transform>().position + spawnOffset;
+
         if (antiHierarchySpam != null && grenadePrefab != null) 
         { 
-            Instantiate(grenadePrefab, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation, antiHierarchySpam.transform);
+            Instantiate(grenadePrefab, spawnPos, GetComponentInParent<Transform>().rotation, antiHierarchySpam.transform);
 
             Debug.Log("Threw Grenade");
         }

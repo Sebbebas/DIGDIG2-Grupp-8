@@ -6,10 +6,11 @@ public class Grenade : MonoBehaviour
     [Header("General")]
     [SerializeField] ParticleSystem explosionParticle;
     [SerializeField] float speed = 8f;
-    [SerializeField] Vector3 directionOffset;
+    [SerializeField] float grenadeDrop = 3;
 
-    [Header("Current direction")]
-    [SerializeField] Vector3 direction;
+    //Private Variabels
+    private Quaternion spawnRotation;
+    private bool startFriction = false;
 
     //Cached References
     Rigidbody myRigidbody;
@@ -17,24 +18,22 @@ public class Grenade : MonoBehaviour
     private void Start()
     {
         myRigidbody = GetComponent<Rigidbody>();
+        spawnRotation = FindFirstObjectByType<PlayerLook>().GetComponentInParent<Transform>().rotation;
 
-        direction = FindObjectOfType<PlayerMovement>().transform.forward;
+        transform.rotation = spawnRotation;
     }
     private void FixedUpdate()
     {
         if (myRigidbody != null)
         {
-            direction += directionOffset.normalized;
-
-            myRigidbody.AddForce(direction * speed);
+            if(!startFriction) { myRigidbody.AddForce(transform.forward * speed); }
+            
+            myRigidbody.mass += Time.deltaTime * grenadeDrop;
         }
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player")) { return; }
-
-        Vector3 hitPos = transform.position;
-        if (explosionParticle != null) { Instantiate(explosionParticle, hitPos, Quaternion.identity); }
-        Destroy(gameObject);
+        //if (other.gameObject.CompareTag("Player")) { return; }
+        //if (other.gameObject.layer = "Walkable") { startFriction = true; }
     }
 }
