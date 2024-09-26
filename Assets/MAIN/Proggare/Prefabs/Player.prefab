@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 2013584433156381555}
   - component: {fileID: 7725862197874590656}
   - component: {fileID: 1312168213106435148}
+  - component: {fileID: 6002864899973768161}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -446,6 +447,8 @@ MonoBehaviour:
   acceleration: 1
   jumpForce: 3
   gravity: -50
+  slowMultiplier: 0.5
+  slowTime: 0.75
   slideSpeed: 15
   slideDuration: 0.5
   slideCooldown: 2
@@ -500,6 +503,27 @@ MonoBehaviour:
   numberOfEnemies: 5
   enemyPrefab: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
   player: {fileID: 7789529859971171444}
+--- !u!114 &6002864899973768161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4327374827836331831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5da80835ca397a4983e867a4bc18e0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
+  isDead: 0
+  takesDamage: 0
+  endTimer: 100
+  stage1Image: {fileID: 0}
+  stage2Image: {fileID: 0}
+  stage3Image: {fileID: 0}
+  stage4Image: {fileID: 0}
 --- !u!1 &4914785592842780219
 GameObject:
   m_ObjectHideFlags: 0
