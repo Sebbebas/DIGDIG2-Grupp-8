@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 100f;
     public float currentHealth;
     public bool isDead = false;
+    public bool takesDamage;
+    [SerializeField, Tooltip("When counting hits this the timer is done (counts in frames)")] float endTimer = 100f;
 
     private const float HealPlayer = 20f;
     private const float DamageAmount = 20f;
@@ -21,6 +23,9 @@ public class PlayerHealth : MonoBehaviour
 
     private float speedMultiplier = 1f;
     private float slowdownPercentage = 0.05f;
+
+    bool timer;
+    int counting = 0;
 
     void Start()
     {
@@ -39,6 +44,17 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(DamageAmount);
         }
+
+        if (timer == true)
+        {
+            counting++;
+        }
+
+        if (counting >= endTimer)
+        {
+            timer = false;
+            takesDamage = false;
+        }
     }
 
     public void TakeDamage(float damage)
@@ -47,6 +63,8 @@ public class PlayerHealth : MonoBehaviour
             return;
 
         currentHealth -= damage;
+        takesDamage = true;
+        timer = true;
 
         //Checks if the player is die
         if (currentHealth <= 0)
@@ -144,5 +162,10 @@ public class PlayerHealth : MonoBehaviour
         {
             healthText.text = $"Health: {currentHealth:F0}";
         }
+    }
+
+    public bool GetTakeDamage()
+    {
+        return takesDamage;
     }
 }
