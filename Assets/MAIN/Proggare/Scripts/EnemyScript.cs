@@ -1,8 +1,9 @@
 using UnityEngine;
 
+// Alexander
 public class EnemyScript : MonoBehaviour
 {
-    public float damageAmount = 10f;
+    [SerializeField] float DamageAmount = 20f;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -10,7 +11,8 @@ public class EnemyScript : MonoBehaviour
 
         if (playerHealth != null)
         {
-            //playerHealth.ApplyDamage(damageAmount);
+            playerHealth.ApplyDamage(DamageAmount);
+            Debug.Log("Enemy collided with player, damage applied: " + DamageAmount);
         }
     }
 }
