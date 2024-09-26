@@ -13,9 +13,9 @@ TagManager:
   - Water
   - UI
   - Enemies
-  - Enviorment
+  - Non Walkable
   - Grenade
-  - Ground
+  - Walkable
   - 
   - 
   - 

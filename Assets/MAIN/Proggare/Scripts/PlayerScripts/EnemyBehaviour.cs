@@ -14,6 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] Transform player;
 
+    [Tooltip("Instansiate Gameobjects on transform for a clearer Hierarchy")] GameObject antiHierarchySpam;
     List<GameObject> enemies = new List<GameObject>();
 
     void Start()
@@ -29,12 +30,14 @@ public class EnemyBehaviour : MonoBehaviour
 
     void SpawnEnemies(int amount)
     {
+        if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
+
         for (int i = 0; i < amount; i++)
         {
             Vector3 randomPos = Random.insideUnitSphere * spawnRadius;
             randomPos.y = 0;
             Vector3 spawnPos = transform.position + randomPos;
-            GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, antiHierarchySpam.transform);
             enemies.Add(enemy);
         }
     }

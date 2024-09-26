@@ -445,7 +445,7 @@ MonoBehaviour:
   speedMultiplier: 1.2
   acceleration: 1
   jumpForce: 3
-  gravity: -98.1
+  gravity: -50
   slideSpeed: 15
   slideDuration: 0.5
   slideCooldown: 2

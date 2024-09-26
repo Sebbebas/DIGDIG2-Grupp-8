@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpForce = 5f;
     [SerializeField] float gravity = -98.1f;
 
+    [SerializeField] float slowMultiplier = .5f;
+    [SerializeField] float slowTime = .75f;
+
     [Header("Sliding")]
     [SerializeField] float slideSpeed = 15f;
     [SerializeField] float slideDuration = .5f;
@@ -99,6 +102,11 @@ public class PlayerMovement : MonoBehaviour
             if (moveInput.y > 0)
             {
                 currentSpeed *= speedMultiplier;
+            }
+
+            if (GetComponent<PlayerHealth>().takesDamage)
+            {
+                currentSpeed *= slowMultiplier;
             }
 
             //Moves the player
