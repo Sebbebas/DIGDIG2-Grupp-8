@@ -25,6 +25,5 @@ public class GrenadeManager : MonoBehaviour
         {
             Debug.Log("grenade error");
         }
-
     }
 }

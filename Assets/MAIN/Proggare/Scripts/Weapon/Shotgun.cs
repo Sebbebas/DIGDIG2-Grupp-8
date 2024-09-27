@@ -46,7 +46,8 @@ public class Shotgun : Weapon
                 Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
 
                 //InstansiateObjects
-                Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform);
+                if (hit.transform.CompareTag("Grenade") == true) { hit.transform.GetComponent<Grenade>().Explode(); }
+                else { Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform); }
             }
         }
     }
