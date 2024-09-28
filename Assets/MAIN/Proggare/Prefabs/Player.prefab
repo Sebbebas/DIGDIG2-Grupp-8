@@ -242,7 +242,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3089606794737801456}
   - component: {fileID: 5260258438860744153}
-  - component: {fileID: 7780618760358123042}
   m_Layer: 0
   m_Name: Gun Holder
   m_TagString: Untagged
@@ -282,21 +281,9 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   currentWeapon: {fileID: 0}
   WeaponsList: []
---- !u!114 &7780618760358123042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3808625266475747820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d50a93b826056f2449bdbe6f0d0d3d70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   grenadePrefab: {fileID: 3165213101292630628, guid: 3f9b1863598a4204f8b4f244c8dd6cdf, type: 3}
   spawnOffset: {x: 0, y: 0.82, z: 0}
-  antiHierarchySpam: {fileID: 0}
+  throwCooldownTime: 3
 --- !u!1 &4327374827836331831
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,9 +296,9 @@ GameObject:
   - component: {fileID: 6727278256846470173}
   - component: {fileID: 3995209982260274737}
   - component: {fileID: 1038489618502130442}
+  - component: {fileID: 7725862197874590656}
   - component: {fileID: 688838284348425957}
   - component: {fileID: 2013584433156381555}
-  - component: {fileID: 7725862197874590656}
   - component: {fileID: 1312168213106435148}
   - component: {fileID: 6002864899973768161}
   m_Layer: 3
@@ -415,6 +402,31 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!143 &7725862197874590656
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4327374827836331831}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &688838284348425957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,31 +488,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   camTransform: {fileID: 6859200243257892753}
---- !u!143 &7725862197874590656
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4327374827836331831}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1312168213106435148
 MonoBehaviour:
   m_ObjectHideFlags: 0
