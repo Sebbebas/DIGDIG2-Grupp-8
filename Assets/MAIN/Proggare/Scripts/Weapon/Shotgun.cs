@@ -39,13 +39,11 @@ public class Shotgun : Weapon
             //Cast the ray
             if (Physics.Raycast(weaponRay, out hit, weaponRange, hitMask))
             {
-                //Debug.Log("Hit object: " + hit.collider.gameObject.name);
-
                 //Object Transform
                 Vector3 hitPosition = hit.point;
                 Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
 
-                //InstansiateObjects
+                //Instansiate Objects on hit
                 if (hit.transform.CompareTag("Grenade") == true) { hit.transform.GetComponent<Grenade>().Explode(); }
                 else { Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform); }
             }
@@ -53,15 +51,16 @@ public class Shotgun : Weapon
     }
     private Vector3 GetRandomSpreadDirection()
     {
-        //Get a random offset in degrees from the center (forward direction)
+        //Get a random offset
         float randomX = Random.Range(-spread, spread);
         float randomY = Random.Range(-spread, spread);
+        float randomZ = Random.Range(-spread, spread);
 
-        //Create a direction based on the forward direction of the camera and random spread
+        //Get the direction of the camera
         Vector3 direction = mainCam.transform.forward;
 
-        //Apply the random spread in the x and y directions (this creates a cone-like spread)
-        direction = Quaternion.Euler(randomX, randomY, 0) * direction;
+        //Apply the random spread
+        direction = Quaternion.Euler(randomX, randomY, randomZ) * direction;
 
         return direction;
     }

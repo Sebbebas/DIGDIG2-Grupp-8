@@ -133,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Subscribe to the performed callback
         moveAction.performed += OnMove;
+        moveAction.canceled += OnMoveCanceled;
         jumpAction.performed += OnJump;
         slideAction.performed += OnSlide;
     }
@@ -141,6 +142,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Unsubscribe from the input when the object is disabled
         moveAction.performed -= OnMove;
+        moveAction.canceled -= OnMoveCanceled;
         jumpAction.performed -= OnJump;
         slideAction.performed -= OnSlide;
     }
@@ -150,6 +152,13 @@ public class PlayerMovement : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+    }
+
+    void OnMoveCanceled(InputAction.CallbackContext context) { }
+
+    void OnMoveCanceled(Input value) 
+    {
+        moveInput = Vector2.zero;
     }
 
     void OnJump(InputAction.CallbackContext context) { }
@@ -187,5 +196,10 @@ public class PlayerMovement : MonoBehaviour
             slideCooldownTimer = slideCooldown;
             transform.localScale *= slideSize;
         }
+    }
+
+    public Vector2 GetMoveInput()
+    {
+        return moveInput;
     }
 }
