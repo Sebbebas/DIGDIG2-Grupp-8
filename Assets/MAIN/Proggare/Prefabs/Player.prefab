@@ -58,11 +58,7 @@ MonoBehaviour:
   weaponRange: 1000
   hitParticle: {fileID: 0}
   animator: {fileID: 0}
-  audioFX:
-  - audioType: 0
-    audioClip: {fileID: 8300000, guid: 0462e9677ed495d4ea5c39246080136d, type: 3}
-  - audioType: 1
-    audioClip: {fileID: 8300000, guid: 59c3edff84359124bbbf76b5e4247784, type: 3}
+  audioFX: []
   temporaryHitParticel: {fileID: 4240791907686988539, guid: 480a3bb47f1f17949bf1be45374445ae, type: 3}
   spread: 5
   pellets: 20
@@ -242,6 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3089606794737801456}
   - component: {fileID: 5260258438860744153}
+  - component: {fileID: 184151071596452005}
   m_Layer: 0
   m_Name: Gun Holder
   m_TagString: Untagged
@@ -284,6 +281,24 @@ MonoBehaviour:
   grenadePrefab: {fileID: 3165213101292630628, guid: 3f9b1863598a4204f8b4f244c8dd6cdf, type: 3}
   spawnOffset: {x: 0, y: 0.82, z: 0}
   throwCooldownTime: 3
+--- !u!114 &184151071596452005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3808625266475747820}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce5f948f2c80ad845bb0efccd9c770cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobFrequency: 5
+  bobAmplitude: 0.05
+  transitionSpeed: 5
+  swayAmount: 0.02
+  swaySmoothness: 4
+  maxSwayAmount: 0.72
 --- !u!1 &4327374827836331831
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +487,6 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   movementSpeed: 7
   speedMultiplier: 1.2
-  acceleration: 1
   jumpForce: 3
   gravity: -50
   slowMultiplier: 0.5
@@ -495,7 +509,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4327374827836331831}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 998281363c820874489c70bdcef46117, type: 3}
   m_Name: 
@@ -513,7 +527,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4327374827836331831}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5da80835ca397a4983e867a4bc18e0e, type: 3}
   m_Name: 
