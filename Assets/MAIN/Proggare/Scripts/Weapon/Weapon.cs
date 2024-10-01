@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 
+//Sebbe
+
 public enum AudioType
 {
     fire = 0,
@@ -92,7 +94,6 @@ public class Weapon : MonoBehaviour
         //Reload
         if (currentAmmo == magSize || totalAmmo == 0 || reloading == true)
         {
-            Debug.Log("cant reload");
             return false;
         }
 

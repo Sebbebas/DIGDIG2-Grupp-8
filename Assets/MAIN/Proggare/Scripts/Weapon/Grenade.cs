@@ -1,6 +1,8 @@
 using Unity.Mathematics;
 using UnityEngine;
 
+//Sebbe
+
 public class Grenade : MonoBehaviour
 {
     //Configurable Parameters

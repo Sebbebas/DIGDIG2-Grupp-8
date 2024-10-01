@@ -9,8 +9,8 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] float mouseSensitivity = 5f;
 
     //Private Varibels
-    Vector2 lookInput = Vector2.zero;  //To store the look input (mouse movement)
-    float xRotation = 0f;  //Vertical rotation value for clamping
+    Vector2 lookInput = Vector2.zero;
+    float xRotation = 0f;
 
     //Cached References
     Transform playerBody;
@@ -70,4 +70,8 @@ public class PlayerLook : MonoBehaviour
     }
     #endregion
 
+    public Vector2 GetlookInput()
+    {
+        return lookInput;
+    }
 }

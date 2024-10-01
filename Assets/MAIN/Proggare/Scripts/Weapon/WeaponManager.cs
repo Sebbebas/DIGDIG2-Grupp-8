@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 //Sebbe
 
@@ -22,7 +21,6 @@ public class WeaponManager : MonoBehaviour
 
     //Private Variabels
     private GameObject antiHierarchySpam;
-    private Vector3 moveDirection;
     private float currentThrowCooldownTime;
     private int currentWeaponInt = 0;
     private int totalWeapons;
@@ -33,7 +31,6 @@ public class WeaponManager : MonoBehaviour
     InputAction fireAction;
     InputAction reloadAction;
     InputAction throwAction;
-    InputAction moveAction;
     Transform weaponsParent;
 
     #region Base Methods
@@ -56,21 +53,18 @@ public class WeaponManager : MonoBehaviour
         var actionMap = inputActions.FindActionMap("Player");
 
         //Get actions from player ActionMap
-        moveAction = actionMap.FindAction("Move");
         scrollAction = actionMap.FindAction("SwitchWeapon");
         fireAction = actionMap.FindAction("Fire");
         reloadAction = actionMap.FindAction("Reload");
         throwAction = actionMap.FindAction("Throw");
 
         //Enable the action's
-        moveAction.Enable();
         scrollAction.Enable();
         fireAction.Enable();
         reloadAction.Enable();
         throwAction.Enable();
 
         //Subscribe to the performed callback 
-        moveAction.performed += MoveWeaponWithMovement;
         scrollAction.performed += OnSwitchWeapon;
         fireAction.performed += OnFire;
         reloadAction.performed += OnReload;
@@ -86,7 +80,7 @@ public class WeaponManager : MonoBehaviour
     }
     #endregion
 
-    #region Input 
+    #region Inputs 
     void OnFire(InputAction.CallbackContext context)
     {
         if (currentWeapon != null)
@@ -184,27 +178,6 @@ public class WeaponManager : MonoBehaviour
         }
     }
     #endregion
-
-    //Working on the name CUNT cuuuuuuuuuuuuuuuhhhhhhhhh :-)
-    private void MoveWeaponWithMovement(InputAction.CallbackContext context)
-    {
-        moveDirection = context.ReadValue<Vector2>();
-        moveDirection.z = moveDirection.y;
-        moveDirection.y = transform.localPosition.y;
-        
-
-        if (moveDirection == Vector3.zero)
-        {
-            transform.localPosition = Vector3.zero;
-        }
-        else
-        {
-            //transform.localPosition = moveDirection;
-
-            //Mathf.Lerp(transform.localPosition.x, transform.localPosition.x + moveDirection.x, 10f);
-            //Mathf.Lerp(transform.localPosition.z, transform.localPosition.z + moveDirection.z, 10f);
-        }
-    }
 
     #region AntiHierarchySpam
     /// <summary>
