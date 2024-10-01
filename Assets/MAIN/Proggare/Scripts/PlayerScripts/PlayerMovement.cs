@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Variables")]
     [SerializeField] float movementSpeed = 10f;
     [SerializeField, Tooltip("Makes player speed faster when moving forward")] float speedMultiplier = 1.2f;
-    [SerializeField] float acceleration = 1f;
     [SerializeField] float jumpForce = 5f;
     [SerializeField] float gravity = -98.1f;
 
@@ -69,7 +68,6 @@ public class PlayerMovement : MonoBehaviour
             slideCooldownTimer -= Time.deltaTime;
         }
 
-        //Sliding logic
         if (isSliding)
         {
             slideTimer -= Time.deltaTime;
@@ -104,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
                 currentSpeed *= speedMultiplier;
             }
 
+            //Slows down movement speed when player takes damage
             if (GetComponent<PlayerHealth>().takesDamage)
             {
                 currentSpeed *= slowMultiplier;
