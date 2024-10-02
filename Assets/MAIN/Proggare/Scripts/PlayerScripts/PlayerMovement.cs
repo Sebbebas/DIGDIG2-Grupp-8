@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float gravity = -98.1f;
 
     [SerializeField] float slowMultiplier = .5f;
+    [SerializeField] float lowHealthMultiplier = .8f;
     [SerializeField] float slowTime = .75f;
 
     [Header("Sliding")]
@@ -103,9 +104,9 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //Slows down movement speed when player takes damage
-            if (GetComponent<PlayerHealth>().takesDamage)
+            if (GetComponent<PlayerHealth>().lowHealth)
             {
-                currentSpeed *= slowMultiplier;
+                currentSpeed *= lowHealthMultiplier;
             }
 
             //Moves the player

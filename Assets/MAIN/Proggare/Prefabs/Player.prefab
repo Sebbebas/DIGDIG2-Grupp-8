@@ -296,9 +296,12 @@ MonoBehaviour:
   bobFrequency: 5
   bobAmplitude: 0.05
   transitionSpeed: 5
+  cameraTilt: 10
+  tiltSpeed: 5
   swayAmount: 0.02
   swaySmoothness: 4
   maxSwayAmount: 0.72
+  rotationSmoothness: 6
 --- !u!1 &4327374827836331831
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,8 +490,8 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   movementSpeed: 7
   speedMultiplier: 1.2
-  jumpForce: 3
-  gravity: -50
+  jumpForce: 2.5
+  gravity: -60
   slowMultiplier: 0.5
   slowTime: 0.75
   slideSpeed: 15
