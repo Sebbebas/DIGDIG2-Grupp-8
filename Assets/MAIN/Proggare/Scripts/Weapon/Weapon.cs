@@ -4,7 +4,7 @@ using TMPro;
 
 //Sebbe
 
-public enum AudioType
+public enum EffectType
 {
     fire = 0,
     reload = 1,
@@ -32,15 +32,15 @@ public class Weapon : MonoBehaviour
     protected Camera mainCam = null;
 
     [Header("Effects")]
-    public ParticleSystem hitParticle;
-    public Animator animator;
-    public AudioClips[] audioFX;
+    public Effects[] effects;
 
     [System.Serializable]
-    public struct AudioClips
+    public struct Effects
     {
-        public AudioType audioType;
+        public EffectType effectType;
         public AudioClip audioClip;
+        public Animator animator;
+        public ParticleSystem hitParticle;
     }
 
     //Private Variabels
@@ -50,8 +50,10 @@ public class Weapon : MonoBehaviour
     #region Base Methods
     protected void Start()
     {
+        //Get Camera
         mainCam = Camera.main;
 
+        //Set currentAmmo in start
         if (currentAmmo == 0)
         {
             currentAmmo = magSize;
@@ -59,15 +61,21 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
+        //Update the ammo UI when the gun is enabled
         if (gameObject.activeSelf && ammoText != null) { ammoText.text = currentAmmo.ToString() + "/" + totalAmmo.ToString(); }
 
         //Cooldowns
         if (currentFireDelay > 0) { currentFireDelay -= Time.deltaTime; }
-        else { currentFireDelay = 0; if (animator != null) { animator.SetBool("Fire", false); } }
+        else { currentFireDelay = 0; PlayAnimation(EffectType.fire, "Fire", false); }
     }
     private void OnEnable()
     {
+        // When the weapon is Enabled \\
+
+        //Dont Spam the Hierarchy
         if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
+
+        //Start reload
         if (reloading) { StartCoroutine(ReloadRoutine()); }
     }
     #endregion
@@ -78,13 +86,18 @@ public class Weapon : MonoBehaviour
         //true
         if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false)
         {
+            //Logic
             currentAmmo--;
             currentFireDelay = firedelay;
-            if (animator != null) { animator.SetBool("Fire", true); }
             if (currentAmmo == 0) { Reload(); }
-            PlaySound(AudioType.fire);
+
+            //Effects
+            PlayAnimation(EffectType.fire, "Fire", true);
+            PlaySound(EffectType.fire);
+
             return true;
         }
+
         //false
         if (currentAmmo == 0) { Reload(); }
         return false;
@@ -97,15 +110,16 @@ public class Weapon : MonoBehaviour
             return false;
         }
 
+        //Start Reload
         StartCoroutine(ReloadRoutine());
-        if (animator != null) { animator.SetBool("Reload", true); }
         return true;
     }
     public IEnumerator ReloadRoutine()
     {
         //Before Wait
         reloading = true;
-        PlaySound(AudioType.reload);
+        PlaySound(EffectType.reload);
+        PlayAnimation(EffectType.reload, "Reload", true);
 
         //wait
         yield return new WaitForSeconds(reloadTime);
@@ -125,16 +139,47 @@ public class Weapon : MonoBehaviour
         }
 
         reloading = false;
+        PlayAnimation(EffectType.reload, "Reload", false);
         StopCoroutine(ReloadRoutine());
     }
     #endregion
 
-    #region Audio Management
-    public void PlaySound(AudioType type)
+    #region Effects
+    /// <summary>
+    /// Sets <paramref name="boolname"/> to <paramref name="animationBool"/> that are <paramref name="type"/> 
+    /// </summary>
+    public void PlayAnimation(EffectType type, string boolname, bool animationBool)
     {
-        foreach (var audio in audioFX)
+        foreach (var animation in effects)
         {
-            if(audio.audioType == type)
+            if (animation.effectType == type && animation.animator != null)
+            {
+                animation.animator.SetBool(boolname, animationBool);
+            }
+        }
+    }
+
+    public void PlayEffects(EffectType type, string boolname, bool effectBool)
+    {
+        foreach (var effect in effects)
+        {
+            if (effect.effectType == type)
+            {
+                //HIT PARTICEL GET FROM MAIN INSTED OF EVERY WEAPON SCRIPT
+            }
+        }
+    }
+    #endregion
+
+    #region Audio Management
+    /// <summary>
+    /// Play the Audio that is of same <paramref name="type"/>
+    /// </summary>
+    public void PlaySound(EffectType type)
+    {
+        foreach (var audio in effects)
+        {
+            if(audio.effectType == type)
             {
                 PlaySoundEffect(audio.audioClip);
             }
@@ -143,7 +188,7 @@ public class Weapon : MonoBehaviour
     public void PlaySoundEffect(AudioClip clip)
     {
         //Create New Object
-        GameObject soundFX = new GameObject("SoundEffect");
+        GameObject soundFX = new("SoundEffect");
 
         //Set Transform
         soundFX.transform.position = Camera.main.transform.position;

@@ -14,6 +14,16 @@ public class WeaponManager : MonoBehaviour
     [SerializeField, Tooltip("Current weapon gameobject")] GameObject currentWeapon;
     [SerializeField, Tooltip("A list of all the weapon gameobjects")] List<GameObject> WeaponsList = new List<GameObject>();
 
+    [Header("Kick")]
+    [SerializeField] float kickCooldown;
+    [SerializeField] float coneAngle = 30f; // Angle of the cone
+    [SerializeField] float maxDistance = 10f; // Max distance of the detection
+    [SerializeField] float radius = 2f; // Radius of the sphere cast
+    [SerializeField] int coneResolution = 20;
+    [SerializeField] LayerMask layerMask; // Layer mask for collision detection
+
+    private Vector3 kickOrigin;
+
     [Header("Grenade")]
     [SerializeField, Tooltip("Grenade Prefab")] GameObject grenadePrefab;
     [SerializeField, Tooltip("Grenade spawn offset")] Vector3 spawnOffset;
@@ -106,6 +116,32 @@ public class WeaponManager : MonoBehaviour
     }
     #endregion
 
+    public void Kick()
+    {
+        Vector3 origin = transform.position;
+        Vector3 forward = transform.forward;
+
+        // Perform a sphere cast to detect objects within the sphere's radius
+        RaycastHit[] hits = Physics.SphereCastAll(origin, radius, forward, maxDistance, layerMask);
+
+        // Check if the objects are within the cone angle
+        foreach (RaycastHit hit in hits)
+        {
+            Vector3 directionToHit = (hit.point - origin).normalized;
+            float angleToHit = Vector3.Angle(forward, directionToHit);
+
+            if (angleToHit <= coneAngle)
+            {
+                Debug.DrawLine(origin, hit.point, Color.red, 1.0f);
+                Debug.Log("Hit within cone: " + hit.collider.name);
+            }
+            else
+            {
+                Debug.DrawLine(origin, hit.point, Color.blue, 1.0f); // Visualize hits outside the cone
+            }
+        }
+    }
+
     #region Grenade
     void OnThrow(InputAction.CallbackContext context)
     {
@@ -191,4 +227,29 @@ public class WeaponManager : MonoBehaviour
         antiHierarchySpam = antiSpam;
     }
     #endregion
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * maxDistance);
+
+        //Kick Cone
+        Gizmos.color = Color.yellow;
+
+        //REPLACE WITH KICKORIGIN
+        Vector3 origin = transform.position;
+
+        for (int i = 0; i <= coneResolution; i++)
+        {
+            // Angle spread between the rays
+            float currentAngle = Mathf.Lerp(-coneAngle, coneAngle, i / (float)coneResolution);
+
+            // Calculate the direction of the cone's side ray
+            Quaternion rotation = Quaternion.Euler(0, currentAngle, 0);
+            Vector3 direction = rotation * transform.forward;
+
+            // Draw the ray
+            Gizmos.DrawLine(origin, origin + direction * maxDistance);
+        }
+    }
 }
