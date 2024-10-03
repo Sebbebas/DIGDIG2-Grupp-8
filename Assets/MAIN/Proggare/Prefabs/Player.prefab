@@ -493,7 +493,7 @@ MonoBehaviour:
   jumpForce: 2.5
   gravity: -60
   slowMultiplier: 0.5
-  slowTime: 0.75
+  lowHealthMultiplier: 0.7
   slideSpeed: 15
   slideDuration: 0.5
   slideCooldown: 2
@@ -521,7 +521,11 @@ MonoBehaviour:
   sightRadius: 12.5
   despawnRadius: 20
   numberOfEnemies: 5
-  enemyPrefab: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+  enemyZero: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+  enemyOne: {fileID: 0}
+  enemyTwo: {fileID: 0}
+  enemyThree: {fileID: 0}
+  enemyFour: {fileID: 0}
   player: {fileID: 7789529859971171444}
 --- !u!114 &6002864899973768161
 MonoBehaviour:
@@ -530,7 +534,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4327374827836331831}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5da80835ca397a4983e867a4bc18e0e, type: 3}
   m_Name: 
@@ -539,12 +543,16 @@ MonoBehaviour:
   currentHealth: 100
   isDead: 0
   takesDamage: 0
-  endTimer: 100
+  lowHealth: 0
+  HealPlayer: 20
+  DamageAmount: 20
   stage1Image: {fileID: 0}
   stage2Image: {fileID: 0}
   stage3Image: {fileID: 0}
   stage4Image: {fileID: 0}
-  healthText: {fileID: 0}
+  speedMultiplier: 1
+  slowdownPercentage: 0.05
+  timer: 10
 --- !u!1 &4914785592842780219
 GameObject:
   m_ObjectHideFlags: 0

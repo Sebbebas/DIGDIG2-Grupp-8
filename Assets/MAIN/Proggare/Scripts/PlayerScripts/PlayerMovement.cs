@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float slowMultiplier = .5f;
     [SerializeField] float lowHealthMultiplier = .8f;
-    [SerializeField] float slowTime = .75f;
 
     [Header("Sliding")]
     [SerializeField] float slideSpeed = 15f;
@@ -96,17 +95,32 @@ public class PlayerMovement : MonoBehaviour
             //Calculate movement based on input and camera orientation
             Vector3 move = forward * moveInput.y + right * moveInput.x;
 
-            //Apply forward speed multiplier if the player is moving forward
-            float currentSpeed = movementSpeed;
-            if (moveInput.y > 0)
-            {
-                currentSpeed *= speedMultiplier;
-            }
-
             //Slows down movement speed when player takes damage
+            float currentSpeed = movementSpeed;
             if (GetComponent<PlayerHealth>().lowHealth)
             {
                 currentSpeed *= lowHealthMultiplier;
+
+                //Apply forward speed multiplier if the player is moving forward
+                if (moveInput.y > 0)
+                {
+                    currentSpeed *= speedMultiplier;
+                }
+            }
+            else
+            {
+                currentSpeed = movementSpeed;
+
+                //Apply forward speed multiplier if the player is moving forward
+                if (moveInput.y > 0)
+                {
+                    currentSpeed *= speedMultiplier;
+                }
+            }
+
+            if (GetComponent<PlayerHealth>().takesDamage)
+            {
+                currentSpeed *= slowMultiplier;
             }
 
             //Moves the player
@@ -148,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
         slideAction.performed -= OnSlide;
     }
 
+    #region Inputs
     void OnMove(InputAction.CallbackContext context) { }
 
     void OnMove(InputValue value)
@@ -198,6 +213,7 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale *= slideSize;
         }
     }
+    #endregion
 
     public Vector2 GetMoveInput()
     {

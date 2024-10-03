@@ -6,16 +6,20 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField, Tooltip("Radius to spawn in enemies")] float spawnRadius = 15f;
-    [SerializeField, Tooltip("Radius for when enemies see the player")] float sightRadius = 10f;
+    [SerializeField, Tooltip("Radius to spawn in enemyList")] float spawnRadius = 15f;
+    [SerializeField, Tooltip("Radius for when enemyList see the player")] float sightRadius = 10f;
     [SerializeField] float despawnRadius = 25f;
     [SerializeField] int numberOfEnemies = 5;
 
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject enemyZero;
+    [SerializeField] GameObject enemyOne;
+    [SerializeField] GameObject enemyTwo;
+    [SerializeField] GameObject enemyThree;
+    [SerializeField] GameObject enemyFour;
     [SerializeField] Transform player;
 
     [Tooltip("Instansiate Gameobjects on transform for a clearer Hierarchy")] GameObject antiHierarchySpam;
-    List<GameObject> enemies = new List<GameObject>();
+    List<GameObject> prefabList = new List<GameObject>();
 
     void Start()
     {
@@ -37,15 +41,15 @@ public class EnemyBehaviour : MonoBehaviour
             Vector3 randomPos = Random.insideUnitSphere * spawnRadius;
             randomPos.y = 0;
             Vector3 spawnPos = transform.position + randomPos;
-            GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, antiHierarchySpam.transform);
-            enemies.Add(enemy);
+            GameObject enemy = Instantiate(enemyZero, spawnPos, Quaternion.identity, antiHierarchySpam.transform);
+            prefabList.Add(enemy);
         }
     }
 
     void EnemyMovement()
     {
-        //Moves enemies towards the player
-        foreach (GameObject enemy in enemies)
+        //Moves enemyList towards the player
+        foreach (GameObject enemy in prefabList)
         {
             if (enemy != null)
             {
@@ -75,16 +79,16 @@ public class EnemyBehaviour : MonoBehaviour
 
     void DespawnEnemy()
     {
-        for (int i = enemies.Count - 1; i >= 0; i--)
+        for (int i = prefabList.Count - 1; i >= 0; i--)
         {
-            GameObject enemy = enemies[i];
+            GameObject enemy = prefabList[i];
             if (enemy != null)
             {
                 float distanceToSpawner = Vector3.Distance(transform.position, enemy.transform.position);
                 if (distanceToSpawner > despawnRadius)
                 {
                     Destroy(enemy); 
-                    enemies.RemoveAt(i); 
+                    prefabList.RemoveAt(i); 
                     SpawnEnemies(1); 
                 }
             }

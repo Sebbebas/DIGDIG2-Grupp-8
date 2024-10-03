@@ -23,6 +23,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] float speedMultiplier = 1f;
     [SerializeField] float slowdownPercentage = 0.05f;
 
+    [SerializeField] float timer = 60f;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -34,10 +36,16 @@ public class PlayerHealth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             HealByPercentage(HealPlayer);
+            Debug.Log(currentHealth);
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
             TakeDamage(DamageAmount);
+            Debug.Log(currentHealth);
+        }
+        if (timer <= 0f)
+        {
+            takesDamage = false;
         }
     }
 
@@ -47,7 +55,9 @@ public class PlayerHealth : MonoBehaviour
             return;
 
         currentHealth -= damage;
+        
         takesDamage = true;
+        timer -= Time.deltaTime;
 
         //Checks if the player is die
         if (currentHealth <= 0)
@@ -99,6 +109,10 @@ public class PlayerHealth : MonoBehaviour
             ShowImage(stage3Image);
             speedMultiplier = 1f - (slowdownPercentage * 3); // 15% slowdown
             lowHealth = true;
+        }
+        else if (currentHealth >= 21f)
+        {
+            lowHealth = false;
         }
         else if (currentHealth <= 40f)
         {
