@@ -6,30 +6,27 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float maxHealth = 100f;
-    public float currentHealth;
-    public bool isDead = false;
+    [SerializeField] float maxHealth = 100f;
+    [SerializeField] float currentHealth;
+    [SerializeField] bool isDead = false;
     public bool takesDamage;
     public bool lowHealth;
 
-    private const float HealPlayer = 20f;
-    private const float DamageAmount = 20f;
+    [SerializeField] float HealPlayer = 20f;
+    [SerializeField] float DamageAmount = 20f;
 
-    public Image stage1Image;
-    public Image stage2Image;
-    public Image stage3Image;
-    public Image stage4Image;
+    [SerializeField] Image stage1Image;
+    [SerializeField] Image stage2Image;
+    [SerializeField] Image stage3Image;
+    [SerializeField] Image stage4Image;
 
-    public TMP_Text healthText;
-
-    private float speedMultiplier = 1f;
-    private float slowdownPercentage = 0.05f;
+    [SerializeField] float speedMultiplier = 1f;
+    [SerializeField] float slowdownPercentage = 0.05f;
 
     void Start()
     {
         currentHealth = maxHealth;
         HideAllImages();
-        UpdateHealthText();
     }
 
     void Update()
@@ -38,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
         {
             HealByPercentage(HealPlayer);
         }
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             TakeDamage(DamageAmount);
         }
@@ -59,7 +56,6 @@ public class PlayerHealth : MonoBehaviour
         }
 
         CheckHealthStages();
-        UpdateHealthText();
     }
 
     void Die()
@@ -83,7 +79,6 @@ public class PlayerHealth : MonoBehaviour
         }
 
         CheckHealthStages();
-        UpdateHealthText();
     }
 
     public void HealByPercentage(float percentage)
@@ -141,14 +136,6 @@ public class PlayerHealth : MonoBehaviour
         if (stage2Image != null) stage2Image.enabled = false;
         if (stage3Image != null) stage3Image.enabled = false;
         if (stage4Image != null) stage4Image.enabled = false;
-    }
-
-    private void UpdateHealthText()
-    {
-        if (healthText != null)
-        {
-            healthText.text = $"Health: {currentHealth:F0}";
-        }
     }
 
     public bool GetTakeDamage()
