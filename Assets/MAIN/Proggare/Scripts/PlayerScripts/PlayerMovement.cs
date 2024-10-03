@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 //Elian
 
@@ -31,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] Transform camTransform;
+    [SerializeField] float maxTiltAngle = 10f;
+    [SerializeField] float tiltSpeed = 5f; //A bit goofy atm
 
     //Cached References
     InputAction moveAction;
@@ -46,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     bool isSliding;
     float slideTimer;
     float slideCooldownTimer;
+    float targetTiltAngle;
 
     void Awake()
     {
@@ -58,11 +62,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded && jumpVelocity.y < 0)
         {
-            //Reset velocity when grounded
-            jumpVelocity.y = -2f; 
+            //Resets the velocity when grounded
+            jumpVelocity.y = -2f;
         }
 
-        //Decrease the slide cooldown timer
+        //Decreases the sliding cooldown timer
         if (slideCooldownTimer > 0f)
         {
             slideCooldownTimer -= Time.deltaTime;
@@ -82,61 +86,94 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            //Calculate movement direction based on camera orientation
-            Vector3 forward = camTransform.forward;
-            Vector3 right = camTransform.right;
-
-            forward.y = 0;
-            right.y = 0;
-
-            forward.Normalize();
-            right.Normalize();
-
-            //Calculate movement based on input and camera orientation
-            Vector3 move = forward * moveInput.y + right * moveInput.x;
-
-            //Slows down movement speed when player takes damage
-            float currentSpeed = movementSpeed;
-            if (GetComponent<PlayerHealth>().lowHealth)
-            {
-                currentSpeed *= lowHealthMultiplier;
-
-                //Apply forward speed multiplier if the player is moving forward
-                if (moveInput.y > 0)
-                {
-                    currentSpeed *= speedMultiplier;
-                }
-            }
-            else
-            {
-                currentSpeed = movementSpeed;
-
-                //Apply forward speed multiplier if the player is moving forward
-                if (moveInput.y > 0)
-                {
-                    currentSpeed *= speedMultiplier;
-                }
-            }
-
-            if (GetComponent<PlayerHealth>().takesDamage)
-            {
-                currentSpeed *= slowMultiplier;
-            }
-
-            //Moves the player
-            controller.Move(move * currentSpeed * Time.deltaTime);
+            //Calculates movement
+            Vector3 move = CalculateMovement();
+            controller.Move(move * Time.deltaTime);
         }
 
         //Apply gravity
         jumpVelocity.y += gravity * Time.deltaTime;
         controller.Move(jumpVelocity * Time.deltaTime);
+
+        //Camera tilt based on movement direction
+        HandleCameraTilt();
+    }
+
+    Vector3 CalculateMovement()
+    {
+        //Calculate movement direction based on camera orientation
+        Vector3 forward = camTransform.forward;
+        Vector3 right = camTransform.right;
+
+        forward.y = 0;
+        right.y = 0;
+
+        forward.Normalize();
+        right.Normalize();
+
+        //Calculate movement based on input and camera orientation
+        Vector3 move = forward * moveInput.y + right * moveInput.x;
+
+        //Slows down player when takes damage
+        float currentSpeed = movementSpeed;
+        if (GetComponent<PlayerHealth>().lowHealth)
+        {
+            currentSpeed *= lowHealthMultiplier;
+
+            //Walks faster forward
+            if (moveInput.y > 0)
+            {
+                currentSpeed *= speedMultiplier;
+            }
+        }
+        else
+        {
+            currentSpeed = movementSpeed;
+
+            //Walks faster forward
+            if (moveInput.y > 0)
+            {
+                currentSpeed *= speedMultiplier;
+            }
+        }
+
+        if (GetComponent<PlayerHealth>().takesDamage)
+        {
+            currentSpeed *= slowMultiplier;
+        }
+
+        //Bases the movement of players camera direction
+        move.Normalize();
+        return move * currentSpeed;
+    }
+
+    void HandleCameraTilt()
+    {
+        //Tilts to input direction
+        if (moveInput.x < 0)
+        {
+            targetTiltAngle = maxTiltAngle;
+        }
+        else if (moveInput.x > 0)
+        {
+            targetTiltAngle = -maxTiltAngle;
+        }
+        else
+        {
+            targetTiltAngle = 0;
+        }
+
+        //Not smooth camera tilt
+        Quaternion targetRotation = Quaternion.Euler(camTransform.localRotation.eulerAngles.x, camTransform.localRotation.eulerAngles.y, targetTiltAngle);
+        camTransform.localRotation = Quaternion.Lerp(camTransform.localRotation, targetRotation, Time.deltaTime * tiltSpeed);
     }
 
     private void OnEnable()
     {
-        //Get the action map and the action
+        //Get player ActionMap
         var actionMap = inputActions.FindActionMap("Player");
 
+        //Get actions from player ActionMap
         moveAction = actionMap.FindAction("Move");
         jumpAction = actionMap.FindAction("Jump");
         slideAction = actionMap.FindAction("Slide");
@@ -172,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnMoveCanceled(InputAction.CallbackContext context) { }
 
-    void OnMoveCanceled(Input value) 
+    void OnMoveCanceled(Input value)
     {
         moveInput = Vector2.zero;
     }
@@ -193,7 +230,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && (moveInput.y > 0 || Mathf.Abs(moveInput.x) > 0) && slideCooldownTimer <= 0f)
         {
-            //Lock the slide direction at the start of the slide
+            //Locks the slide direction
             Vector3 forward = camTransform.forward;
             Vector3 right = camTransform.right;
 
@@ -203,8 +240,8 @@ public class PlayerMovement : MonoBehaviour
             forward.Normalize();
             right.Normalize();
 
-            //Calculate slide direction based on input
-            slideDirection = forward * moveInput.y + right * moveInput.x;
+            //Get slide direction
+            slideDirection = forward * Mathf.Max(0, moveInput.y) + right * moveInput.x;
             slideDirection.Normalize();
 
             isSliding = true;

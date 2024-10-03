@@ -6,8 +6,8 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField, Tooltip("Radius to spawn in enemyList")] float spawnRadius = 15f;
-    [SerializeField, Tooltip("Radius for when enemyList see the player")] float sightRadius = 10f;
+    [SerializeField, Tooltip("Radius to spawn in prefabList")] float spawnRadius = 15f;
+    [SerializeField, Tooltip("Radius for when prefabList see the player")] float sightRadius = 10f;
     [SerializeField] float despawnRadius = 25f;
     [SerializeField] int numberOfEnemies = 5;
 
@@ -19,11 +19,24 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] Transform player;
 
     [Tooltip("Instansiate Gameobjects on transform for a clearer Hierarchy")] GameObject antiHierarchySpam;
+
     List<GameObject> prefabList = new List<GameObject>();
+    List<GameObject> enemyPrefabs = new List<GameObject>();
 
     void Start()
     {
-        SpawnEnemies(numberOfEnemies);
+        // Add all non-null enemies to the enemyPrefabs list
+        if (enemyZero != null) enemyPrefabs.Add(enemyZero);
+        if (enemyOne != null) enemyPrefabs.Add(enemyOne);
+        if (enemyTwo != null) enemyPrefabs.Add(enemyTwo);
+        if (enemyThree != null) enemyPrefabs.Add(enemyThree);
+        if (enemyFour != null) enemyPrefabs.Add(enemyFour);
+
+        // Ensure that there are enemies to spawn
+        if (enemyPrefabs.Count > 0)
+        {
+            SpawnEnemies(numberOfEnemies);
+        }
     }
 
     void Update()
@@ -41,8 +54,15 @@ public class EnemyBehaviour : MonoBehaviour
             Vector3 randomPos = Random.insideUnitSphere * spawnRadius;
             randomPos.y = 0;
             Vector3 spawnPos = transform.position + randomPos;
-            GameObject enemy = Instantiate(enemyZero, spawnPos, Quaternion.identity, antiHierarchySpam.transform);
-            prefabList.Add(enemy);
+
+            if (enemyPrefabs.Count > 0)
+            {
+                // Randomly select an enemy from the list
+                GameObject randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+
+                GameObject enemy = Instantiate(randomEnemy, spawnPos, Quaternion.identity, antiHierarchySpam.transform);
+                prefabList.Add(enemy);
+            }
         }
     }
 

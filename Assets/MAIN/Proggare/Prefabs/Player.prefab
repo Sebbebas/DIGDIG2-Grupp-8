@@ -56,9 +56,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 960
   weaponRange: 1000
-  hitParticle: {fileID: 0}
-  animator: {fileID: 0}
-  audioFX: []
+  effects: []
   temporaryHitParticel: {fileID: 4240791907686988539, guid: 480a3bb47f1f17949bf1be45374445ae, type: 3}
   spread: 5
   pellets: 20
@@ -225,9 +223,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   weaponRange: 420
-  hitParticle: {fileID: 0}
-  animator: {fileID: 0}
-  audioFX: []
+  effects: []
 --- !u!1 &3808625266475747820
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +274,14 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   currentWeapon: {fileID: 0}
   WeaponsList: []
+  kickCooldown: 0
+  coneAngle: 30
+  maxDistance: 10
+  radius: 2
+  coneResolution: 20
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   grenadePrefab: {fileID: 3165213101292630628, guid: 3f9b1863598a4204f8b4f244c8dd6cdf, type: 3}
   spawnOffset: {x: 0, y: 0.82, z: 0}
   throwCooldownTime: 3
@@ -505,6 +509,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   camTransform: {fileID: 6859200243257892753}
+  maxTiltAngle: 3
+  tiltSpeed: 200
 --- !u!114 &1312168213106435148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,7 +528,7 @@ MonoBehaviour:
   despawnRadius: 20
   numberOfEnemies: 5
   enemyZero: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-  enemyOne: {fileID: 0}
+  enemyOne: {fileID: 2279033429783417335, guid: 7ff750e51b37e2741b191111b4724411, type: 3}
   enemyTwo: {fileID: 0}
   enemyThree: {fileID: 0}
   enemyFour: {fileID: 0}
