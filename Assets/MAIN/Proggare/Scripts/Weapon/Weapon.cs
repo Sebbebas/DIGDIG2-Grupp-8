@@ -64,6 +64,10 @@ public class Weapon : MonoBehaviour
         //Update the ammo UI when the gun is enabled
         if (gameObject.activeSelf && ammoText != null) { ammoText.text = currentAmmo.ToString() + "/" + totalAmmo.ToString(); }
 
+
+        //Dont Spam the Hierarchy
+        if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
+
         //Cooldowns
         if (currentFireDelay > 0) { currentFireDelay -= Time.deltaTime; }
         else { currentFireDelay = 0; PlayAnimation(EffectType.fire, "Fire", false); }
@@ -179,7 +183,7 @@ public class Weapon : MonoBehaviour
     {
         foreach (var audio in effects)
         {
-            if(audio.effectType == type)
+            if(audio.effectType == type && audio.audioClip != null)
             {
                 PlaySoundEffect(audio.audioClip);
             }
