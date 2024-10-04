@@ -32,7 +32,11 @@ public class Weapon : MonoBehaviour
     protected Camera mainCam = null;
 
     [Header("Effects")]
-    public Effects[] effects;
+    [Tooltip("When calling a action play the effects with the same EffectType")]public Effects[] effects;
+
+    public Light muzzleFlash;
+    public GameObject casing;
+    public ParticleSystem hitParticle;
 
     [System.Serializable]
     public struct Effects
@@ -40,7 +44,6 @@ public class Weapon : MonoBehaviour
         public EffectType effectType;
         public AudioClip audioClip;
         public Animator animator;
-        public ParticleSystem hitParticle;
     }
 
     //Private Variabels
@@ -64,7 +67,7 @@ public class Weapon : MonoBehaviour
         //Update the ammo UI when the gun is enabled
         if (gameObject.activeSelf && ammoText != null) { ammoText.text = currentAmmo.ToString() + "/" + totalAmmo.ToString(); }
 
-
+        //REMOVE THIS WHEN YOU CAN FIND AND PICKUP WEAPON\\
         //Dont Spam the Hierarchy
         if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
 
