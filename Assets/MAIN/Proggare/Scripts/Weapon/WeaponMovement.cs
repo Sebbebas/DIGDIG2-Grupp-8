@@ -153,12 +153,12 @@ public class WeaponMovement : MonoBehaviour
             cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, targetRotation, Time.deltaTime * tiltSpeed);
         }
 
-        if (GetComponent<PlayerMovement>().tiltLeft)
+        if (playerMovement.tiltLeft)
         {
 
         }
 
-        if(GetComponent<PlayerMovement>().tiltRight)
+        if(playerMovement.tiltRight)
         {
 
         }
