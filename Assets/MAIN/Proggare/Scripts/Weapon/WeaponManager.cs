@@ -41,6 +41,7 @@ public class WeaponManager : MonoBehaviour
     InputAction fireAction;
     InputAction reloadAction;
     InputAction throwAction;
+    InputAction kickAction;
     Transform weaponsParent;
 
     #region Base Methods
@@ -67,18 +68,21 @@ public class WeaponManager : MonoBehaviour
         fireAction = actionMap.FindAction("Fire");
         reloadAction = actionMap.FindAction("Reload");
         throwAction = actionMap.FindAction("Throw");
+        kickAction = actionMap.FindAction("Kick");
 
         //Enable the action's
         scrollAction.Enable();
         fireAction.Enable();
         reloadAction.Enable();
         throwAction.Enable();
+        kickAction.Enable();
 
         //Subscribe to the performed callback 
         scrollAction.performed += OnSwitchWeapon;
         fireAction.performed += OnFire;
         reloadAction.performed += OnReload;
         throwAction.performed += OnThrow;
+        kickAction.performed += OnKick;
     }
     private void OnDisable()
     {
@@ -87,6 +91,7 @@ public class WeaponManager : MonoBehaviour
         fireAction.performed -= OnFire;
         reloadAction.performed -= OnReload;
         throwAction.performed -= OnThrow;
+        kickAction.performed -= OnKick;
     }
     #endregion
 
@@ -114,9 +119,7 @@ public class WeaponManager : MonoBehaviour
             }
         }
     }
-    #endregion
-
-    public void Kick()
+    public void OnKick(InputAction.CallbackContext context)
     {
         Vector3 origin = transform.position;
         Vector3 forward = transform.forward;
@@ -141,6 +144,7 @@ public class WeaponManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
     #region Grenade
     void OnThrow(InputAction.CallbackContext context)
