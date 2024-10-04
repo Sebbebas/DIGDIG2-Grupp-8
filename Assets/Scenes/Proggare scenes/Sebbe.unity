@@ -553,6 +553,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 184151071596452005, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: tiltSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 184151071596452005, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: cameraTilt
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 184151071596452005, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: bobAmplitude
       value: 0.08
       objectReference: {fileID: 0}
