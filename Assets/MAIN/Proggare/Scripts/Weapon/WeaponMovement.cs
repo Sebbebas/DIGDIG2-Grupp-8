@@ -123,7 +123,7 @@ public class WeaponMovement : MonoBehaviour
     // Method to handle camera tilt when moving along the X-axis
     void HandleCameraTilt()
     {
-        return;
+        //return;
 
         if (Camera.main == null) return;
 
@@ -151,6 +151,16 @@ public class WeaponMovement : MonoBehaviour
                                                          defaultCameraTilt);
 
             cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, targetRotation, Time.deltaTime * tiltSpeed);
+        }
+
+        if (GetComponent<PlayerMovement>().tiltLeft)
+        {
+
+        }
+
+        if(GetComponent<PlayerMovement>().tiltRight)
+        {
+
         }
     }
 }

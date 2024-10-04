@@ -51,6 +51,9 @@ public class PlayerMovement : MonoBehaviour
     float slideCooldownTimer;
     float targetTiltAngle;
 
+    [HideInInspector] public bool tiltLeft;
+    [HideInInspector] public bool tiltRight;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -152,20 +155,21 @@ public class PlayerMovement : MonoBehaviour
         //Tilts to input direction
         if (moveInput.x < 0)
         {
-            targetTiltAngle = maxTiltAngle;
+            tiltLeft = true;
         }
         else if (moveInput.x > 0)
         {
-            targetTiltAngle = -maxTiltAngle;
+            tiltRight = true; 
         }
         else
         {
-            targetTiltAngle = 0;
+            tiltLeft = false;
+            tiltRight = false;
         }
 
         //Not smooth camera tilt
-        Quaternion targetRotation = Quaternion.Euler(camTransform.localRotation.eulerAngles.x, camTransform.localRotation.eulerAngles.y, targetTiltAngle);
-        camTransform.localRotation = Quaternion.Lerp(camTransform.localRotation, targetRotation, Time.deltaTime * tiltSpeed);
+        //Quaternion targetRotation = Quaternion.Euler(camTransform.localRotation.eulerAngles.x, camTransform.localRotation.eulerAngles.y, targetTiltAngle);
+        //camTransform.localRotation = Quaternion.Lerp(camTransform.localRotation, targetRotation, Time.deltaTime * tiltSpeed);
     }
 
     private void OnEnable()
@@ -255,5 +259,15 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 GetMoveInput()
     {
         return moveInput;
+    }
+
+    public bool GetTiltLeft()
+    {
+        return tiltLeft;
+    }
+
+    public bool GetTiltRight()
+    {
+        return tiltRight;
     }
 }

@@ -292,7 +292,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3808625266475747820}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce5f948f2c80ad845bb0efccd9c770cc, type: 3}
   m_Name: 
@@ -511,6 +511,8 @@ MonoBehaviour:
   camTransform: {fileID: 6859200243257892753}
   maxTiltAngle: 3
   tiltSpeed: 200
+  tiltLeft: 0
+  tiltRight: 0
 --- !u!114 &1312168213106435148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,8 +558,6 @@ MonoBehaviour:
   stage2Image: {fileID: 0}
   stage3Image: {fileID: 0}
   stage4Image: {fileID: 0}
-  speedMultiplier: 1
-  slowdownPercentage: 0.05
   timer: 10
 --- !u!1 &4914785592842780219
 GameObject:

@@ -9,19 +9,18 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] float maxHealth = 100f;
     [SerializeField] float currentHealth;
     [SerializeField] bool isDead = false;
-    public bool takesDamage;
-    public bool lowHealth;
+    [HideInInspector] public bool takesDamage;
+    [HideInInspector] public bool lowHealth;
 
+    [Header("Testing")]
     [SerializeField] float HealPlayer = 20f;
     [SerializeField] float DamageAmount = 20f;
 
+    [Header("Health Stages")]
     [SerializeField] Image stage1Image;
     [SerializeField] Image stage2Image;
     [SerializeField] Image stage3Image;
     [SerializeField] Image stage4Image;
-
-    [SerializeField] float speedMultiplier = 1f;
-    [SerializeField] float slowdownPercentage = 0.05f;
 
     [SerializeField] float timer = 60f;
 
@@ -102,12 +101,10 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0f)
         {
             ShowImage(stage4Image);
-            speedMultiplier = 1f - (slowdownPercentage * 10); // 100% slowdown
         }
         else if (currentHealth <= 20f)
         {
             ShowImage(stage3Image);
-            speedMultiplier = 1f - (slowdownPercentage * 3); // 15% slowdown
             lowHealth = true;
         }
         else if (currentHealth >= 21f)
@@ -117,17 +114,14 @@ public class PlayerHealth : MonoBehaviour
         else if (currentHealth <= 40f)
         {
             ShowImage(stage2Image);
-            speedMultiplier = 1f - (slowdownPercentage * 2); // 10% slowdown
         }
         else if (currentHealth <= 60f)
         {
             ShowImage(stage1Image);
-            speedMultiplier = 1f - slowdownPercentage; // 5% slowdown
         }
         else
         {
             HideAllImages();
-            speedMultiplier = 1f; // No slowdown
         }
     }
 
