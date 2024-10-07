@@ -23,6 +23,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] LayerMask layerMask; // Layer mask for collision detection
 
     private Vector3 kickOrigin;
+    private Vector3 forward;
 
     [Header("Grenade")]
     [SerializeField, Tooltip("Grenade Prefab")] GameObject grenadePrefab;
@@ -55,6 +56,9 @@ public class WeaponManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        kickOrigin = transform.position;
+        forward = transform.forward;
+
         if (throwCoolodown && currentThrowCooldownTime > 0) { currentThrowCooldownTime -= Time.deltaTime; }
         else { currentThrowCooldownTime = throwCooldownTime; throwCoolodown = false; }
     }
@@ -121,26 +125,24 @@ public class WeaponManager : MonoBehaviour
     }
     public void OnKick(InputAction.CallbackContext context)
     {
-        Vector3 origin = transform.position;
-        Vector3 forward = transform.forward;
-
-        // Perform a sphere cast to detect objects within the sphere's radius
-        RaycastHit[] hits = Physics.SphereCastAll(origin, radius, forward, maxDistance, layerMask);
-
-        // Check if the objects are within the cone angle
+        //Perform a sphere cast to detect objects within the sphere's radius
+        RaycastHit[] hits = Physics.SphereCastAll(kickOrigin, radius, forward, maxDistance, layerMask);
+        
+        //Check if the objects are within the cone angle
         foreach (RaycastHit hit in hits)
         {
-            Vector3 directionToHit = (hit.point - origin).normalized;
+            //Get direction from the origin to the hit point
+            Vector3 directionToHit = (hit.point - kickOrigin);
+
+            //Calculate the angle between the player's forward direction and the hit point
             float angleToHit = Vector3.Angle(forward, directionToHit);
 
+            //Only proceed if the hit object is within the defined cone angle
             if (angleToHit <= coneAngle)
             {
-                Debug.DrawLine(origin, hit.point, Color.red, 1.0f);
+                Debug.DrawLine(kickOrigin, hit.point, Color.red, 1.0f);
                 Debug.Log("Hit within cone: " + hit.collider.name);
-            }
-            else
-            {
-                Debug.DrawLine(origin, hit.point, Color.blue, 1.0f); // Visualize hits outside the cone
+                Instantiate(currentWeapon, hit.point, Quaternion.identity, antiHierarchySpam.transform);
             }
         }
     }
@@ -234,26 +236,25 @@ public class WeaponManager : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * maxDistance);
-
         //Kick Cone
         Gizmos.color = Color.yellow;
 
-        //REPLACE WITH KICKORIGIN
-        Vector3 origin = transform.position;
-
+        //Render 1 line for every "coneResolution"
         for (int i = 0; i <= coneResolution; i++)
         {
-            // Angle spread between the rays
+            //Angle spread between the rays
             float currentAngle = Mathf.Lerp(-coneAngle, coneAngle, i / (float)coneResolution);
 
-            // Calculate the direction of the cone's side ray
+            //Calculate the direction of the cone's side ray
             Quaternion rotation = Quaternion.Euler(0, currentAngle, 0);
             Vector3 direction = rotation * transform.forward;
 
-            // Draw the ray
-            Gizmos.DrawLine(origin, origin + direction * maxDistance);
+            //Draw the ray
+            Gizmos.DrawLine(kickOrigin, kickOrigin + direction * radius);
         }
+
+        //Kick radius something kick something idk pls heölp im losing my mind
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(kickOrigin, radius);
     }
 }

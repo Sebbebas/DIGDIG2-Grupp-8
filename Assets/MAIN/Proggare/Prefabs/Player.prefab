@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 717762985139213493}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -56,7 +56,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 960
   weaponRange: 1000
-  effects: []
+  effects:
+  - effectType: 0
+    audioClip: {fileID: 0}
+    animator: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  casing: {fileID: 0}
+  hitParticle: {fileID: 0}
   temporaryHitParticel: {fileID: 4240791907686988539, guid: 480a3bb47f1f17949bf1be45374445ae, type: 3}
   spread: 5
   pellets: 20
@@ -168,62 +174,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &2726383950626372646
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6496712962144445941}
-  - component: {fileID: 2368986509033247387}
-  m_Layer: 0
-  m_Name: Melee
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6496712962144445941
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2726383950626372646}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3089606794737801456}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2368986509033247387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2726383950626372646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff86104b05d6ad44b1c5cb89b5c8f9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentAmmo: 421
-  totalAmmo: 69
-  magSize: 1337
-  ammoText: {fileID: 991174203543172757}
-  reloadTime: 69
-  firedelay: 1337
-  antiHierarchySpam: {fileID: 0}
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 0
-  weaponRange: 420
-  effects: []
 --- !u!1 &3808625266475747820
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,11 +201,10 @@ Transform:
   m_GameObject: {fileID: 3808625266475747820}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.7, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6496712962144445941}
   - {fileID: 5701768387198558271}
   m_Father: {fileID: 6859200243257892753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -275,13 +224,13 @@ MonoBehaviour:
   currentWeapon: {fileID: 0}
   WeaponsList: []
   kickCooldown: 0
-  coneAngle: 30
-  maxDistance: 10
-  radius: 2
+  coneAngle: 35
+  maxDistance: 2
+  radius: 3.5
   coneResolution: 20
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   grenadePrefab: {fileID: 3165213101292630628, guid: 3f9b1863598a4204f8b4f244c8dd6cdf, type: 3}
   spawnOffset: {x: 0, y: 0.82, z: 0}
   throwCooldownTime: 3
@@ -298,13 +247,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bobFrequency: 5
-  bobAmplitude: 0.05
-  transitionSpeed: 5
-  cameraTilt: 10
-  tiltSpeed: 5
+  bobAmplitude: 0.08
+  transitionSpeed: 3
+  cameraTilt: 25
+  tiltSpeed: 10
   swayAmount: 0.02
   swaySmoothness: 4
-  maxSwayAmount: 0.72
+  maxSwayAmount: 0.1
   rotationSmoothness: 6
 --- !u!1 &4327374827836331831
 GameObject:
