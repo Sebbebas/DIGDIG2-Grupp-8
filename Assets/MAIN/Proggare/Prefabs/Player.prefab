@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 5260258438860744153}
   - component: {fileID: 184151071596452005}
   m_Layer: 0
-  m_Name: Gun Holder
+  m_Name: Weapon Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

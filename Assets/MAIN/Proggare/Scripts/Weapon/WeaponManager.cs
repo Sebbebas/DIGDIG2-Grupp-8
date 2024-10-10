@@ -123,6 +123,7 @@ public class WeaponManager : MonoBehaviour
             }
         }
     }
+    #endregion
     public void OnKick(InputAction.CallbackContext context)
     {
         //Perform a sphere cast to detect objects within the sphere's radius
@@ -146,7 +147,6 @@ public class WeaponManager : MonoBehaviour
             }
         }
     }
-    #endregion
 
     #region Grenade
     void OnThrow(InputAction.CallbackContext context)
