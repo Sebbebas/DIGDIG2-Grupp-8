@@ -152,30 +152,5 @@ public class WeaponMovement : MonoBehaviour
 
             cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, targetRotation, Time.deltaTime * tiltSpeed);
         }
-
-        /*if (playerMovement.tiltLeft)
-        {
-            Quaternion targetRotation = Quaternion.Euler(cameraTransform.localRotation.eulerAngles.x,
-                                                        cameraTransform.localRotation.eulerAngles.y,
-                                                        -cameraTilt);
-
-            cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, targetRotation, Time.deltaTime * tiltSpeed);
-        }
-        if (playerMovement.tiltRight)
-        {
-            Quaternion targetRotation = Quaternion.Euler(cameraTransform.localRotation.eulerAngles.x,
-                                                        cameraTransform.localRotation.eulerAngles.y,
-                                                        cameraTilt);
-
-            cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, targetRotation, Time.deltaTime * tiltSpeed);
-        }
-        else
-        {
-            Quaternion targetRotation = Quaternion.Euler(cameraTransform.localRotation.eulerAngles.x,
-                                             cameraTransform.localRotation.eulerAngles.y,
-                                             defaultCameraTilt);
-
-            cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, targetRotation, Time.deltaTime * tiltSpeed);
-        }*/
     }
 }

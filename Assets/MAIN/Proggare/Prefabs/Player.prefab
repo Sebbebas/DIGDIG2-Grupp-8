@@ -445,8 +445,7 @@ MonoBehaviour:
   speedMultiplier: 1.2
   jumpForce: 2.5
   gravity: -60
-  slowMultiplier: 0.5
-  lowHealthMultiplier: 0.7
+  slowMultiplier: 0.8
   slideSpeed: 15
   slideDuration: 0.5
   slideCooldown: 2
@@ -458,10 +457,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   camTransform: {fileID: 6859200243257892753}
-  maxTiltAngle: 3
-  tiltSpeed: 200
-  tiltLeft: 0
-  tiltRight: 0
 --- !u!114 &1312168213106435148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,7 +502,7 @@ MonoBehaviour:
   stage2Image: {fileID: 0}
   stage3Image: {fileID: 0}
   stage4Image: {fileID: 0}
-  timer: 10
+  timer: 0.5
 --- !u!1 &4914785592842780219
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +756,7 @@ GameObject:
   - component: {fileID: 6859200243257892753}
   - component: {fileID: 7269754528213439864}
   - component: {fileID: 6604785654115922236}
+  - component: {fileID: 3774321906991712357}
   - component: {fileID: 8460084368716219112}
   - component: {fileID: 8546924082748190473}
   m_Layer: 0
@@ -845,6 +841,49 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8035450129879524458}
   m_Enabled: 1
+--- !u!114 &3774321906991712357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8035450129879524458}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Priority:
+    Enabled: 0
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 40
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
 --- !u!114 &8460084368716219112
 MonoBehaviour:
   m_ObjectHideFlags: 0

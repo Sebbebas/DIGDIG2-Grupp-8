@@ -30,8 +30,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] Transform camTransform;
-    [SerializeField] float maxTiltAngle = 10f;
-    [SerializeField] float tiltSpeed = 5f; //A bit goofy atm
 
     //Cached References
     InputAction moveAction;
@@ -47,10 +45,6 @@ public class PlayerMovement : MonoBehaviour
     bool isSliding;
     float slideTimer;
     float slideCooldownTimer;
-    float targetTiltAngle;
-
-    [HideInInspector] public bool tiltLeft;
-    [HideInInspector] public bool tiltRight;
 
     void Awake()
     {
@@ -95,9 +89,6 @@ public class PlayerMovement : MonoBehaviour
         //Apply gravity
         jumpVelocity.y += gravity * Time.deltaTime;
         controller.Move(jumpVelocity * Time.deltaTime);
-
-        //Camera tilt based on movement direction
-        HandleCameraTilt();
     }
 
     Vector3 CalculateMovement()
@@ -151,28 +142,6 @@ public class PlayerMovement : MonoBehaviour
         //Bases the movement of players camera direction
         move.Normalize();
         return move * currentSpeed;
-    }
-
-    void HandleCameraTilt()
-    {
-        //Tilts to input direction
-        if (moveInput.x < 0)
-        {
-            tiltLeft = true;
-        }
-        else if (moveInput.x > 0)
-        {
-            tiltRight = true; 
-        }
-        else
-        {
-            tiltLeft = false;
-            tiltRight = false;
-        }
-
-        //Not smooth camera tilt
-        //Quaternion targetRotation = Quaternion.Euler(camTransform.localRotation.eulerAngles.x, camTransform.localRotation.eulerAngles.y, targetTiltAngle);
-        //camTransform.localRotation = Quaternion.Lerp(camTransform.localRotation, targetRotation, Time.deltaTime * tiltSpeed);
     }
 
     private void OnEnable()
@@ -262,15 +231,5 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 GetMoveInput()
     {
         return moveInput;
-    }
-
-    public bool GetTiltLeft()
-    {
-        return tiltLeft;
-    }
-
-    public bool GetTiltRight()
-    {
-        return tiltRight;
     }
 }
