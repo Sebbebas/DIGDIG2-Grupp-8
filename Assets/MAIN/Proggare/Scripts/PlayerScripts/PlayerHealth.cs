@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 // Alexander
 
@@ -42,10 +43,6 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(DamageAmount);
             Debug.Log(currentHealth);
         }
-        if (timer <= 0f)
-        {
-            takesDamage = false;
-        }
     }
 
     public void TakeDamage(float damage)
@@ -54,9 +51,8 @@ public class PlayerHealth : MonoBehaviour
             return;
 
         currentHealth -= damage;
-        
-        takesDamage = true;
-        timer -= Time.deltaTime;
+
+        StartCoroutine(TakeDamageTimer());
 
         //Checks if the player is die
         if (currentHealth <= 0)
@@ -144,6 +140,13 @@ public class PlayerHealth : MonoBehaviour
         if (stage2Image != null) stage2Image.enabled = false;
         if (stage3Image != null) stage3Image.enabled = false;
         if (stage4Image != null) stage4Image.enabled = false;
+    }
+
+    IEnumerator TakeDamageTimer()
+    {
+        takesDamage = true;
+        yield return new WaitForSeconds(timer);
+        takesDamage = false;
     }
 
     public bool GetTakeDamage()

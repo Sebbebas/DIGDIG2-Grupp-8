@@ -214,4 +214,9 @@ public class Weapon : MonoBehaviour
         soundFX.GetComponent<AudioSource>().Play();
     }
     #endregion
+
+    public bool GetReloading()
+    {
+        return reloading;
+    }
 }

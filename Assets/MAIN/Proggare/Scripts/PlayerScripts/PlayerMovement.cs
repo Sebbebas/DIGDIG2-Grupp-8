@@ -14,9 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Tooltip("Makes player speed faster when moving forward")] float speedMultiplier = 1.2f;
     [SerializeField] float jumpForce = 5f;
     [SerializeField] float gravity = -98.1f;
-
     [SerializeField] float slowMultiplier = .5f;
-    [SerializeField] float lowHealthMultiplier = .8f;
 
     [Header("Sliding")]
     [SerializeField] float slideSpeed = 15f;
@@ -121,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         float currentSpeed = movementSpeed;
         if (GetComponent<PlayerHealth>().lowHealth)
         {
-            currentSpeed *= lowHealthMultiplier;
+            currentSpeed *= slowMultiplier;
 
             //Walks faster forward
             if (moveInput.y > 0)
@@ -141,6 +139,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (GetComponent<PlayerHealth>().takesDamage)
+        {
+            currentSpeed *= slowMultiplier;
+        }
+
+        if (FindFirstObjectByType<Weapon>().GetReloading() == true)
         {
             currentSpeed *= slowMultiplier;
         }
