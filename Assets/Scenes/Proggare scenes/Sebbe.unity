@@ -755,13 +755,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2013584433156381555, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: slowMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4327374827836331831, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5260258438860744153, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: radius
-      value: 1.42
+      value: 0.87
       objectReference: {fileID: 0}
     - target: {fileID: 5260258438860744153, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: coneAngle

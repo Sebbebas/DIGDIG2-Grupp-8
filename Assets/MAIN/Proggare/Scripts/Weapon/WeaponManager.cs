@@ -143,7 +143,10 @@ public class WeaponManager : MonoBehaviour
             {
                 Debug.DrawLine(kickOrigin, hit.point, Color.red, 1.0f);
                 Debug.Log("Hit within cone: " + hit.collider.name);
-                Instantiate(currentWeapon, hit.point, Quaternion.identity, antiHierarchySpam.transform);
+                
+                if(hit.collider.gameObject.GetComponent<EnemyScript>() != null) 
+                { hit.collider.gameObject.GetComponent<EnemyScript>().Kicked(directionToHit); }
+                //Instantiate(currentWeapon, hit.point, Quaternion.identity, antiHierarchySpam.transform);
             }
         }
     }
