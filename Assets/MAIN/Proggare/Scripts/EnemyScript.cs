@@ -1,21 +1,25 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 // Alexander
 public class EnemyScript : MonoBehaviour
 {
-    //Configurable Perameters
+    // Configurable Parameters
+    [Header("Player affecting values")]
     [SerializeField] float DamageAmount = 20f;
     [SerializeField] float stunTime = 1f;
     [SerializeField] float maxKnockbackVelocity = 5;
+    [SerializeField] float damageCooldown = 2f; //Cooldown time between attacks
 
-    //Private Variabels
+    // Private Variables
     private Vector3 kickDirection;
     private float enemySpeedAtStart;
-    private bool isStuned;
+    private bool isStunned;
     private float currentStunTime;
-    
-    //Chaced References
+    private bool canDamage = true; //Tracks if the enemy can damage the player
+
+    //Cached References
     NavMeshAgent agent;
     Rigidbody myRigidbody;
 
@@ -29,37 +33,54 @@ public class EnemyScript : MonoBehaviour
 
     private void Update()
     {
-        if (isStuned)
+        if (isStunned)
         {
             myRigidbody.AddForce(kickDirection, ForceMode.Force);
 
-            if (currentStunTime > 0) { currentStunTime -= Time.deltaTime; }
-            else 
-            { 
-                currentStunTime = 0; 
-                isStuned = false;
+            if (currentStunTime > 0)
+            {
+                currentStunTime -= Time.deltaTime;
+            }
+            else
+            {
+                currentStunTime = 0;
+                isStunned = false;
                 agent.isStopped = false;
                 agent.speed = enemySpeedAtStart;
             }
         }
-        if (Input.GetKeyDown(KeyCode.B)) { Kicked(new(5, 5, 5)); } // DELETE THIS
+
+        //DELETE THIS
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Kicked(new Vector3(5, 5, 5));
+        }
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
 
-        if (playerHealth != null)
+        if (playerHealth != null && canDamage)
         {
             playerHealth.ApplyDamage(DamageAmount);
             Debug.Log("Enemy collided with player, damage applied: " + DamageAmount);
+
+            //Start cooldown before enemy can deal damage again
+            StartCoroutine(DamageCooldown());
         }
+    }
+
+    private IEnumerator DamageCooldown()
+    {
+        canDamage = false; //Prevent further damage
+        yield return new WaitForSeconds(damageCooldown);
+        canDamage = true; //Allow damage again
     }
 
     public void Kicked(Vector3 direction)
     {
-        //Stun
-        isStuned = true;
+        isStunned = true;
         agent.isStopped = true;
         currentStunTime = stunTime;
         kickDirection = direction;

@@ -147,7 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8c95614220ac14f9fdbb20899cbe51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageAmount: 20
+  DamageAmount: 10
+  stunTime: 1
+  maxKnockbackVelocity: 5
+  damageCooldown: 2
 --- !u!54 &-5315424942126380897
 Rigidbody:
   m_ObjectHideFlags: 0

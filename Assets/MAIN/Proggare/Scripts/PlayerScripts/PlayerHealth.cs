@@ -94,30 +94,30 @@ public class PlayerHealth : MonoBehaviour
 
     private void CheckHealthStages()
     {
+        HideAllImages(); //First, hide all images before showing the correct one
+
         if (currentHealth <= 0f)
         {
-            ShowImage(stage4Image);
+            ShowImage(stage4Image); //Dead stage
         }
         else if (currentHealth <= 20f)
         {
-            ShowImage(stage3Image);
+            ShowImage(stage3Image); //Low health stage
             lowHealth = true;
-        }
-        else if (currentHealth >= 21f)
-        {
-            lowHealth = false;
         }
         else if (currentHealth <= 40f)
         {
-            ShowImage(stage2Image);
+            ShowImage(stage2Image); //Moderate health stage
+            lowHealth = false;
         }
         else if (currentHealth <= 60f)
         {
-            ShowImage(stage1Image);
+            ShowImage(stage1Image); //Good health stage
+            lowHealth = false;
         }
         else
         {
-            HideAllImages();
+            lowHealth = false; //Healthy state, no stages visible
         }
     }
 
