@@ -1317,6 +1317,7 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
 --- !u!114 &1986362779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1785,10 +1786,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 1986362780}
   - {fileID: 1941779654}
   - {fileID: 1778398139}
   - {fileID: 114761916}
   - {fileID: 594967822}
   - {fileID: 1132591454}
-  - {fileID: 1986362780}
   - {fileID: 63637923}
