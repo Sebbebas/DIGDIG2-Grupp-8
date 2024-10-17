@@ -17,10 +17,11 @@ public class WeaponManager : MonoBehaviour
     [Header("Kick")]
     [SerializeField] float kickCooldown;
     [SerializeField] float coneAngle = 30f; // Angle of the cone
-    [SerializeField] float maxDistance = 10f; // Max distance of the detection
+    [SerializeField] float maxKickDistance = 10f; // Max distance of the detection
+    [SerializeField] float kickForce = 10f;
     [SerializeField] float radius = 2f; // Radius of the sphere cast
     [SerializeField] int coneResolution = 20;
-    [SerializeField] LayerMask layerMask; // Layer mask for collision detection
+    [SerializeField] LayerMask kickLayerMask; // Layer mask for collision detection
 
     private Vector3 kickOrigin;
     private Vector3 forward;
@@ -126,28 +127,36 @@ public class WeaponManager : MonoBehaviour
     #endregion
     public void OnKick(InputAction.CallbackContext context)
     {
-        //Perform a sphere cast to detect objects within the sphere's radius
-        RaycastHit[] hits = Physics.SphereCastAll(kickOrigin, radius, forward, maxDistance, layerMask);
-        
-        //Check if the objects are within the cone angle
-        foreach (RaycastHit hit in hits)
+        // List to hold kicked objects
+        List<GameObject> kickedObjects = new List<GameObject>();
+
+        // Iterate over the cone resolution
+        for (int i = 0; i <= coneResolution; i++)
         {
-            //Get direction from the origin to the hit point
-            Vector3 directionToHit = (hit.point - kickOrigin);
+            // Angle spread between the rays
+            float currentAngle = Mathf.Lerp(-coneAngle, coneAngle, i / (float)coneResolution);
 
-            //Calculate the angle between the player's forward direction and the hit point
-            float angleToHit = Vector3.Angle(forward, directionToHit);
+            // Calculate the direction of the cone's side ray
+            Quaternion rotation = Quaternion.Euler(0, currentAngle, 0);
+            Vector3 direction = rotation * transform.forward;
 
-            //Only proceed if the hit object is within the defined cone angle
-            if (angleToHit <= coneAngle)
+            // Create the ray
+            Ray kickRay = new Ray(transform.position, direction);
+            RaycastHit hit;
+
+            // Perform raycast and check if we hit something in the kick layer mask
+            if (Physics.Raycast(kickRay, out hit, maxKickDistance, kickLayerMask))
             {
-                Debug.DrawLine(kickOrigin, hit.point, Color.red, 1.0f);
-                Debug.Log("Hit within cone: " + hit.collider.name);
-                
-                if(hit.collider.gameObject.GetComponent<EnemyScript>() != null) 
-                { hit.collider.gameObject.GetComponent<EnemyScript>().Kicked(directionToHit); }
-                //Instantiate(currentWeapon, hit.point, Quaternion.identity, antiHierarchySpam.transform);
+                // Add the hit object to the list
+                kickedObjects.Add(hit.transform.gameObject);
+
+                //Apply force or logic to the kicked object
+                hit.rigidbody?.AddForce(direction * kickForce, ForceMode.Impulse);
             }
+        }
+        foreach (var obj in kickedObjects)
+        {
+            Debug.Log("Kicked Object: " + obj.name);
         }
     }
 
@@ -255,9 +264,5 @@ public class WeaponManager : MonoBehaviour
             //Draw the ray
             Gizmos.DrawLine(kickOrigin, kickOrigin + direction * radius);
         }
-
-        //Kick radius something kick something idk pls heölp im losing my mind
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(kickOrigin, radius);
     }
 }

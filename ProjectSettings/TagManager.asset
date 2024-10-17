@@ -6,7 +6,7 @@ TagManager:
   tags:
   - antiHierarchySpam
   - Grenade
-  - Enemies
+  - Explosion
   layers:
   - Default
   - TransparentFX
