@@ -1,25 +1,25 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using System;
 
-// Alexander
 public class EnemyScript : MonoBehaviour
 {
-    // Configurable Parameters
+    public event Action<GameObject> OnEnemyDeath;
+
     [Header("Player affecting values")]
     [SerializeField] float DamageAmount = 20f;
     [SerializeField] float stunTime = 1f;
     [SerializeField] float maxKnockbackVelocity = 5;
-    [SerializeField] float damageCooldown = 2f; //Cooldown time between attacks
+    [SerializeField] float damageCooldown = 2f;
+    [SerializeField] float currentHealth = 100f;
 
-    // Private Variables
     private Vector3 kickDirection;
     private float enemySpeedAtStart;
     private bool isStunned;
     private float currentStunTime;
-    private bool canDamage = true; //Tracks if the enemy can damage the player
+    private bool canDamage = true;
 
-    //Cached References
     NavMeshAgent agent;
     Rigidbody myRigidbody;
 
@@ -27,7 +27,6 @@ public class EnemyScript : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         myRigidbody = GetComponent<Rigidbody>();
-
         enemySpeedAtStart = agent.speed;
     }
 
@@ -49,12 +48,6 @@ public class EnemyScript : MonoBehaviour
                 agent.speed = enemySpeedAtStart;
             }
         }
-
-        //DELETE THIS
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            Kicked(new Vector3(5, 5, 5));
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -65,17 +58,15 @@ public class EnemyScript : MonoBehaviour
         {
             playerHealth.ApplyDamage(DamageAmount);
             Debug.Log("Enemy collided with player, damage applied: " + DamageAmount);
-
-            //Start cooldown before enemy can deal damage again
             StartCoroutine(DamageCooldown());
         }
     }
 
     private IEnumerator DamageCooldown()
     {
-        canDamage = false; //Prevent further damage
+        canDamage = false;
         yield return new WaitForSeconds(damageCooldown);
-        canDamage = true; //Allow damage again
+        canDamage = true;
     }
 
     public void Kicked(Vector3 direction)
@@ -85,5 +76,22 @@ public class EnemyScript : MonoBehaviour
         currentStunTime = stunTime;
         kickDirection = direction;
         agent.speed = 0;
+    }
+
+    public void ApplyDamage(float damageAmount)
+    {
+        currentHealth -= damageAmount;
+        Debug.Log("Enemy took damage: " + damageAmount + ", Current Health: " + currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        OnEnemyDeath?.Invoke(gameObject);
+        Destroy(gameObject);
     }
 }
