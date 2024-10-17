@@ -30,19 +30,19 @@ public class PlayerLook : MonoBehaviour
     {
         if (GetComponentInParent<SettingManager>().gameIsPaused || GetComponentInParent<PlayerHealth>().isDead)
         {
-            //Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.Confined;
 
             //mouseSensitivity = 0f;
 
-            EditorApplication.isPaused = true;
+            //EditorApplication.isPaused = true;
         }
         else if (!GetComponentInParent<SettingManager>().gameIsPaused || !GetComponentInParent<PlayerHealth>().isDead)
         {
-            //Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Locked;
 
             //mouseSensitivity = startMouseSensitivitiy;
 
-            EditorApplication.isPaused = false;
+            //EditorApplication.isPaused = false;
         }
 
         //Calculate the mouse movement, apply sensitivity and Time.deltaTime

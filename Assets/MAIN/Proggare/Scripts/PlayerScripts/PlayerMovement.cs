@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         jumpVelocity.y += gravity * Time.deltaTime;
         controller.Move(jumpVelocity * Time.deltaTime);
 
-        if(GetComponent<SettingManager>().gameIsPaused || GetComponent<PlayerHealth>().isDead)
+        if(GetComponent<PlayerHealth>().isDead)
         {
             movementSpeed = 0f;
         }

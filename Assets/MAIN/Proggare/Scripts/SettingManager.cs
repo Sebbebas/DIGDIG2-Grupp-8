@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class SettingManager : MonoBehaviour
 {
@@ -49,8 +48,11 @@ public class SettingManager : MonoBehaviour
 
     void OnPause(InputValue value)
     {
-        Debug.Log("Pause");
+        //If false true If true false
+        gameIsPaused = gameIsPaused ? false : true;
 
-        pauseBackground.SetActive(true);
+        //Set values
+        pauseBackground.SetActive(gameIsPaused);
+        Time.timeScale = gameIsPaused ? 0 : 1;
     }
 }
