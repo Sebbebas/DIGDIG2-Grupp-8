@@ -801,7 +801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1312168213106435148, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1312168213106435148, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: despawnRadius
@@ -811,12 +811,52 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1970898355461940966, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1970898355461940966, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_Range
+      value: 4.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 1970898355461940966, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_Intensity
+      value: 36.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1970898355461940966, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_SpotAngle
+      value: 37.752346
+      objectReference: {fileID: 0}
+    - target: {fileID: 1970898355461940966, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1970898355461940966, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1970898355461940966, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: effects.Array.data[0].fireEffects.muzzleFlash
+      value: 
+      objectReference: {fileID: 992264039}
     - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: effects.Array.data[0].fireEffects.muzzleFlash.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: 'effects.Array.data[0].fireEffects.muzzleFlash.Array.data[0]'
+      value: 
+      objectReference: {fileID: 992264039}
+    - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: 'effects.Array.data[0].fireEffects.muzzleFlash.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: 'effects.Array.data[0].fireEffects.muzzleFlash.Array.data[2]'
       value: 
       objectReference: {fileID: 992264039}
     - target: {fileID: 4327374827836331831, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
@@ -830,6 +870,18 @@ PrefabInstance:
     - target: {fileID: 4742714460900706465, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_VertexColorAlwaysGammaSpace
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5274760127000362871, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5274760127000362871, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 5274760127000362871, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.36
       objectReference: {fileID: 0}
     - target: {fileID: 5742686121908780302, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_ScaleFactor
@@ -870,6 +922,10 @@ PrefabInstance:
     - target: {fileID: 6798662428778832538, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012374578692392244, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7789529859971171444, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_LocalPosition.x
