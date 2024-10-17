@@ -108,6 +108,10 @@ public class PlayerHealth : MonoBehaviour
             ShowImage(stage3Image); //Low health stage
             lowHealth = true;
         }
+        else if (currentHealth >= 21f)
+        {
+            lowHealth = false;
+        }
         else if (currentHealth <= 40f)
         {
             ShowImage(stage2Image); //Moderate health stage
