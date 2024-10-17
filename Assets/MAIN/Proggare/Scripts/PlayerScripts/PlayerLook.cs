@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,14 +17,34 @@ public class PlayerLook : MonoBehaviour
     Transform playerBody;
     PlayerInputActions inputActions;
 
+    float startMouseSensitivitiy;
+
     private void Awake()
     {
         playerBody = GetComponentInParent<CharacterController>().GetComponent<Transform>();
         inputActions = new PlayerInputActions();
         Cursor.lockState = CursorLockMode.Locked;
+        startMouseSensitivitiy = mouseSensitivity;
     }
     private void Update()
     {
+        if (GetComponentInParent<SettingManager>().gameIsPaused || GetComponentInParent<PlayerHealth>().isDead)
+        {
+            //Cursor.lockState = CursorLockMode.Confined;
+
+            //mouseSensitivity = 0f;
+
+            EditorApplication.isPaused = true;
+        }
+        else if (!GetComponentInParent<SettingManager>().gameIsPaused || !GetComponentInParent<PlayerHealth>().isDead)
+        {
+            //Cursor.lockState = CursorLockMode.Locked;
+
+            //mouseSensitivity = startMouseSensitivitiy;
+
+            EditorApplication.isPaused = false;
+        }
+
         //Calculate the mouse movement, apply sensitivity and Time.deltaTime
         float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
         float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;

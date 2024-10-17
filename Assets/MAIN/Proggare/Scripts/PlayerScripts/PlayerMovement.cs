@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Tooltip("Makes player speed faster when moving forward")] float speedMultiplier = 1.2f;
     [SerializeField] float jumpForce = 5f;
     [SerializeField] float gravity = -98.1f;
-    [SerializeField] float slowMultiplier = .5f;
+    [SerializeField, Tooltip("Applies when player is low or takes damage")] float slowMultiplier = .5f;
 
     [Header("Sliding")]
     [SerializeField] float slideSpeed = 15f;
@@ -89,6 +89,11 @@ public class PlayerMovement : MonoBehaviour
         //Apply gravity
         jumpVelocity.y += gravity * Time.deltaTime;
         controller.Move(jumpVelocity * Time.deltaTime);
+
+        if(GetComponent<SettingManager>().gameIsPaused || GetComponent<PlayerHealth>().isDead)
+        {
+            movementSpeed = 0f;
+        }
     }
 
     Vector3 CalculateMovement()

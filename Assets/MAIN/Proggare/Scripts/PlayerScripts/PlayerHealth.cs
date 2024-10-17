@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] float maxHealth = 100f;
     [SerializeField] float currentHealth;
-    [SerializeField] bool isDead = false;
+    [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool takesDamage;
     [HideInInspector] public bool lowHealth;
 
@@ -24,6 +24,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] Image stage4Image;
 
     [SerializeField] float timer = 60f;
+
+    [SerializeField] GameObject deathScreen;
 
     void Start()
     {
@@ -99,6 +101,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0f)
         {
             ShowImage(stage4Image); //Dead stage
+            deathScreen.SetActive(true);
         }
         else if (currentHealth <= 20f)
         {
