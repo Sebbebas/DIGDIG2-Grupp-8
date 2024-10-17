@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour
     [System.Serializable]
     public struct Effects
     {
-        [Header("Audio & animation Effects")]
+        [Header("Audio & Animation Effects")]
         public EffectType effectType;
         public AudioClip audioClip;
         public Animator animator;
@@ -57,7 +57,6 @@ public class Weapon : MonoBehaviour
             public ParticleSystem hitParticle;
         }
     }
-
 
     //Private Variabels
     private float currentFireDelay;
@@ -103,6 +102,9 @@ public class Weapon : MonoBehaviour
     #region Virtual Bools
     public virtual bool Fire()
     {
+        //Prevent shooting when game is paused
+        if (FindFirstObjectByType<SettingManager>().GetIsPaused() == true) { return false; }
+
         //true
         if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false)
         {
@@ -190,7 +192,6 @@ public class Weapon : MonoBehaviour
                 effect.fireEffects.muzzleLight?.transform.gameObject.SetActive(false);
             }
         }
-
         StopCoroutine(EffectsCoroutine(EffectType.fire));
     }
     #endregion
@@ -232,8 +233,10 @@ public class Weapon : MonoBehaviour
     }
     #endregion
 
+    #region Get
     public bool GetReloading()
     {
         return reloading;
     }
+    #endregion
 }

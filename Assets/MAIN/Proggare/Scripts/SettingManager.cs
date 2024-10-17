@@ -48,11 +48,23 @@ public class SettingManager : MonoBehaviour
 
     void OnPause(InputValue value)
     {
+        InvertGameIsPaused();
+    }
+
+    /// <summary>
+    /// Call function when you want to pause or resume game
+    /// </summary>
+    public void InvertGameIsPaused()
+    {
         //If false true If true false
         gameIsPaused = gameIsPaused ? false : true;
 
         //Set values
         pauseBackground.SetActive(gameIsPaused);
         Time.timeScale = gameIsPaused ? 0 : 1;
+    }
+    public bool GetIsPaused()
+    {
+        return gameIsPaused;
     }
 }
