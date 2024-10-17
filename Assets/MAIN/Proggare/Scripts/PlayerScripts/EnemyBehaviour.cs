@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-// Elian
+//Elian
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -25,12 +25,14 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Start()
     {
+        // Add all non-null enemies to the enemyPrefabs list
         if (enemyZero != null) enemyPrefabs.Add(enemyZero);
         if (enemyOne != null) enemyPrefabs.Add(enemyOne);
         if (enemyTwo != null) enemyPrefabs.Add(enemyTwo);
         if (enemyThree != null) enemyPrefabs.Add(enemyThree);
         if (enemyFour != null) enemyPrefabs.Add(enemyFour);
 
+        // Ensure that there are enemies to spawn
         if (enemyPrefabs.Count > 0)
         {
             SpawnEnemies(numberOfEnemies);
@@ -55,37 +57,25 @@ public class EnemyBehaviour : MonoBehaviour
 
             if (enemyPrefabs.Count > 0)
             {
+                // Randomly select an enemy from the list
                 GameObject randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+
                 GameObject enemy = Instantiate(randomEnemy, spawnPos, Quaternion.identity, antiHierarchySpam.transform);
-
                 prefabList.Add(enemy);
-                EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
-
-                if (enemyScript != null)
-                {
-                    enemyScript.OnEnemyDeath += HandleEnemyDeath;
-                }
             }
-        }
-    }
-
-    void HandleEnemyDeath(GameObject enemy)
-    {
-        if (prefabList.Contains(enemy))
-        {
-            prefabList.Remove(enemy);
-            SpawnEnemies(1);
         }
     }
 
     void EnemyMovement()
     {
+        //Moves enemyList towards the player
         foreach (GameObject enemy in prefabList)
         {
             if (enemy != null)
             {
                 float distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
 
+                //Check if the player is within the sight radius
                 if (distanceToPlayer <= sightRadius)
                 {
                     NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
@@ -96,6 +86,7 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 else
                 {
+                    //Stop moving if the player is out of range
                     NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
                     if (agent != null && !agent.pathPending)
                     {
@@ -116,9 +107,9 @@ public class EnemyBehaviour : MonoBehaviour
                 float distanceToSpawner = Vector3.Distance(transform.position, enemy.transform.position);
                 if (distanceToSpawner > despawnRadius)
                 {
-                    Destroy(enemy);
-                    prefabList.RemoveAt(i);
-                    SpawnEnemies(1);
+                    Destroy(enemy); 
+                    prefabList.RemoveAt(i); 
+                    SpawnEnemies(1); 
                 }
             }
         }

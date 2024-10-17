@@ -446,10 +446,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: pelletDamage
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 3995209982260274737, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
