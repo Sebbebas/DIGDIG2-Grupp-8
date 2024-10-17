@@ -151,7 +151,8 @@ public class WeaponManager : MonoBehaviour
                 kickedObjects.Add(hit.transform.gameObject);
 
                 //Apply force or logic to the kicked object
-                hit.rigidbody?.AddForce(direction * kickForce, ForceMode.Impulse);
+                //hit.rigidbody?.AddForce(direction * kickForce, ForceMode.Impulse);
+                if (hit.transform.GetComponent<EnemyScript>() != null) { hit.transform.GetComponent<EnemyScript>().Kicked(direction * kickForce); }
             }
         }
         foreach (var obj in kickedObjects)

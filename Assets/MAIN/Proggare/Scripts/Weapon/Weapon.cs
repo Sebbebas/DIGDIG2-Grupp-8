@@ -3,7 +3,6 @@ using System.Collections;
 using TMPro;
 
 //Sebbe
-
 public enum EffectType
 {
     fire = 0,
@@ -34,17 +33,27 @@ public class Weapon : MonoBehaviour
     [Header("Effects")]
     [Tooltip("When calling a action play the effects with the same EffectType")]public Effects[] effects;
 
-    public Light muzzleFlash;
-    public GameObject casing;
-    public ParticleSystem hitParticle;
-
     [System.Serializable]
     public struct Effects
     {
         public EffectType effectType;
         public AudioClip audioClip;
         public Animator animator;
+
+        //Effects when shooting
+        public FireEffects fireEffects;
+
+        [System.Serializable]
+        public struct FireEffects
+        {
+            public float muzzleFlashTime;
+            public Light[] muzzleFlash;
+            public Light flashLight;
+            public GameObject casing;
+            public ParticleSystem hitParticle;
+        }
     }
+
 
     //Private Variabels
     private float currentFireDelay;
@@ -101,6 +110,7 @@ public class Weapon : MonoBehaviour
             //Effects
             PlayAnimation(EffectType.fire, "Fire", true);
             PlaySound(EffectType.fire);
+            StartCoroutine(MuzzelFlashCorutine(EffectType.fire));
 
             return true;
         }
@@ -165,16 +175,24 @@ public class Weapon : MonoBehaviour
             }
         }
     }
-
-    public void PlayEffects(EffectType type, string boolname, bool effectBool)
+    public IEnumerator MuzzelFlashCorutine(EffectType type)
     {
         foreach (var effect in effects)
         {
             if (effect.effectType == type)
             {
                 //HIT PARTICEL GET FROM MAIN INSTED OF EVERY WEAPON SCRIPT
+
+                //Muzzel flash for shotgun will only work rn (needs rework)
+                effect.fireEffects.muzzleFlash?[0].transform.gameObject.SetActive(true);
+
+                yield return new WaitForSeconds(effect.fireEffects.muzzleFlashTime);
+
+                effect.fireEffects.muzzleFlash?[0].transform.gameObject.SetActive(false);
             }
         }
+
+        StopCoroutine(MuzzelFlashCorutine(EffectType.fire));
     }
     #endregion
 
