@@ -181,24 +181,28 @@ public class Weapon : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Plays effects under "Effects" with the same <paramref name="type"/>
+    /// </summary>
     public IEnumerator EffectsCoroutine(EffectType type)
     {
         foreach (var effect in effects)
         {
-            if (effect.effectType == type)
+            if (EffectType.fire == type)
             {
                 effect.fireEffects.muzzleLight?.transform.gameObject.SetActive(true);
                 yield return new WaitForSeconds(effect.fireEffects.muzzleTime);
                 effect.fireEffects.muzzleLight?.transform.gameObject.SetActive(false);
+
+                StopCoroutine(EffectsCoroutine(EffectType.fire));
             }
         }
-        StopCoroutine(EffectsCoroutine(EffectType.fire));
     }
     #endregion
 
     #region Audio Management
     /// <summary>
-    /// Play the Audio that is of same <paramref name="type"/>
+    /// Play the Audio under "Effects" that is of <paramref name="type"/>
     /// </summary>
     public void PlaySound(EffectType type)
     {
