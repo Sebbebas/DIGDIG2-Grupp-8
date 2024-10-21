@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Testing")]
     [SerializeField] float HealPlayer = 20f;
     [SerializeField] float DamageAmount = 20f;
+    [SerializeField] TextMeshProUGUI healthText;
 
     [Header("Health Stages")]
     [SerializeField] Image stage1Image;
@@ -54,6 +55,8 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth -= damage;
 
+        if (healthText != null) { healthText.text = currentHealth.ToString(); }
+
         StartCoroutine(TakeDamageTimer());
 
         //Checks if the player is die
@@ -78,6 +81,8 @@ public class PlayerHealth : MonoBehaviour
             return;
 
         currentHealth += healAmount;
+
+        if (healthText != null) { healthText.text = currentHealth.ToString(); }
 
         //Health won't exceed maxHealth
         if (currentHealth > maxHealth)
@@ -164,5 +169,10 @@ public class PlayerHealth : MonoBehaviour
     public bool GetLowHealth()
     {
         return lowHealth;
+    }
+
+    public bool GetIsDead()
+    {
+        return isDead;
     }
 }

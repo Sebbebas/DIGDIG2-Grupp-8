@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,11 +27,11 @@ public class PlayerLook : MonoBehaviour
     }
     private void Update()
     {
-        if (GetComponentInParent<SettingManager>().gameIsPaused || GetComponentInParent<PlayerHealth>().isDead)
+        if (GetComponentInParent<SettingManager>().GetGameIsStopped() || GetComponentInParent<PlayerHealth>().isDead)
         {
             Cursor.lockState = CursorLockMode.Confined;
         }
-        else if (!GetComponentInParent<SettingManager>().gameIsPaused || !GetComponentInParent<PlayerHealth>().isDead)
+        else if (!GetComponentInParent<SettingManager>().GetGameIsStopped() || !GetComponentInParent<PlayerHealth>().isDead)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }

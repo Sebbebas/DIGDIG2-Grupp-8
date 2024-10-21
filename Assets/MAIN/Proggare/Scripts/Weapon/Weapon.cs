@@ -21,6 +21,7 @@ public class Weapon : MonoBehaviour
     public TextMeshProUGUI ammoText;
 
     [Header("Delays")]
+    public float waitBeforeReload = 0.5f;
     public float reloadTime = 3f;
     public float firedelay = 3f;
 
@@ -61,6 +62,7 @@ public class Weapon : MonoBehaviour
     //Private Variabels
     private float currentFireDelay;
     private bool reloading = false;
+    private bool waitForReload = false;
 
     #region Base Methods
     protected void Start()
@@ -103,10 +105,10 @@ public class Weapon : MonoBehaviour
     public virtual bool Fire()
     {
         //Prevent shooting when game is paused
-        if (FindFirstObjectByType<SettingManager>().GetIsPaused() == true) { return false; }
+        if (FindFirstObjectByType<SettingManager>().GetGameIsStopped() == true) { return false; }
 
         //true
-        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false)
+        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false)
         {
             //Logic
             currentAmmo--;
@@ -128,7 +130,7 @@ public class Weapon : MonoBehaviour
     public virtual bool Reload()
     {
         //Reload
-        if (currentAmmo == magSize || totalAmmo == 0 || reloading == true)
+        if (currentAmmo == magSize || totalAmmo == 0 || reloading == true || waitForReload == true)
         {
             return false;
         }
@@ -139,6 +141,11 @@ public class Weapon : MonoBehaviour
     }
     public IEnumerator ReloadRoutine()
     {
+        //Reload Delay
+        waitForReload = true;
+        yield return new WaitForSeconds(waitBeforeReload);
+        waitForReload = false;
+
         //Before Wait
         reloading = true;
         PlaySound(EffectType.reload);
@@ -225,6 +232,7 @@ public class Weapon : MonoBehaviour
 
         //Add Components
         soundFX.AddComponent<AudioSource>();
+        soundFX.AddComponent<AudioPauseManager>();
         soundFX.AddComponent<Destroy>();
 
         //Edit Components

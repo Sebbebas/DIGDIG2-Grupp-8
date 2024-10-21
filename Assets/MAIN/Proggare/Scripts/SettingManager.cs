@@ -8,16 +8,15 @@ public class SettingManager : MonoBehaviour
 
     InputAction pauseAction;
 
+    [Header("Manually Pause Game")]
     [SerializeField] GameObject pauseBackground;
 
-    [HideInInspector] public bool gameIsPaused;
+    private bool gamePausedManually;
+    private bool stopGame;
 
     void Update()
     {
-        if (GetComponent<PlayerHealth>().isDead) 
-        { 
-            pauseBackground.SetActive(false);
-        }
+        if (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
     }
 
     void OnEnable()
@@ -46,25 +45,32 @@ public class SettingManager : MonoBehaviour
 
     void OnPause(InputAction.CallbackContext context) { }
 
+    /// <summary>
+    /// Invert the current pause state
+    /// </summary>
     void OnPause(InputValue value)
     {
-        InvertGameIsPaused();
+        ManualPause();
     }
-
     /// <summary>
     /// Call function when you want to pause or resume game
     /// </summary>
-    public void InvertGameIsPaused()
+    public void ManualPause()
     {
-        //If false true If true false
-        gameIsPaused = gameIsPaused ? false : true;
+        if (stopGame) { return; }
 
-        //Set values
-        pauseBackground.SetActive(gameIsPaused);
-        Time.timeScale = gameIsPaused ? 0 : 1;
+        //If false true || If true false
+        gamePausedManually = gamePausedManually ? false : true;
+
+        //Set values acording to current state
+        pauseBackground.SetActive(gamePausedManually);
+        Time.timeScale = gamePausedManually ? 0 : 1;
     }
-    public bool GetIsPaused()
+    /// <summary>
+    /// Gets bool gamePausedManually
+    /// </summary>
+    public bool GetGameIsStopped()
     {
-        return gameIsPaused;
+        return stopGame;
     }
 }

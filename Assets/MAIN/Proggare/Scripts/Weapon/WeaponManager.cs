@@ -14,6 +14,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField, Tooltip("Current weapon gameobject")] GameObject currentWeapon;
     [SerializeField, Tooltip("A list of all the weapon gameobjects")] List<GameObject> WeaponsList = new List<GameObject>();
 
+    //WIP
     [Header("Kick")]
     [SerializeField] float kickCooldown;
     [SerializeField] float coneAngle = 30f; // Angle of the cone
