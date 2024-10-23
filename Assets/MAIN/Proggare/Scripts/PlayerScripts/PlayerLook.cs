@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerLook : MonoBehaviour
 {
     //Configurable Parameters
-    [SerializeField] float mouseSensitivity = 5f;
+    public float mouseSensitivity = 5f;
 
     //Private Varibels
     Vector2 lookInput = Vector2.zero;
@@ -37,8 +37,8 @@ public class PlayerLook : MonoBehaviour
         }
 
         //Calculate the mouse movement, apply sensitivity and Time.deltaTime
-        float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
-        float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
+        float mouseX = lookInput.x * mouseSensitivity * .1f * Time.deltaTime;
+        float mouseY = lookInput.y * mouseSensitivity * .1f * Time.deltaTime;
 
         //Adjust vertical rotation (Y-axis) and clamp it to prevent over-rotation
         xRotation -= mouseY;
