@@ -104,11 +104,8 @@ public class Weapon : MonoBehaviour
     #region Virtual Bools
     public virtual bool Fire()
     {
-        //Prevent shooting when game is paused
-        if (FindFirstObjectByType<SettingManager>().GetGameIsStopped() == true) { return false; }
-
         //true
-        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false)
+        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false && FindFirstObjectByType<SettingManager>().GetGameIsStopped() == false)
         {
             //Logic
             currentAmmo--;

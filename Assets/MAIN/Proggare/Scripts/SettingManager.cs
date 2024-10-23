@@ -16,14 +16,24 @@ public class SettingManager : MonoBehaviour
     [SerializeField] GameObject pauseCanvas;
     [SerializeField] GameObject settingsCanvas;
 
-    private bool gamePausedManually;
-    private bool stopGame;
+    private bool gamePausedManually; //Pause menu
+    private bool stopGame;           //Player Dead
+    private bool currentPauseState;  //pause state
 
     void Update()
     {
         if (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
 
         if (gamePausedManually == false) { settingsCanvas.SetActive(false); }
+
+        if (stopGame)
+        {
+            currentPauseState = stopGame;
+        }
+        else
+        {
+            currentPauseState = gamePausedManually;
+        }
     }
 
     void OnEnable()
@@ -95,6 +105,6 @@ public class SettingManager : MonoBehaviour
     /// </summary>
     public bool GetGameIsStopped()
     {
-        return stopGame;
+        return currentPauseState;
     }
 }
