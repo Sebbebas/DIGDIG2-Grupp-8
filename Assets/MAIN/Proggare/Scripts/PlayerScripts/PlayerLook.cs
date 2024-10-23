@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerLook : MonoBehaviour
 {
     //Configurable Parameters
-    public float mouseSensitivity = 5f;
+    public int mouseSensitivity = 5;
 
     //Private Varibels
     Vector2 lookInput = Vector2.zero;
@@ -16,14 +16,11 @@ public class PlayerLook : MonoBehaviour
     Transform playerBody;
     PlayerInputActions inputActions;
 
-    float startMouseSensitivitiy;
-
     private void Awake()
     {
         playerBody = GetComponentInParent<CharacterController>().GetComponent<Transform>();
         inputActions = new PlayerInputActions();
         Cursor.lockState = CursorLockMode.Locked;
-        startMouseSensitivitiy = mouseSensitivity;
     }
     private void Update()
     {

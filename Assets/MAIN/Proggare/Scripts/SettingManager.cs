@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class SettingManager : MonoBehaviour
 {
@@ -8,8 +9,12 @@ public class SettingManager : MonoBehaviour
 
     InputAction pauseAction;
 
+    [Header("Mouse Settings")]
+    [SerializeField] Slider sensitivitySlider;
+
     [Header("Manually Pause Game")]
-    [SerializeField] GameObject pauseBackground;
+    [SerializeField] GameObject pauseCanvas;
+    [SerializeField] GameObject settingsCanvas;
 
     private bool gamePausedManually;
     private bool stopGame;
@@ -17,6 +22,8 @@ public class SettingManager : MonoBehaviour
     void Update()
     {
         if (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
+
+        if (gamePausedManually == false) { settingsCanvas.SetActive(false); }
     }
 
     void OnEnable()
@@ -63,8 +70,25 @@ public class SettingManager : MonoBehaviour
         gamePausedManually = gamePausedManually ? false : true;
 
         //Set values acording to current state
-        pauseBackground.SetActive(gamePausedManually);
+        pauseCanvas.SetActive(gamePausedManually);
         Time.timeScale = gamePausedManually ? 0 : 1;
+    }
+
+    public void OnResumeClick()
+    {
+        pauseCanvas.SetActive(false);
+    }
+
+    public void OnSettingsClick()
+    {
+        pauseCanvas.SetActive(false);
+        settingsCanvas.SetActive(true);
+    }
+
+    public void OnBackClick()
+    {
+        pauseCanvas.SetActive(true);
+        settingsCanvas.SetActive(false);
     }
     /// <summary>
     /// Gets bool gamePausedManually
