@@ -1648,7 +1648,7 @@ MonoBehaviour:
   lowHealth: 0
   HealPlayer: 20
   DamageAmount: 20
-  healthText: {fileID: 0}
+  healthText: {fileID: 5227924551583086709}
   stage1Image: {fileID: 0}
   stage2Image: {fileID: 0}
   stage3Image: {fileID: 0}
