@@ -20,6 +20,12 @@ public class SettingManager : MonoBehaviour
     private bool stopGame;           //Player Dead
     private bool currentPauseState;  //pause state
 
+    private void Awake()
+    {
+        pauseCanvas.SetActive(false);
+        settingsCanvas.SetActive(false);
+    }
+
     void Update()
     {
         if (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }

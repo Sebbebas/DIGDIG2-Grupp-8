@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
+        deathScreen.SetActive(false);
         currentHealth = maxHealth;
         HideAllImages();
     }
