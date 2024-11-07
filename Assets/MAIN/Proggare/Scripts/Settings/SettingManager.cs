@@ -11,6 +11,7 @@ public class SettingManager : MonoBehaviour
 
     [Header("Mouse Settings")]
     [SerializeField] Slider sensitivitySlider;
+    [SerializeField] GameObject crossair;
 
     [Header("Manually Pause Game")]
     [SerializeField] GameObject pauseCanvas;
@@ -31,6 +32,8 @@ public class SettingManager : MonoBehaviour
         if (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
 
         if (gamePausedManually == false) { settingsCanvas.SetActive(false); }
+
+        if(currentPauseState) { crossair.SetActive(false); }
 
         if (stopGame)
         {
