@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 76073346433427442}
   - component: {fileID: 7887326216557460447}
-  - component: {fileID: 1226445997049782525}
-  - component: {fileID: -5315424942126380897}
   - component: {fileID: 8692774255355478003}
   - component: {fileID: 4015981602136437220}
+  - component: {fileID: 8812048694415975431}
+  - component: {fileID: 1226445997049782525}
   m_Layer: 6
   m_Name: Zombie
   m_TagString: Enemies
@@ -59,50 +59,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1226445997049782525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2410703198815107751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad8c95614220ac14f9fdbb20899cbe51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageAmount: 10
-  stunTime: 1
-  maxKnockbackVelocity: 5
-  damageCooldown: 1
-  currentHealth: 100
---- !u!54 &-5315424942126380897
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2410703198815107751}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!136 &8692774255355478003
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -149,6 +105,50 @@ CapsuleCollider:
   m_Height: 2.0840266
   m_Direction: 1
   m_Center: {x: 0, y: 0.03706658, z: 0}
+--- !u!54 &8812048694415975431
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2410703198815107751}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1226445997049782525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2410703198815107751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8c95614220ac14f9fdbb20899cbe51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageAmount: 10
+  stunTime: 1
+  maxKnockbackVelocity: 5
+  damageCooldown: 1
+  currentHealth: 100
 --- !u!1001 &2262159124782846523
 PrefabInstance:
   m_ObjectHideFlags: 0
