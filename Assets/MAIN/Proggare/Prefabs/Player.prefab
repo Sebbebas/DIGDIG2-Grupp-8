@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4601491261680063450}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingManager, Assembly-CSharp
         m_MethodName: OnResumeClick
         m_Mode: 1
@@ -1956,7 +1956,6 @@ GameObject:
   - component: {fileID: 1312168213106435148}
   - component: {fileID: 6002864899973768161}
   - component: {fileID: 529293960734338356}
-  - component: {fileID: 4601491261680063450}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -2221,24 +2220,6 @@ MonoBehaviour:
   rebindButton: {fileID: 2271344896073413666}
   rebindText: {fileID: 2061687107429943632}
   resetButton: {fileID: 6917213800492375310}
---- !u!114 &4601491261680063450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4327374827836331831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a62540025d366e24698567b2ff117cd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  sensitivitySlider: {fileID: 2020597047549084945}
-  sensitivityText: {fileID: 6180305415523078711}
-  crossair: {fileID: 7220654110830225840}
-  pauseCanvas: {fileID: 460666801099044983}
-  settingsCanvas: {fileID: 4213300569081926599}
 --- !u!1 &4339922676111513910
 GameObject:
   m_ObjectHideFlags: 0
@@ -9898,7 +9879,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4601491261680063450}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingManager, Assembly-CSharp
         m_MethodName: OnSettingsClick
         m_Mode: 1
