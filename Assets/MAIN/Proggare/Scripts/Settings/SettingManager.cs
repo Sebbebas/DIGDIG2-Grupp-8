@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
+using JetBrains.Annotations;
 
 public class SettingManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class SettingManager : MonoBehaviour
 
     [Header("Mouse Settings")]
     [SerializeField] Slider sensitivitySlider;
+    [SerializeField] TextMeshProUGUI sensitivityText;
     [SerializeField] GameObject crossair;
 
     [Header("Manually Pause Game")]
@@ -19,12 +22,20 @@ public class SettingManager : MonoBehaviour
 
     private bool gamePausedManually; //Pause menu
     private bool stopGame;           //Player Dead
-    private bool currentPauseState;  //pause state
+    private bool currentPauseState;  //Pause state
+
+    int mouseSensitivityInt;
 
     private void Awake()
     {
+        currentPauseState = false; 
+
         pauseCanvas.SetActive(false);
         settingsCanvas.SetActive(false);
+
+        sensitivitySlider.onValueChanged.AddListener(delegate { Debug.Log(sensitivitySlider.value); });
+        //sensitivitySlider.value = Mathf.RoundToInt(mouseSensitivityInt);
+        //GetComponent<PlayerLook>().mouseSensitivity = mouseSensitivityInt;
     }
 
     void Update()
@@ -42,6 +53,11 @@ public class SettingManager : MonoBehaviour
         else
         {
             currentPauseState = gamePausedManually;
+        }
+
+        if (sensitivityText != null)
+        {
+            sensitivityText.text = sensitivitySlider.value.ToString();
         }
     }
 
