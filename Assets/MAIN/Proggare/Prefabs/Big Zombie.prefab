@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2050863992510458941}
   - component: {fileID: -6219590773927338158}
   - component: {fileID: 6626324303365333022}
-  - component: {fileID: 4179527104257214265}
   m_Layer: 6
   m_Name: Big Zombie
   m_TagString: Enemies
@@ -150,24 +149,6 @@ CapsuleCollider:
   m_Height: 2.1611156
   m_Direction: 1
   m_Center: {x: 0, y: -0.042630278, z: 0}
---- !u!114 &4179527104257214265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2279033429783417335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa1d4cea9e2ad794580163d9e25d1b74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lootTable:
-    LootItems:
-    - Prefab: {fileID: 1038373478490251137, guid: aad8a665361db534fb8526b4884ab521, type: 3}
-      DropChance: 100
-    - Prefab: {fileID: 3030732834252964092, guid: 8f02740dd92bb224a8d3d5f0109780a9, type: 3}
-      DropChance: 4
 --- !u!1001 &507313827722805501
 PrefabInstance:
   m_ObjectHideFlags: 0

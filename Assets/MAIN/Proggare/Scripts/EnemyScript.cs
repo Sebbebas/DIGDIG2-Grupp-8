@@ -23,15 +23,11 @@ public class EnemyScript : MonoBehaviour
     NavMeshAgent agent;
     Rigidbody myRigidbody;
 
-    private LootSystem lootSystem;
-
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         myRigidbody = GetComponent<Rigidbody>();
         enemySpeedAtStart = agent.speed;
-
-        lootSystem = GetComponent<LootSystem>();
     }
 
     private void Update()
@@ -96,12 +92,6 @@ public class EnemyScript : MonoBehaviour
     private void Die()
     {
         OnEnemyDeath?.Invoke(gameObject);
-
-        if (lootSystem != null)
-        {
-            lootSystem.DropLoot();
-        }
-
         Destroy(gameObject);
     }
 }
