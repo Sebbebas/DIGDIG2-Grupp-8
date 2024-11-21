@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 
 public class SettingManager : MonoBehaviour
 {
@@ -30,7 +29,7 @@ public class SettingManager : MonoBehaviour
     private void Awake()
     {
         //currentPauseState = false; 
-        gamePausedManually = false;
+        //gamePausedManually = false;
 
         pauseCanvas.SetActive(false);
         settingsCanvasOn = false;
@@ -38,7 +37,7 @@ public class SettingManager : MonoBehaviour
 
         sensitivitySlider.minValue = sensitivityMinValue;
         sensitivitySlider.maxValue = sensitivityMaxValue;
-        sensitivitySlider.value = GetComponent<PlayerLook>().mouseSensitivity;
+        //sensitivitySlider.value = GetComponent<PlayerLook>().mouseSensitivity;
 
         sensitivitySlider.onValueChanged.AddListener(value => OnSensitivityChange((int)value));
     }
@@ -129,11 +128,6 @@ public class SettingManager : MonoBehaviour
         //Set values acording to current state
         pauseCanvas.SetActive(gamePausedManually);
         Time.timeScale = gamePausedManually ? 0 : 1;
-    }
-
-    public void OnResumeClick()
-    {
-        pauseCanvas.SetActive(false);
     }
 
     public void OnSettingsClick()

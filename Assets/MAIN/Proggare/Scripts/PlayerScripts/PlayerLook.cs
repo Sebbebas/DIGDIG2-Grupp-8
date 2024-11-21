@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerLook : MonoBehaviour
 {
     //Configurable Parameters
-    //public int mouseSensitivity = 5;
-    public float mouseSensitivity = 5;
+    public int mouseSensitivity = 5;
+    //public float mouseSensitivity = 5;
 
     //Private Varibels
     Vector2 lookInput = Vector2.zero;
