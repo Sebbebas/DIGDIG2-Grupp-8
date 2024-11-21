@@ -23,6 +23,7 @@ public class PlayerLook : MonoBehaviour
         inputActions = new PlayerInputActions();
         Cursor.lockState = CursorLockMode.Locked;
     }
+
     private void Update()
     {
         if (GetComponentInParent<SettingManager>().GetGameIsStopped() || GetComponentInParent<PlayerHealth>().isDead)

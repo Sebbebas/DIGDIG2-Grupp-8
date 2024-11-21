@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1402335104695374376}
         m_TargetAssemblyTypeName: SettingManager, Assembly-CSharp
         m_MethodName: OnResumeClick
         m_Mode: 1
@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 1080
   m_ScaleFactor: 1920
   m_ReferenceResolution: {x: 1920, y: 1080}
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1402335104695374376}
         m_TargetAssemblyTypeName: SettingManager, Assembly-CSharp
         m_MethodName: OnBackClick
         m_Mode: 1
@@ -1541,7 +1541,7 @@ RectTransform:
   m_Father: {fileID: 5722853282644881637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.49748743, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1850,7 +1850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6519472737758731999
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1910,10 +1910,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1956,6 +1956,7 @@ GameObject:
   - component: {fileID: 1312168213106435148}
   - component: {fileID: 6002864899973768161}
   - component: {fileID: 529293960734338356}
+  - component: {fileID: 1402335104695374376}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -2220,6 +2221,26 @@ MonoBehaviour:
   rebindButton: {fileID: 2271344896073413666}
   rebindText: {fileID: 2061687107429943632}
   resetButton: {fileID: 6917213800492375310}
+--- !u!114 &1402335104695374376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4327374827836331831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62540025d366e24698567b2ff117cd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  sensitivitySlider: {fileID: 2020597047549084945}
+  sensitivityText: {fileID: 6180305415523078711}
+  sensitivityMinValue: 1
+  sensitivityMaxValue: 200
+  crossair: {fileID: 7220654110830225840}
+  pauseCanvas: {fileID: 460666801099044983}
+  settingsCanvas: {fileID: 4213300569081926599}
 --- !u!1 &4339922676111513910
 GameObject:
   m_ObjectHideFlags: 0
@@ -8982,8 +9003,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5291337760731269657}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.49748743, y: 0}
+  m_AnchorMax: {x: 0.49748743, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9879,7 +9900,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1402335104695374376}
         m_TargetAssemblyTypeName: SettingManager, Assembly-CSharp
         m_MethodName: OnSettingsClick
         m_Mode: 1

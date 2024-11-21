@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 
 public class SettingManager : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class SettingManager : MonoBehaviour
 
     [Header("Mouse Settings")]
     [SerializeField] Slider sensitivitySlider;
-    [SerializeField] TextMeshProUGUI sensitivityText;
+    [SerializeField, Tooltip("Shows value of sensitivity to player")] TextMeshProUGUI sensitivityText;
+    [SerializeField] int sensitivityMinValue = 1;
+    [SerializeField] int sensitivityMaxValue = 200;
     [SerializeField] GameObject crossair;
 
     [Header("Manually Pause Game")]
@@ -20,43 +23,45 @@ public class SettingManager : MonoBehaviour
     [SerializeField] GameObject settingsCanvas;
 
     private bool gamePausedManually; //Pause menu
-    private bool stopGame;           //Player Dead
-    private bool currentPauseState;  //Pause state
-
-    int mouseSensitivityInt;
+    private bool stopGame;           //Player dead
+    //private bool currentPauseState;  //Pause state
+    bool settingsCanvasOn;
 
     private void Awake()
     {
-        currentPauseState = false; 
+        //currentPauseState = false; 
+        gamePausedManually = false;
 
         pauseCanvas.SetActive(false);
+        settingsCanvasOn = false;
         settingsCanvas.SetActive(false);
 
-        sensitivitySlider.onValueChanged.AddListener(delegate { Debug.Log(sensitivitySlider.value); });
-        //sensitivitySlider.value = Mathf.RoundToInt(mouseSensitivityInt);
-        //GetComponent<PlayerLook>().mouseSensitivity = mouseSensitivityInt;
+        sensitivitySlider.minValue = sensitivityMinValue;
+        sensitivitySlider.maxValue = sensitivityMaxValue;
+        sensitivitySlider.value = GetComponent<PlayerLook>().mouseSensitivity;
+
+        sensitivitySlider.onValueChanged.AddListener(value => OnSensitivityChange((int)value));
     }
 
     void Update()
     {
-        if (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
+        //currentPauseState = gamePausedManually;
 
-        if (gamePausedManually == false) { settingsCanvas.SetActive(false); }
+        while (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
 
-        if(currentPauseState) { crossair.SetActive(false); }
+        //if (gamePausedManually == false) { settingsCanvas.SetActive(false); }
 
-        if (stopGame)
-        {
-            currentPauseState = stopGame;
-        }
-        else
-        {
-            currentPauseState = gamePausedManually;
-        }
+        if (gamePausedManually) { crossair.SetActive(false); }
 
         if (sensitivityText != null)
         {
             sensitivityText.text = sensitivitySlider.value.ToString();
+        }
+
+        if (settingsCanvasOn)
+        {
+            pauseCanvas.SetActive(false);
+            gamePausedManually = true;
         }
     }
 
@@ -75,13 +80,24 @@ public class SettingManager : MonoBehaviour
         pauseAction.performed += OnPause;
     }
 
-    void OnDisable()
+    //Don't work for some reason
+    /*void OnDisable()
     {
         //Disable the action
         pauseAction.Disable();
 
         //Unsubscribe from the input when the object is disabled
         pauseAction.performed -= OnPause;
+    }*/
+
+    void OnSensitivityChange(int value)
+    {
+        GetComponent<PlayerLook>().mouseSensitivity = value;
+
+        if (sensitivityText != null)
+        {
+            sensitivityText.text = "Sensitivity: " + value + "%";
+        }
     }
 
     void OnPause(InputAction.CallbackContext context) { }
@@ -91,7 +107,14 @@ public class SettingManager : MonoBehaviour
     /// </summary>
     void OnPause(InputValue value)
     {
-        ManualPause();
+        if (!settingsCanvasOn) { ManualPause(); }
+
+        else 
+        {
+            //Makes esc function as a back button when in settings
+            OnBackClick();
+            Debug.Log("fuck u");
+        }
     }
     /// <summary>
     /// Call function when you want to pause or resume game
@@ -117,18 +140,20 @@ public class SettingManager : MonoBehaviour
     {
         pauseCanvas.SetActive(false);
         settingsCanvas.SetActive(true);
+        settingsCanvasOn = true;
     }
 
     public void OnBackClick()
     {
         pauseCanvas.SetActive(true);
         settingsCanvas.SetActive(false);
+        settingsCanvasOn = false;
     }
     /// <summary>
     /// Gets bool gamePausedManually
     /// </summary>
     public bool GetGameIsStopped()
     {
-        return currentPauseState;
+        return gamePausedManually;
     }
 }

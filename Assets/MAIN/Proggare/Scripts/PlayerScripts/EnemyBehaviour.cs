@@ -45,7 +45,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     void SpawnEnemies(int amount)
     {
-        if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
+        //Doesnt work when reloading scene
+        //if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
 
         for (int i = 0; i < amount; i++)
         {
@@ -56,7 +57,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (enemyPrefabs.Count > 0)
             {
                 GameObject randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-                GameObject enemy = Instantiate(randomEnemy, spawnPos, Quaternion.identity, antiHierarchySpam.transform);
+                GameObject enemy = Instantiate(randomEnemy, spawnPos, Quaternion.identity/*, antiHierarchySpam.transform*/);
 
                 prefabList.Add(enemy);
                 EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
