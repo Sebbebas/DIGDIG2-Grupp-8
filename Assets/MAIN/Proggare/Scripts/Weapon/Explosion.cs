@@ -3,11 +3,19 @@ using System.Collections.Generic;
 
 public class Explosion : MonoBehaviour
 {
+    //Configurable
+    [Header("Main")]
     [SerializeField] float maxDamage = 100f;
     [SerializeField] float damageReductionOverDistance = 3;
     [SerializeField] LayerMask effectedObjects;
     [SerializeField] List<Transform> effectedObjectList = new List<Transform>();
 
+    [Header("damage over % of distance")]
+    [SerializeField] float take100;
+    [SerializeField] float take50;
+    [SerializeField] float take20;
+
+    private float explosionRadius;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,37 +26,66 @@ public class Explosion : MonoBehaviour
             if (!effectedObjectList.Contains(other.transform))
             {
                 effectedObjectList.Add(other.transform);
-                CalcuateDamage(other.transform);
+                CalculateDamage(other.transform);
             }
         }
     }
 
-    void CalcuateDamage(Transform other)
+    private void CalculateDamage(Transform other)
     {
         float distance = Vector3.Distance(transform.position, other.position);
+        float distancePercent = (distance / explosionRadius) * 100f;
+        float calculatedDamage = 0f;
 
-        float damage = maxDamage - Mathf.RoundToInt(distance * damageReductionOverDistance);
-
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (distancePercent <= take100)
         {
-            other.gameObject.GetComponent<PlayerHealth>().ApplyDamage(damage);
+            calculatedDamage = maxDamage; //100% damage
+        }
+        else if (distancePercent <= 60f)
+        {
+            calculatedDamage = maxDamage * 0.5f; // 50% damage
+        }
+        else if (distancePercent >= 80f && distancePercent <= 100f)
+        {
+            calculatedDamage = maxDamage * 0.3f; // 30% damage
         }
         else
         {
-            other.gameObject.GetComponent<EnemyScript>().ApplyDamage(damage);
+            calculatedDamage = 0f; // No damage
         }
-        Debug.Log(damage, other.transform.gameObject);
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            other.gameObject.GetComponent<PlayerHealth>().ApplyDamage(calculatedDamage);
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            other.gameObject.GetComponent<EnemyScript>().ApplyDamage(calculatedDamage);
+        }
+
+        Debug.Log($"Applied damage: {calculatedDamage}", other.transform.gameObject);
     }
+
 
     private void OnDrawGizmosSelected()
     {
-        //Visualize the explosion radius in the editor
+        //Damage Radius
+        explosionRadius = transform.localScale.y / 2;
+
+        //The damageArea "outside takes 0 damage duh"
         Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
 
-        //Remove when have expolsion paricle effect
-        Gizmos.DrawWireSphere(transform.position, transform.localScale.y / 2);
+        //Every thing inside takes 100% of maxDamage
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, (explosionRadius * (take100 / 100f)));
 
-        //Use when have expolsion paricle effect
-        //Gizmos.DrawSphere(transform.position, transform.localScale.y / 2);
+        //Every thing inside takes 50% of maxDamage
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, take50 / explosionRadius);
+
+        //Every thing inside takes 30% of maxDamage
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, take20 / explosionRadius);
     }
 }
