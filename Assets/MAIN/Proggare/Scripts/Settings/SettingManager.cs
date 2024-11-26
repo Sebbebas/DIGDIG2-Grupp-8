@@ -112,7 +112,6 @@ public class SettingManager : MonoBehaviour
         {
             //Makes esc function as a back button when in settings
             OnBackClick();
-            Debug.Log("fuck u");
         }
     }
     /// <summary>
