@@ -944,6 +944,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: effects.Array.data[0].fireEffects.muzzleTime
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: effects.Array.data[0].fireEffects.muzzleFlash
       value: 
       objectReference: {fileID: 122629626}

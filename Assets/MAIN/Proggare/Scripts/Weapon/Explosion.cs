@@ -33,6 +33,8 @@ public class Explosion : MonoBehaviour
 
     private void CalculateDamage(Transform other)
     {
+        explosionRadius = transform.localScale.y / 2;
+
         float distance = Vector3.Distance(transform.position, other.position);
         float distancePercent = (distance / explosionRadius) * 100f;
         float calculatedDamage = 0f;
@@ -43,11 +45,11 @@ public class Explosion : MonoBehaviour
         {
             calculatedDamage = maxDamage; //100% damage
         }
-        else if (distancePercent <= 60f)
+        else if (distancePercent <= take50)
         {
             calculatedDamage = maxDamage * 0.5f; // 50% damage
         }
-        else if (distancePercent >= 80f && distancePercent <= 100f)
+        else if (distancePercent >= take20)
         {
             calculatedDamage = maxDamage * 0.3f; // 30% damage
         }
