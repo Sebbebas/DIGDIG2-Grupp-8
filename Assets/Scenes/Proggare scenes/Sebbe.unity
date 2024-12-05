@@ -614,9 +614,11 @@ MonoBehaviour:
   inputActions: {fileID: 0}
   sensitivitySlider: {fileID: 0}
   sensitivityText: {fileID: 0}
+  sensitivityMinValue: 1
+  sensitivityMaxValue: 200
   crossair: {fileID: 0}
-  pauseCanvas: {fileID: 0}
-  settingsCanvas: {fileID: 0}
+  pauseCanvas: {fileID: 2004001783}
+  settingsCanvas: {fileID: 1930958865}
 --- !u!1 &755293115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,24 +1233,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 625075583861400179, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 625075583861400179, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 625075583861400179, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 625075583861400179, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.1
       objectReference: {fileID: 0}
     - target: {fileID: 625075583861400179, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 14.15
       objectReference: {fileID: 0}
     - target: {fileID: 625075583861400179, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1283,20 +1273,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7580945724979531975, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
-      propertyPath: take20
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7580945724979531975, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
-      propertyPath: take50
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7580945724979531975, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
-      propertyPath: take100
-      value: 14.93
-      objectReference: {fileID: 0}
-    - target: {fileID: 7580945724979531975, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
-      propertyPath: effectedObjects.m_Bits
-      value: 72
+      propertyPath: effectedObjectList.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8534795929592968429, guid: 19e0bdb9cbfc5f049bd37e94aff969a1, type: 3}
       propertyPath: m_Name
@@ -1524,6 +1502,16 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1916334698}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1930958865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4213300569081926599, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+  m_PrefabInstance: {fileID: 1085685747}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2004001783 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 460666801099044983, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+  m_PrefabInstance: {fileID: 1085685747}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

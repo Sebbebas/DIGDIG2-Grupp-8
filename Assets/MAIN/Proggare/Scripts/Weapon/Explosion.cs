@@ -37,6 +37,8 @@ public class Explosion : MonoBehaviour
         float distancePercent = (distance / explosionRadius) * 100f;
         float calculatedDamage = 0f;
 
+        Debug.Log(distancePercent);
+
         if (distancePercent <= take100)
         {
             calculatedDamage = maxDamage; //100% damage
@@ -48,10 +50,6 @@ public class Explosion : MonoBehaviour
         else if (distancePercent >= 80f && distancePercent <= 100f)
         {
             calculatedDamage = maxDamage * 0.3f; // 30% damage
-        }
-        else
-        {
-            calculatedDamage = 0f; // No damage
         }
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -72,20 +70,16 @@ public class Explosion : MonoBehaviour
         //Damage Radius
         explosionRadius = transform.localScale.y / 2;
 
-        //The damageArea "outside takes 0 damage duh"
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, explosionRadius);
-
         //Every thing inside takes 100% of maxDamage
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, (explosionRadius * (take100 / 100f)));
+        Gizmos.DrawWireSphere(transform.position, explosionRadius * (take100 / 100f));
 
         //Every thing inside takes 50% of maxDamage
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, take50 / explosionRadius);
+        Gizmos.DrawWireSphere(transform.position, explosionRadius * (take50 / 100f));
 
         //Every thing inside takes 30% of maxDamage
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, take20 / explosionRadius);
+        Gizmos.DrawWireSphere(transform.position, explosionRadius * (take20 / 100f));
     }
 }

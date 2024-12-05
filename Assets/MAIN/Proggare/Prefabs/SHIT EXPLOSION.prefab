@@ -122,6 +122,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f9b22d62fd528419605d060c95c714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDamage: 100
+  damageReductionOverDistance: 3
+  effectedObjects:
+    serializedVersion: 2
+    m_Bits: 72
+  effectedObjectList: []
+  take100: 50
+  take50: 80
+  take20: 100
 --- !u!114 &392596083299948935
 MonoBehaviour:
   m_ObjectHideFlags: 0

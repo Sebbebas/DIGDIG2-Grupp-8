@@ -225,6 +225,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 8aa0863e074996a429a1d95f66d55176, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 06fd05217f0cf034eb508e2a3b0e5805, type: 2}
     - target: {fileID: 919132149155446097, guid: 8aa0863e074996a429a1d95f66d55176, type: 3}
       propertyPath: m_Name
       value: naden
