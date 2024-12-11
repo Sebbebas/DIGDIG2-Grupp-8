@@ -193,14 +193,13 @@ public class Weapon : MonoBehaviour
     {
         foreach (var effect in effects)
         {
-
             //Muzzle Flash
             if (EffectType.fire == type)
             {
                 //Random rotation of the muzzleFlash particle
                 if (effect.fireEffects.muzzleFlashParticle != null) 
-                { 
-                    effect.fireEffects.muzzleFlashParticle.startRotation = Random.Range(0f, 365f); 
+                {
+                    effect.fireEffects.muzzleFlashParticle.startRotation = Random.Range(0f, 365f);
                 }
 
                 //Turn on the muzzle flash for set time

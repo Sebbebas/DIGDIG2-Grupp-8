@@ -15,12 +15,12 @@ public class PlayerLook : MonoBehaviour
 
     //Cached References
     Transform playerBody;
-    PlayerInputActions inputActions;
+    InputActions inputActions;
 
     private void Awake()
     {
         playerBody = GetComponentInParent<CharacterController>().GetComponent<Transform>();
-        inputActions = new PlayerInputActions();
+        inputActions = new InputActions();
         Cursor.lockState = CursorLockMode.Locked;
     }
 

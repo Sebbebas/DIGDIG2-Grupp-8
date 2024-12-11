@@ -50,9 +50,9 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+        PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
 
         if (playerHealth != null && canDamage)
         {
@@ -81,7 +81,7 @@ public class EnemyScript : MonoBehaviour
     public void ApplyDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
-        Debug.Log("Enemy took damage: " + damageAmount + ", Current Health: " + currentHealth);
+        Debug.Log(transform.gameObject.name + " took damage: " + damageAmount + ", Current Health: " + currentHealth);
 
         if (currentHealth <= 0)
         {

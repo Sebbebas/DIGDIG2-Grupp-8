@@ -19,7 +19,7 @@ public class Explosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the object's layer is within the specified LayerMask
+        //Check if the object's layer is within the specified LayerMask
         if (((1 << other.gameObject.layer) & effectedObjects) != 0)
         {
             //Add the object to the list if it isn't already in it
@@ -39,8 +39,6 @@ public class Explosion : MonoBehaviour
         float distancePercent = (distance / explosionRadius) * 100f;
         float calculatedDamage = 0f;
 
-        Debug.Log(distancePercent);
-
         if (distancePercent <= take100)
         {
             calculatedDamage = maxDamage; //100% damage
@@ -58,14 +56,12 @@ public class Explosion : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerHealth>().ApplyDamage(calculatedDamage);
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemies"))
         {
             other.gameObject.GetComponent<EnemyScript>().ApplyDamage(calculatedDamage);
         }
-
-        Debug.Log($"Applied damage: {calculatedDamage}", other.transform.gameObject);
     }
-
 
     private void OnDrawGizmosSelected()
     {
