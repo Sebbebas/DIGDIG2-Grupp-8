@@ -13,7 +13,19 @@ public class SettingManager : MonoBehaviour
     [SerializeField, Tooltip("Shows value of sensitivity to player")] TextMeshProUGUI sensitivityText;
     [SerializeField] int sensitivityMinValue = 1;
     [SerializeField] int sensitivityMaxValue = 200;
-    [SerializeField] GameObject crossair;
+
+    [Header("Camera Settings")]
+    [SerializeField] Camera mainCamera;
+    [SerializeField] Slider mainCamSlider;
+    [SerializeField] int mainCamFOV = 60;
+    [SerializeField] int mainFOVMinValue = 1;
+    [SerializeField] int mainFOVMaxValue = 120;
+    [SerializeField] Camera overlayCamera;
+    [SerializeField] Slider overlayCamSlider;
+    [SerializeField] int overlayCamFOV = 60;
+    [SerializeField] int overlayFOVMinValue = 1;
+    [SerializeField] int overlayFOVMaxValue = 120;
+
 
     [Header("Manually Pause Game")]
     [SerializeField] GameObject pauseCanvas;
@@ -34,8 +46,16 @@ public class SettingManager : MonoBehaviour
         settingsCanvasOn = false;
         settingsCanvas.SetActive(false);
 
+        #region sliderValues
         sensitivitySlider.minValue = sensitivityMinValue;
         sensitivitySlider.maxValue = sensitivityMaxValue;
+
+        mainCamSlider.minValue = mainFOVMinValue;
+        mainCamSlider.maxValue = mainFOVMaxValue;
+
+        overlayCamSlider.minValue = overlayFOVMinValue;
+        overlayCamSlider.maxValue = overlayFOVMaxValue;
+        #endregion
 
         sensitivitySlider.onValueChanged.AddListener(value => OnSensitivityChange((int)value));
     }
@@ -108,6 +128,16 @@ public class SettingManager : MonoBehaviour
         {
             sensitivityText.text = "Sensitivity: " + value + "%";
         }
+    }
+
+    void OnFOVChange()
+    {
+        mainCamera.fieldOfView = mainCamFOV;
+
+        mainCamSlider.onValueChanged.AddListener(delegate 
+        {
+            Debug.Log(mainCamSlider.value);
+        });
     }
 
     void OnPause(InputAction.CallbackContext context) { }
