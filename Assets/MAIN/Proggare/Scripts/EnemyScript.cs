@@ -20,6 +20,10 @@ public class EnemyScript : MonoBehaviour
     private float currentStunTime;
     private bool canDamage = true;
 
+    [Header("LootDrop values")]
+    private LootSystem lootSystem;
+
+
     NavMeshAgent agent;
     Rigidbody myRigidbody;
 
@@ -28,6 +32,8 @@ public class EnemyScript : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         myRigidbody = GetComponent<Rigidbody>();
         enemySpeedAtStart = agent.speed;
+
+        lootSystem = GetComponent<LootSystem>();
     }
 
     private void Update()
@@ -93,5 +99,10 @@ public class EnemyScript : MonoBehaviour
     {
         OnEnemyDeath?.Invoke(gameObject);
         Destroy(gameObject);
+
+        if (lootSystem != null)
+        {
+            lootSystem.DropLoot();
+        }
     }
 }
