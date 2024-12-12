@@ -186,16 +186,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4327374827836331831, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 663221815}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
---- !u!1 &63637924 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4327374827836331831, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-  m_PrefabInstance: {fileID: 63637923}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &114761914
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,23 +540,6 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
---- !u!114 &663221815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63637924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b634cd374e51c40a845ff5e34f0574, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInputActions: {fileID: 0}
-  radius: 2
-  coneAngle: 25
-  coneResolution: 12
-  interactionCooldown: 0
 --- !u!1 &713343854
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,18 +1854,6 @@ PrefabInstance:
     - target: {fileID: 3422754415770351008, guid: 02ff9e5e918f3a443acffedabc8deaf6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972062470312697674, guid: 02ff9e5e918f3a443acffedabc8deaf6, type: 3}
-      propertyPath: actions.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972062470312697674, guid: 02ff9e5e918f3a443acffedabc8deaf6, type: 3}
-      propertyPath: actions.Array.data[2].scene
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972062470312697674, guid: 02ff9e5e918f3a443acffedabc8deaf6, type: 3}
-      propertyPath: actions.Array.data[2].actionType
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

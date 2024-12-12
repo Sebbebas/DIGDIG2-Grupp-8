@@ -112,7 +112,6 @@ public class SettingManager : MonoBehaviour
         {
             //Makes esc function as a back button when in settings
             OnBackClick();
-            Debug.Log("fuck u");
         }
     }
     /// <summary>
@@ -128,6 +127,17 @@ public class SettingManager : MonoBehaviour
         //Set values acording to current state
         pauseCanvas.SetActive(gamePausedManually);
         Time.timeScale = gamePausedManually ? 0 : 1;
+    }
+
+
+    public void OnMegaShitDONTWORK()
+    {
+        pauseCanvas.SetActive(false);
+    }
+
+    public void OnResumeClicks()
+    {
+        
     }
 
     public void OnSettingsClick()

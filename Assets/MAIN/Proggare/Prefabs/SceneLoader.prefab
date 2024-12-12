@@ -59,3 +59,10 @@ MonoBehaviour:
     parameterType: 0
     parameterName: 
     parameterValue: 0
+  - actionType: 2
+    scene: 1
+    transitionTime: 0
+    animator: {fileID: 0}
+    parameterType: 0
+    parameterName: 
+    parameterValue: 0
