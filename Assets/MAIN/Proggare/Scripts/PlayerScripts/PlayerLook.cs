@@ -26,11 +26,11 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
-        if (GetComponentInParent<SettingManager>().GetGameIsStopped() || GetComponentInParent<PlayerHealth>().isDead)
+        if (GetComponentInParent<SettingManager>().GetGameIsPaused() || GetComponentInParent<PlayerHealth>().isDead)
         {
             Cursor.lockState = CursorLockMode.Confined;
         }
-        else if (!GetComponentInParent<SettingManager>().GetGameIsStopped() || !GetComponentInParent<PlayerHealth>().isDead)
+        else if (!GetComponentInParent<SettingManager>().GetGameIsPaused() || !GetComponentInParent<PlayerHealth>().isDead)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }

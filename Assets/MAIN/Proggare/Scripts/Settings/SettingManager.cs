@@ -21,36 +21,29 @@ public class SettingManager : MonoBehaviour
     [SerializeField] GameObject pauseCanvas;
     [SerializeField] GameObject settingsCanvas;
 
-    private bool gamePausedManually; //Pause menu
+    private bool gamePausedManually; //If true game is paused
     private bool stopGame;           //Player dead
-    //private bool currentPauseState;  //Pause state
     bool settingsCanvasOn;
 
     private void Awake()
     {
-        //currentPauseState = false; 
-        //gamePausedManually = false;
-
         pauseCanvas.SetActive(false);
         settingsCanvasOn = false;
         settingsCanvas.SetActive(false);
 
         sensitivitySlider.minValue = sensitivityMinValue;
         sensitivitySlider.maxValue = sensitivityMaxValue;
-        //sensitivitySlider.value = GetComponent<PlayerLook>().mouseSensitivity;
 
         sensitivitySlider.onValueChanged.AddListener(value => OnSensitivityChange((int)value));
     }
 
     void Update()
     {
+        Time.timeScale = gamePausedManually ? 0 : 1;
+
         //currentPauseState = gamePausedManually;
 
         while (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
-
-        //if (gamePausedManually == false) { settingsCanvas.SetActive(false); }
-
-        if (gamePausedManually) { crossair.SetActive(false); }
 
         if (sensitivityText != null)
         {
@@ -91,7 +84,7 @@ public class SettingManager : MonoBehaviour
 
     void OnSensitivityChange(int value)
     {
-        GetComponent<PlayerLook>().mouseSensitivity = value;
+        GetComponentInChildren<PlayerLook>().mouseSensitivity = value;
 
         if (sensitivityText != null)
         {
@@ -126,18 +119,12 @@ public class SettingManager : MonoBehaviour
 
         //Set values acording to current state
         pauseCanvas.SetActive(gamePausedManually);
-        Time.timeScale = gamePausedManually ? 0 : 1;
-    }
-
-
-    public void OnMegaShitDONTWORK()
-    {
-        pauseCanvas.SetActive(false);
     }
 
     public void OnResumeClicks()
     {
-        
+        pauseCanvas.SetActive(false);
+        gamePausedManually = false;
     }
 
     public void OnSettingsClick()
@@ -156,8 +143,13 @@ public class SettingManager : MonoBehaviour
     /// <summary>
     /// Gets bool gamePausedManually
     /// </summary>
-    public bool GetGameIsStopped()
+    public bool GetGameIsPaused()
     {
         return gamePausedManually;
+    }
+
+    public bool GetGameIsStopped()
+    {
+        return stopGame;
     }
 }

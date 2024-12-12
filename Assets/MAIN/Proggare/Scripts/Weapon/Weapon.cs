@@ -106,7 +106,7 @@ public class Weapon : MonoBehaviour
     public virtual bool Fire()
     {
         //true
-        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false && FindFirstObjectByType<SettingManager>().GetGameIsStopped() == false)
+        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false && FindFirstObjectByType<SettingManager>().GetGameIsPaused() == false)
         {
             //Logic
             currentAmmo--;

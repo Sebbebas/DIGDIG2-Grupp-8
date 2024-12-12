@@ -61,6 +61,7 @@ public class WeaponMovement : MonoBehaviour
         
         //HandleCameraTilt(); // FUNKAR INTE IDK MAN 2 camera fick den att typ funka
                               // Antagligen ingen reference till camera innan men AAAAAAAAAAAAAAAA löss det för fan
+                              //fuck u
 
         //Get current inputs
         mousePos = playerLook.GetlookInput();
