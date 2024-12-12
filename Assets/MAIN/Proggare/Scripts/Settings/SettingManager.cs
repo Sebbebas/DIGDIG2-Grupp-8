@@ -8,8 +8,6 @@ public class SettingManager : MonoBehaviour
     [Header("InputActionMap")]
     [SerializeField] InputActionAsset inputActions;
 
-    InputAction pauseAction;
-
     [Header("Mouse Settings")]
     [SerializeField] Slider sensitivitySlider;
     [SerializeField, Tooltip("Shows value of sensitivity to player")] TextMeshProUGUI sensitivityText;
@@ -25,8 +23,13 @@ public class SettingManager : MonoBehaviour
     private bool stopGame;           //Player dead
     bool settingsCanvasOn;
 
+    InputAction pauseAction;
+    WeaponManager weaponManager;
+
     private void Awake()
     {
+        weaponManager = FindFirstObjectByType<WeaponManager>();
+
         pauseCanvas.SetActive(false);
         settingsCanvasOn = false;
         settingsCanvas.SetActive(false);
@@ -40,6 +43,21 @@ public class SettingManager : MonoBehaviour
     void Update()
     {
         Time.timeScale = gamePausedManually ? 0 : 1;
+        
+        Weapon currentweapon = weaponManager.GetCurrentWeapon().GetComponent<Weapon>();
+
+        if(gamePausedManually || stopGame)
+        {
+            currentweapon.enabled = false;
+
+            weaponManager.enabled = false;
+        }
+        else
+        {
+            currentweapon.enabled = true;
+
+            weaponManager.enabled = true;
+        }
 
         //currentPauseState = gamePausedManually;
 

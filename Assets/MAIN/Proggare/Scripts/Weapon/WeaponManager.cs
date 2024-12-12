@@ -267,4 +267,9 @@ public class WeaponManager : MonoBehaviour
             Gizmos.DrawLine(kickOrigin, kickOrigin + direction * radius);
         }
     }
+
+    public GameObject GetCurrentWeapon()
+    {
+        return currentWeapon;
+    }
 }
