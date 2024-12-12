@@ -16,7 +16,6 @@ public class Explosion : MonoBehaviour
     [SerializeField] float take20;
 
     private float explosionRadius;
-
     private void OnTriggerEnter(Collider other)
     {
         //Check if the object's layer is within the specified LayerMask
