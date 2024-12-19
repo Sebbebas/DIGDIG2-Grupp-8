@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2454519386643796413}
   - component: {fileID: 7762116831725018712}
   - component: {fileID: 3430714379773190074}
-  - component: {fileID: -4346042196879633283}
+  - component: {fileID: 7275560700861332746}
   m_Layer: 0
   m_Name: Lootbox2
   m_TagString: Untagged
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-4346042196879633283
+--- !u!114 &7275560700861332746
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -3,20 +3,19 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 
-// Alexander
-
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] float maxHealth = 100f;
-    [SerializeField] float currentHealth;
+    [SerializeField] float maxHealth = 150f;
+    [SerializeField] float currentHealth = 100f; // Start with 100 health
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool takesDamage;
     [HideInInspector] public bool lowHealth;
 
     [Header("Testing")]
-    [SerializeField] float HealPlayer = 20f;
-    [SerializeField] float DamageAmount = 20f;
+    [SerializeField] float damageAmount = 20f;
     [SerializeField] TextMeshProUGUI healthText;
+
+    private float healAmount = 100f;
 
     [Header("Health Stages")]
     [SerializeField] Image stage1Image;
@@ -31,49 +30,49 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         deathScreen.SetActive(false);
-        currentHealth = maxHealth;
+        currentHealth = 100f; // Set starting health to 100
         HideAllImages();
+        UpdateHealthText();
+        CheckHealthStages(); // Ensure the correct stage is shown at start
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            HealByPercentage(HealPlayer);
+            Heal(healAmount);
             Debug.Log(currentHealth);
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            TakeDamage(DamageAmount);
+            ApplyDamage(damageAmount);
             Debug.Log(currentHealth);
         }
     }
 
-    public void TakeDamage(float damage)
+    public void ApplyDamage(float damageAmount)
     {
         if (isDead)
             return;
 
-        currentHealth -= damage;
+        currentHealth -= damageAmount;
 
-        if (healthText != null) { healthText.text = currentHealth.ToString(); }
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
 
+        UpdateHealthText();
         StartCoroutine(TakeDamageTimer());
 
-        //Checks if the player is die
         if (currentHealth <= 0)
         {
             Die();
         }
-
-        CheckHealthStages();
-    }
-
-    void Die()
-    {
-        isDead = true;
-        Debug.Log("Player has died!");
-        // Destroy(gameObject);
+        else
+        {
+            CheckHealthStages();
+        }
     }
 
     public void Heal(float healAmount)
@@ -83,60 +82,51 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth += healAmount;
 
-        if (healthText != null) { healthText.text = currentHealth.ToString(); }
-
-        //Health won't exceed maxHealth
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
 
+        UpdateHealthText();
         CheckHealthStages();
     }
 
-    public void HealByPercentage(float percentage)
+    private void Die()
     {
-        float healAmount = maxHealth * (percentage / 100f);
-        Heal(healAmount);
+        isDead = true;
+        Debug.Log("Player has died!");
+        deathScreen.SetActive(true);
+        HideAllImages(); // Ensure all health stage overlays are hidden when dead.
+        ShowImage(stage4Image); // Show dead stage overlay.
     }
 
     private void CheckHealthStages()
     {
-        HideAllImages(); //First, hide all images before showing the correct one
+        if (isDead) return; // Do not update health stages if the player is dead.
 
-        if (currentHealth <= 0f)
+        HideAllImages(); // Ensure all images are hidden before displaying the relevant one.
+
+        // Apply health stage overlays based on thresholds
+        if (currentHealth > 60f && currentHealth <= maxHealth)
         {
-            ShowImage(stage4Image); //Dead stage
-            deathScreen.SetActive(true);
+            // No stage overlay for health > 60
+            lowHealth = false;
         }
-        else if (currentHealth <= 20f)
+        else if (currentHealth > 20f && currentHealth <= 60f)
         {
-            ShowImage(stage3Image); //Low health stage
+            ShowImage(stage1Image); // Moderate health stage
+            lowHealth = false;
+        }
+        else if (currentHealth > 0f && currentHealth <= 20f)
+        {
+            ShowImage(stage3Image); // Low health stage
             lowHealth = true;
         }
-        else if (currentHealth >= 21f)
+        else if (currentHealth <= 0f)
         {
-            lowHealth = false;
+            ShowImage(stage4Image); // Dead stage
+            deathScreen.SetActive(true);
         }
-        else if (currentHealth <= 40f)
-        {
-            ShowImage(stage2Image); //Moderate health stage
-            lowHealth = false;
-        }
-        else if (currentHealth <= 60f)
-        {
-            ShowImage(stage1Image); //Good health stage
-            lowHealth = false;
-        }
-        else
-        {
-            lowHealth = false; //Healthy state, no stages visible
-        }
-    }
-
-    public void ApplyDamage(float DamageAmount)
-    {
-        TakeDamage(DamageAmount);
     }
 
     private void ShowImage(Image image)
@@ -149,10 +139,19 @@ public class PlayerHealth : MonoBehaviour
 
     private void HideAllImages()
     {
+        // Reset all health stage overlays
         if (stage1Image != null) stage1Image.enabled = false;
         if (stage2Image != null) stage2Image.enabled = false;
         if (stage3Image != null) stage3Image.enabled = false;
         if (stage4Image != null) stage4Image.enabled = false;
+    }
+
+    private void UpdateHealthText()
+    {
+        if (healthText != null)
+        {
+            healthText.text = currentHealth.ToString("F0");
+        }
     }
 
     IEnumerator TakeDamageTimer()

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8775847810613068883}
   - component: {fileID: 456922247568321912}
   - component: {fileID: 2968888947845504109}
-  - component: {fileID: -5042802434179785239}
+  - component: {fileID: 2001623484020894591}
   m_Layer: 0
   m_Name: Lootbox1
   m_TagString: Untagged
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5042802434179785239
+--- !u!114 &2001623484020894591
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,9 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d512751a92334489a3542700ae9491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpType: 0
+  powerUpType: 1
   duration: 5
-  lifetime: 8
   speedMultiplier: 0
   healthAmount: 50
   ammoAmount: 0

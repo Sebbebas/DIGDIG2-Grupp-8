@@ -1,63 +1,61 @@
 using UnityEngine;
-using System.Collections;
 
 //Alexander
 
 public class PowerUp : MonoBehaviour
 {
-    public enum PowerUpType { SpeedBoost, HealthBoost, AmmoPickup }
+    public enum PowerUpType { SpeedBoost, HealthBoost, AmmoBoost }
     public PowerUpType powerUpType;
 
     [Header("General Power-Up Settings")]
-    public float duration = 5f; // Duration
-    public float lifetime = 8f; // Time before the power-up is destroyed if not picked up
+    public float duration = 5f;
 
     [Header("Speed Boost Settings")]
-    public float speedMultiplier = 1.5f;
+    public float speedMultiplier = 1.5f;    //Temorary
 
     [Header("Health Boost Settings")]
-    public float healthAmount = 25f;
+    public float healthAmount = 20f;
 
     [Header("Ammo Pickup Settings")]
     public int ammoAmount = 10;
 
-    private void Start()
-    {
-        // Start the timer to destroy the object if not picked up
-        StartCoroutine(DestroyAfterLifetime());
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        PlayerController player = other.GetComponent<PlayerController>();
-        if (player != null)
+        PlayerController playerController = other.GetComponent<PlayerController>();
+        PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+
+
+        if (playerController != null || playerHealth != null)
         {
-            ApplyPowerUp(player);
-            Destroy(gameObject);
+            ApplyPowerUp(playerController, playerHealth);
+            Destroy(gameObject); // Remove the power-up after pickup
         }
     }
 
-    private void ApplyPowerUp(PlayerController player)
+    private void ApplyPowerUp(PlayerController playerController, PlayerHealth playerHealth)
     {
         switch (powerUpType)
         {
             case PowerUpType.SpeedBoost:
-                StartCoroutine(player.SpeedBoost(speedMultiplier, duration));
+                if (playerController != null)
+                {
+                    playerController.StartCoroutine(playerController.SpeedBoost(speedMultiplier, duration));
+                }
                 break;
 
             case PowerUpType.HealthBoost:
-                player.AddHealth(healthAmount);
+                if (playerHealth != null)
+                {
+                    playerHealth.Heal(healthAmount);
+                }
                 break;
 
-            case PowerUpType.AmmoPickup:
-                player.AddAmmo(ammoAmount);
+            case PowerUpType.AmmoBoost:
+                if (playerController != null)
+                {
+                    playerController.AddAmmo(ammoAmount);
+                }
                 break;
         }
-    }
-
-    private IEnumerator DestroyAfterLifetime()
-    {
-        yield return new WaitForSeconds(lifetime);
-        Destroy(gameObject); // Destroy the power-up after its lifetime
     }
 }
