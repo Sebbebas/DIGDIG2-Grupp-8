@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 //Alexander
 
@@ -8,7 +9,8 @@ public class PowerUp : MonoBehaviour
     public PowerUpType powerUpType;
 
     [Header("General Power-Up Settings")]
-    public float duration = 5f; //Duration
+    public float duration = 5f; // Duration
+    public float lifetime = 8f; // Time before the power-up is destroyed if not picked up
 
     [Header("Speed Boost Settings")]
     public float speedMultiplier = 1.5f;
@@ -16,8 +18,14 @@ public class PowerUp : MonoBehaviour
     [Header("Health Boost Settings")]
     public float healthAmount = 25f;
 
-    [Header("Ammo pickup Settings")]
+    [Header("Ammo Pickup Settings")]
     public int ammoAmount = 10;
+
+    private void Start()
+    {
+        // Start the timer to destroy the object if not picked up
+        StartCoroutine(DestroyAfterLifetime());
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -45,5 +53,11 @@ public class PowerUp : MonoBehaviour
                 player.AddAmmo(ammoAmount);
                 break;
         }
+    }
+
+    private IEnumerator DestroyAfterLifetime()
+    {
+        yield return new WaitForSeconds(lifetime);
+        Destroy(gameObject); // Destroy the power-up after its lifetime
     }
 }
