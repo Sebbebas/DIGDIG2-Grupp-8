@@ -10,18 +10,20 @@ public class SettingManager : MonoBehaviour
 
     [Header("Mouse Settings")]
     [SerializeField] Slider sensitivitySlider;
-    [SerializeField, Tooltip("Shows value of sensitivity to player")] TextMeshProUGUI sensitivityText;
+    [SerializeField, Tooltip("Shows sensValue of sensitivity to player")] TextMeshProUGUI sensitivityAmount;
     [SerializeField] int sensitivityMinValue = 1;
     [SerializeField] int sensitivityMaxValue = 200;
 
     [Header("Camera Settings")]
     [SerializeField] Camera mainCamera;
     [SerializeField] Slider mainCamSlider;
+    [SerializeField] TextMeshProUGUI FOVAmount;
     [SerializeField] int mainCamFOV = 60;
     [SerializeField] int mainFOVMinValue = 1;
     [SerializeField] int mainFOVMaxValue = 120;
     [SerializeField] Camera overlayCamera;
     [SerializeField] Slider overlayCamSlider;
+    [SerializeField] TextMeshProUGUI overlayFOVAmount;
     [SerializeField] int overlayCamFOV = 60;
     [SerializeField] int overlayFOVMinValue = 1;
     [SerializeField] int overlayFOVMaxValue = 120;
@@ -57,35 +59,36 @@ public class SettingManager : MonoBehaviour
         overlayCamSlider.maxValue = overlayFOVMaxValue;
         #endregion
 
-        sensitivitySlider.onValueChanged.AddListener(value => OnSensitivityChange((int)value));
+        sensitivitySlider.onValueChanged.AddListener(sensitivityValue => OnSensitivityChange((int)sensitivityValue));
+
+        mainCamSlider.onValueChanged.AddListener(mainCamFOV => OnFOVChange((int)mainCamFOV));
+
+        overlayCamSlider.onValueChanged.AddListener(overlayCamFOV => OnOverlayFOVChange((int)overlayCamFOV));
     }
 
     void Update()
     {
-        Time.timeScale = gamePausedManually ? 0 : 1;
-        
-        Weapon currentweapon = weaponManager.GetCurrentWeapon().GetComponent<Weapon>();
-
-        if(gamePausedManually || stopGame)
-        {
-            currentweapon.enabled = false;
-
-            weaponManager.enabled = false;
-        }
-        else
-        {
-            currentweapon.enabled = true;
-
-            weaponManager.enabled = true;
-        }
+        PauseGame();
 
         //currentPauseState = gamePausedManually;
 
         while (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
 
-        if (sensitivityText != null)
+        if (sensitivityAmount != null)
         {
-            sensitivityText.text = sensitivitySlider.value.ToString();
+            sensitivityAmount.text = sensitivitySlider.value.ToString();
+        }
+
+        mainCamera.fieldOfView = mainCamFOV;
+        if (FOVAmount != null)
+        {
+            FOVAmount.text = mainCamSlider.value.ToString(); 
+        }
+
+        overlayCamera.fieldOfView = overlayCamFOV;
+        if (overlayFOVAmount != null)
+        {
+            overlayFOVAmount.text = overlayCamSlider.value.ToString();
         }
 
         if (settingsCanvasOn)
@@ -120,24 +123,54 @@ public class SettingManager : MonoBehaviour
         pauseAction.performed -= OnPause;
     }*/
 
-    void OnSensitivityChange(int value)
+    void PauseGame()
     {
-        GetComponentInChildren<PlayerLook>().mouseSensitivity = value;
+        Time.timeScale = gamePausedManually ? 0 : 1;
 
-        if (sensitivityText != null)
+        Weapon currentweapon = weaponManager.GetCurrentWeapon().GetComponent<Weapon>();
+
+        if (gamePausedManually || stopGame)
         {
-            sensitivityText.text = "Sensitivity: " + value + "%";
+            currentweapon.enabled = false;
+
+            weaponManager.enabled = false;
+        }
+        else
+        {
+            currentweapon.enabled = true;
+
+            weaponManager.enabled = true;
         }
     }
 
-    void OnFOVChange()
+    void OnSensitivityChange(int sensValue)
     {
-        mainCamera.fieldOfView = mainCamFOV;
+        GetComponentInChildren<PlayerLook>().mouseSensitivity = sensValue;
 
-        mainCamSlider.onValueChanged.AddListener(delegate 
+        if (sensitivityAmount != null)
         {
-            Debug.Log(mainCamSlider.value);
-        });
+            sensitivityAmount.text = sensValue + "";
+        }
+    }
+
+    void OnFOVChange(int FOVValue)
+    {
+        mainCamFOV = FOVValue;
+
+        if (FOVAmount != null)
+        {
+            FOVAmount.text = FOVValue + "";
+        }
+    }
+
+    void OnOverlayFOVChange(int overlayFOVValue)
+    {
+        overlayCamFOV = overlayFOVValue;
+
+        if (overlayFOVAmount != null)
+        {
+            overlayFOVAmount.text = overlayFOVValue + "";
+        }
     }
 
     void OnPause(InputAction.CallbackContext context) { }
