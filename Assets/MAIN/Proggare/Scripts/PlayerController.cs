@@ -5,10 +5,10 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    private float baseSpeed = 5f;
-    private float currentSpeed;
-    private float health = 100f;
-    private int ammo = 50;
+    [SerializeField] float baseSpeed = 5f;
+    [SerializeField] float currentSpeed;
+    [SerializeField] float health = 100f;
+    [SerializeField] int ammo = 50;
 
     private void Start()
     {
