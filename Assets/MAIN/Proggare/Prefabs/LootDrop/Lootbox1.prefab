@@ -126,3 +126,11 @@ MonoBehaviour:
   speedMultiplier: 0
   healthAmount: 50
   ammoAmount: 0
+  healthBoostImage: {fileID: 0}
+  speedBoostImage: {fileID: 0}
+  ammoBoostText: {fileID: 0}
+  uiDisplayDuration: 1.5
+  rotationSpeed: 160
+  floatAmplitude: 0.4
+  floatSpeed: 4
+  pickupSound: {fileID: 8300000, guid: 9358ab0fd6b21af488e18b853990f89e, type: 3}
