@@ -8,6 +8,9 @@ public class SettingManager : MonoBehaviour
     [Header("InputActionMap")]
     [SerializeField] InputActionAsset inputActions;
 
+    [Header("General settings shit")]
+    [SerializeField] GameObject warningText;
+
     [Header("Mouse Settings")]
     [SerializeField] Slider sensitivitySlider;
     [SerializeField, Tooltip("Shows sensValue of sensitivity to player")] TextMeshProUGUI sensitivityAmount;
@@ -28,14 +31,15 @@ public class SettingManager : MonoBehaviour
     [SerializeField] int overlayFOVMinValue = 1;
     [SerializeField] int overlayFOVMaxValue = 120;
 
-
     [Header("Manually Pause Game")]
     [SerializeField] GameObject pauseCanvas;
     [SerializeField] GameObject settingsCanvas;
 
-    private bool gamePausedManually; //If true game is paused
-    private bool stopGame;           //Player dead
+    [Tooltip("If true game is paused")] bool gamePausedManually;
+    [Tooltip("Player dead")] bool stopGame;
     bool settingsCanvasOn;
+    [Tooltip("Checks if apply button has been pressed")] bool isSaved = true;
+    int defaultSensitivity;
 
     InputAction pauseAction;
     WeaponManager weaponManager;
@@ -47,6 +51,7 @@ public class SettingManager : MonoBehaviour
         pauseCanvas.SetActive(false);
         settingsCanvasOn = false;
         settingsCanvas.SetActive(false);
+        warningText.SetActive(false);
 
         #region sliderValues
         sensitivitySlider.minValue = sensitivityMinValue;
@@ -59,11 +64,17 @@ public class SettingManager : MonoBehaviour
         overlayCamSlider.maxValue = overlayFOVMaxValue;
         #endregion
 
+        #region Sliders
+        //Makes value of slider decide mouse sensitivity
         sensitivitySlider.onValueChanged.AddListener(sensitivityValue => OnSensitivityChange((int)sensitivityValue));
+        sensitivitySlider.interactable = true;
 
+        //Makes value of slider decide value of FOV for main camera
         mainCamSlider.onValueChanged.AddListener(mainCamFOV => OnFOVChange((int)mainCamFOV));
-
+        
+        //Makes value of slider decide how far away weapon are i HUD
         overlayCamSlider.onValueChanged.AddListener(overlayCamFOV => OnOverlayFOVChange((int)overlayCamFOV));
+        #endregion
     }
 
     void Update()
@@ -96,6 +107,11 @@ public class SettingManager : MonoBehaviour
             pauseCanvas.SetActive(false);
             gamePausedManually = true;
         }
+
+        /*if ()
+        {
+            sensitivitySlider.interactable = false;
+        }*/
     }
 
     void OnEnable()
@@ -151,6 +167,8 @@ public class SettingManager : MonoBehaviour
         {
             sensitivityAmount.text = sensValue + "";
         }
+
+        isSaved = false;
     }
 
     void OnFOVChange(int FOVValue)
@@ -161,6 +179,8 @@ public class SettingManager : MonoBehaviour
         {
             FOVAmount.text = FOVValue + "";
         }
+
+        isSaved = false;
     }
 
     void OnOverlayFOVChange(int overlayFOVValue)
@@ -171,6 +191,8 @@ public class SettingManager : MonoBehaviour
         {
             overlayFOVAmount.text = overlayFOVValue + "";
         }
+
+        isSaved = false;
     }
 
     void OnPause(InputAction.CallbackContext context) { }
@@ -217,10 +239,37 @@ public class SettingManager : MonoBehaviour
 
     public void OnBackClick()
     {
-        pauseCanvas.SetActive(true);
-        settingsCanvas.SetActive(false);
-        settingsCanvasOn = false;
+        if (!isSaved)
+        {
+            warningText.SetActive(true);
+        }
+        else
+        {
+            pauseCanvas.SetActive(true);
+            settingsCanvas.SetActive(false);
+            settingsCanvasOn = false;
+        }
     }
+
+    //Applies changed settings and saves them
+    //Used for apply button and save button in warningText
+    public void OnApplyClick()
+    {
+        isSaved = true;
+        warningText.SetActive(false);
+    }
+
+    public void OnRevertClick()
+    {
+        GetComponentInChildren<PlayerLook>().mouseSensitivity = defaultSensitivity;
+        warningText.SetActive(false);
+    }
+
+    public void OnCloseClick()
+    {
+        warningText?.SetActive(false);
+    }
+
     /// <summary>
     /// Gets bool gamePausedManually
     /// </summary>
