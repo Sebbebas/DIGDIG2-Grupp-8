@@ -108,10 +108,18 @@ public class SettingManager : MonoBehaviour
             gamePausedManually = true;
         }
 
-        /*if ()
+        if (warningText.activeInHierarchy == true)
         {
             sensitivitySlider.interactable = false;
-        }*/
+            mainCamSlider.interactable = false;
+            overlayCamSlider.interactable = false;
+        }
+        else 
+        {
+            sensitivitySlider.interactable = true;
+            mainCamSlider.interactable = true;
+            overlayCamSlider.interactable = true;
+        }
     }
 
     void OnEnable()
