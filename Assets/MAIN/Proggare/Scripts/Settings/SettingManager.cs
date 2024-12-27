@@ -39,13 +39,39 @@ public class SettingManager : MonoBehaviour
     [Tooltip("Player dead")] bool stopGame;
     bool settingsCanvasOn;
     [Tooltip("Checks if apply button has been pressed")] bool isSaved = true;
-    int defaultSensitivity;
+    int originalSensitivity;
+    int originalMainFOV;
+    int originalOverlayFOV;
 
     InputAction pauseAction;
     WeaponManager weaponManager;
 
     private void Awake()
     {
+        //Load sensitivity from PlayerPrefs defaults to 100
+        int savedSensitivity = PlayerPrefs.GetInt("Sensitivity", 100);
+        //Set the slider value
+        sensitivitySlider.value = savedSensitivity;
+        //Apply to PlayerLook
+        GetComponentInChildren<PlayerLook>().mouseSensitivity = savedSensitivity; 
+        Debug.Log("Loaded sensitivity: " + savedSensitivity);
+
+        //Load main FOV from PlayerPrefs defaults to 60
+        int savedMainFOV = PlayerPrefs.GetInt("Main FOV", 60);
+        //Set the slider value
+        mainCamSlider.value = savedMainFOV;
+        //Apply to PlayerLook
+        mainCamFOV = savedMainFOV;
+        Debug.Log("Loaded main FOV: " + savedMainFOV);
+
+        //Load overlay FOV from PlayerPrefs defaults to 60
+        int savedOverlayFOV = PlayerPrefs.GetInt("Overlay FOV", 60);
+        //Set the slider value
+        overlayCamSlider.value = savedOverlayFOV;
+        //Apply to PlayerLook
+        overlayCamFOV = savedOverlayFOV;
+        Debug.Log("Loaded overlay FOV: " + savedOverlayFOV);
+
         weaponManager = FindFirstObjectByType<WeaponManager>();
 
         pauseCanvas.SetActive(false);
@@ -243,6 +269,11 @@ public class SettingManager : MonoBehaviour
         pauseCanvas.SetActive(false);
         settingsCanvas.SetActive(true);
         settingsCanvasOn = true;
+
+        //Store original settings
+        originalSensitivity = (int)sensitivitySlider.value;
+        originalMainFOV = (int)mainCamSlider.value;
+        originalOverlayFOV = (int)overlayCamSlider.value;
     }
 
     public void OnBackClick()
@@ -265,17 +296,68 @@ public class SettingManager : MonoBehaviour
     {
         isSaved = true;
         warningText.SetActive(false);
+
+        //If "Apply" is press new values are stored
+        originalSensitivity = (int)sensitivitySlider.value;
+        originalMainFOV = (int)mainCamSlider.value;
+        originalOverlayFOV = (int)overlayCamSlider.value;
+
+        //Save the sensitivity value using PlayerPrefs
+        PlayerPrefs.SetInt("Sensitivity", GetComponentInChildren<PlayerLook>().mouseSensitivity);
+        PlayerPrefs.Save();
+        Debug.Log("Sensitivity saved: " + GetComponentInChildren<PlayerLook>().mouseSensitivity);
+
+        //Saves the main FOV value using PlayerPrefs
+        PlayerPrefs.SetInt("Main FOV", mainCamFOV);
+        PlayerPrefs.Save();
+        Debug.Log("Main FOV saved: " + mainCamFOV);
+
+        //Saves the overlay FOV value using PlayerPrefs
+        PlayerPrefs.SetInt("Overlay FOV", overlayCamFOV);
+        PlayerPrefs.Save();
+        Debug.Log("Overlay FOV saved: " + overlayCamFOV);
     }
 
     public void OnRevertClick()
     {
-        GetComponentInChildren<PlayerLook>().mouseSensitivity = defaultSensitivity;
+        //Reverts to original settings
+        sensitivitySlider.value = originalSensitivity;
+        mainCamSlider.value = originalMainFOV;
+        overlayCamSlider.value = originalOverlayFOV;
+
+        GetComponentInChildren<PlayerLook>().mouseSensitivity = originalSensitivity;
+        mainCamFOV = originalMainFOV;
+        overlayCamFOV = originalOverlayFOV;
+
         warningText.SetActive(false);
+        Debug.Log("Settings reverted to original values.");
     }
 
     public void OnCloseClick()
     {
-        warningText?.SetActive(false);
+        //If there were any changes and the player hasnt applied them reset to original values
+        if (!isSaved)
+        {
+            //Reset the sliders and values to their original states
+            sensitivitySlider.value = originalSensitivity;
+            mainCamSlider.value = originalMainFOV;
+            overlayCamSlider.value = originalOverlayFOV;
+
+            //Revert the values to their original states in the PlayerLook and camera settings
+            GetComponentInChildren<PlayerLook>().mouseSensitivity = originalSensitivity;
+            mainCamFOV = originalMainFOV;
+            overlayCamFOV = originalOverlayFOV;
+
+            warningText.SetActive(false);
+            Debug.Log("Settings reverted to original values.");
+        }
+
+        //Close the settings menu without saving the changes
+        pauseCanvas.SetActive(true);
+        settingsCanvas.SetActive(false);
+        settingsCanvasOn = false;
+
+        Debug.Log("Settings menu closed without saving changes.");
     }
 
     /// <summary>
