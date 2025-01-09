@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
 
 public class SettingManager : MonoBehaviour
 {
@@ -33,6 +32,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] int weaponFOVMaxValue = 120;
 
     [Header("Manually Pause Game")]
+    [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject pauseCanvas;
     [SerializeField] GameObject settingsCanvas;
 
@@ -54,7 +54,7 @@ public class SettingManager : MonoBehaviour
         //Set the slider value
         sensitivitySlider.value = savedSensitivity;
         //Apply to PlayerLook
-        GetComponentInChildren<PlayerLook>().mouseSensitivity = savedSensitivity; 
+        GetComponentInChildren<PlayerLook>().mouseSensitivity = savedSensitivity;
         Debug.Log("Loaded sensitivity: " + savedSensitivity);
 
         //Load main FOV from PlayerPrefs defaults to 60
@@ -131,10 +131,12 @@ public class SettingManager : MonoBehaviour
 
         if (settingsCanvasOn)
         {
+            mainMenu.SetActive(false);
             pauseCanvas.SetActive(false);
             gamePausedManually = true;
         }
 
+        //Sends out warning that settings is not saved, also make sliders non interactable while warning is true
         if (warningText.activeInHierarchy == true)
         {
             sensitivitySlider.interactable = false;
@@ -257,6 +259,7 @@ public class SettingManager : MonoBehaviour
 
         //Set values acording to current state
         pauseCanvas.SetActive(gamePausedManually);
+        mainMenu.SetActive(gamePausedManually);
     }
 
     public void OnResumeClicks()
@@ -286,6 +289,7 @@ public class SettingManager : MonoBehaviour
         else
         {
             pauseCanvas.SetActive(true);
+            mainMenu.SetActive(true);
             settingsCanvas.SetActive(false);
             settingsCanvasOn = false;
         }
