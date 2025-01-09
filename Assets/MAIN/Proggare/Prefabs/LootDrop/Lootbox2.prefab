@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7762116831725018712}
   - component: {fileID: 3430714379773190074}
   - component: {fileID: 7275560700861332746}
+  - component: {fileID: 383024364435673605}
   m_Layer: 0
   m_Name: Lootbox2
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.350357, y: 2.046556, z: 3.7440376}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.00001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -126,7 +127,24 @@ MonoBehaviour:
   speedMultiplier: 2
   healthAmount: 0
   ammoAmount: 0
-  rotationSpeed: 160
+  healthBoostImage: {fileID: 0}
+  speedBoostImage: {fileID: 0}
+  ammoBoostText: {fileID: 0}
+  uiDisplayDuration: 3
+  rotationSpeed: 0
   floatAmplitude: 0.5
   floatSpeed: 4
   pickupSound: {fileID: 8300000, guid: 9358ab0fd6b21af488e18b853990f89e, type: 3}
+--- !u!114 &383024364435673605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7134699567617145357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515fcc0da270c1540b977535a8c47b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
