@@ -96,6 +96,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: c0c89a60ea5e3414887202ea8c5c2348, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -744075452531441897, guid: 4b9ef36c3547512468ac7850b26c03af, type: 3}
     - target: {fileID: 919132149155446097, guid: c0c89a60ea5e3414887202ea8c5c2348, type: 3}
       propertyPath: m_Name
       value: tile_wall_metal
