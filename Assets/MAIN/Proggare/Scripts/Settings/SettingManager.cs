@@ -295,6 +295,13 @@ public class SettingManager : MonoBehaviour
         }
     }
 
+    public void OnResetClick()
+    {
+        originalSensitivity = (int)sensitivitySlider.value;
+        originalMainFOV = (int)mainCamSlider.value;
+        originalWeaponFOV = (int)weaponCamSlider.value;
+    }
+
     //Applies changed settings and saves them
     //Used for apply button and save button in warningText
     public void OnApplyClick()
