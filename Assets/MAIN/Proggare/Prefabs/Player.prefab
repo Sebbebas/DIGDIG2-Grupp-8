@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 7808941121863255874}
   - component: {fileID: 3363671265073957396}
   m_Layer: 0
-  m_Name: Overlay FOV Amount
+  m_Name: Weapon FOV Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1012,8 +1012,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9051779206944237824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.33333334, y: 0}
-  m_AnchorMax: {x: 0.33333334, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1411,7 +1411,7 @@ GameObject:
   - component: {fileID: 6072597184711555649}
   - component: {fileID: 2012478719583733865}
   m_Layer: 0
-  m_Name: Overlay FOV Slider
+  m_Name: Weapon FOV Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1682,7 +1682,7 @@ GameObject:
   - component: {fileID: 33917342769336556}
   - component: {fileID: 6697465955799576092}
   m_Layer: 0
-  m_Name: Overlay Camera
+  m_Name: Weapon Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2404,7 +2404,7 @@ RectTransform:
   m_Father: {fileID: 1149303891453690465}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.33333334, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2751,7 +2751,7 @@ RectTransform:
   m_Father: {fileID: 5722853282644881637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.49748743, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3338,7 +3338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6519472737758731999
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3689,7 +3689,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4327374827836331831}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d5cf2921050501429f395598d5dccc0, type: 3}
   m_Name: 
@@ -3699,17 +3699,17 @@ MonoBehaviour:
   displayStringOptions: 0
   inputBinding:
     m_Name: 
-    m_Id: eb40bb66-4559-4dfa-9a2f-820438abb426
-    m_Path: <Keyboard>/space
+    m_Id: 
+    m_Path: 
     m_Interactions: 
     m_Processors: 
-    m_Groups: Keyboard&Mouse
-    m_Action: Jump
+    m_Groups: 
+    m_Action: 
     m_Flags: 0
-  actionText: {fileID: 1457171826709125579}
-  rebindButton: {fileID: 2271344896073413666}
-  rebindText: {fileID: 2061687107429943632}
-  resetButton: {fileID: 6917213800492375310}
+  actionText: {fileID: 0}
+  rebindButton: {fileID: 0}
+  rebindText: {fileID: 0}
+  resetButton: {fileID: 0}
 --- !u!114 &1402335104695374376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3734,12 +3734,12 @@ MonoBehaviour:
   mainCamFOV: 60
   mainFOVMinValue: 30
   mainFOVMaxValue: 120
-  overlayCamera: {fileID: 33917342769336556}
-  overlayCamSlider: {fileID: 2012478719583733865}
-  overlayFOVAmount: {fileID: 3363671265073957396}
-  overlayCamFOV: 60
-  overlayFOVMinValue: 30
-  overlayFOVMaxValue: 120
+  weaponCamera: {fileID: 33917342769336556}
+  weaponCamSlider: {fileID: 2012478719583733865}
+  weaponFOVAmount: {fileID: 3363671265073957396}
+  weaponCamFOV: 60
+  weaponFOVMinValue: 1
+  weaponFOVMaxValue: 120
   pauseCanvas: {fileID: 460666801099044983}
   settingsCanvas: {fileID: 4213300569081926599}
 --- !u!1 &4339922676111513910
@@ -10895,7 +10895,7 @@ GameObject:
   - component: {fileID: 492273092857744205}
   - component: {fileID: 3144061349342806896}
   m_Layer: 0
-  m_Name: Overlay FOV Text
+  m_Name: Weapon FOV Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10918,7 +10918,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -700, y: 100}
-  m_SizeDelta: {x: 300, y: 50}
+  m_SizeDelta: {x: 305, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &492273092857744205
 CanvasRenderer:
@@ -10948,7 +10948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Overlay FOV
+  m_text: Weapon FOV
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11679,8 +11679,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5604963671955685149}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.33333334, y: 0}
-  m_AnchorMax: {x: 0.33333334, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11754,8 +11754,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5291337760731269657}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.49748743, y: 0}
-  m_AnchorMax: {x: 0.49748743, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12503,7 +12503,7 @@ RectTransform:
   m_Father: {fileID: 3754273030205046631}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.33333334, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12770,7 +12770,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6502784364250523702}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 529293960734338356}
+        m_TargetAssemblyTypeName: Rebinding, Assembly-CSharp
+        m_MethodName: StartingRebinding
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8471011892032134157
 GameObject:
   m_ObjectHideFlags: 0

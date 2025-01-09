@@ -1,5 +1,7 @@
 using UnityEngine;
 
+//NOT USED JUST PRESETS
+
 public class SaveManager : MonoBehaviour
 {
     const string sensitivityKey = "Sensitivity"; // Key for PlayerPrefs

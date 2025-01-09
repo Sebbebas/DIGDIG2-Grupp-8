@@ -24,12 +24,12 @@ public class SettingManager : MonoBehaviour
     [SerializeField] int mainCamFOV = 60;
     [SerializeField] int mainFOVMinValue = 1;
     [SerializeField] int mainFOVMaxValue = 120;
-    [SerializeField] Camera overlayCamera;
-    [SerializeField] Slider overlayCamSlider;
-    [SerializeField] TextMeshProUGUI overlayFOVAmount;
-    [SerializeField] int overlayCamFOV = 60;
-    [SerializeField] int overlayFOVMinValue = 1;
-    [SerializeField] int overlayFOVMaxValue = 120;
+    [SerializeField] Camera weaponCamera;
+    [SerializeField] Slider weaponCamSlider;
+    [SerializeField] TextMeshProUGUI weaponFOVAmount;
+    [SerializeField] int weaponCamFOV = 60;
+    [SerializeField] int weaponFOVMinValue = 1;
+    [SerializeField] int weaponFOVMaxValue = 120;
 
     [Header("Manually Pause Game")]
     [SerializeField] GameObject pauseCanvas;
@@ -41,7 +41,7 @@ public class SettingManager : MonoBehaviour
     [Tooltip("Checks if apply button has been pressed")] bool isSaved = true;
     int originalSensitivity;
     int originalMainFOV;
-    int originalOverlayFOV;
+    int originalWeaponFOV;
 
     InputAction pauseAction;
     WeaponManager weaponManager;
@@ -64,13 +64,13 @@ public class SettingManager : MonoBehaviour
         mainCamFOV = savedMainFOV;
         Debug.Log("Loaded main FOV: " + savedMainFOV);
 
-        //Load overlay FOV from PlayerPrefs defaults to 60
-        int savedOverlayFOV = PlayerPrefs.GetInt("Overlay FOV", 60);
+        //Load weapon FOV from PlayerPrefs defaults to 60
+        int savedWeaponFOV = PlayerPrefs.GetInt("Weapon FOV", 60);
         //Set the slider value
-        overlayCamSlider.value = savedOverlayFOV;
+        weaponCamSlider.value = savedWeaponFOV;
         //Apply to PlayerLook
-        overlayCamFOV = savedOverlayFOV;
-        Debug.Log("Loaded overlay FOV: " + savedOverlayFOV);
+        weaponCamFOV = savedWeaponFOV;
+        Debug.Log("Loaded weapon FOV: " + savedWeaponFOV);
 
         weaponManager = FindFirstObjectByType<WeaponManager>();
 
@@ -86,8 +86,8 @@ public class SettingManager : MonoBehaviour
         mainCamSlider.minValue = mainFOVMinValue;
         mainCamSlider.maxValue = mainFOVMaxValue;
 
-        overlayCamSlider.minValue = overlayFOVMinValue;
-        overlayCamSlider.maxValue = overlayFOVMaxValue;
+        weaponCamSlider.minValue = weaponFOVMinValue;
+        weaponCamSlider.maxValue = weaponFOVMaxValue;
         #endregion
 
         #region Sliders
@@ -99,7 +99,7 @@ public class SettingManager : MonoBehaviour
         mainCamSlider.onValueChanged.AddListener(mainCamFOV => OnFOVChange((int)mainCamFOV));
         
         //Makes value of slider decide how far away weapon are i HUD
-        overlayCamSlider.onValueChanged.AddListener(overlayCamFOV => OnOverlayFOVChange((int)overlayCamFOV));
+        weaponCamSlider.onValueChanged.AddListener(overlayCamFOV => OnWeaponFOVChange((int)overlayCamFOV));
         #endregion
     }
 
@@ -122,10 +122,10 @@ public class SettingManager : MonoBehaviour
             FOVAmount.text = mainCamSlider.value.ToString(); 
         }
 
-        overlayCamera.fieldOfView = overlayCamFOV;
-        if (overlayFOVAmount != null)
+        weaponCamera.fieldOfView = weaponCamFOV;
+        if (weaponFOVAmount != null)
         {
-            overlayFOVAmount.text = overlayCamSlider.value.ToString();
+            weaponFOVAmount.text = weaponCamSlider.value.ToString();
         }
 
         if (settingsCanvasOn)
@@ -138,13 +138,13 @@ public class SettingManager : MonoBehaviour
         {
             sensitivitySlider.interactable = false;
             mainCamSlider.interactable = false;
-            overlayCamSlider.interactable = false;
+            weaponCamSlider.interactable = false;
         }
         else 
         {
             sensitivitySlider.interactable = true;
             mainCamSlider.interactable = true;
-            overlayCamSlider.interactable = true;
+            weaponCamSlider.interactable = true;
         }
     }
 
@@ -217,13 +217,13 @@ public class SettingManager : MonoBehaviour
         isSaved = false;
     }
 
-    void OnOverlayFOVChange(int overlayFOVValue)
+    void OnWeaponFOVChange(int weaponFOVValue)
     {
-        overlayCamFOV = overlayFOVValue;
+        weaponCamFOV = weaponFOVValue;
 
-        if (overlayFOVAmount != null)
+        if (weaponFOVAmount != null)
         {
-            overlayFOVAmount.text = overlayFOVValue + "";
+            weaponFOVAmount.text = weaponFOVValue + "";
         }
 
         isSaved = false;
@@ -273,7 +273,7 @@ public class SettingManager : MonoBehaviour
         //Store original settings
         originalSensitivity = (int)sensitivitySlider.value;
         originalMainFOV = (int)mainCamSlider.value;
-        originalOverlayFOV = (int)overlayCamSlider.value;
+        originalWeaponFOV = (int)weaponCamSlider.value;
     }
 
     public void OnBackClick()
@@ -300,7 +300,7 @@ public class SettingManager : MonoBehaviour
         //If "Apply" is press new values are stored
         originalSensitivity = (int)sensitivitySlider.value;
         originalMainFOV = (int)mainCamSlider.value;
-        originalOverlayFOV = (int)overlayCamSlider.value;
+        originalWeaponFOV = (int)weaponCamSlider.value;
 
         //Save the sensitivity value using PlayerPrefs
         PlayerPrefs.SetInt("Sensitivity", GetComponentInChildren<PlayerLook>().mouseSensitivity);
@@ -312,10 +312,10 @@ public class SettingManager : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log("Main FOV saved: " + mainCamFOV);
 
-        //Saves the overlay FOV value using PlayerPrefs
-        PlayerPrefs.SetInt("Overlay FOV", overlayCamFOV);
+        //Saves the weapon FOV value using PlayerPrefs
+        PlayerPrefs.SetInt("Weapon FOV", weaponCamFOV);
         PlayerPrefs.Save();
-        Debug.Log("Overlay FOV saved: " + overlayCamFOV);
+        Debug.Log("Weapon FOV saved: " + weaponCamFOV);
     }
 
     public void OnRevertClick()
@@ -323,11 +323,11 @@ public class SettingManager : MonoBehaviour
         //Reverts to original settings
         sensitivitySlider.value = originalSensitivity;
         mainCamSlider.value = originalMainFOV;
-        overlayCamSlider.value = originalOverlayFOV;
+        weaponCamSlider.value = originalWeaponFOV;
 
         GetComponentInChildren<PlayerLook>().mouseSensitivity = originalSensitivity;
         mainCamFOV = originalMainFOV;
-        overlayCamFOV = originalOverlayFOV;
+        weaponCamFOV = originalWeaponFOV;
 
         warningText.SetActive(false);
         Debug.Log("Settings reverted to original values.");
@@ -341,12 +341,12 @@ public class SettingManager : MonoBehaviour
             //Reset the sliders and values to their original states
             sensitivitySlider.value = originalSensitivity;
             mainCamSlider.value = originalMainFOV;
-            overlayCamSlider.value = originalOverlayFOV;
+            weaponCamSlider.value = originalWeaponFOV;
 
             //Revert the values to their original states in the PlayerLook and camera settings
             GetComponentInChildren<PlayerLook>().mouseSensitivity = originalSensitivity;
             mainCamFOV = originalMainFOV;
-            overlayCamFOV = originalOverlayFOV;
+            weaponCamFOV = originalWeaponFOV;
 
             warningText.SetActive(false);
             Debug.Log("Settings reverted to original values.");

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 
-//Sebbe
+//Seb Neb
 public enum EffectType
 {
     fire = 0,
