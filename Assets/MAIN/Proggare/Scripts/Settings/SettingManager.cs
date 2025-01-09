@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 
 public class SettingManager : MonoBehaviour
 {
