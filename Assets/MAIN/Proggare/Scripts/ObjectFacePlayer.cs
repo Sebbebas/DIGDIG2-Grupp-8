@@ -1,13 +1,22 @@
 using UnityEngine;
 
-//Alexander
-
-public class LookAtPlayer : MonoBehaviour
+public class ObjectFacePlayer : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
+
+    void Start()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+    }
 
     void Update()
     {
-        transform.LookAt(player.transform);
+        if (player != null)
+        {
+            transform.LookAt(player.transform);
+        }
     }
 }
