@@ -13,6 +13,11 @@ public enum EffectType
 
 public class Weapon : MonoBehaviour
 {
+    public void AddAmmo(int amount)
+    {
+        totalAmmo += amount;
+    }
+
     //Configurable Perameters
     [Header("Ammo")]
     public int currentAmmo;

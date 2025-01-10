@@ -108,9 +108,10 @@ public class PowerUp : MonoBehaviour
                 break;
 
             case PowerUpType.AmmoBoost:
-                if (playerController != null)
+                Weapon playerWeapon = playerController.GetComponentInChildren<Weapon>();
+                if (playerWeapon != null)
                 {
-                    playerController.AddAmmo(ammoAmount);
+                    playerWeapon.AddAmmo(ammoAmount);
                 }
                 break;
         }
