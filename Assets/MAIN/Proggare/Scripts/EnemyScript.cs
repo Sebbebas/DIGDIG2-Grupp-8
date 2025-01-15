@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 using System;
 
+//Ale och Elian
 public class EnemyScript : MonoBehaviour
 {
     public event Action<GameObject> OnEnemyDeath;
