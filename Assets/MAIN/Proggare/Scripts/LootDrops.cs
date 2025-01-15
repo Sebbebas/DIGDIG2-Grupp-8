@@ -66,11 +66,14 @@ public class PowerUp : MonoBehaviour
     {
         PlayerController playerController = other.GetComponent<PlayerController>();
         PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+        WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
 
-        if (playerController != null || playerHealth != null)
+        Debug.Log(weaponManager);
+
+        if (playerController != null || playerHealth != null || weaponManager != null)
         {
             PlayPickupSound();
-            ApplyPowerUp(playerController, playerHealth);
+            ApplyPowerUp(playerController, playerHealth, weaponManager);
             ShowUIFeedback();
             Destroy(gameObject); // Remove the power-up after pickup
         }
@@ -89,7 +92,7 @@ public class PowerUp : MonoBehaviour
         }
     }
 
-    private void ApplyPowerUp(PlayerController playerController, PlayerHealth playerHealth)
+    private void ApplyPowerUp(PlayerController playerController, PlayerHealth playerHealth, WeaponManager weaponManager)
     {
         switch (powerUpType)
         {
@@ -108,7 +111,7 @@ public class PowerUp : MonoBehaviour
                 break;
 
             case PowerUpType.AmmoBoost:
-                Weapon playerWeapon = playerController.GetComponentInChildren<Weapon>();
+                Shotgun playerWeapon = weaponManager.GetCurrentWeapon().GetComponent<Shotgun>();
                 if (playerWeapon != null)
                 {
                     playerWeapon.AddAmmo(ammoAmount);
