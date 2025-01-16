@@ -261,7 +261,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4128,8 +4128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998281363c820874489c70bdcef46117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRadius: 15
-  sightRadius: 20
+  spawnRadius: 17.7
+  sightRadius: 24
   despawnRadius: 25
   numberOfEnemies: 5
   enemyZero: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
@@ -4204,9 +4204,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  notSavedWarning: {fileID: 0}
-  revertWarning: {fileID: 0}
-  settingsRevertButton: {fileID: 0}
+  notSavedWarning: {fileID: 8859556258851849961}
+  revertWarning: {fileID: 2305234792070022606}
+  settingsRevertButton: {fileID: 4266773554487563022}
   sensitivitySlider: {fileID: 2020597047549084945}
   sensitivityAmount: {fileID: 6180305415523078711}
   sensitivityMinValue: 1
@@ -10913,7 +10913,7 @@ GameObject:
   - component: {fileID: 5501460580308072972}
   - component: {fileID: 343610064711910270}
   m_Layer: 10
-  m_Name: Point Light
+  m_Name: Flash Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10928,7 +10928,7 @@ Transform:
   m_GameObject: {fileID: 6261873756926268275}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.125, y: 0.051, z: 1.632}
+  m_LocalPosition: {x: 0.048, y: 0.051, z: 1.871}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
