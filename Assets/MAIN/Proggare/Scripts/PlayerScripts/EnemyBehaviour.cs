@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField, Tooltip("Radius to spawn in prefabList")] float spawnRadius = 15f;
+    [SerializeField, Tooltip("Makes so enemies doesn't spawn on player")] float nonSpawnRadius = 2f; // not added
     [SerializeField, Tooltip("Radius for when prefabList see the player")] float sightRadius = 10f;
     [SerializeField] float despawnRadius = 25f;
     [SerializeField] int numberOfEnemies = 5;
@@ -129,6 +130,9 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, spawnRadius);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, nonSpawnRadius);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRadius);
