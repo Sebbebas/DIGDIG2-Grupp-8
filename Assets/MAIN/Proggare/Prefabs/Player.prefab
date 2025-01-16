@@ -1369,7 +1369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAmmo: 2
-  totalAmmo: 90
+  totalAmmo: 16
   magSize: 2
   ammoText: {fileID: 991174203543172757}
   waitBeforeReload: 0.5
@@ -1404,7 +1404,7 @@ MonoBehaviour:
   temporaryHitParticel: {fileID: 4240791907686988539, guid: 480a3bb47f1f17949bf1be45374445ae, type: 3}
   spread: 5
   pellets: 20
-  pelletDamage: 40
+  pelletDamage: 10
 --- !u!1 &763578295600799665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,7 +2231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7291256581887647356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3685,7 +3685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6519472737758731999
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4105,8 +4105,8 @@ MonoBehaviour:
   jumpForce: 2.5
   gravity: -60
   slowMultiplier: 0.8
-  slideSpeed: 20.4
-  slideDuration: 0.5
+  slideSpeed: 19.6
+  slideDuration: 0.45
   slideCooldown: 2
   slideSize: 0.5
   normalSize: 2
@@ -4129,7 +4129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRadius: 24
-  nonSpawnRadius: 2
+  nonSpawnRadius: 4
   sightRadius: 17.7
   despawnRadius: 25
   numberOfEnemies: 5
@@ -12431,7 +12431,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0/0 :(
+  m_text: 0/0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
   m_sharedMaterial: {fileID: 7988088336733355111, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}

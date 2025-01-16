@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float slideDuration = .5f;
     [SerializeField] float slideCooldown = 2f;
     [SerializeField, Tooltip("To change camera height when sliding")] float slideSize = .8f;
-    [SerializeField, Tooltip("Multiplies with scale to get a value of 1")] float normalSize = 1.25f;
+    [SerializeField, Tooltip("Multiplies with slideSize to get a value of 1")] float normalSize = 1.25f;
 
     [Header("Ground Check")]
     [SerializeField] Transform groundCheck;

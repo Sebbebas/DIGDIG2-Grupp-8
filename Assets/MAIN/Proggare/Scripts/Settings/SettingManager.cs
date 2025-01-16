@@ -151,13 +151,16 @@ public class SettingManager : MonoBehaviour
         {
             isSaved = false;
             applyButton.interactable = true;
-        } 
+        }
 
-        if (defaultSensitivity != 100 || defaultMainFOV != 60 || defaultWeaponFOV != 60)
+        if (sensitivitySlider.value != 100 || mainCamSlider.value != 60 || weaponCamSlider.value != 60 || valueChanged)
         {
             settingsRevertButton.interactable = true;
             notDefaultValue = true;
-
+        }
+        if (sensitivitySlider.value == 100 && mainCamSlider.value == 60 && weaponCamSlider.value == 60)
+        {
+            settingsRevertButton.interactable = false;
         }
  
         //Sends out warning that settings is not saved, also make sliders non interactable while warning is true

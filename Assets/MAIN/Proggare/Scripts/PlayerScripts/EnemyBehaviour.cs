@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField, Tooltip("Radius to spawn in prefabList")] float spawnRadius = 15f;
-    [SerializeField, Tooltip("Makes so enemies doesn't spawn on player")] float nonSpawnRadius = 2f; // not added
+    [SerializeField, Tooltip("Makes so enemies doesn't spawn on player")] float nonSpawnRadius = 2f;
     [SerializeField, Tooltip("Radius for when prefabList see the player")] float sightRadius = 10f;
     [SerializeField] float despawnRadius = 25f;
     [SerializeField] int numberOfEnemies = 5;
@@ -51,9 +51,24 @@ public class EnemyBehaviour : MonoBehaviour
 
         for (int i = 0; i < amount; i++)
         {
-            Vector3 randomPos = Random.insideUnitSphere * spawnRadius;
-            randomPos.y = 0;
-            Vector3 spawnPos = transform.position + randomPos;
+            Vector3 spawnPos;
+            bool validPosition = false;
+
+            // Try to find a valid position within spawnRadius and outside nonSpawnRadius
+            do
+            {
+                Vector3 randomPos = Random.insideUnitSphere * spawnRadius;
+                randomPos.y = 0;
+                spawnPos = transform.position + randomPos;
+
+                float distanceToSpawner = Vector3.Distance(transform.position, spawnPos);
+
+                // Check if the position is within spawnRadius and outside nonSpawnRadius
+                if (distanceToSpawner >= nonSpawnRadius && distanceToSpawner <= spawnRadius)
+                {
+                    validPosition = true;
+                }
+            } while (!validPosition);
 
             if (enemyPrefabs.Count > 0)
             {
