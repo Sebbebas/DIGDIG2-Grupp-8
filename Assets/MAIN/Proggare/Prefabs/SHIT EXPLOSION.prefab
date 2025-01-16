@@ -195,6 +195,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   effectedObjectList: []
+  dmgTime: 0.25
   take100: 50
   take50: 80
   take20: 100

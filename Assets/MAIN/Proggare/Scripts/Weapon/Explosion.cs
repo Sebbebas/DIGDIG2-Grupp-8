@@ -7,6 +7,7 @@ public class Explosion : MonoBehaviour
     [Header("Main")]
     [SerializeField] float maxDamage = 100f;
     [SerializeField] float damageReductionOverDistance = 3;
+    [SerializeField] float dmgTime = 0.25f;
     [SerializeField] LayerMask effectedObjects;
     [SerializeField] List<Transform> effectedObjectList = new List<Transform>();
 
@@ -15,17 +16,28 @@ public class Explosion : MonoBehaviour
     [SerializeField] float take50;
     [SerializeField] float take20;
 
+    //Private Variabels
     private float explosionRadius;
+
+    private void FixedUpdate()
+    {
+        dmgTime -= Time.deltaTime;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        //Check if the object's layer is within the specified LayerMask
-        if (((1 << other.gameObject.layer) & effectedObjects) != 0)
+        if (dmgTime < 0) { return; }
+        else 
         {
-            //Add the object to the list if it isn't already in it
-            if (!effectedObjectList.Contains(other.transform))
+            //Check if the object's layer is within the specified LayerMask
+            if (((1 << other.gameObject.layer) & effectedObjects) != 0)
             {
-                effectedObjectList.Add(other.transform);
-                CalculateDamage(other.transform);
+                //Add the object to the list if it isn't already in it
+                if (!effectedObjectList.Contains(other.transform))
+                {
+                    effectedObjectList.Add(other.transform);
+                    CalculateDamage(other.transform);
+                }
             }
         }
     }
