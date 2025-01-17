@@ -11,6 +11,9 @@ public class Explosion : MonoBehaviour
     [SerializeField] LayerMask effectedObjects;
     [SerializeField] List<Transform> effectedObjectList = new List<Transform>();
 
+    [Header("Effects")]
+    [SerializeField] Light explosionLight;
+
     [Header("damage over % of distance")]
     [SerializeField] float take100;
     [SerializeField] float take50;
@@ -19,9 +22,20 @@ public class Explosion : MonoBehaviour
     //Private Variabels
     private float explosionRadius;
 
+    private void Start()
+    {
+        if (explosionLight = null) { explosionLight = GetComponentInChildren<Light>(); }
+    }
+
     private void FixedUpdate()
     {
         dmgTime -= Time.deltaTime;
+
+        if (explosionLight != null)
+        { 
+            float lightIntensity = explosionLight.intensity;
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -100,3 +100,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aliveTime: 3
+  shrink: 1
+  shrinkTime: 2

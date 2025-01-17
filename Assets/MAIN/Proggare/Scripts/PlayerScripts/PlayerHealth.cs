@@ -40,16 +40,16 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Heal(healAmount);
-            Debug.Log(currentHealth);
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            ApplyDamage(damageAmount);
-            Debug.Log(currentHealth);
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    Heal(healAmount);
+        //    Debug.Log(currentHealth);
+        //}
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    ApplyDamage(damageAmount);
+        //    Debug.Log(currentHealth);
+        //}
     }
 
     public void ApplyDamage(float damageAmount)

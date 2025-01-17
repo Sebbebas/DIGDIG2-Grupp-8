@@ -261,7 +261,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1042,10 +1042,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Save '
+  m_text: SAVE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
+  m_sharedMaterial: {fileID: 7988088336733355111, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1069,8 +1069,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1373,7 +1373,7 @@ MonoBehaviour:
   magSize: 2
   ammoText: {fileID: 991174203543172757}
   waitBeforeReload: 0.5
-  reloadTime: 2
+  reloadTime: 1.8
   firedelay: 0.3
   antiHierarchySpam: {fileID: 0}
   hitMask:
@@ -1403,8 +1403,8 @@ MonoBehaviour:
       hitParticle: {fileID: 0}
   temporaryHitParticel: {fileID: 4240791907686988539, guid: 480a3bb47f1f17949bf1be45374445ae, type: 3}
   spread: 5
-  pellets: 20
-  pelletDamage: 10
+  pellets: 24
+  pelletDamage: 12
 --- !u!1 &763578295600799665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,10 +2722,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You have forgotten to save ur changes >:(
+  m_text: YOU HAVE FORGOTTEN TO SAVE YPUR CHANGES >:(
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
+  m_sharedMaterial: {fileID: 7988088336733355111, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2749,8 +2749,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2858,10 +2858,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Close Anyways
+  m_text: CLOSE ANYWAYS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
+  m_sharedMaterial: {fileID: 7988088336733355111, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2885,8 +2885,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 21
+  m_fontSizeBase: 21
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3685,7 +3685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6519472737758731999
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4129,10 +4129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRadius: 24
-  nonSpawnRadius: 4
+  nonSpawnRadius: 11
   sightRadius: 17.7
   despawnRadius: 25
-  numberOfEnemies: 5
+  numberOfEnemies: 12
   enemyZero: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
   enemyOne: {fileID: 2279033429783417335, guid: 7ff750e51b37e2741b191111b4724411, type: 3}
   enemyTwo: {fileID: 0}
@@ -10006,10 +10006,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Revert
+  m_text: REVERT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
+  m_sharedMaterial: {fileID: 7988088336733355111, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10033,8 +10033,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13864,7 +13864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3504965111897768207
 RectTransform:
   m_ObjectHideFlags: 0
