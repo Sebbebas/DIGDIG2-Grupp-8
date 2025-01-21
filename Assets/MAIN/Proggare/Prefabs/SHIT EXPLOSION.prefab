@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6837748592123760236}
   - component: {fileID: 567563863483178552}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: LIGHT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,11 +191,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDamage: 100
   damageReductionOverDistance: 3
+  dmgTime: 0.25
   effectedObjects:
     serializedVersion: 2
     m_Bits: 72
   effectedObjectList: []
-  dmgTime: 0.25
+  explosionLight: {fileID: 6837748592123760236}
   take100: 50
   take50: 80
   take20: 100
@@ -211,4 +212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471170f5aa14bc6489d98587337ca533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy: 1
   aliveTime: 1
+  shrink: 0
+  shrinkTime: 2
+  expand: 0
+  expandTime: 2

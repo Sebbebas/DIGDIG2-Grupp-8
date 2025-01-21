@@ -13,6 +13,11 @@ public class Explosion : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] Light explosionLight;
+    [SerializeField] float fadeIn = 0.2f;
+    //[SerializeField] float fade;
+    [SerializeField] float fadeOut = 0.4f;
+    private float elapsedTime = 0f;
+    private float lightRange;
 
     [Header("damage over % of distance")]
     [SerializeField] float take100;
@@ -22,9 +27,9 @@ public class Explosion : MonoBehaviour
     //Private Variabels
     private float explosionRadius;
 
-    private void Start()
+    private void Awake()
     {
-        if (explosionLight = null) { explosionLight = GetComponentInChildren<Light>(); }
+        if (explosionLight == null) { explosionLight = GetComponentInChildren<Light>(); }
     }
 
     private void FixedUpdate()
@@ -33,8 +38,23 @@ public class Explosion : MonoBehaviour
 
         if (explosionLight != null)
         { 
-            float lightIntensity = explosionLight.intensity;
+            if(lightRange == 0) { lightRange = explosionLight.range; }
 
+            elapsedTime += Time.deltaTime;
+
+
+            // Fade-in logic
+            if (elapsedTime < fadeIn)
+            {
+                float t = elapsedTime / fadeIn;
+                explosionLight.range = Mathf.Lerp(0, lightRange, t);
+            }
+            // Fade-out logic
+            else if (elapsedTime < fadeIn + fadeOut)
+            {
+                float t = (elapsedTime - fadeIn) / fadeOut;
+                explosionLight.range = Mathf.Lerp(lightRange, 0, t);
+            }
         }
     }
 
