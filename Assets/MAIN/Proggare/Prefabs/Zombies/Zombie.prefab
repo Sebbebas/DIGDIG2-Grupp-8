@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 76073346433427442}
   - component: {fileID: 7887326216557460447}
-  - component: {fileID: 8692774255355478003}
-  - component: {fileID: 4015981602136437220}
+  - component: {fileID: 7211543836221283287}
   - component: {fileID: 1226445997049782525}
   - component: {fileID: -4601759358836086800}
-  - component: {fileID: 7211543836221283287}
+  - component: {fileID: 8692774255355478003}
+  - component: {fileID: 1935045369040616864}
   m_Layer: 6
   m_Name: Zombie
   m_TagString: Enemies
@@ -60,52 +60,24 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &8692774255355478003
-CapsuleCollider:
+--- !u!114 &7211543836221283287
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2410703198815107751}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2.0840266
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.03706658, z: 0}
---- !u!136 &4015981602136437220
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2410703198815107751}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2.0840266
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.03706658, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d96aaa23794554881079744f919759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootTable:
+    LootItems:
+    - Prefab: {fileID: 7771517042167347894, guid: c66f5ea85ffbe214aaaf98f5a388c875, type: 3}
+      DropChance: 50
+    - Prefab: {fileID: 7134699567617145357, guid: 90644176ff642254fa5a254be73c6726, type: 3}
+      DropChance: 50
 --- !u!114 &1226445997049782525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,24 +122,52 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &7211543836221283287
-MonoBehaviour:
+--- !u!136 &8692774255355478003
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2410703198815107751}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32d96aaa23794554881079744f919759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lootTable:
-    LootItems:
-    - Prefab: {fileID: 7771517042167347894, guid: c66f5ea85ffbe214aaaf98f5a388c875, type: 3}
-      DropChance: 50
-    - Prefab: {fileID: 7134699567617145357, guid: 90644176ff642254fa5a254be73c6726, type: 3}
-      DropChance: 50
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.0840266
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.03706658, z: 0}
+--- !u!136 &1935045369040616864
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2410703198815107751}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.0840266
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.03706658, z: 0}
 --- !u!1001 &6424825647942411532
 PrefabInstance:
   m_ObjectHideFlags: 0

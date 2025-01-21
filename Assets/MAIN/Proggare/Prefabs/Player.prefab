@@ -1527,9 +1527,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2425930386577910314}
   m_Direction: 0
   m_MinValue: 30
-  m_MaxValue: 120
+  m_MaxValue: 150
   m_WholeNumbers: 1
-  m_Value: 60
+  m_Value: 90
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2722,7 +2722,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: YOU HAVE FORGOTTEN TO SAVE YPUR CHANGES >:(
+  m_text: YOU HAVE FORGOTTEN TO SAVE YOUR CHANGES >:(
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
   m_sharedMaterial: {fileID: 7988088336733355111, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
@@ -4217,9 +4217,9 @@ MonoBehaviour:
   mainCamera: {fileID: 7269754528213439864}
   mainCamSlider: {fileID: 6846506649878372850}
   FOVAmount: {fileID: 7439956478930726544}
-  mainCamFOV: 60
+  mainCamFOV: 90
   mainFOVMinValue: 30
-  mainFOVMaxValue: 120
+  mainFOVMaxValue: 150
   weaponCamera: {fileID: 33917342769336556}
   weaponCamSlider: {fileID: 2012478719583733865}
   weaponFOVAmount: {fileID: 3363671265073957396}
@@ -13864,7 +13864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3504965111897768207
 RectTransform:
   m_ObjectHideFlags: 0

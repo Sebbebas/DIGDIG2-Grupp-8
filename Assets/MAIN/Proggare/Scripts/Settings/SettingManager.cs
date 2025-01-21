@@ -25,7 +25,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] Camera mainCamera;
     [SerializeField] Slider mainCamSlider;
     [SerializeField] TextMeshProUGUI FOVAmount;
-    [SerializeField] int mainCamFOV = 60;
+    [SerializeField] int mainCamFOV = 90;
     [SerializeField] int mainFOVMinValue = 1;
     [SerializeField] int mainFOVMaxValue = 120;
     [SerializeField] Camera weaponCamera;
@@ -52,7 +52,7 @@ public class SettingManager : MonoBehaviour
     int originalWeaponFOV;
 
     int defaultSensitivity = 100; 
-    int defaultMainFOV = 60;
+    int defaultMainFOV = 90;
     int defaultWeaponFOV = 60;
 
     InputAction pauseAction;
@@ -69,7 +69,7 @@ public class SettingManager : MonoBehaviour
         Debug.Log("Loaded sensitivity: " + savedSensitivity);
 
         //Load main FOV from PlayerPrefs defaults to 60
-        int savedMainFOV = PlayerPrefs.GetInt("Main FOV", 60);
+        int savedMainFOV = PlayerPrefs.GetInt("Main FOV", 90);
         //Set the slider value
         mainCamSlider.value = savedMainFOV;
         //Apply to PlayerLook
@@ -153,12 +153,12 @@ public class SettingManager : MonoBehaviour
             applyButton.interactable = true;
         }
 
-        if (sensitivitySlider.value != 100 || mainCamSlider.value != 60 || weaponCamSlider.value != 60 || valueChanged)
+        if (sensitivitySlider.value != 100 || mainCamSlider.value != 90 || weaponCamSlider.value != 60 || valueChanged)
         {
             settingsRevertButton.interactable = true;
             notDefaultValue = true;
         }
-        if (sensitivitySlider.value == 100 && mainCamSlider.value == 60 && weaponCamSlider.value == 60)
+        if (sensitivitySlider.value == 100 && mainCamSlider.value == 90 && weaponCamSlider.value == 60)
         {
             settingsRevertButton.interactable = false;
         }
@@ -190,15 +190,6 @@ public class SettingManager : MonoBehaviour
         {
             applyButton.interactable = true;
         }
-
-        //if (!notDefaultValue || notSavedWarning.activeInHierarchy || revertWarning.activeInHierarchy)
-        //{
-        //    settingsRevertButton.interactable = false;
-        //}
-        //else
-        //{
-        //    settingsRevertButton.interactable = false;
-        //}
     }
 
     void OnEnable()

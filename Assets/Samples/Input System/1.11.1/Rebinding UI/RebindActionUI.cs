@@ -371,51 +371,33 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             }
         }
 
-        [Tooltip("Reference to action that is to be rebound from the UI.")]
-        [SerializeField]
-        private InputActionReference m_Action;
+        [SerializeField,Tooltip("Reference to action that is to be rebound from the UI.")] InputActionReference m_Action;
 
-        [SerializeField]
-        private string m_BindingId;
+        [SerializeField] string m_BindingId;
 
-        [SerializeField]
-        private InputBinding.DisplayStringOptions m_DisplayStringOptions;
+        [SerializeField] InputBinding.DisplayStringOptions m_DisplayStringOptions;
 
-        [Tooltip("Text label that will receive the name of the action. Optional. Set to None to have the "
-            + "rebind UI not show a label for the action.")]
-        [SerializeField]
-        private Text m_ActionLabel;
+        [SerializeField, Tooltip("Text label that will receive the name of the action. Optional. Set to None to have the "
+            + "rebind UI not show a label for the action.")] Text m_ActionLabel;
 
-        [Tooltip("Text label that will receive the current, formatted binding string.")]
-        [SerializeField]
-        private Text m_BindingText;
+        [SerializeField, Tooltip("Text label that will receive the current, formatted binding string.")] Text m_BindingText;
 
-        [Tooltip("Optional UI that will be shown while a rebind is in progress.")]
-        [SerializeField]
-        private GameObject m_RebindOverlay;
+        [SerializeField, Tooltip("Optional UI that will be shown while a rebind is in progress.")] GameObject m_RebindOverlay;
 
-        [Tooltip("Optional text label that will be updated with prompt for user input.")]
-        [SerializeField]
-        private Text m_RebindText;
+        [SerializeField, Tooltip("Optional text label that will be updated with prompt for user input.")] Text m_RebindText;
 
-        [Tooltip("Event that is triggered when the way the binding is display should be updated. This allows displaying "
-            + "bindings in custom ways, e.g. using images instead of text.")]
-        [SerializeField]
-        private UpdateBindingUIEvent m_UpdateBindingUIEvent;
+        [SerializeField, Tooltip("Event that is triggered when the way the binding is display should be updated. This allows displaying "
+            + "bindings in custom ways, e.g. using images instead of text.")] UpdateBindingUIEvent m_UpdateBindingUIEvent;
 
-        [Tooltip("Event that is triggered when an interactive rebind is being initiated. This can be used, for example, "
+        [SerializeField, Tooltip("Event that is triggered when an interactive rebind is being initiated. This can be used, for example, "
             + "to implement custom UI behavior while a rebind is in progress. It can also be used to further "
-            + "customize the rebind.")]
-        [SerializeField]
-        private InteractiveRebindEvent m_RebindStartEvent;
+            + "customize the rebind.")] InteractiveRebindEvent m_RebindStartEvent;
 
-        [Tooltip("Event that is triggered when an interactive rebind is complete or has been aborted.")]
-        [SerializeField]
-        private InteractiveRebindEvent m_RebindStopEvent;
+        [SerializeField, Tooltip("Event that is triggered when an interactive rebind is complete or has been aborted.")] InteractiveRebindEvent m_RebindStopEvent;
 
-        private InputActionRebindingExtensions.RebindingOperation m_RebindOperation;
+        InputActionRebindingExtensions.RebindingOperation m_RebindOperation;
 
-        private static List<RebindActionUI> s_RebindActionUIs;
+        static List<RebindActionUI> s_RebindActionUIs;
 
         // We want the label for the action name to update in edit mode, too, so
         // we kick that off from here.
