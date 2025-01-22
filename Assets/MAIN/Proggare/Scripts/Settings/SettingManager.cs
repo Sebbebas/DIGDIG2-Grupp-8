@@ -217,6 +217,16 @@ public class SettingManager : MonoBehaviour
         pauseAction.performed -= OnPause;
     }*/
 
+    //Add into revert button
+    public void ResetAllBindings()
+    {
+        foreach(InputActionMap map in inputActions.actionMaps)
+        {
+            map.RemoveAllBindingOverrides();
+        }
+        PlayerPrefs.DeleteKey("rebinds");
+    }
+
     void PauseGame()
     {
         Time.timeScale = gamePausedManually ? 0 : 1;
