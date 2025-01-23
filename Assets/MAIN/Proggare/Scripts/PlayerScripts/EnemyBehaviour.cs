@@ -54,7 +54,7 @@ public class EnemyBehaviour : MonoBehaviour
             Vector3 spawnPos;
             bool validPosition = false;
 
-            // Try to find a valid position within spawnRadius and outside nonSpawnRadius
+            //Try to find a valid position within spawnRadius and outside nonSpawnRadius
             do
             {
                 Vector3 randomPos = Random.insideUnitSphere * spawnRadius;
@@ -63,7 +63,7 @@ public class EnemyBehaviour : MonoBehaviour
 
                 float distanceToSpawner = Vector3.Distance(transform.position, spawnPos);
 
-                // Check if the position is within spawnRadius and outside nonSpawnRadius
+                //Check if the position is within spawnRadius and outside nonSpawnRadius
                 if (distanceToSpawner >= nonSpawnRadius && distanceToSpawner <= spawnRadius)
                 {
                     validPosition = true;
