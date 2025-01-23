@@ -44,8 +44,8 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.7280233, b: 0, a: 1}
-  m_Intensity: 4774.9
-  m_Range: 17.05
+  m_Intensity: 4775
+  m_Range: 10
   m_SpotAngle: 37.752346
   m_InnerSpotAngle: 0
   m_CookieSize: 10
@@ -150,8 +150,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2796507603176476735}
   m_Father: {fileID: 0}
@@ -197,6 +197,8 @@ MonoBehaviour:
     m_Bits: 72
   effectedObjectList: []
   explosionLight: {fileID: 6837748592123760236}
+  fadeIn: 0.2
+  fadeOut: 0.2
   take100: 50
   take50: 80
   take20: 100
@@ -213,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroy: 1
-  aliveTime: 1
+  aliveTime: 200
   shrink: 0
   shrinkTime: 2
   expand: 0
