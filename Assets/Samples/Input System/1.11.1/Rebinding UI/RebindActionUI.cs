@@ -466,6 +466,15 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             m_RebindText.enabled = false;
         }
 
+        private void Update()
+        {
+            if(Input.GetKeyUp(KeyCode.Escape))
+            {
+                m_RebindOverlay.SetActive(false);
+                m_RebindText.enabled = false;
+            }
+        }
+
         private void UpdateActionLabel()
         {
             if (m_ActionLabel != null)

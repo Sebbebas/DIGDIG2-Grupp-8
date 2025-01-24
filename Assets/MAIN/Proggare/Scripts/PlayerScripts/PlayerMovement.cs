@@ -73,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
             if (slideTimer <= 0f)
             {
                 isSliding = false;
-                //transform.localScale *= normalSize;
                 transform.localScale = new Vector3(normalSize, normalSize, normalSize);
             }
 

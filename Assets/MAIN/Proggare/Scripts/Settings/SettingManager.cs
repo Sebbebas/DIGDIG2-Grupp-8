@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 
 public class SettingManager : MonoBehaviour
 {
@@ -45,7 +47,7 @@ public class SettingManager : MonoBehaviour
     bool settingsCanvasOn;
     [Tooltip("Checks if apply button has been pressed")] bool isSaved = true;
     [Tooltip("Makes warning text only appear when a value is changed")] bool valueChanged;
-    bool notDefaultValue;
+    bool bindingChanged;
 
     int originalSensitivity;
     int originalMainFOV;
@@ -61,7 +63,7 @@ public class SettingManager : MonoBehaviour
     private void Awake()
     {
         //Load sensitivity from PlayerPrefs defaults to 100
-        int savedSensitivity = PlayerPrefs.GetInt("Sensitivity", 100);
+        int savedSensitivity = PlayerPrefs.GetInt("Sensitivity", defaultSensitivity);
         //Set the slider value
         sensitivitySlider.value = savedSensitivity;
         //Apply to PlayerLook
@@ -69,7 +71,7 @@ public class SettingManager : MonoBehaviour
         Debug.Log("Loaded sensitivity: " + savedSensitivity);
 
         //Load main FOV from PlayerPrefs defaults to 60
-        int savedMainFOV = PlayerPrefs.GetInt("Main FOV", 90);
+        int savedMainFOV = PlayerPrefs.GetInt("Main FOV", defaultMainFOV);
         //Set the slider value
         mainCamSlider.value = savedMainFOV;
         //Apply to PlayerLook
@@ -77,7 +79,7 @@ public class SettingManager : MonoBehaviour
         Debug.Log("Loaded main FOV: " + savedMainFOV);
 
         //Load weapon FOV from PlayerPrefs defaults to 60
-        int savedWeaponFOV = PlayerPrefs.GetInt("Weapon FOV", 60);
+        int savedWeaponFOV = PlayerPrefs.GetInt("Weapon FOV", defaultWeaponFOV);
         //Set the slider value
         weaponCamSlider.value = savedWeaponFOV;
         //Apply to PlayerLook
@@ -153,12 +155,11 @@ public class SettingManager : MonoBehaviour
             applyButton.interactable = true;
         }
 
-        if (sensitivitySlider.value != 100 || mainCamSlider.value != 90 || weaponCamSlider.value != 60 || valueChanged)
+        if (sensitivitySlider.value != defaultSensitivity || mainCamSlider.value != defaultMainFOV || weaponCamSlider.value != defaultWeaponFOV || valueChanged)
         {
             settingsRevertButton.interactable = true;
-            notDefaultValue = true;
         }
-        if (sensitivitySlider.value == 100 && mainCamSlider.value == 90 && weaponCamSlider.value == 60)
+        if (sensitivitySlider.value == defaultSensitivity && mainCamSlider.value == defaultMainFOV && weaponCamSlider.value == defaultWeaponFOV)
         {
             settingsRevertButton.interactable = false;
         }
@@ -313,12 +314,14 @@ public class SettingManager : MonoBehaviour
     }
 
     #region UI Buttons
+    //Unpauses game
     public void OnResumeClicks()
     {
         pauseCanvas.SetActive(false);
         gamePausedManually = false;
     }
 
+    //Opens settings
     public void OnSettingsClick()
     {
         pauseCanvas.SetActive(false);
@@ -331,6 +334,7 @@ public class SettingManager : MonoBehaviour
         originalWeaponFOV = (int)weaponCamSlider.value;
     }
 
+    //Close settings menu, gets warning if not saved
     public void OnBackClick()
     {
         if (!isSaved)
@@ -346,11 +350,37 @@ public class SettingManager : MonoBehaviour
         }
     }
 
-    public void OnResetClick()
+    //Reset button for sliders
+    public void OnResetClick(int option)
     {
-        originalSensitivity = (int)sensitivitySlider.value;
-        originalMainFOV = (int)mainCamSlider.value;
-        originalWeaponFOV = (int)weaponCamSlider.value;
+        switch (option)
+        {
+            //Reset Sensitivity
+            case 0:
+                originalSensitivity = (int)sensitivitySlider.value;
+                break;
+
+            //Reset Main FOV
+            case 1: 
+                originalMainFOV = (int)mainCamSlider.value;
+                break;
+
+            //Reset Weapon FOV
+            case 2: 
+                originalWeaponFOV = (int)weaponCamSlider.value;
+                break;
+
+            //Reset All
+            case 3: 
+                originalSensitivity = (int)sensitivitySlider.value;
+                originalMainFOV = (int)mainCamSlider.value;
+                originalWeaponFOV = (int)weaponCamSlider.value;
+                break;
+
+            default:
+                Debug.LogWarning("Invalid reset option selected!");
+                break;
+        }
     }
 
     //Applies changed settings and saves them
@@ -360,6 +390,7 @@ public class SettingManager : MonoBehaviour
         isSaved = true;
         valueChanged = false;
         notSavedWarning.SetActive(false);
+        bindingChanged = false;
 
         //If "Apply" is press new values are stored
         originalSensitivity = (int)sensitivitySlider.value;
@@ -382,11 +413,13 @@ public class SettingManager : MonoBehaviour
         Debug.Log("Weapon FOV saved: " + weaponCamFOV);
     }
 
+    //Reverts all settings to default
     public void OnSettingsRevertClick()
     {
         revertWarning.SetActive(true);
     }
 
+    //Revert to previous settings, aka last saved settings
     public void OnRevertClick()
     {
         //Reverts to original settings
@@ -402,6 +435,7 @@ public class SettingManager : MonoBehaviour
         Debug.Log("Settings reverted to original values.");
     }
 
+    //Closes settings without saving 
     public void OnCloseClick()
     {
         //If there were any changes and the player hasnt applied them reset to original values
@@ -429,11 +463,13 @@ public class SettingManager : MonoBehaviour
         Debug.Log("Settings menu closed without saving changes.");
     }
 
+    //Cancel for Revert all settings
     public void OnCancelClick()  
     {
         revertWarning.SetActive(false);
     }
 
+    //Confirm button for Revert all settings
     public void OnConfirmClick() 
     {
         revertWarning.SetActive(false);
@@ -449,6 +485,16 @@ public class SettingManager : MonoBehaviour
 
         valueChanged = true;
         Debug.Log("Settings reverted to default values.");
+    }
+
+    //Apply this to every RebindButton
+    /// <summary>
+    /// Since variables can't be used in normal scripts and samples this has to be applied to every rebind button,
+    /// Makes us able to use other buttons for rebinding such as "Revert" and "Apply"
+    /// </summary>
+    public void BindingIsChanged()
+    {
+        bindingChanged = true;
     }
     #endregion
 
