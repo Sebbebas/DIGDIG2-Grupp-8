@@ -23,6 +23,7 @@ public class Weapon : MonoBehaviour
     public int currentAmmo;
     public int totalAmmo = 90;
     public int magSize = 30;
+    public int maxAmmo = 90;
     public TextMeshProUGUI ammoText;
 
     [Header("Delays")]
@@ -94,6 +95,9 @@ public class Weapon : MonoBehaviour
         //Cooldowns
         if (currentFireDelay > 0) { currentFireDelay -= Time.deltaTime; }
         else { currentFireDelay = 0; PlayAnimation(EffectType.fire, "Fire", false); }
+
+        //Ammo won't go over a certain limit
+        if (totalAmmo > maxAmmo) { totalAmmo = maxAmmo; }
     }
     private void OnEnable()
     {

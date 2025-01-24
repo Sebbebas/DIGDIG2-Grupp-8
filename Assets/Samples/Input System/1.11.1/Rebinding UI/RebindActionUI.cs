@@ -461,6 +461,9 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         {
             UpdateActionLabel();
             UpdateBindingDisplay();
+
+            m_RebindOverlay.SetActive(false);
+            m_RebindText.enabled = false;
         }
 
         private void UpdateActionLabel()
