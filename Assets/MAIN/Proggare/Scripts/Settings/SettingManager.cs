@@ -38,7 +38,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] int weaponFOVMaxValue = 120;
 
     [Header("Manually Pause Game")]
-    //[SerializeField] GameObject mainMenu;
+    [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject pauseCanvas;
     [SerializeField] GameObject settingsCanvas;
 
@@ -68,7 +68,7 @@ public class SettingManager : MonoBehaviour
         sensitivitySlider.value = savedSensitivity;
         //Apply to PlayerLook
         GetComponentInChildren<PlayerLook>().mouseSensitivity = savedSensitivity;
-        Debug.Log("Loaded sensitivity: " + savedSensitivity);
+        //Debug.Log("Loaded sensitivity: " + savedSensitivity);
 
         //Load main FOV from PlayerPrefs defaults to 60
         int savedMainFOV = PlayerPrefs.GetInt("Main FOV", defaultMainFOV);
@@ -76,7 +76,7 @@ public class SettingManager : MonoBehaviour
         mainCamSlider.value = savedMainFOV;
         //Apply to PlayerLook
         mainCamFOV = savedMainFOV;
-        Debug.Log("Loaded main FOV: " + savedMainFOV);
+        //Debug.Log("Loaded main FOV: " + savedMainFOV);
 
         //Load weapon FOV from PlayerPrefs defaults to 60
         int savedWeaponFOV = PlayerPrefs.GetInt("Weapon FOV", defaultWeaponFOV);
@@ -84,15 +84,19 @@ public class SettingManager : MonoBehaviour
         weaponCamSlider.value = savedWeaponFOV;
         //Apply to PlayerLook
         weaponCamFOV = savedWeaponFOV;
-        Debug.Log("Loaded weapon FOV: " + savedWeaponFOV);
+        //Debug.Log("Loaded weapon FOV: " + savedWeaponFOV);
 
         weaponManager = FindFirstObjectByType<WeaponManager>();
 
+
+
         pauseCanvas.SetActive(false);
         settingsCanvasOn = false;
-        settingsCanvas.SetActive(false);
-        notSavedWarning.SetActive(false);
-        revertWarning.SetActive(false);
+        settingsCanvas?.SetActive(false);
+        notSavedWarning?.SetActive(false);
+        revertWarning?.SetActive(false);
+
+        if(mainMenu != null) { mainMenu.SetActive(false); } else { return; }
 
         #region sliderValues
         sensitivitySlider.minValue = sensitivityMinValue;
@@ -126,26 +130,17 @@ public class SettingManager : MonoBehaviour
 
         while (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
 
-        if (sensitivityAmount != null)
-        {
-            sensitivityAmount.text = sensitivitySlider.value.ToString();
-        }
+        sensitivityAmount.text = sensitivitySlider?.value.ToString();
 
         mainCamera.fieldOfView = mainCamFOV;
-        if (FOVAmount != null)
-        {
-            FOVAmount.text = mainCamSlider.value.ToString(); 
-        }
+        FOVAmount.text = mainCamSlider?.value.ToString();
 
         weaponCamera.fieldOfView = weaponCamFOV;
-        if (weaponFOVAmount != null)
-        {
-            weaponFOVAmount.text = weaponCamSlider.value.ToString();
-        }
+        weaponFOVAmount.text = weaponCamSlider?.value.ToString();
 
         if (settingsCanvasOn)
         {
-            pauseCanvas.SetActive(false);
+            pauseCanvas?.SetActive(false);
             gamePausedManually = true;
         }
 
@@ -310,22 +305,22 @@ public class SettingManager : MonoBehaviour
         gamePausedManually = gamePausedManually ? false : true;
 
         //Set values acording to current state
-        pauseCanvas.SetActive(gamePausedManually);
+        pauseCanvas?.SetActive(gamePausedManually);
     }
 
     #region UI Buttons
     //Unpauses game
     public void OnResumeClicks()
     {
-        pauseCanvas.SetActive(false);
+        pauseCanvas?.SetActive(false);
         gamePausedManually = false;
     }
 
     //Opens settings
     public void OnSettingsClick()
     {
-        pauseCanvas.SetActive(false);
-        settingsCanvas.SetActive(true);
+        pauseCanvas?.SetActive(false);
+        settingsCanvas?.SetActive(true);
         settingsCanvasOn = true;
 
         //Store original settings
@@ -339,13 +334,13 @@ public class SettingManager : MonoBehaviour
     {
         if (!isSaved)
         {
-            notSavedWarning.SetActive(true);
+            notSavedWarning?.SetActive(true);
         }
         else
         {
-            pauseCanvas.SetActive(true);
-            //mainMenu.SetActive(true);
-            settingsCanvas.SetActive(false);
+            pauseCanvas?.SetActive(true);
+            //mainMenu?.SetActive(true);
+            settingsCanvas?.SetActive(false);
             settingsCanvasOn = false;
         }
     }
@@ -357,24 +352,24 @@ public class SettingManager : MonoBehaviour
         {
             //Reset Sensitivity
             case 0:
-                originalSensitivity = (int)sensitivitySlider.value;
+                sensitivitySlider.value = originalMainFOV;
                 break;
 
             //Reset Main FOV
-            case 1: 
-                originalMainFOV = (int)mainCamSlider.value;
+            case 1:
+                mainCamSlider.value = originalWeaponFOV;
                 break;
 
             //Reset Weapon FOV
             case 2: 
-                originalWeaponFOV = (int)weaponCamSlider.value;
+                weaponCamSlider.value = originalWeaponFOV;
                 break;
 
             //Reset All
             case 3: 
-                originalSensitivity = (int)sensitivitySlider.value;
-                originalMainFOV = (int)mainCamSlider.value;
-                originalWeaponFOV = (int)weaponCamSlider.value;
+                sensitivitySlider.value = originalSensitivity;
+                mainCamSlider.value = originalMainFOV;
+                weaponCamSlider.value = originalWeaponFOV;
                 break;
 
             default:
@@ -389,7 +384,7 @@ public class SettingManager : MonoBehaviour
     {
         isSaved = true;
         valueChanged = false;
-        notSavedWarning.SetActive(false);
+        notSavedWarning?.SetActive(false);
         bindingChanged = false;
 
         //If "Apply" is press new values are stored
@@ -416,7 +411,7 @@ public class SettingManager : MonoBehaviour
     //Reverts all settings to default
     public void OnSettingsRevertClick()
     {
-        revertWarning.SetActive(true);
+        revertWarning?.SetActive(true);
     }
 
     //Revert to previous settings, aka last saved settings
@@ -431,7 +426,7 @@ public class SettingManager : MonoBehaviour
         mainCamFOV = originalMainFOV;
         weaponCamFOV = originalWeaponFOV;
 
-        notSavedWarning.SetActive(false);
+        notSavedWarning?.SetActive(false);
         Debug.Log("Settings reverted to original values.");
     }
 
@@ -456,8 +451,8 @@ public class SettingManager : MonoBehaviour
         }
 
         //Close the settings menu without saving the changes
-        pauseCanvas.SetActive(true);
-        settingsCanvas.SetActive(false);
+        pauseCanvas?.SetActive(true);
+        settingsCanvas?.SetActive(false);
         settingsCanvasOn = false;
 
         Debug.Log("Settings menu closed without saving changes.");
@@ -466,13 +461,13 @@ public class SettingManager : MonoBehaviour
     //Cancel for Revert all settings
     public void OnCancelClick()  
     {
-        revertWarning.SetActive(false);
+        revertWarning?.SetActive(false);
     }
 
     //Confirm button for Revert all settings
     public void OnConfirmClick() 
     {
-        revertWarning.SetActive(false);
+        revertWarning?.SetActive(false);
 
         //Reverts to default settings
         sensitivitySlider.value = defaultSensitivity;
