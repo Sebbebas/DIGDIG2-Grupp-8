@@ -203,7 +203,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
             // Set on label (if any).
             if (m_BindingText != null)
-                m_BindingText.text = displayString;
+                m_BindingText.text = displayString.ToUpper();
 
             // Give listeners a chance to configure UI in response.
             m_UpdateBindingUIEvent?.Invoke(this, displayString, deviceLayoutName, controlPath);
@@ -228,6 +228,16 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 action.RemoveBindingOverride(bindingIndex);
             }
             UpdateBindingDisplay();
+        }
+
+        public void ResetToPreviousSave()
+        {
+
+        } 
+
+        public void SaveCurrent()
+        {
+
         }
 
         /// <summary>
@@ -480,7 +490,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             if (m_ActionLabel != null)
             {
                 var action = m_Action?.action;
-                m_ActionLabel.text = action != null ? action.name : string.Empty;
+                m_ActionLabel.text = action != null ? action.name.ToUpper() : string.Empty;
             }
         }
 

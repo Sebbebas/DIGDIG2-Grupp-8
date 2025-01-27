@@ -179,10 +179,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4542187070736785446, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 280
-      objectReference: {fileID: 0}
     - target: {fileID: 6420508781857598770, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -193,78 +189,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420508781857598770, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031553, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_Text
-      value: JUMP
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031553, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031553, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031553, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031553, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_FontData.m_MaxSize
-      value: 56
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031553, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 56
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031553, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_FontData.m_FontStyle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031554, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031554, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031554, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031554, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031554, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129328031554, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -275
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129822630087, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 770
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129822630087, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6501119129822630088, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7367426672785444121, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 375
-      objectReference: {fileID: 0}
-    - target: {fileID: 7367426672785444121, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7789529859971171444, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
