@@ -50,8 +50,46 @@ public class Shotgun : Weapon
                     if (enemy != null)
                     {
                         enemy.ApplyDamage(pelletDamage);
+                        //Debug.Log(pelletDamage);
                     }
                 }
+
+                /*if (hit.transform.CompareTag("Enemy Head"))
+                {
+                    EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
+                    if (enemy != null)
+                    {
+                        enemy.ApplyDamage(2 * pelletDamage);
+                        Debug.Log(pelletDamage);
+                    }
+                }
+                if (hit.transform.CompareTag("Enemy Torso"))
+                {
+                    EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
+                    if (enemy != null)
+                    {
+                        enemy.ApplyDamage(pelletDamage);
+                        Debug.Log(pelletDamage);
+                    }
+                }
+                if (hit.transform.CompareTag("Enemy Leg"))
+                {
+                    EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
+                    if (enemy != null)
+                    {
+                        enemy.ApplyDamage(pelletDamage);
+                        Debug.Log(pelletDamage);
+                    }
+                }
+                if (hit.transform.CompareTag("Enemy Arm"))
+                {
+                    EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
+                    if (enemy != null)
+                    {
+                        enemy.ApplyDamage(pelletDamage);
+                        Debug.Log(pelletDamage);
+                    }
+                }*/
                 else
                 {
                     Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform);

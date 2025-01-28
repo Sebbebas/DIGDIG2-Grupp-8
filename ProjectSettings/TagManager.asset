@@ -8,6 +8,10 @@ TagManager:
   - Grenade
   - Explosion
   - Enemies
+  - Enemy Head
+  - Enemy Torso
+  - Enemy Leg
+  - Enemy Arm
   layers:
   - Default
   - TransparentFX

@@ -206,16 +206,6 @@ public class SettingManager : MonoBehaviour
         pauseAction.performed += OnPause;
     }
 
-    //Don't work for some reason
-    /*void OnDisable()
-    {
-        //Disable the action
-        pauseAction.Disable();
-
-        //Unsubscribe from the input when the object is disabled
-        pauseAction.performed -= OnPause;
-    }*/
-
     //Add into revert button
     public void ResetAllBindings()
     {
@@ -316,6 +306,11 @@ public class SettingManager : MonoBehaviour
 
         //Set values acording to current state
         pauseCanvas?.SetActive(gamePausedManually);
+    }
+
+    bool ValueIsChanged()
+    {
+        return valueChanged;
     }
 
     #region UI Buttons
@@ -473,6 +468,12 @@ public class SettingManager : MonoBehaviour
                 GetComponentInChildren<PlayerLook>().mouseSensitivity = defaultSensitivity;
                 mainCamFOV = defaultMainFOV;
                 weaponCamFOV = defaultWeaponFOV;
+
+                foreach (InputActionMap map in inputActions.actionMaps)
+                {
+                    map.RemoveAllBindingOverrides();
+                }
+                PlayerPrefs.DeleteKey("rebinds");
 
                 valueChanged = false;
                 Debug.Log("Settings reverted to default values.");
