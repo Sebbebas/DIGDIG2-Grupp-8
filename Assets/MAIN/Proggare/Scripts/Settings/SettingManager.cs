@@ -88,7 +88,10 @@ public class SettingManager : MonoBehaviour
 
         weaponManager = FindFirstObjectByType<WeaponManager>();
 
-
+        //Loads new binding
+        var rebinds = PlayerPrefs.GetString("rebinds");
+        if (!string.IsNullOrEmpty(rebinds))
+            inputActions.LoadBindingOverridesFromJson(rebinds);
 
         pauseCanvas.SetActive(false);
         settingsCanvasOn = false;
@@ -221,6 +224,13 @@ public class SettingManager : MonoBehaviour
             map.RemoveAllBindingOverrides();
         }
         PlayerPrefs.DeleteKey("rebinds");
+    }
+
+    //Add to Apply and Save button
+    public void SaveAllBindings()
+    {
+        var rebinds = inputActions.SaveBindingOverridesAsJson();
+        PlayerPrefs.SetString("rebinds", rebinds);
     }
 
     void PauseGame()
@@ -373,7 +383,7 @@ public class SettingManager : MonoBehaviour
                 break;
 
             default:
-                Debug.LogWarning("Invalid reset option selected!");
+                Debug.LogWarning("Invalid reset option selected");
                 break;
         }
     }

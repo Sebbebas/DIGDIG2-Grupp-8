@@ -230,16 +230,6 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             UpdateBindingDisplay();
         }
 
-        public void ResetToPreviousSave()
-        {
-
-        } 
-
-        public void SaveCurrent()
-        {
-
-        }
-
         /// <summary>
         /// Initiate an interactive rebind that lets the player actuate a control to choose a new binding
         /// for the action.
