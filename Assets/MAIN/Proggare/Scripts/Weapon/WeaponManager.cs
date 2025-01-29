@@ -128,6 +128,9 @@ public class WeaponManager : MonoBehaviour
     #endregion
     public void OnKick(InputAction.CallbackContext context)
     {
+        //Animation
+
+
         // List to hold kicked objects
         List<GameObject> kickedObjects = new List<GameObject>();
 

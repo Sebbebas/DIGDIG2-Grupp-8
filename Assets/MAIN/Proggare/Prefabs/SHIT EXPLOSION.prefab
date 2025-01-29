@@ -197,8 +197,8 @@ MonoBehaviour:
     m_Bits: 72
   effectedObjectList: []
   explosionLight: {fileID: 6837748592123760236}
-  fadeIn: 0.2
-  fadeOut: 0.2
+  fadeIn: 0.1
+  fadeOut: 0.1
   take100: 50
   take50: 80
   take20: 100
