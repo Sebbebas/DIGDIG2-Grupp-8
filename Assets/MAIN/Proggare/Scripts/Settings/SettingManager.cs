@@ -147,17 +147,11 @@ public class SettingManager : MonoBehaviour
             gamePausedManually = true;
         }
 
-        if(valueChanged)
-        {
-            isSaved = false;
-            applyButton.interactable = true;
-        }
-
         if (sensitivitySlider.value != defaultSensitivity || mainCamSlider.value != defaultMainFOV || weaponCamSlider.value != defaultWeaponFOV || valueChanged)
         {
             settingsRevertButton.interactable = true;
         }
-        if (sensitivitySlider.value == defaultSensitivity && mainCamSlider.value == defaultMainFOV && weaponCamSlider.value == defaultWeaponFOV || !valueChanged)
+        else
         {
             settingsRevertButton.interactable = false;
         }
@@ -204,23 +198,6 @@ public class SettingManager : MonoBehaviour
 
         //Subscribe to the performed callback
         pauseAction.performed += OnPause;
-    }
-
-    //Add into revert button
-    public void ResetAllBindings()
-    {
-        foreach(InputActionMap map in inputActions.actionMaps)
-        {
-            map.RemoveAllBindingOverrides();
-        }
-        PlayerPrefs.DeleteKey("rebinds");
-    }
-
-    //Add to Apply and Save button
-    public void SaveAllBindings()
-    {
-        var rebinds = inputActions.SaveBindingOverridesAsJson();
-        PlayerPrefs.SetString("rebinds", rebinds);
     }
 
     void PauseGame()
@@ -308,10 +285,10 @@ public class SettingManager : MonoBehaviour
         pauseCanvas?.SetActive(gamePausedManually);
     }
 
-    bool ValueIsChanged()
-    {
-        return valueChanged;
-    }
+    //bool ValueIsChanged()
+    //{
+    //    return valueChanged;
+    //}
 
     #region UI Buttons
     //Unpauses game
@@ -357,12 +334,12 @@ public class SettingManager : MonoBehaviour
         {
             //Reset Sensitivity
             case 0:
-                sensitivitySlider.value = originalMainFOV;
+                sensitivitySlider.value = originalSensitivity;
                 break;
 
             //Reset Main FOV
             case 1:
-                mainCamSlider.value = originalWeaponFOV;
+                mainCamSlider.value = originalMainFOV;
                 break;
 
             //Reset Weapon FOV
@@ -395,6 +372,10 @@ public class SettingManager : MonoBehaviour
         originalSensitivity = (int)sensitivitySlider.value;
         originalMainFOV = (int)mainCamSlider.value;
         originalWeaponFOV = (int)weaponCamSlider.value;
+
+        //Saves bindings
+        var rebinds = inputActions.SaveBindingOverridesAsJson();
+        PlayerPrefs.SetString("rebinds", rebinds);
 
         //Save the sensitivity value using PlayerPrefs
         PlayerPrefs.SetInt("Sensitivity", GetComponentInChildren<PlayerLook>().mouseSensitivity);
@@ -442,6 +423,13 @@ public class SettingManager : MonoBehaviour
                 GetComponentInChildren<PlayerLook>().mouseSensitivity = originalSensitivity;
                 mainCamFOV = originalMainFOV;
                 weaponCamFOV = originalWeaponFOV;
+
+                //Resets all bindings
+                foreach (InputActionMap map in inputActions.actionMaps)
+                {
+                    map.RemoveAllBindingOverrides();
+                }
+                PlayerPrefs.DeleteKey("rebinds");
 
                 valueChanged = false;
                 notSavedWarning.SetActive(false);
