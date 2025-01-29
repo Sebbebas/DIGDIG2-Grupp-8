@@ -23,9 +23,9 @@ public class PowerUp : MonoBehaviour
     public int ammoAmount = 10;
 
     [Header("UI Settings")]
-    public Image healthBoostImage;         
-    public Image speedBoostImage;          
-    public TextMeshProUGUI ammoBoostText;  
+    public Image healthBoostImage;
+    public Image speedBoostImage;
+    public TextMeshProUGUI ammoBoostText;
 
     [SerializeField] private float uiDisplayDuration = 3f;
 
@@ -64,19 +64,19 @@ public class PowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Check if the colliding object has the tag Player
+        if (!other.CompareTag("Player")) return;
+
         PlayerController playerController = other.GetComponent<PlayerController>();
         PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
         WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
 
         Debug.Log(weaponManager);
 
-        if (playerController != null || playerHealth != null || weaponManager != null)
-        {
-            PlayPickupSound();
-            ApplyPowerUp(playerController, playerHealth, weaponManager);
-            ShowUIFeedback();
-            Destroy(gameObject); // Remove the power-up after pickup
-        }
+        PlayPickupSound();
+        ApplyPowerUp(playerController, playerHealth, weaponManager);
+        ShowUIFeedback();
+        Destroy(gameObject); // Remove the power-up after pickup
     }
 
     private void PlayPickupSound()
@@ -85,10 +85,6 @@ public class PowerUp : MonoBehaviour
         {
             // Play the sound at the position of the power-up
             AudioSource.PlayClipAtPoint(pickupSound, transform.position);
-        }
-        else
-        {
-            Debug.LogWarning("Pickup sound not assigned!");
         }
     }
 
