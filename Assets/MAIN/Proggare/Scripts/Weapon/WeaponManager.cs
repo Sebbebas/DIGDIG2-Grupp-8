@@ -16,6 +16,7 @@ public class WeaponManager : MonoBehaviour
 
     //WIP
     [Header("Kick")]
+    [SerializeField] Animator leg;
     [SerializeField] float kickCooldown;
     [SerializeField] float coneAngle = 30f; // Angle of the cone
     [SerializeField] float maxKickDistance = 10f; // Max distance of the detection
@@ -23,7 +24,6 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] float radius = 2f; // Radius of the sphere cast
     [SerializeField] int coneResolution = 20;
     [SerializeField] LayerMask kickLayerMask; // Layer mask for collision detection
-
     private Vector3 kickOrigin;
     private Vector3 forward;
 
@@ -129,29 +129,32 @@ public class WeaponManager : MonoBehaviour
     public void OnKick(InputAction.CallbackContext context)
     {
         //Animation
+        if (leg != null) 
+        { 
+            leg.SetTrigger("kick");
+        }
 
-
-        // List to hold kicked objects
+        //List to hold kicked objects
         List<GameObject> kickedObjects = new List<GameObject>();
 
-        // Iterate over the cone resolution
+        //Iterate over the cone resolution
         for (int i = 0; i <= coneResolution; i++)
         {
-            // Angle spread between the rays
+            //Angle spread between the rays
             float currentAngle = Mathf.Lerp(-coneAngle, coneAngle, i / (float)coneResolution);
 
-            // Calculate the direction of the cone's side ray
+            //Calculate the direction of the cone's side ray
             Quaternion rotation = Quaternion.Euler(0, currentAngle, 0);
             Vector3 direction = rotation * transform.forward;
 
-            // Create the ray
+            //Create the ray
             Ray kickRay = new Ray(transform.position, direction);
             RaycastHit hit;
 
-            // Perform raycast and check if we hit something in the kick layer mask
+            //Perform raycast and check if we hit something in the kick layer mask
             if (Physics.Raycast(kickRay, out hit, maxKickDistance, kickLayerMask))
             {
-                // Add the hit object to the list
+                //Add the hit object to the list
                 kickedObjects.Add(hit.transform.gameObject);
 
                 //Apply force or logic to the kicked object
