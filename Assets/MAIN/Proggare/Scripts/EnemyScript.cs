@@ -3,7 +3,8 @@ using UnityEngine.AI;
 using System.Collections;
 using System;
 
-//Ale och Elian
+//Alexander
+
 public class EnemyScript : MonoBehaviour
 {
     public event Action<GameObject> OnEnemyDeath;
@@ -20,10 +21,13 @@ public class EnemyScript : MonoBehaviour
     private bool isStunned;
     private float currentStunTime;
     private bool canDamage = true;
+    private bool isDead = false;
 
     [Header("LootDrop values")]
     private LootSystem lootSystem;
 
+    [Header("Scoring System")]
+    [SerializeField] int scoreValue = 10; //Points per enemy killed
 
     NavMeshAgent agent;
     Rigidbody myRigidbody;
@@ -87,6 +91,8 @@ public class EnemyScript : MonoBehaviour
 
     public void ApplyDamage(float damageAmount)
     {
+        if (isDead) return;
+
         currentHealth -= damageAmount;
         Debug.Log(transform.gameObject.name + " took damage: " + damageAmount + ", Current Health: " + currentHealth);
 
@@ -98,12 +104,17 @@ public class EnemyScript : MonoBehaviour
 
     private void Die()
     {
+        if (isDead) return; //Ensures Die() is only called once
+        isDead = true;
+
         OnEnemyDeath?.Invoke(gameObject);
-        Destroy(gameObject);
+        ScoreManager.Instance.AddScore(scoreValue);
 
         if (lootSystem != null)
         {
             lootSystem.DropLoot();
         }
+
+        Destroy(gameObject);
     }
 }

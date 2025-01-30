@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour
     public int currentAmmo;
     public int totalAmmo = 90;
     public int magSize = 30;
-    public int maxAmmo = 90;
+    public int maxAmmo = 80;
     public TextMeshProUGUI ammoText;
 
     [Header("Delays")]
