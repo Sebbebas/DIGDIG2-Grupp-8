@@ -48,7 +48,7 @@ public class PowerUp : MonoBehaviour
 
         // Ensure UI elements are initially hidden
         if (healthBoostImage != null) healthBoostImage.gameObject.SetActive(false);
-        if (speedBoostImage != null) speedBoostImage.gameObject.SetActive(false);
+        if (speedBoostImage != null) healthBoostImage.gameObject.SetActive(false);
         if (ammoBoostText != null) ammoBoostText.gameObject.SetActive(false);
     }
 
@@ -64,7 +64,7 @@ public class PowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Check if the colliding object has the tag Player
+        // Check if the colliding object has the tag Player
         if (!other.CompareTag("Player")) return;
 
         PlayerController playerController = other.GetComponent<PlayerController>();
@@ -73,10 +73,17 @@ public class PowerUp : MonoBehaviour
 
         Debug.Log(weaponManager);
 
-        PlayPickupSound();
-        ApplyPowerUp(playerController, playerHealth, weaponManager);
-        ShowUIFeedback();
-        Destroy(gameObject); // Remove the power-up after pickup
+        if (weaponManager != null)
+        {
+            Shotgun playerWeapon = weaponManager.GetCurrentWeapon().GetComponent<Shotgun>();
+            if (playerWeapon != null && playerWeapon.totalAmmo < playerWeapon.maxAmmo)
+            {
+                PlayPickupSound();
+                ApplyPowerUp(playerController, playerHealth, weaponManager);
+                ShowUIFeedback();
+                Destroy(gameObject); // Remove the power-up after pickup
+            }
+        }
     }
 
     private void PlayPickupSound()
@@ -108,7 +115,7 @@ public class PowerUp : MonoBehaviour
 
             case PowerUpType.AmmoBoost:
                 Shotgun playerWeapon = weaponManager.GetCurrentWeapon().GetComponent<Shotgun>();
-                if (playerWeapon != null)
+                if (playerWeapon != null && playerWeapon.totalAmmo < playerWeapon.maxAmmo)
                 {
                     playerWeapon.AddAmmo(ammoAmount);
                 }
