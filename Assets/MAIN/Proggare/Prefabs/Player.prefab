@@ -11261,6 +11261,7 @@ GameObject:
   - component: {fileID: 2682548189901646701}
   - component: {fileID: 5501460580308072972}
   - component: {fileID: 343610064711910270}
+  - component: {fileID: 1732697339637429166}
   m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
@@ -11371,6 +11372,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &1732697339637429166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261873756926268275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ffd5f2f766bf9f4b81792ffc3e04ec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6484792622605390580
 GameObject:
   m_ObjectHideFlags: 0
