@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using System.Collections;
 
 public class SettingManager : MonoBehaviour
@@ -46,7 +44,6 @@ public class SettingManager : MonoBehaviour
     [Tooltip("If true game is paused")] bool gamePausedManually;
     [Tooltip("Player dead")] bool stopGame;
     bool settingsCanvasOn;
-    [Tooltip("Checks if apply button has been pressed")] bool isSaved = true;
     [Tooltip("Makes warning text only appear when a value is changed")] bool valueChanged;
 
     int originalSensitivity;
@@ -314,7 +311,7 @@ public class SettingManager : MonoBehaviour
     //Close settings menu, gets warning if not saved
     public void OnBackClick()
     {
-        if (!isSaved)
+        if (valueChanged)
         {
             notSavedWarning?.SetActive(true);
         }
@@ -328,30 +325,34 @@ public class SettingManager : MonoBehaviour
     }
 
     //Reset button for sliders
-    public void OnResetClick(int option)
+    public void OnResetClick(string option)
     {
         switch (option)
         {
             //Reset Sensitivity
-            case 0:
-                sensitivitySlider.value = originalSensitivity;
+            case "Sensitivity":
+                sensitivitySlider.value = defaultSensitivity;
+                valueChanged = true;
                 break;
 
             //Reset Main FOV
-            case 1:
-                mainCamSlider.value = originalMainFOV;
+            case "MainFOV":
+                mainCamSlider.value = defaultMainFOV;
+                valueChanged = true;
                 break;
 
             //Reset Weapon FOV
-            case 2: 
-                weaponCamSlider.value = originalWeaponFOV;
+            case "WeaponFOV": 
+                weaponCamSlider.value = defaultWeaponFOV;
+                valueChanged = true;
                 break;
 
             //Reset All
-            case 3: 
-                sensitivitySlider.value = originalSensitivity;
-                mainCamSlider.value = originalMainFOV;
-                weaponCamSlider.value = originalWeaponFOV;
+            case "Reset All": 
+                sensitivitySlider.value = defaultSensitivity;
+                mainCamSlider.value = defaultMainFOV;
+                weaponCamSlider.value = defaultWeaponFOV;
+                valueChanged = true;
                 break;
 
             default:
@@ -364,7 +365,6 @@ public class SettingManager : MonoBehaviour
     //Used for apply button and save button in notSavedWarning
     public void OnApplyClick()
     {
-        isSaved = true;
         valueChanged = false;
         notSavedWarning?.SetActive(false);
 
@@ -411,6 +411,7 @@ public class SettingManager : MonoBehaviour
                 pauseCanvas?.SetActive(true);
                 settingsCanvas?.SetActive(false);
                 settingsCanvasOn = false;
+                valueChanged = false;
                 Debug.Log("Settings reverted to original values.");
                 break;
 
@@ -473,7 +474,7 @@ public class SettingManager : MonoBehaviour
     public void OnCloseClick()
     {
         //If there were any changes and the player hasnt applied them reset to original values
-        if (!isSaved)
+        if (valueChanged)
         {
             //Reset the sliders and values to their original states
             sensitivitySlider.value = originalSensitivity;
