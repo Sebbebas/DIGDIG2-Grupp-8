@@ -3,12 +3,12 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 
-//Alexander
+// Alexander
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] float maxHealth = 150f;
-    [SerializeField] float currentHealth = 100f; // Start with 100 health
+    [SerializeField] float currentHealth = 100f;
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool takesDamage;
     [HideInInspector] public bool lowHealth;
@@ -29,32 +29,26 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] GameObject deathScreen;
 
+    private bool isImmortal = false;
+
     void Start()
     {
         deathScreen.SetActive(false);
-        currentHealth = 100f; // Set starting health to 100
+        currentHealth = 100f;
         HideAllImages();
         UpdateHealthText();
-        CheckHealthStages(); // Ensure the correct stage is shown at start
+        CheckHealthStages();
     }
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.H))
-        //{
-        //    Heal(healAmount);
-        //    Debug.Log(currentHealth);
-        //}
-        //if (Input.GetKeyDown(KeyCode.K))
-        //{
-        //    ApplyDamage(damageAmount);
-        //    Debug.Log(currentHealth);
-        //}
+        //if (Input.GetKeyDown(KeyCode.H)) Heal(healAmount);
+        //if (Input.GetKeyDown(KeyCode.K)) ApplyDamage(damageAmount);
     }
 
     public void ApplyDamage(float damageAmount)
     {
-        if (isDead)
+        if (isDead || isImmortal)  //Prevent damage if dead or immortal
             return;
 
         currentHealth -= damageAmount;
@@ -98,35 +92,33 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         Debug.Log("Player has died!");
         deathScreen.SetActive(true);
-        HideAllImages(); // Ensure all health stage overlays are hidden when dead.
-        ShowImage(stage4Image); // Show dead stage overlay.
+        HideAllImages();
+        ShowImage(stage4Image);
     }
 
     private void CheckHealthStages()
     {
-        if (isDead) return; // Do not update health stages if the player is dead.
+        if (isDead) return;
 
-        HideAllImages(); // Ensure all images are hidden before displaying the relevant one.
+        HideAllImages();
 
-        // Apply health stage overlays based on thresholds
         if (currentHealth > 60f && currentHealth <= maxHealth)
         {
-            // No stage overlay for health > 60
             lowHealth = false;
         }
         else if (currentHealth > 20f && currentHealth <= 60f)
         {
-            ShowImage(stage1Image); // Moderate health stage
+            ShowImage(stage1Image); //Moderate health stage
             lowHealth = false;
         }
         else if (currentHealth > 0f && currentHealth <= 20f)
         {
-            ShowImage(stage3Image); // Low health stage
+            ShowImage(stage3Image); //Low health stage
             lowHealth = true;
         }
         else if (currentHealth <= 0f)
         {
-            ShowImage(stage4Image); // Dead stage
+            ShowImage(stage4Image);
             deathScreen.SetActive(true);
         }
     }
@@ -141,7 +133,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void HideAllImages()
     {
-        // Reset all health stage overlays
         if (stage1Image != null) stage1Image.enabled = false;
         if (stage2Image != null) stage2Image.enabled = false;
         if (stage3Image != null) stage3Image.enabled = false;
@@ -155,26 +146,28 @@ public class PlayerHealth : MonoBehaviour
             healthText.text = currentHealth.ToString("F0");
         }
     }
-
     IEnumerator TakeDamageTimer()
     {
         takesDamage = true;
         yield return new WaitForSeconds(timer);
         takesDamage = false;
     }
-
     public bool GetTakeDamage()
     {
         return takesDamage;
     }
-
     public bool GetLowHealth()
     {
         return lowHealth;
     }
-
     public bool GetIsDead()
     {
         return isDead;
+    }
+    public IEnumerator Immortality(float duration)
+    {
+        isImmortal = true;
+        yield return new WaitForSeconds(duration);
+        isImmortal = false;
     }
 }

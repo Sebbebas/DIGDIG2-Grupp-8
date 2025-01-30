@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PowerUp : MonoBehaviour
 {
-    public enum PowerUpType { SpeedBoost, HealthBoost, AmmoBoost }
+    public enum PowerUpType { SpeedBoost, HealthBoost, AmmoBoost, Immortal }
     public PowerUpType powerUpType;
 
     [Header("General Power-Up Settings")]
@@ -29,68 +29,52 @@ public class PowerUp : MonoBehaviour
 
     [SerializeField] private float uiDisplayDuration = 3f;
 
-    // Rotation speed for the power-up object
     [SerializeField] private float rotationSpeed = 160f; // degrees per second
-
-    // Settings for up-and-down movement
     [SerializeField] private float floatAmplitude = 0.4f; // How high it moves
     [SerializeField] private float floatSpeed = 4f;       // How fast it moves
 
-    private Vector3 startPosition; // To store the initial position
+    private Vector3 startPosition;
 
     [Header("Audio Settings")]
-    [SerializeField] private AudioClip pickupSound; // The sound to play on pickup
+    [SerializeField] private AudioClip pickupSound;
 
     private void Start()
     {
-        // Store the initial position of the power-up
         startPosition = transform.position;
 
-        // Ensure UI elements are initially hidden
         if (healthBoostImage != null) healthBoostImage.gameObject.SetActive(false);
-        if (speedBoostImage != null) healthBoostImage.gameObject.SetActive(false);
+        if (speedBoostImage != null) speedBoostImage.gameObject.SetActive(false);
         if (ammoBoostText != null) ammoBoostText.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        // Rotate the object around the Y-axis at a constant speed
         transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
 
-        // Apply up-and-down movement using a sine wave
         float newY = startPosition.y + Mathf.Sin(Time.time * floatSpeed) * floatAmplitude;
         transform.position = new Vector3(startPosition.x, newY, startPosition.z);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the colliding object has the tag Player
         if (!other.CompareTag("Player")) return;
 
         PlayerController playerController = other.GetComponent<PlayerController>();
         PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
         WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
 
-        Debug.Log(weaponManager);
+        if (playerHealth == null) return;
 
-        if (weaponManager != null)
-        {
-            Shotgun playerWeapon = weaponManager.GetCurrentWeapon().GetComponent<Shotgun>();
-            if (playerWeapon != null && playerWeapon.totalAmmo < playerWeapon.maxAmmo)
-            {
-                PlayPickupSound();
-                ApplyPowerUp(playerController, playerHealth, weaponManager);
-                ShowUIFeedback();
-                Destroy(gameObject); // Remove the power-up after pickup
-            }
-        }
+        PlayPickupSound();
+        ApplyPowerUp(playerController, playerHealth, weaponManager);
+        ShowUIFeedback();
+        Destroy(gameObject);
     }
 
     private void PlayPickupSound()
     {
         if (pickupSound != null)
         {
-            // Play the sound at the position of the power-up
             AudioSource.PlayClipAtPoint(pickupSound, transform.position);
         }
     }
@@ -118,6 +102,13 @@ public class PowerUp : MonoBehaviour
                 if (playerWeapon != null && playerWeapon.totalAmmo < playerWeapon.maxAmmo)
                 {
                     playerWeapon.AddAmmo(ammoAmount);
+                }
+                break;
+
+            case PowerUpType.Immortal:
+                if (playerHealth != null)
+                {
+                    playerHealth.StartCoroutine(playerHealth.Immortality(duration));
                 }
                 break;
         }

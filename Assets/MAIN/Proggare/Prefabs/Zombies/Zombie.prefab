@@ -75,9 +75,11 @@ MonoBehaviour:
   lootTable:
     LootItems:
     - Prefab: {fileID: 7771517042167347894, guid: c66f5ea85ffbe214aaaf98f5a388c875, type: 3}
-      DropChance: 50
+      DropChance: 33
     - Prefab: {fileID: 7134699567617145357, guid: 90644176ff642254fa5a254be73c6726, type: 3}
-      DropChance: 50
+      DropChance: 33
+    - Prefab: {fileID: 7771517042167347894, guid: 9b82b7b6e337dad4aa4454637c745ecf, type: 3}
+      DropChance: 33
 --- !u!114 &1226445997049782525
 MonoBehaviour:
   m_ObjectHideFlags: 0
