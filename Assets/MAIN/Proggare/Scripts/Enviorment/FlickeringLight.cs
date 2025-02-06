@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 //Alexander
 
@@ -15,7 +16,7 @@ public class FlickeringLight : MonoBehaviour
         StartCoroutine(Flicker());
     }
 
-    private System.Collections.IEnumerator Flicker()
+    private IEnumerator Flicker()
     {
         while (true)
         {
