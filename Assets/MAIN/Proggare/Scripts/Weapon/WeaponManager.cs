@@ -157,9 +157,9 @@ public class WeaponManager : MonoBehaviour
                 //Add the hit object to the list
                 kickedObjects.Add(hit.transform.gameObject);
 
-                //Apply force or logic to the kicked object
-                //hit.rigidbody?.AddForce(direction * kickForce, ForceMode.Impulse);
+                //Gameobject Logic
                 if (hit.transform.GetComponent<EnemyScript>() != null) { hit.transform.GetComponent<EnemyScript>().Kicked(direction * kickForce); }
+                if (hit.transform.GetComponent<Plank>() != null) { hit.transform.GetComponent<Plank>().BreakPlanks(); }
             }
         }
         foreach (var obj in kickedObjects)
@@ -254,25 +254,24 @@ public class WeaponManager : MonoBehaviour
     }
     #endregion
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        //Kick Cone
+        kickOrigin = transform.position;
+        forward = transform.forward;
+
         Gizmos.color = Color.yellow;
 
-        //Render 1 line for every "coneResolution"
         for (int i = 0; i <= coneResolution; i++)
         {
-            //Angle spread between the rays
             float currentAngle = Mathf.Lerp(-coneAngle, coneAngle, i / (float)coneResolution);
-
-            //Calculate the direction of the cone's side ray
             Quaternion rotation = Quaternion.Euler(0, currentAngle, 0);
-            Vector3 direction = rotation * transform.forward;
+            Vector3 direction = rotation * forward;
 
-            //Draw the ray
-            Gizmos.DrawLine(kickOrigin, kickOrigin + direction * radius);
+            // Draw lines extending to maxKickDistance
+            Gizmos.DrawLine(kickOrigin, kickOrigin + direction * maxKickDistance);
         }
     }
+
 
     public GameObject GetCurrentWeapon()
     {

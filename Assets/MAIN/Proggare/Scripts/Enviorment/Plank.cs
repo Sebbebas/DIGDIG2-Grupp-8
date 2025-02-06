@@ -2,27 +2,19 @@ using UnityEngine;
 
 public class Plank : MonoBehaviour
 {
-    [SerializeField] Transform wholePlank;
-    [SerializeField] MeshCollider brokenCollider;
-    [SerializeField] BoxCollider plankCollider;
-    [SerializeField] bool testBreakPlank;
+    [SerializeField] BoxCollider hitBox;
+    [SerializeField] MeshRenderer plank, brokenPlank;
 
     void Start()
     {
-        brokenCollider.enabled = false;
-        plankCollider.enabled = true;
+        plank.enabled = true;
+        brokenPlank.enabled = false;
     }
 
-    void Update()
+    public void BreakPlanks()
     {
-        //TEMPORARY
-        if (testBreakPlank) { BreakPlanks(); }
-    }
-
-    void BreakPlanks()
-    {
-        wholePlank.gameObject.SetActive(false);
-        brokenCollider.enabled = true;
-        plankCollider.enabled = false;
+        hitBox.enabled = false;
+        plank.enabled = false;
+        brokenPlank.enabled = true;
     }
 }

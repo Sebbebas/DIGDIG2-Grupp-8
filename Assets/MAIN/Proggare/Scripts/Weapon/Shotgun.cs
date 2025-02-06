@@ -53,6 +53,11 @@ public class Shotgun : Weapon
                         //Debug.Log(pelletDamage);
                     }
                 }
+                else if (hit.transform.CompareTag("Plank"))
+                {
+                    Plank plank = hit.transform.GetComponent<Plank>();
+                    plank.BreakPlanks();
+                }
 
                 /*if (hit.transform.CompareTag("Enemy Head"))
                 {
