@@ -12,6 +12,8 @@ TagManager:
   - Enemy Torso
   - Enemy Leg
   - Enemy Arm
+  - Wall
+  - Floor
   layers:
   - Default
   - TransparentFX

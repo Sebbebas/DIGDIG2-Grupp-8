@@ -122,6 +122,13 @@ MonoBehaviour:
   maxKnockbackVelocity: 5
   damageCooldown: 2
   currentHealth: 100
+  scoreValue: 20
+  isProjectileEnemy: 0
+  attackDistance: 10
+  minSafeDistance: 4
+  projectilePrefab: {fileID: 0}
+  shootPoint: {fileID: 0}
+  shootCooldown: 2
 --- !u!54 &1038778945550318040
 Rigidbody:
   m_ObjectHideFlags: 0

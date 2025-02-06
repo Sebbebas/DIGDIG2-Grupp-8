@@ -9,7 +9,7 @@ public class EnemyScript : MonoBehaviour
 {
     public event Action<GameObject> OnEnemyDeath;
 
-    [Header("Player affecting values")]
+    [Header("Player Affecting Values")]
     [SerializeField] float DamageAmount = 20f;
     [SerializeField] float stunTime = 1f;
     [SerializeField] float maxKnockbackVelocity = 5;
@@ -23,7 +23,7 @@ public class EnemyScript : MonoBehaviour
     private bool canDamage = true;
     private bool isDead = false;
 
-    [Header("LootDrop values")]
+    [Header("Loot Drop Values")]
     private LootSystem lootSystem;
 
     [Header("Scoring System")]
@@ -32,17 +32,53 @@ public class EnemyScript : MonoBehaviour
     NavMeshAgent agent;
     Rigidbody myRigidbody;
 
+    [Header("Projectile Enemy Settings")]
+    [SerializeField] private bool isProjectileEnemy = false;
+    [SerializeField] private float attackDistance = 10f; //Distance where enemy stops & shoots
+    [SerializeField] private float minSafeDistance = 4f; //Distance where enemy moves backwards
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private float shootCooldown = 2f;
+
+    private Transform player;
+    private bool canShoot = true;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         myRigidbody = GetComponent<Rigidbody>();
         enemySpeedAtStart = agent.speed;
-
         lootSystem = GetComponent<LootSystem>();
+
+        //Find the player
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     private void Update()
     {
+        if (isProjectileEnemy && player != null)
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+            if (distanceToPlayer <= minSafeDistance)
+            {
+                MoveAwayFromPlayer();
+            }
+            else if (distanceToPlayer <= attackDistance)
+            {
+                agent.isStopped = true;
+                if (canShoot)
+                {
+                    StartCoroutine(ShootProjectile());
+                }
+            }
+            else
+            {
+                agent.isStopped = false;
+                agent.SetDestination(player.position);
+            }
+        }
+
         if (isStunned)
         {
             myRigidbody.AddForce(kickDirection, ForceMode.Force);
@@ -59,6 +95,27 @@ public class EnemyScript : MonoBehaviour
                 agent.speed = enemySpeedAtStart;
             }
         }
+    }
+
+    private void MoveAwayFromPlayer()
+    {
+        Vector3 directionAway = (transform.position - player.position).normalized;
+        Vector3 newPos = transform.position + directionAway * 2f; //Moves 2 units backward
+        agent.isStopped = false;
+        agent.SetDestination(newPos);
+    }
+
+    private IEnumerator ShootProjectile()
+    {
+        canShoot = false;
+
+        if (projectilePrefab != null && shootPoint != null)
+        {
+            Instantiate(projectilePrefab, shootPoint.position, Quaternion.LookRotation(player.position - shootPoint.position));
+        }
+
+        yield return new WaitForSeconds(shootCooldown);
+        canShoot = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -104,7 +161,7 @@ public class EnemyScript : MonoBehaviour
 
     private void Die()
     {
-        if (isDead) return; //Ensures Die() is only called once
+        if (isDead) return;
         isDead = true;
 
         OnEnemyDeath?.Invoke(gameObject);
@@ -116,5 +173,18 @@ public class EnemyScript : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    //Gizmo retreat distance
+    private void OnDrawGizmosSelected()
+    {
+        if (isProjectileEnemy)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackDistance);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, minSafeDistance);
+        }
     }
 }

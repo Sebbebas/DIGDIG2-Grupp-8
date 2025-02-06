@@ -4941,7 +4941,7 @@ MonoBehaviour:
   numberOfEnemies: 12
   enemyZero: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
   enemyOne: {fileID: 2279033429783417335, guid: 7ff750e51b37e2741b191111b4724411, type: 3}
-  enemyTwo: {fileID: 0}
+  enemyTwo: {fileID: 2410703198815107751, guid: 954f2a4773be2bc4987b53696018bace, type: 3}
   enemyThree: {fileID: 0}
   enemyFour: {fileID: 0}
   player: {fileID: 7789529859971171444}

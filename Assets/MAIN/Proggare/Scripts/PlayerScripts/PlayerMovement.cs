@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using System.Collections;
 
 //Elian
 
@@ -95,7 +96,30 @@ public class PlayerMovement : MonoBehaviour
             movementSpeed = 0f;
         }
     }
+    //ZombieProjectile effect on player
+    #region
+    private bool isSlowed = false;
 
+    public void ApplySpeedMultiplier(float multiplier, float duration)
+    {
+        if (!isSlowed)
+        {
+            StartCoroutine(SpeedModifier(multiplier, duration));
+        }
+    }
+
+    private IEnumerator SpeedModifier(float multiplier, float duration)
+    {
+        isSlowed = true;
+        float originalSpeed = movementSpeed;
+        movementSpeed *= multiplier;
+
+        yield return new WaitForSeconds(duration);
+
+        movementSpeed = originalSpeed;
+        isSlowed = false;
+    }
+    #endregion
     Vector3 CalculateMovement()
     {
         //Calculate movement direction based on camera orientation
