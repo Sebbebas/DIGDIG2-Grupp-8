@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
 
 public class SettingManager : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] GameObject revertWarning;
     [SerializeField] Button settingsRevertButton;
     [SerializeField] Button backButton;
-    [SerializeField] Button applyButton;
+    [SerializeField] Button applyButton; 
 
     [Header("Mouse Settings")]
     [SerializeField] Slider sensitivitySlider;
@@ -44,7 +43,7 @@ public class SettingManager : MonoBehaviour
     [Tooltip("If true game is paused")] bool gamePausedManually;
     [Tooltip("Player dead")] bool stopGame;
     bool settingsCanvasOn;
-    [Tooltip("Makes warning text only appear when a value is changed")] bool valueChanged;
+    [Tooltip("Makes warning text only appear when a value is changed")] bool valueChanged; 
 
     int originalSensitivity;
     int originalMainFOV;
@@ -59,6 +58,7 @@ public class SettingManager : MonoBehaviour
 
     private void Awake()
     {
+        #region Save
         //Load sensitivity from PlayerPrefs defaults to 100
         int savedSensitivity = PlayerPrefs.GetInt("Sensitivity", defaultSensitivity);
         //Set the slider value
@@ -82,6 +82,7 @@ public class SettingManager : MonoBehaviour
         //Apply to PlayerLook
         weaponCamFOV = savedWeaponFOV;
         //Debug.Log("Loaded weapon FOV: " + savedWeaponFOV);
+        #endregion
 
         weaponManager = FindFirstObjectByType<WeaponManager>();
 
@@ -117,7 +118,7 @@ public class SettingManager : MonoBehaviour
         mainCamSlider.onValueChanged.AddListener(mainCamFOV => OnFOVChange((int)mainCamFOV));
         
         //Makes value of slider decide how far away weapon are i HUD
-        weaponCamSlider.onValueChanged.AddListener(overlayCamFOV => OnWeaponFOVChange((int)overlayCamFOV));
+        weaponCamSlider.onValueChanged.AddListener(weaponCamFOV => OnWeaponFOVChange((int)weaponCamFOV)); 
         #endregion
 
         applyButton.interactable = false;
@@ -140,7 +141,7 @@ public class SettingManager : MonoBehaviour
 
         if (settingsCanvasOn)
         {
-            pauseCanvas?.SetActive(false);
+            pauseCanvas.SetActive(false);
             gamePausedManually = true;
         }
 
@@ -180,6 +181,8 @@ public class SettingManager : MonoBehaviour
         {
             applyButton.interactable = true;
         }
+
+        
     }
 
     void OnEnable()
@@ -225,8 +228,6 @@ public class SettingManager : MonoBehaviour
         {
             sensitivityAmount.text = sensValue + "";
         }
-
-        valueChanged = true;
     }
 
     void OnFOVChange(int FOVValue)
@@ -237,8 +238,6 @@ public class SettingManager : MonoBehaviour
         {
             FOVAmount.text = FOVValue + "";
         }
-
-        valueChanged = true;
     }
 
     void OnWeaponFOVChange(int weaponFOVValue)
@@ -249,8 +248,6 @@ public class SettingManager : MonoBehaviour
         {
             weaponFOVAmount.text = weaponFOVValue + "";
         }
-
-        valueChanged = true;
     }
 
     void OnPause(InputAction.CallbackContext context) { }
@@ -331,20 +328,32 @@ public class SettingManager : MonoBehaviour
         {
             //Reset Sensitivity
             case "Sensitivity":
-                sensitivitySlider.value = defaultSensitivity;
-                valueChanged = true;
+                if(sensitivitySlider.value != defaultSensitivity)
+                {
+                    sensitivitySlider.value = defaultSensitivity;
+                    valueChanged = true;
+                }
+                else { return; }
                 break;
 
             //Reset Main FOV
             case "MainFOV":
-                mainCamSlider.value = defaultMainFOV;
-                valueChanged = true;
+                if(mainCamSlider.value != defaultMainFOV)
+                {
+                    mainCamSlider.value = defaultMainFOV;
+                    valueChanged = true;
+                }
+                else { return; }
                 break;
 
             //Reset Weapon FOV
             case "WeaponFOV": 
-                weaponCamSlider.value = defaultWeaponFOV;
-                valueChanged = true;
+                if(weaponCamSlider.value != defaultWeaponFOV)
+                {
+                    weaponCamSlider.value = defaultWeaponFOV;
+                    valueChanged = true;
+                }
+                else { return; }
                 break;
 
             //Reset All
@@ -498,7 +507,7 @@ public class SettingManager : MonoBehaviour
         Debug.Log("Settings menu closed without saving changes.");
     }
 
-    //Apply this to every RebindButton
+    //Apply this to every RebindButton or Sliders
     /// <summary>
     /// Since variables can't be used in normal scripts and samples this has to be applied to every rebind button,
     /// Makes us able to use other buttons for rebinding such as "Revert" and "Apply"
