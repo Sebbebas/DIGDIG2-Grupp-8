@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6626324303365333022}
   - component: {fileID: 2050863992510458941}
   - component: {fileID: 1038778945550318040}
+  - component: {fileID: -5743900369652418451}
   m_Layer: 6
   m_Name: Big Zombie
   m_TagString: Enemies
@@ -120,8 +121,8 @@ MonoBehaviour:
   DamageAmount: 20
   stunTime: 0.2
   maxKnockbackVelocity: 5
-  damageCooldown: 2
-  currentHealth: 100
+  damageCooldown: 2.5
+  currentHealth: 140
   scoreValue: 20
   isProjectileEnemy: 0
   attackDistance: 10
@@ -156,6 +157,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &-5743900369652418451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2279033429783417335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d96aaa23794554881079744f919759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootTable:
+    LootItems:
+    - Prefab: {fileID: 7771517042167347894, guid: c66f5ea85ffbe214aaaf98f5a388c875, type: 3}
+      DropChance: 15
+    - Prefab: {fileID: 7134699567617145357, guid: 90644176ff642254fa5a254be73c6726, type: 3}
+      DropChance: 15
+    - Prefab: {fileID: 7771517042167347894, guid: 9b82b7b6e337dad4aa4454637c745ecf, type: 3}
+      DropChance: 10
 --- !u!1001 &7946441338043659210
 PrefabInstance:
   m_ObjectHideFlags: 0

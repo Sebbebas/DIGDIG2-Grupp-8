@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 456922247568321912}
   - component: {fileID: 2968888947845504109}
   - component: {fileID: 2001623484020894591}
+  - component: {fileID: -4787714856041569031}
   m_Layer: 0
   m_Name: Lootbox3
   m_TagString: Untagged
@@ -29,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 7771517042167347894}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.350357, y: 2.046556, z: 3.7440376}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: -0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8538aeee5a5c8574e910483052b17e85, type: 2}
+  - {fileID: 2100000, guid: 6f9a364042e9de042951d5c0663bc9fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,7 +131,19 @@ MonoBehaviour:
   speedBoostImage: {fileID: 0}
   ammoBoostText: {fileID: 0}
   uiDisplayDuration: 1.5
-  rotationSpeed: 160
+  rotationSpeed: 0
   floatAmplitude: 0.4
   floatSpeed: 4
   pickupSound: {fileID: 8300000, guid: 9358ab0fd6b21af488e18b853990f89e, type: 3}
+--- !u!114 &-4787714856041569031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7771517042167347894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515fcc0da270c1540b977535a8c47b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
