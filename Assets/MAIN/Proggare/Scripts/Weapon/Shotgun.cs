@@ -56,7 +56,7 @@ public class Shotgun : Weapon
                 else if (hit.transform.CompareTag("Plank"))
                 {
                     Plank plank = hit.transform.GetComponent<Plank>();
-                    plank.BreakPlanks();
+                    plank.BreakPlanks(Vector3.zero);
                 }
 
                 /*if (hit.transform.CompareTag("Enemy Head"))

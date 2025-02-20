@@ -159,7 +159,10 @@ public class WeaponManager : MonoBehaviour
 
                 //Gameobject Logic
                 if (hit.transform.GetComponent<EnemyScript>() != null) { hit.transform.GetComponent<EnemyScript>().Kicked(direction * kickForce); }
-                if (hit.transform.GetComponent<Plank>() != null) { hit.transform.GetComponent<Plank>().BreakPlanks(); }
+                if (hit.transform.GetComponent<Plank>() != null)
+                {
+                    hit.transform.GetComponent<Plank>().BreakPlanks(direction * kickForce);
+                }
             }
         }
         foreach (var obj in kickedObjects)
