@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b48aa9555af2aa48b14df833be17284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plankObject: {fileID: 2450947891173053242, guid: 3b34153a2a25c8c40a666155db392391, type: 3}
   hitBox: {fileID: 5473803732412429007}
   plank: {fileID: 5219636941313278989}
   brokenPlank: {fileID: 5116032036724334904}

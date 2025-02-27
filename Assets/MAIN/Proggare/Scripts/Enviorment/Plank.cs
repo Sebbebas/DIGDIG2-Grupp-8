@@ -23,7 +23,7 @@ public class Plank : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            GameObject newPlank = Instantiate(plankObject, transform.position, Quaternion.identity);
+            GameObject newPlank = Instantiate(plankObject, new Vector3 (transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
             Rigidbody plankRigidbody = newPlank.GetComponent<Rigidbody>();
 
             if (plankRigidbody != null)

@@ -14,6 +14,7 @@ TagManager:
   - Enemy Arm
   - Wall
   - Floor
+  - Plank
   layers:
   - Default
   - TransparentFX
