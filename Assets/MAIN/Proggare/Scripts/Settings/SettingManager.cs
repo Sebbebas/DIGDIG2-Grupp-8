@@ -507,6 +507,12 @@ public class SettingManager : MonoBehaviour
         Debug.Log("Settings menu closed without saving changes.");
     }
 
+    //Add to every button for press animation
+    public void ButtonSpriteChanged()
+    {
+
+    }
+
     //Apply this to every RebindButton or Sliders
     /// <summary>
     /// Since variables can't be used in normal scripts and samples this has to be applied to every rebind button,
