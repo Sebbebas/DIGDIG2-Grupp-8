@@ -192,18 +192,44 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             var deviceLayoutName = default(string);
             var controlPath = default(string);
 
+            //string ForceEnglishKeyNames(string keyName)
+            //{
+            //    Dictionary<string, string> keyReplacements = new Dictionary<string, string>()
+            //    {
+            //        { "Blanksteg", "Space" },
+            //        { "Retur", "Enter" },
+            //        { "Backsteg", "Backspace" },
+            //        { "Ctrl", "Ctrl" },
+            //        { "Skift", "Shift" },
+            //        { "Pil upp", "Arrow Up" },
+            //        { "Pil ner", "Arrow Down" },
+            //        { "Pil vänster", "Arrow Left" },
+            //        { "Pil höger", "Arrow Right" }
+            //        // Add more translations as needed
+            //    };
+
+            //    if (keyReplacements.ContainsKey(keyName))
+            //        return keyReplacements[keyName];
+
+            //    return keyName; // Return the original if no match is found
+            //}
+
             // Get display string from action.
             var action = m_Action?.action;
             if (action != null)
             {
                 var bindingIndex = action.bindings.IndexOf(x => x.id.ToString() == m_BindingId);
                 if (bindingIndex != -1)
-                    displayString = action.GetBindingDisplayString(bindingIndex, out deviceLayoutName, out controlPath, displayStringOptions);
+                    displayString = action.GetBindingDisplayString(bindingIndex, out deviceLayoutName, out controlPath, 
+    InputBinding.DisplayStringOptions.DontUseShortDisplayNames | 
+    InputBinding.DisplayStringOptions.IgnoreBindingOverrides | 
+    InputBinding.DisplayStringOptions.DontOmitDevice);
             }
 
             // Set on label (if any).
             if (m_BindingText != null)
                 m_BindingText.text = displayString.ToUpper();
+                //m_BindingText.text = ForceEnglishKeyNames(displayString).ToUpper();
 
             // Give listeners a chance to configure UI in response.
             m_UpdateBindingUIEvent?.Invoke(this, displayString, deviceLayoutName, controlPath);

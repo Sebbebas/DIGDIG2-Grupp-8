@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class SettingManager : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class SettingManager : MonoBehaviour
     [SerializeField] GameObject revertWarning;
     [SerializeField] Button settingsRevertButton;
     [SerializeField] Button backButton;
-    [SerializeField] Button applyButton; 
+    [SerializeField] Button applyButton;
+    [SerializeField] GameObject generalSettings, audioSettings, rebindSettings;
 
     [Header("Mouse Settings")]
     [SerializeField] Slider sensitivitySlider;
@@ -479,6 +481,33 @@ public class SettingManager : MonoBehaviour
         }
     }
 
+    public void OnSettingsUIClick(int option)
+    {
+        switch (option)
+        {
+            //General
+            case 0:
+                generalSettings.SetActive(true);
+                audioSettings.SetActive(false);
+                rebindSettings.SetActive(false);
+                break;
+
+            //Audio
+            case 1:
+                generalSettings.SetActive(false);
+                audioSettings.SetActive(true);
+                rebindSettings.SetActive(false);
+                break;
+
+            //Renind
+            case 2:
+                generalSettings.SetActive(false);
+                audioSettings.SetActive(false);
+                rebindSettings.SetActive(true);
+                break;
+        }
+    }
+
     //Closes settings without saving 
     public void OnCloseClick()
     {
@@ -505,12 +534,6 @@ public class SettingManager : MonoBehaviour
         settingsCanvasOn = false;
 
         Debug.Log("Settings menu closed without saving changes.");
-    }
-
-    //Add to every button for press animation
-    public void ButtonSpriteChanged()
-    {
-
     }
 
     //Apply this to every RebindButton or Sliders
