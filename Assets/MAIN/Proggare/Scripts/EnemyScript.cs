@@ -167,6 +167,12 @@ public class EnemyScript : MonoBehaviour
         OnEnemyDeath?.Invoke(gameObject);
         ScoreManager.Instance.AddScore(scoreValue);
 
+        // **Lägger till combo-systemet**
+        if (ComboManager.instance != null)
+        {
+            ComboManager.instance.AddKill();
+        }
+
         if (lootSystem != null)
         {
             lootSystem.DropLoot();
