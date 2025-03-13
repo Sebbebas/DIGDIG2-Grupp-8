@@ -20,10 +20,11 @@ public class PlayerHealth : MonoBehaviour
     private float healAmount = 100f;
 
     [Header("Health Stages")]
-    [SerializeField] Image stage1Image;
-    [SerializeField] Image stage2Image;
-    [SerializeField] Image stage3Image;
-    [SerializeField] Image stage4Image;
+    [SerializeField] GameObject stage1Image;
+    [SerializeField] GameObject stage2Image;
+    [SerializeField] GameObject stage3Image;
+    [SerializeField] GameObject stage4Image;
+    [SerializeField] GameObject pulseEffect;
 
     [SerializeField] float timer = 60f;
 
@@ -34,8 +35,12 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         deathScreen.SetActive(false);
+        stage1Image.SetActive(true);
+        stage2Image.SetActive(false);
+        stage3Image.SetActive(false);
+        stage4Image.SetActive(false);
+        pulseEffect.SetActive(false);
         currentHealth = 100f;
-        HideAllImages();
         UpdateHealthText();
         CheckHealthStages();
     }
@@ -92,35 +97,55 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         Debug.Log("Player has died!");
         deathScreen.SetActive(true);
-        HideAllImages();
-        ShowImage(stage4Image);
     }
 
     private void CheckHealthStages()
     {
         if (isDead) return;
 
-        HideAllImages();
+        if (currentHealth >= 81)
+        {
+            stage2Image.SetActive(false);
+        }
+        else if (currentHealth >= 61)
+        {
+            stage2Image.SetActive(true);
+            stage3Image.SetActive(false);
+        }
+        else if (currentHealth >= 41)
+        {
+            stage3Image.SetActive(true);
+            stage4Image.SetActive(false);
+        }
+        else if (currentHealth >= 21)
+        {
+            stage4Image.SetActive(true);
+            pulseEffect.SetActive(false);
+        }
+        else if (currentHealth >= 0)
+        {
+            pulseEffect.SetActive(true);
+        }
 
-        if (currentHealth > 60f && currentHealth <= maxHealth)
-        {
-            lowHealth = false;
-        }
-        else if (currentHealth > 20f && currentHealth <= 60f)
-        {
-            ShowImage(stage1Image); //Moderate health stage
-            lowHealth = false;
-        }
-        else if (currentHealth > 0f && currentHealth <= 20f)
-        {
-            ShowImage(stage3Image); //Low health stage
-            lowHealth = true;
-        }
-        else if (currentHealth <= 0f)
-        {
-            ShowImage(stage4Image);
-            deathScreen.SetActive(true);
-        }
+        //if (currentHealth > 60f && currentHealth <= maxHealth)
+        //{
+        //    lowHealth = false;
+        //}
+        //else if (currentHealth > 20f && currentHealth <= 60f)
+        //{
+        //    ShowImage(stage1Image); //Moderate health stage
+        //    lowHealth = false;
+        //}
+        //else if (currentHealth > 0f && currentHealth <= 20f)
+        //{
+        //    ShowImage(stage3Image); //Low health stage
+        //    lowHealth = true;
+        //}
+        //else if (currentHealth <= 0f)
+        //{
+        //    ShowImage(stage4Image);
+        //    deathScreen.SetActive(true);
+        //}
     }
 
     private void ShowImage(Image image)
@@ -129,14 +154,6 @@ public class PlayerHealth : MonoBehaviour
         {
             image.enabled = true;
         }
-    }
-
-    private void HideAllImages()
-    {
-        if (stage1Image != null) stage1Image.enabled = false;
-        if (stage2Image != null) stage2Image.enabled = false;
-        if (stage3Image != null) stage3Image.enabled = false;
-        if (stage4Image != null) stage4Image.enabled = false;
     }
 
     private void UpdateHealthText()

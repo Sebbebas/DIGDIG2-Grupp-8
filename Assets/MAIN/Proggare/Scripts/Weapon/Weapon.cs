@@ -25,6 +25,7 @@ public class Weapon : MonoBehaviour
     public int magSize = 30;
     public int maxAmmo = 80;
     public TextMeshProUGUI ammoText;
+    public GameObject shellOne, shellTwo;
 
     [Header("Delays")]
     public float waitBeforeReload = 0.5f;
@@ -86,7 +87,7 @@ public class Weapon : MonoBehaviour
     private void Update()
     {
         //Update the ammo UI when the gun is enabled
-        if (gameObject.activeSelf && ammoText != null) { ammoText.text = currentAmmo.ToString() + "/" + totalAmmo.ToString(); }
+        if (gameObject.activeSelf && ammoText != null) { ammoText.text = totalAmmo.ToString(); }
 
         //REMOVE THIS WHEN YOU CAN FIND AND PICKUP WEAPON\\
         //Dont Spam the Hierarchy
@@ -122,6 +123,22 @@ public class Weapon : MonoBehaviour
             currentFireDelay = firedelay;
             if (currentAmmo == 0) { Reload(); }
 
+            if (currentAmmo == 2)
+            {
+                shellOne.SetActive(true);
+                shellTwo.SetActive(true);
+            }
+            else if (currentAmmo == 1)
+            {
+                shellOne.SetActive(false);
+                shellTwo.SetActive(true);
+            }
+            else if (currentAmmo == 0)
+            {
+                shellOne.SetActive(false);
+                shellTwo.SetActive(false);
+            }
+
             //Effects
             PlayAnimation(EffectType.fire, "Fire", true);
             PlaySound(EffectType.fire);
@@ -152,6 +169,9 @@ public class Weapon : MonoBehaviour
         waitForReload = true;
         yield return new WaitForSeconds(waitBeforeReload);
         waitForReload = false;
+
+        shellOne.SetActive(true);
+        shellTwo.SetActive(true);
 
         //Before Wait
         reloading = true;
