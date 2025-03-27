@@ -147,6 +147,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1312168213106435148, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2425930386577910314, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1071,6 +1075,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.4572314
       objectReference: {fileID: 0}
@@ -1117,8 +1133,74 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 1723661440}
+    - targetCorrespondingSourceObject: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 1723661444}
   m_SourcePrefab: {fileID: 100100000, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+--- !u!1 &1605032030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1175703257507929464, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+  m_PrefabInstance: {fileID: 1605032028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1605032031 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2992763888318639071, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+  m_PrefabInstance: {fileID: 1605032028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1723661436 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+  m_PrefabInstance: {fileID: 1605032028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1723661440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723661436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8c95614220ac14f9fdbb20899cbe51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyParts: []
+  DamageAmount: 20
+  stunTime: 1
+  maxKnockbackVelocity: 5
+  damageCooldown: 2
+  headHealth: 100000000
+  torsoHealth: 100000000
+  armHealth: 30
+  leftArm: {fileID: 1605032031}
+  rightArm: {fileID: 1605032030}
+  scoreValue: 10
+  isProjectileEnemy: 0
+  attackDistance: 10
+  minSafeDistance: 4
+  projectilePrefab: {fileID: 0}
+  shootPoint: {fileID: 0}
+  shootCooldown: 2
+--- !u!114 &1723661444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723661436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyPartTorso: Torso
+  bodyPartHead: Head
+  bodyPartArms: Arm
+  enemyHealth: {fileID: 0}
 --- !u!1 &1778398138
 GameObject:
   m_ObjectHideFlags: 0

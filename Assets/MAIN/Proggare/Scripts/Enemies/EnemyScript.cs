@@ -2,19 +2,50 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 //Alexander
+
+[System.Serializable]
+public class BodyPart
+{
+    public string name;
+    public float maxHealth;
+    public float currentHealth;
+
+    public BodyPart(string name, float maxHealth)
+    {
+        this.name = name;
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth < 0) currentHealth = 0;
+    }
+
+    public bool IsDestroyed()
+    {
+        return currentHealth <= 0;
+    }
+}
 
 public class EnemyScript : MonoBehaviour
 {
     public event Action<GameObject> OnEnemyDeath;
+    public List<BodyPart> bodyParts = new List<BodyPart>();
 
     [Header("Player Affecting Values")]
     [SerializeField] float DamageAmount = 20f;
     [SerializeField] float stunTime = 1f;
     [SerializeField] float maxKnockbackVelocity = 5;
     [SerializeField] float damageCooldown = 2f;
-    [SerializeField] float currentHealth = 100f;
+
+    [SerializeField] int headHealth = 50;
+    [SerializeField] int torsoHealth = 100;
+    [SerializeField] int armHealth = 30;
 
     private Vector3 kickDirection;
     private float enemySpeedAtStart;
@@ -22,6 +53,10 @@ public class EnemyScript : MonoBehaviour
     private float currentStunTime;
     private bool canDamage = true;
     private bool isDead = false;
+
+    [Header("Body Parts")]
+    [SerializeField] GameObject leftArm;
+    [SerializeField] GameObject rightArm;
 
     [Header("Loot Drop Values")]
     private LootSystem lootSystem;
@@ -42,6 +77,17 @@ public class EnemyScript : MonoBehaviour
 
     private Transform player;
     private bool canShoot = true;
+
+    private void Awake()
+    {
+        // Initialize body parts
+        bodyParts.Add(new BodyPart("Head", headHealth));
+        bodyParts.Add(new BodyPart("Torso", torsoHealth));
+        bodyParts.Add(new BodyPart("Left Arm", armHealth));
+        bodyParts.Add(new BodyPart("Right Arm", armHealth));
+        //bodyParts.Add(new BodyPart("Left Leg", 40));
+        //bodyParts.Add(new BodyPart("Right Leg", 40));
+    }
 
     private void Start()
     {
@@ -146,18 +192,63 @@ public class EnemyScript : MonoBehaviour
         agent.speed = 0;
     }
 
-    public void ApplyDamage(float damageAmount)
+    public void TakeDamage(string bodyPartName, float damage)
     {
-        if (isDead) return;
-
-        currentHealth -= damageAmount;
-        Debug.Log(transform.gameObject.name + " took damage: " + damageAmount + ", Current Health: " + currentHealth);
-
-        if (currentHealth <= 0)
+        BodyPart part = bodyParts.Find(p => p.name == bodyPartName);
+        if (part != null)
         {
-            Die();
+            part.TakeDamage(damage);
+            Debug.Log($"{part.name} took {damage} damage. Remaining health: {part.currentHealth}");
+
+            if (part.IsDestroyed())
+            {
+                Debug.Log($"{part.name} is destroyed!");
+                HandleLimbDestruction(part);
+            }
         }
     }
+
+    void HandleLimbDestruction(BodyPart part)
+    {
+        if (part.name == "Head")
+        {
+            Debug.Log("Zombie death");
+            //Head explode, body falls apart
+            Die();
+        }
+        else if (part.name == "Torso")
+        {
+            Debug.Log("Zombie death");
+            //Whole zombie explode
+            Die();
+        }
+        else if (part.name == "Arms")
+        {
+            if(part.name == "Left Arm")
+            {
+                leftArm.SetActive(false);
+                Debug.Log("Left arm hit");
+            }
+            if(part.name == "Right Arm")
+            {
+                rightArm.SetActive(false);
+                Debug.Log("Right arm hit");
+            }
+        }
+    }
+
+    //public void ApplyDamage(float damageAmount)
+    //{
+    //    if (isDead) return;
+
+    //    currentHealth -= damageAmount;
+    //    Debug.Log(transform.gameObject.name + " took damage: " + damageAmount + ", Current Health: " + currentHealth);
+
+    //    if (currentHealth <= 0)
+    //    {
+    //        Die();
+    //    }
+    //}
 
     private void Die()
     {

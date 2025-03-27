@@ -8,7 +8,7 @@ public class Shotgun : Weapon
     [SerializeField] GameObject temporaryHitParticel;
     [SerializeField] float spread = 5;
     [SerializeField] int pellets = 10;
-    [SerializeField] float pelletDamage = 40f;
+    public float pelletDamage = 40f;
 
     public new void Start()
     {
@@ -46,12 +46,20 @@ public class Shotgun : Weapon
                 }
                 else if (hit.transform.CompareTag("Enemies"))
                 {
-                    EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    if (enemy != null)
+                    ZombieBodyParts enemyPart = hit.collider.GetComponent<ZombieBodyParts>();
+                    if (enemyPart != null)
                     {
-                        enemy.ApplyDamage(pelletDamage);
-                        //Debug.Log(pelletDamage);
+                        enemyPart.enemyHealth.TakeDamage(enemyPart.bodyPartTorso, pelletDamage);
+                        enemyPart.enemyHealth.TakeDamage(enemyPart.bodyPartHead, pelletDamage);
+                        enemyPart.enemyHealth.TakeDamage(enemyPart.bodyPartArms, pelletDamage);
                     }
+
+                    //EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
+                    //if (enemy != null)
+                    //{
+                    //    enemy.ApplyDamage(pelletDamage);
+                    //    //Debug.Log(pelletDamage);
+                    //}
                 }
                 else if (hit.transform.CompareTag("Plank"))
                 {

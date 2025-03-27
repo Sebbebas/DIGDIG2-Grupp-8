@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 // Alexander
 
-public class PowerUp : MonoBehaviour
+public class LootDrops : MonoBehaviour
 {
     public enum PowerUpType { SpeedBoost, HealthBoost, AmmoBoost, Immortal }
     public PowerUpType powerUpType;
