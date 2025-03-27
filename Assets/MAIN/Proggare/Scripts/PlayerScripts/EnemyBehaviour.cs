@@ -97,31 +97,76 @@ public class EnemyBehaviour : MonoBehaviour
 
     void EnemyMovement()
     {
+        // Define a LayerMask that excludes the "Plank" layer
+        int plankLayer = LayerMask.NameToLayer("Plank");
+        int layerMask = ~(1 << plankLayer);
+
         foreach (GameObject enemy in prefabList)
         {
             if (enemy != null)
             {
-                float distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
+                NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+                EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
+                Animator animator = enemy.GetComponentInChildren<Animator>();
 
-                if (distanceToPlayer <= sightRadius)
+                if (agent != null && enemyScript != null)
                 {
-                    NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
-                    if (agent != null)
+                    if (enemyScript.GetAgro())
                     {
-                        agent.SetDestination(player.position);
+                        // If agro is true, move towards the player
+                        float distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
+                        if (distanceToPlayer <= sightRadius)
+                        {
+                            agent.SetDestination(player.position);
+                        }
+                        else
+                        {
+                            if (!agent.pathPending)
+                            {
+                                agent.ResetPath();
+                                animator.SetTrigger("NoSight");
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
-                    if (agent != null && !agent.pathPending)
+                    else
                     {
-                        agent.ResetPath();
+                        Vector3 directionToPlayer = (player.position - enemy.transform.position).normalized;
+
+                        // Perform a raycast from the enemy to the player, ignoring the "Plank" layer
+                        if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit, sightRadius, layerMask))
+                        {
+                            // Check if the raycast hit the player
+                            if (hit.transform == player)
+                            {
+                                // Player is visible, set agro to true
+                                enemyScript.SetAgro(true);
+
+                                //Play enemy alert animation
+                                animator.SetTrigger("Alert");
+
+                                // Move towards the player
+                                agent.SetDestination(player.position);
+
+                                animator.SetTrigger("Walk");
+                            }
+                        }
+                        else
+                        {
+                            // Player is out of sight radius, reset the path
+                            if (!agent.pathPending)
+                            {
+                                agent.ResetPath();
+                                animator.SetTrigger("NoSight");
+                            }
+                        }
                     }
                 }
             }
         }
     }
+
+
+
 
     void DespawnEnemy()
     {
@@ -154,5 +199,26 @@ public class EnemyBehaviour : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, despawnRadius);
+
+        // Draw raycasts for each enemy
+        Gizmos.color = Color.magenta;
+        foreach (GameObject enemy in prefabList)
+        {
+            if (enemy != null)
+            {
+                Vector3 directionToPlayer = (player.position - enemy.transform.position).normalized;
+                if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit, sightRadius))
+                {
+                    // Draw a line from the enemy to the hit point
+                    Gizmos.DrawLine(enemy.transform.position, hit.point);
+
+                    // If the raycast hit the player, draw a sphere at the hit point
+                    if (hit.transform == player)
+                    {
+                        Gizmos.DrawSphere(hit.point, 0.2f);
+                    }
+                }
+            }
+        }
     }
 }

@@ -47,6 +47,8 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] int torsoHealth = 100;
     [SerializeField] int armHealth = 30;
 
+    [SerializeField] bool agro = false;
+
     private Vector3 kickDirection;
     private float enemySpeedAtStart;
     private bool isStunned;
@@ -283,5 +285,14 @@ public class EnemyScript : MonoBehaviour
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, minSafeDistance);
         }
+    }
+
+    public bool GetAgro()
+    {
+        return agro;
+    }
+    public bool SetAgro(bool value)
+    {
+        return agro = value;
     }
 }
