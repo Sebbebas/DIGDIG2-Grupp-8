@@ -1869,7 +1869,7 @@ MonoBehaviour:
   antiHierarchySpam: {fileID: 0}
   hitMask:
     serializedVersion: 2
-    m_Bits: 960
+    m_Bits: 5056
   weaponRange: 1000
   effects:
   - effectType: 0
@@ -5695,13 +5695,13 @@ MonoBehaviour:
   leg: {fileID: 3314725532136084479}
   kickCooldown: 0
   coneAngle: 20
-  maxKickDistance: 10
+  maxKickDistance: 3
   kickForce: 2.4
   radius: 1.5
   coneResolution: 5
   kickLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4160
   grenadePrefab: {fileID: 3165213101292630628, guid: 3f9b1863598a4204f8b4f244c8dd6cdf, type: 3}
   spawnOffset: {x: 0, y: 0.82, z: 0}
   throwCooldownTime: 3
@@ -7095,10 +7095,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRadius: 24
-  nonSpawnRadius: 11
-  sightRadius: 17.7
+  nonSpawnRadius: 14
+  sightRadius: 20
   despawnRadius: 25
-  numberOfEnemies: 12
+  numberOfEnemies: 9
   enemyZero: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
   enemyOne: {fileID: 2279033429783417335, guid: 7ff750e51b37e2741b191111b4724411, type: 3}
   enemyTwo: {fileID: 2410703198815107751, guid: 954f2a4773be2bc4987b53696018bace, type: 3}
@@ -14287,7 +14287,7 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 60
+  m_Intensity: 23.08
   m_Range: 60
   m_SpotAngle: 77
   m_InnerSpotAngle: 69
@@ -16914,13 +16914,13 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 120
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1023
+    m_Bits: 15359
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8600000, guid: a0ece16564e6b9e4f8b3378914892a89, type: 2}
   m_TargetDisplay: 0

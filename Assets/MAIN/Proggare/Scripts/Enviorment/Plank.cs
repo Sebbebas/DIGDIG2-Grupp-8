@@ -8,15 +8,20 @@ public class Plank : MonoBehaviour
 
     [SerializeField] BoxCollider hitBox;
     [SerializeField] MeshRenderer plank, brokenPlank;
-
+    
+    AudioSource breakSound;
     void Start()
     {
+        breakSound = GetComponent<AudioSource>();
+
         plank.enabled = true;
         brokenPlank.enabled = false;
     }
 
     public void BreakPlanks(Vector3 direction)
     {
+        breakSound.Play();
+
         hitBox.enabled = false;
         plank.enabled = false;
         brokenPlank.enabled = true;
