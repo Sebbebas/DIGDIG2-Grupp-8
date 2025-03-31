@@ -532,6 +532,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7972062470312697674, guid: 02ff9e5e918f3a443acffedabc8deaf6, type: 3}
+      propertyPath: unfreezeTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972062470312697674, guid: 02ff9e5e918f3a443acffedabc8deaf6, type: 3}
       propertyPath: actions.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1453,7 +1457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1704411386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6712,8 +6716,8 @@ SceneRoots:
   - {fileID: 381490739064198313}
   - {fileID: 1289862734}
   - {fileID: 1579389752}
-  - {fileID: 610671616}
   - {fileID: 749270942}
   - {fileID: 1536472587}
   - {fileID: 1704411389}
   - {fileID: 297401507}
+  - {fileID: 610671616}

@@ -12,6 +12,11 @@ public class SceneLoader : MonoBehaviour
 
     #region Variables
     //Configurable Parameters
+
+    [SerializeField, Tooltip("Time.timeScale = 1.0f When scene is loaded")] bool unfreezeTime;
+
+    [Space]
+
     [Header("Actions")]
     [SerializeField] SceneActions[] actions;
 
@@ -48,6 +53,11 @@ public class SceneLoader : MonoBehaviour
         [Tooltip("Animator parameter value")] public float parameterValue;
     }
     #endregion
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if(unfreezeTime) { Time.timeScale = 1.0f; }
+    }
 
     #region Base Scene Actions
     /// <summary>
