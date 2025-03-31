@@ -13,9 +13,13 @@ public class SceneLoader : MonoBehaviour
     #region Variables
     //Configurable Parameters
 
-    [SerializeField, Tooltip("Time.timeScale = 1.0f When scene is loaded")] bool unfreezeTime;
-
-    [Space]
+    [System.Serializable]
+    public struct OnLvlLoad
+    {
+        public bool freeze;
+        public float unfreezeTime;
+    }
+    [SerializeField] OnLvlLoad onLvlLoad;
 
     [Header("Actions")]
     [SerializeField] SceneActions[] actions;
@@ -56,7 +60,15 @@ public class SceneLoader : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        if(unfreezeTime) { Time.timeScale = 1.0f; }
+        if (onLvlLoad.freeze) { Time.timeScale = 1.0f; }
+
+        StartCoroutine(UnFreezeRoutine(onLvlLoad.unfreezeTime));
+    }
+
+    IEnumerator UnFreezeRoutine(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        Time.timeScale = 1.0f;
     }
 
     #region Base Scene Actions

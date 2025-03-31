@@ -170,9 +170,6 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(waitBeforeReload);
         waitForReload = false;
 
-        shellOne.SetActive(true);
-        shellTwo.SetActive(true);
-
         //Before Wait
         reloading = true;
         PlaySound(EffectType.reload);
@@ -180,7 +177,11 @@ public class Weapon : MonoBehaviour
 
         //wait
         yield return new WaitForSeconds(reloadTime);
-        
+
+        //GUI
+        shellOne.SetActive(true);
+        shellTwo.SetActive(true);
+
         //After Wait
         int ammoToAdd = magSize - currentAmmo;
 

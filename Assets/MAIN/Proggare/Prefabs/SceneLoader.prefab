@@ -44,25 +44,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb1af23506f009245a6f608c58a9dd74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unfreezeTime: 1
   actions:
   - actionType: 0
     scene: 0
     transitionTime: 0
     animator: {fileID: 0}
-    parameterType: 0
-    parameterName: 
+    parameterType: 1
+    parameterName: FadeIn
     parameterValue: 0
   - actionType: 1
     scene: 1
-    transitionTime: 0
+    transitionTime: 2
     animator: {fileID: 0}
-    parameterType: 0
-    parameterName: 
+    parameterType: 1
+    parameterName: FadeIn
     parameterValue: 0
   - actionType: 2
     scene: 1
     transitionTime: 0
     animator: {fileID: 0}
-    parameterType: 0
-    parameterName: 
+    parameterType: 1
+    parameterName: FadeIn
     parameterValue: 0
