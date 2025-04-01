@@ -183,6 +183,10 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   shootPoint: {fileID: 0}
   shootCooldown: 2
+  textures:
+  - {fileID: 2100000, guid: 06fd05217f0cf034eb508e2a3b0e5805, type: 2}
+  - {fileID: 2100000, guid: 02234f1f664884f44ac04f25fb23caa1, type: 2}
+  - {fileID: 2100000, guid: 7c81edf097a5c6e4b97a86179e30780c, type: 2}
 --- !u!1001 &6424825647942411532
 PrefabInstance:
   m_ObjectHideFlags: 0

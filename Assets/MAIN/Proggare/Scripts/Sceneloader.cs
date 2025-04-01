@@ -13,14 +13,18 @@ public class SceneLoader : MonoBehaviour
     #region Variables
     //Configurable Parameters
 
+    ///////////////////// ON LEVEL WAS LOADED PARAMETERS
+    [SerializeField] OnLvlLoad onLvlLoad;
+    private bool isFrozen = false;
+
     [System.Serializable]
     public struct OnLvlLoad
     {
         public bool freeze;
         public float unfreezeTime;
     }
-    [SerializeField] OnLvlLoad onLvlLoad;
 
+    ///////////////////// SCENE ACTIONS PARAMETERS
     [Header("Actions")]
     [SerializeField] SceneActions[] actions;
 
@@ -63,11 +67,14 @@ public class SceneLoader : MonoBehaviour
         if (onLvlLoad.freeze) { Time.timeScale = 1.0f; }
 
         StartCoroutine(UnFreezeRoutine(onLvlLoad.unfreezeTime));
+
+        isFrozen = onLvlLoad.freeze;
     }
 
     IEnumerator UnFreezeRoutine(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+        isFrozen = false;
         Time.timeScale = 1.0f;
     }
 
@@ -180,4 +187,9 @@ public class SceneLoader : MonoBehaviour
         }
     }
     #endregion
+
+    public bool GetIsFrozen()
+    {
+        return isFrozen;
+    }
 }

@@ -77,6 +77,9 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float shootCooldown = 2f;
 
+    [Header("Texture")]
+    [SerializeField] Material[] textures;
+
     private Transform player;
     private bool canShoot = true;
 
@@ -93,6 +96,8 @@ public class EnemyScript : MonoBehaviour
 
     private void Start()
     {
+        RandomEnemyTexture();
+
         agent = GetComponent<NavMeshAgent>();
         myRigidbody = GetComponent<Rigidbody>();
         enemySpeedAtStart = agent.speed;
@@ -141,6 +146,21 @@ public class EnemyScript : MonoBehaviour
                 isStunned = false;
                 agent.isStopped = false;
                 agent.speed = enemySpeedAtStart;
+            }
+        }
+    }
+
+    private void RandomEnemyTexture()
+    {
+        if (textures.Length > 0)
+        {
+            int randomTexture = UnityEngine.Random.Range(0, textures.Length);
+            
+            SkinnedMeshRenderer[] renderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                renderers[i].material = textures[randomTexture];
             }
         }
     }

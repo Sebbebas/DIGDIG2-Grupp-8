@@ -57,9 +57,12 @@ public class SettingManager : MonoBehaviour
 
     InputAction pauseAction;
     WeaponManager weaponManager;
+    SceneLoader sceneLoader;
 
     private void Awake()
     {
+        SceneLoader sceneLoader = FindFirstObjectByType<SceneLoader>();
+
         #region Save
         //Load sensitivity from PlayerPrefs defaults to 100
         int savedSensitivity = PlayerPrefs.GetInt("Sensitivity", defaultSensitivity);
@@ -129,62 +132,68 @@ public class SettingManager : MonoBehaviour
 
     void Update()
     {
-        PauseGame();
-
-        while (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
-
-        sensitivityAmount.text = sensitivitySlider?.value.ToString();
-
-        mainCamera.fieldOfView = mainCamFOV;
-        FOVAmount.text = mainCamSlider?.value.ToString();
-
-        weaponCamera.fieldOfView = weaponCamFOV;
-        weaponFOVAmount.text = weaponCamSlider?.value.ToString();
-
-        if (settingsCanvasOn)
+        if (sceneLoader != null && sceneLoader.GetIsFrozen() == true) 
         {
-            pauseCanvas.SetActive(false);
-            gamePausedManually = true;
-        }
-
-        if (sensitivitySlider.value != defaultSensitivity || mainCamSlider.value != defaultMainFOV || weaponCamSlider.value != defaultWeaponFOV || valueChanged)
-        {
-            settingsRevertButton.interactable = true;
+            Debug.Log("TIME FROZEN");
         }
         else
         {
-            settingsRevertButton.interactable = false;
-        }
- 
-        //Sends out warning that settings is not saved, also make sliders non interactable while warning is true
-        if (notSavedWarning.activeInHierarchy || revertWarning.activeInHierarchy)
-        {
-            sensitivitySlider.interactable = false;
-            mainCamSlider.interactable = false;
-            weaponCamSlider.interactable = false;
+            PauseGame();
 
-            backButton.interactable = false;
-            settingsRevertButton.interactable = false;
-        }
-        else 
-        {
-            sensitivitySlider.interactable = true;
-            mainCamSlider.interactable = true;
-            weaponCamSlider.interactable = true;
+            while (GetComponent<PlayerHealth>().GetIsDead()) { stopGame = true; Time.timeScale = 0; return; }
 
-            backButton.interactable = true;
+            sensitivityAmount.text = sensitivitySlider?.value.ToString();
+
+            mainCamera.fieldOfView = mainCamFOV;
+            FOVAmount.text = mainCamSlider?.value.ToString();
+
+            weaponCamera.fieldOfView = weaponCamFOV;
+            weaponFOVAmount.text = weaponCamSlider?.value.ToString();
+
+            if (settingsCanvasOn)
+            {
+                pauseCanvas.SetActive(false);
+                gamePausedManually = true;
+            }
+
+            if (sensitivitySlider.value != defaultSensitivity || mainCamSlider.value != defaultMainFOV || weaponCamSlider.value != defaultWeaponFOV || valueChanged)
+            {
+                settingsRevertButton.interactable = true;
+            }
+            else
+            {
+                settingsRevertButton.interactable = false;
+            }
+
+            //Sends out warning that settings is not saved, also make sliders non interactable while warning is true
+            if (notSavedWarning.activeInHierarchy || revertWarning.activeInHierarchy)
+            {
+                sensitivitySlider.interactable = false;
+                mainCamSlider.interactable = false;
+                weaponCamSlider.interactable = false;
+
+                backButton.interactable = false;
+                settingsRevertButton.interactable = false;
+            }
+            else
+            {
+                sensitivitySlider.interactable = true;
+                mainCamSlider.interactable = true;
+                weaponCamSlider.interactable = true;
+
+                backButton.interactable = true;
+            }
+
+            if (!valueChanged || notSavedWarning.activeInHierarchy || revertWarning.activeInHierarchy)
+            {
+                applyButton.interactable = false;
+            }
+            else
+            {
+                applyButton.interactable = true;
+            }
         }
 
-        if (!valueChanged || notSavedWarning.activeInHierarchy || revertWarning.activeInHierarchy)
-        {
-            applyButton.interactable = false;
-        }
-        else
-        {
-            applyButton.interactable = true;
-        }
-
-        
     }
 
     void OnEnable()

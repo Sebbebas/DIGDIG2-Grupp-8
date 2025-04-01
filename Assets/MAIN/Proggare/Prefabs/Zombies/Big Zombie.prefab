@@ -118,11 +118,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8c95614220ac14f9fdbb20899cbe51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodyParts: []
   DamageAmount: 20
   stunTime: 0.2
   maxKnockbackVelocity: 5
   damageCooldown: 2.5
-  currentHealth: 140
+  headHealth: 50
+  torsoHealth: 100
+  armHealth: 30
+  agro: 0
+  leftArm: {fileID: 0}
+  rightArm: {fileID: 0}
   scoreValue: 20
   isProjectileEnemy: 0
   attackDistance: 10
@@ -130,6 +136,10 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   shootPoint: {fileID: 0}
   shootCooldown: 2
+  textures:
+  - {fileID: 2100000, guid: 06fd05217f0cf034eb508e2a3b0e5805, type: 2}
+  - {fileID: 2100000, guid: 02234f1f664884f44ac04f25fb23caa1, type: 2}
+  - {fileID: 2100000, guid: 7c81edf097a5c6e4b97a86179e30780c, type: 2}
 --- !u!54 &1038778945550318040
 Rigidbody:
   m_ObjectHideFlags: 0
