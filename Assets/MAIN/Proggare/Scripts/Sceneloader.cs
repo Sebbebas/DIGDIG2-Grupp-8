@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    //--HOW TO USE--
-    //PlayAction(int); is used to trigger a specific actionType from SceneActions[]
-    //Example: SceneActions[1].actionType = 2 ("loadScene"). If you want to trigger that specific action PlayAction(1) since that is the actionType that correlates with loadScene;
-    //Its a bit scuffed
+    [Header("OBS:" +
+        "\r\n When using buttons with PlayAction(int), the number corresponds to the ActionType number:" +
+        "\r\n- ReloadScene() will always be 0" +
+        "\r\n- LoadScene() will always be 1" +
+        "\r\n- Quit() will always be 2" +
+        "\r\n- None() will always be 3\r\n")]
+
+    [Space]
 
     #region Variables
     //Configurable Parameters
@@ -43,7 +47,8 @@ public class SceneLoader : MonoBehaviour
         {
             reloadScene = 0,
             loadScene = 1,
-            quit = 2
+            quit = 2,
+            none = 3,
         }
 
         //Variables
@@ -152,6 +157,9 @@ public class SceneLoader : MonoBehaviour
                 //Quit
                 case (SceneActions.ActionType)2:
                     Quit();
+                    break;
+                case (SceneActions.ActionType)3:
+                    Debug.Log("No actionType selected");
                     break;
             }
         }

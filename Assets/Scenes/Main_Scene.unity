@@ -10869,7 +10869,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 47482
+    surfaceParameter: 44872
     meshQueryIndex: 1
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -15729,10 +15729,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'SCENE TRANSTION '
       objectReference: {fileID: 0}
-    - target: {fileID: 6138540577829665479, guid: cdd239581a5eb0d40b5c2565da99311d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18996,7 +18992,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 47554
+    surfaceParameter: 44972
     meshQueryIndex: 0
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -26954,7 +26950,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 47482
+    surfaceParameter: 44872
     meshQueryIndex: 1
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227

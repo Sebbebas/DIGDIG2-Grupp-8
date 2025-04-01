@@ -12,13 +12,13 @@ public class FlickeringLight : MonoBehaviour
 
     public void Start()
     {
-        lightSource = GetComponentInChildren<Light>();
+        lightSource = GetComponent<Light>();
         StartCoroutine(Flicker());
     }
 
     private IEnumerator Flicker()
     {
-        while (Time.timeScale > 0)
+        while (Time.timeScale == 1)
         {
             lightSource.intensity = Random.Range(minIntensity, maxIntensity);
             yield return new WaitForSeconds(flickerSpeed);
