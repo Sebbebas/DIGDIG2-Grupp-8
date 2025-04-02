@@ -82,7 +82,7 @@ public class Shotgun : Weapon
                     EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
                     if (enemy != null)
                     {
-                        enemy.ApplyDamage(pelletDamage / 1000);
+                        enemy.ApplyDamage(pelletDamage);
                         //Debug.Log(pelletDamage);
                     }
 
@@ -109,7 +109,7 @@ public class Shotgun : Weapon
                 }
                 else
                 {
-                    Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform);
+                    //Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform);
                 }
             }
         }
