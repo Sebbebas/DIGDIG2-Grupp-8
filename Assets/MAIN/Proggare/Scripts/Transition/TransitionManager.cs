@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class TransitionManager : MonoBehaviour
@@ -18,13 +19,18 @@ public class TransitionManager : MonoBehaviour
         musicManager = FindFirstObjectByType<MusicManager>();
     }
 
-    void Update()
-    {
-        
-    }
-
     public void TransitionFadeOut()
     {
+        StartCoroutine(TransitionFadeOutRoutine());
+    }
+
+    IEnumerator TransitionFadeOutRoutine()
+    {
+        sceneLoader.PlayAction(3);
         musicManager.MusicFadeOut();
+
+        yield return new WaitForSeconds(2);
+
+        sceneLoader.LoadSceneNumber(1);
     }
 }

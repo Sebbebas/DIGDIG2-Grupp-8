@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MusicManager : MonoBehaviour
@@ -9,25 +10,29 @@ public class MusicManager : MonoBehaviour
 
 
     //Cached References
-    SceneLoader sceneLoader;
 
     void Start()
     {
-        sceneLoader = FindFirstObjectByType<SceneLoader>();
-    }
-
-    void Update()
-    {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void MusicFadeOut()
     {
-        audioSource.volume -= 0.1f;
-        if (audioSource.volume <= 0)
+        StartCoroutine(MusicFadeOutRoutine());
+    }
+
+    public IEnumerator MusicFadeOutRoutine()
+    {
+        while (audioSource.volume > 0)
         {
-            audioSource.Stop();
-            audioSource.volume = 1;
+            audioSource.volume -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
+
+            if (audioSource.volume <= 0)
+            {
+                audioSource.Stop();
+                audioSource.volume = 1;
+            }
         }
     }
 }
