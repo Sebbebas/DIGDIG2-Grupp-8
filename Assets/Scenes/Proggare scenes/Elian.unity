@@ -482,8 +482,8 @@ ParticleSystemRenderer:
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
-  m_MinParticleSize: 0.01
-  m_MaxParticleSize: 0.05
+  m_MinParticleSize: 0.05
+  m_MaxParticleSize: 0.15
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -5243,7 +5243,7 @@ Transform:
   m_GameObject: {fileID: 316544826}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5000007, y: 0.49999928, z: -0.49999928, w: 0.5000007}
-  m_LocalPosition: {x: -4, y: 2, z: 0.7568672}
+  m_LocalPosition: {x: -2, y: 2, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5912,6 +5912,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.4572314
       objectReference: {fileID: 0}
@@ -5921,7 +5933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 3.61
       objectReference: {fileID: 0}
     - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5951,9 +5963,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 76073346433427442, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 164016902151538056, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy Torso
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265041057624490550, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy Right Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935045369040616864, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935045369040616864, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
       propertyPath: m_Name
       value: Zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844983833757488512, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy Torso
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906744976939480209, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy Left Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 3362912021538761304, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy Head
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724163398147900697, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy Torso
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

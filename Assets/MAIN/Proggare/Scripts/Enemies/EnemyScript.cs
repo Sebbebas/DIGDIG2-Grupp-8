@@ -43,9 +43,10 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] float maxKnockbackVelocity = 5;
     [SerializeField] float damageCooldown = 2f;
 
-    [SerializeField] int headHealth = 50;
-    [SerializeField] int torsoHealth = 100;
-    [SerializeField] int armHealth = 30;
+    [SerializeField] float headHealth = 50f;
+    [SerializeField] float torsoHealth = 100f;
+    [SerializeField] float armHealth = 30f;
+    [SerializeField] float currentHealth = 100f;
 
     [SerializeField] bool agro = false;
 
@@ -58,7 +59,10 @@ public class EnemyScript : MonoBehaviour
 
     [Header("Body Parts")]
     [SerializeField] GameObject leftArm;
+    [SerializeField] GameObject lostLeftArm;
     [SerializeField] GameObject rightArm;
+    [SerializeField] GameObject lostRightArm;
+    [SerializeField] ParticleSystem limbLossEffect;
 
     [Header("Loot Drop Values")]
     private LootSystem lootSystem;
@@ -246,12 +250,18 @@ public class EnemyScript : MonoBehaviour
         }
         else if (part.name == "Left Arm")
         {
-            leftArm.SetActive(false);
             Debug.Log("Left arm hit");
+            if (armHealth <= 0)
+            {
+                leftArm.SetActive(false);
+                lostLeftArm.SetActive(true);
+                Debug.Log("Left arm dead");
+            }
         }
         else if (part.name == "Right Arm")
         {
             rightArm.SetActive(false);
+            lostRightArm.SetActive(true);
             Debug.Log("Right arm hit");
         }
 
@@ -271,18 +281,30 @@ public class EnemyScript : MonoBehaviour
         //}
     }
 
-    //public void ApplyDamage(float damageAmount)
-    //{
-    //    if (isDead) return;
+    public void ApplyDamageHead(float damage)
+    {
+        headHealth -= damage;
+        Debug.Log(transform.gameObject.name + " took damage: " + damage + ", Current Health: " + headHealth);
 
-    //    currentHealth -= damageAmount;
-    //    Debug.Log(transform.gameObject.name + " took damage: " + damageAmount + ", Current Health: " + currentHealth);
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Headshot");
+            //Die();
+        }
+    }
 
-    //    if (currentHealth <= 0)
-    //    {
-    //        Die();
-    //    }
-    //}
+    public void ApplyDamage(float damageAmount)
+    {
+        if (isDead) return;
+
+        currentHealth -= damageAmount;
+        Debug.Log(transform.gameObject.name + " took damage: " + damageAmount + ", Current Health: " + currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
 
     private void Die()
     {
