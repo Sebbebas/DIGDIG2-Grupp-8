@@ -86,17 +86,21 @@ public class Shotgun : Weapon
                         //Debug.Log(pelletDamage);
                     }
 
-                }
+                    int numberOfChildren = transform.childCount;
+                    if (numberOfChildren < 1) { return; }
 
-                if (hit.transform.CompareTag("Enemy Head"))
-                {
-                    EnemyScript enemy = hit.transform.GetComponentInParent<EnemyScript>();
-                    if (enemy != null)
+                    if (hit.transform.GetChild(0).CompareTag("Enemy Head"))
                     {
-                        enemy.ApplyDamageHead(pelletDamage);
-                        Debug.Log(pelletDamage);
+                        //EnemyScript enemy = hit.transform.GetComponentInParent<EnemyScript>();
+                        if (enemy != null)
+                        {
+                            enemy.ApplyDamageHead(pelletDamage);
+                            Debug.Log(pelletDamage);
+                        }
                     }
                 }
+
+
 
                 else if (hit.transform.CompareTag("Plank"))
                 {

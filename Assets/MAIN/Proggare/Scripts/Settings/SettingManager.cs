@@ -65,11 +65,11 @@ public class SettingManager : MonoBehaviour
 
         #region Save
         //Load sensitivity from PlayerPrefs defaults to 100
-        int savedSensitivity = PlayerPrefs.GetInt("Sensitivity", defaultSensitivity);
+        GetComponentInChildren<PlayerLook>().mouseSensitivity = PlayerPrefs.GetInt("Sensitivity", defaultSensitivity);
         //Set the slider value
-        sensitivitySlider.value = savedSensitivity;
+        sensitivitySlider.value = GetComponentInChildren<PlayerLook>().mouseSensitivity;
         //Apply to PlayerLook
-        GetComponentInChildren<PlayerLook>().mouseSensitivity = savedSensitivity;
+        //GetComponentInChildren<PlayerLook>().mouseSensitivity = savedSensitivity;
         //Debug.Log("Loaded sensitivity: " + savedSensitivity);
 
         //Load main FOV from PlayerPrefs defaults to 60
@@ -132,6 +132,8 @@ public class SettingManager : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(GetComponentInChildren<PlayerLook>().mouseSensitivity);
+
         if (sceneLoader != null && sceneLoader.GetIsFrozen() == true) 
         {
             Debug.Log("TIME FROZEN");
