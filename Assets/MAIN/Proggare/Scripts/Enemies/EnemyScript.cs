@@ -244,19 +244,31 @@ public class EnemyScript : MonoBehaviour
             //Whole zombie explode
             Die();
         }
-        else if (part.name == "Arms")
+        else if (part.name == "Left Arm")
         {
-            if(part.name == "Left Arm")
-            {
-                leftArm.SetActive(false);
-                Debug.Log("Left arm hit");
-            }
-            if(part.name == "Right Arm")
-            {
-                rightArm.SetActive(false);
-                Debug.Log("Right arm hit");
-            }
+            leftArm.SetActive(false);
+            Debug.Log("Left arm hit");
         }
+        else if (part.name == "Right Arm")
+        {
+            rightArm.SetActive(false);
+            Debug.Log("Right arm hit");
+        }
+
+        //else if (part.name == "Arms")
+        //{
+        //    Debug.Log("Arm hit");
+        //    if(part.name == "Left Arm")
+        //    {
+        //        leftArm.SetActive(false);
+        //        Debug.Log("Left arm hit");
+        //    }
+        //    if(part.name == "Right Arm")
+        //    {
+        //        rightArm.SetActive(false);
+        //        Debug.Log("Right arm hit");
+        //    }
+        //}
     }
 
     //public void ApplyDamage(float damageAmount)

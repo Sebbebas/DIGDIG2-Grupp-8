@@ -11,7 +11,8 @@ TagManager:
   - Enemy Head
   - Enemy Torso
   - Enemy Leg
-  - Enemy Arm
+  - Enemy Left Arm
+  - Enemy Right Arm
   - Wall
   - Floor
   - Plank

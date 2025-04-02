@@ -44,68 +44,65 @@ public class Shotgun : Weapon
                 {
                     hit.transform.GetComponent<Grenade>().Explode();
                 }
+
                 else if (hit.transform.CompareTag("Enemies"))
                 {
                     ZombieBodyParts enemyPart = hit.collider.GetComponent<ZombieBodyParts>();
-                    if (enemyPart != null)
+                    if (hit.transform.CompareTag("Enemy Head"))
                     {
-                        enemyPart.enemyHealth.TakeDamage(enemyPart.bodyPartTorso, pelletDamage);
-                        enemyPart.enemyHealth.TakeDamage(enemyPart.bodyPartHead, pelletDamage);
-                        enemyPart.enemyHealth.TakeDamage(enemyPart.bodyPartArms, pelletDamage);
+                        if (enemyPart != null)
+                        {
+                            enemyPart.headHealth.TakeDamage(enemyPart.bodyPartHead, pelletDamage);
+                        }
+                    }
+                    else if (hit.transform.CompareTag("Enemy Torso"))
+                    {
+                        if (enemyPart != null)
+                        {
+                            enemyPart.headHealth.TakeDamage(enemyPart.bodyPartTorso, pelletDamage);
+                        }
+                    }
+                    else if (hit.transform.CompareTag("Enemy Left Arm"))
+                    { 
+                        if (enemyPart != null)
+                        {
+                            enemyPart.headHealth.TakeDamage(enemyPart.bodyPartLeftArm, pelletDamage);
+                        }
+                    }
+                    else if (hit.transform.CompareTag("Enemy Right Arm"))
+                    {
+                        if (enemyPart != null)
+                        {
+                            enemyPart.headHealth.TakeDamage(enemyPart.bodyPartRightArm, pelletDamage);
+                        }
                     }
 
-                    //EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    //if (enemy != null)
+                    //ZombieBodyParts enemyPart = hit.collider.GetComponent<ZombieBodyParts>();
+                    //if (enemyPart != null)
                     //{
-                    //    enemy.ApplyDamage(pelletDamage);
-                    //    //Debug.Log(pelletDamage);
+                    //    enemyPart.headHealth.TakeDamage(enemyPart.bodyPartTorso, pelletDamage);
+                    //    enemyPart.headHealth.TakeDamage(enemyPart.bodyPartHead, pelletDamage);
+                    //    enemyPart.headHealth.TakeDamage(enemyPart.bodyPartLeftArm, pelletDamage);
+                    //    enemyPart.headHealth.TakeDamage(enemyPart.bodyPartRightArm, pelletDamage);
                     //}
-                }
-                else if (hit.transform.CompareTag("Plank"))
-                {
-                    Plank plank = hit.transform.GetComponent<Plank>();
-                    plank.BreakPlanks(weaponRay.direction);
-                }
 
-                /*if (hit.transform.CompareTag("Enemy Head"))
-                {
-                    EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    if (enemy != null)
+                    //    //EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
+                    //    //if (enemy != null)
+                    //    //{
+                    //    //    enemy.ApplyDamage(pelletDamage);
+                    //    //    //Debug.Log(pelletDamage);
+                    //    //}
+                    //}
+                    else if (hit.transform.CompareTag("Plank"))
                     {
-                        enemy.ApplyDamage(2 * pelletDamage);
-                        Debug.Log(pelletDamage);
+                       Plank plank = hit.transform.GetComponent<Plank>();
+                        plank.BreakPlanks(weaponRay.direction);
                     }
-                }
-                if (hit.transform.CompareTag("Enemy Torso"))
-                {
-                    EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    if (enemy != null)
+
+                    else
                     {
-                        enemy.ApplyDamage(pelletDamage);
-                        Debug.Log(pelletDamage);
+                        Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform);
                     }
-                }
-                if (hit.transform.CompareTag("Enemy Leg"))
-                {
-                    EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    if (enemy != null)
-                    {
-                        enemy.ApplyDamage(pelletDamage);
-                        Debug.Log(pelletDamage);
-                    }
-                }
-                if (hit.transform.CompareTag("Enemy Arm"))
-                {
-                    EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    if (enemy != null)
-                    {
-                        enemy.ApplyDamage(pelletDamage);
-                        Debug.Log(pelletDamage);
-                    }
-                }*/
-                else
-                {
-                    Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform);
                 }
             }
         }

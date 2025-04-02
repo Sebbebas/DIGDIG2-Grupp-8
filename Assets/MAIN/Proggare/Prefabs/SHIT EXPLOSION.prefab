@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDamage: 100
-  damageReductionOverDistance: 3
+  damageReductionOverDistance: 4
   dmgTime: 0.25
   effectedObjects:
     serializedVersion: 2
