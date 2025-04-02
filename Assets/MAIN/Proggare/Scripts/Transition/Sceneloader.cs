@@ -1,23 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    [Header("OBS:" +
-        "\r\n When using buttons with PlayAction(int), the number corresponds to the ActionType number:" +
-        "\r\n- ReloadScene() will always be 0" +
-        "\r\n- LoadScene() will always be 1" +
-        "\r\n- Quit() will always be 2" +
-        "\r\n- None() will always be 3\r\n")]
-
-    [Space]
-
     #region Variables
     //Configurable Parameters
 
-    ///////////////////// ON LEVEL WAS LOADED PARAMETERS
+
+    //ON LEVEL WAS LOADED PARAMETERS
     [SerializeField] OnLvlLoad onLvlLoad;
     private bool isFrozen = false;
 
@@ -28,7 +19,16 @@ public class SceneLoader : MonoBehaviour
         public float unfreezeTime;
     }
 
-    ///////////////////// SCENE ACTIONS PARAMETERS
+    //WARNING TEXT
+    [Header("OBS:" +
+        "\r\n When using buttons with PlayAction(int), the number corresponds to the ActionType number:" +
+        "\r\n- ReloadScene() will always be 0" +
+        "\r\n- LoadScene() will always be 1" +
+        "\r\n- Quit() will always be 2" +
+        "\r\n- None() will always be 3" +
+        "\r\n- Also dose not work in a build idk why")]
+
+    //SCENE ACTIONS PARAMETERS
     [Header("Actions")]
     [SerializeField] SceneActions[] actions;
 
@@ -60,13 +60,14 @@ public class SceneLoader : MonoBehaviour
         [Header("Animations")]
         [Tooltip("Animator")] public Animator animator;
 
-        [Header("Parameters")]
+        [Header("Animation Parameters")]
         [Tooltip("Animator parameter type")] public AnimatorVariable parameterType;
         [Tooltip("Animator parameter name")] public string parameterName;
         [Tooltip("Animator parameter value")] public float parameterValue;
     }
     #endregion
 
+    #region OnLevelWasLoaded
     private void OnLevelWasLoaded(int level)
     {
         if (onLvlLoad.freeze) { Time.timeScale = 1.0f; }
@@ -76,12 +77,14 @@ public class SceneLoader : MonoBehaviour
         isFrozen = onLvlLoad.freeze;
     }
 
+
     IEnumerator UnFreezeRoutine(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         isFrozen = false;
         Time.timeScale = 1.0f;
     }
+    #endregion
 
     #region Base Scene Actions
     /// <summary>
