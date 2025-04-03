@@ -158,9 +158,13 @@ PrefabInstance:
     - target: {fileID: 761167320103044743, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ed999153d9a3f73439fb5fb0d1338cd7, type: 3}
+      objectReference: {fileID: 21300000, guid: 1b32d83e01d4ff6428ac3b9033abd64b, type: 3}
     - target: {fileID: 1312168213106435148, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727258110824980888, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2425930386577910314, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
@@ -201,14 +205,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3923673240938430709, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: pellets
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 4213300569081926599, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4327374827836331831, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
@@ -229,10 +225,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420508781857598770, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7083989007705134911, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7789529859971171444, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
@@ -6003,41 +5995,17 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 164016902151538056, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: m_TagString
-      value: Enemy Torso
-      objectReference: {fileID: 0}
-    - target: {fileID: 1265041057624490550, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: m_TagString
-      value: Enemy Right Arm
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935045369040616864, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935045369040616864, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
-    - target: {fileID: 2844983833757488512, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: m_TagString
-      value: Enemy Torso
+    - target: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2906744976939480209, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
+    - target: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
       propertyPath: m_TagString
-      value: Enemy Left Arm
-      objectReference: {fileID: 0}
-    - target: {fileID: 3362912021538761304, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: m_TagString
-      value: Enemy Head
-      objectReference: {fileID: 0}
-    - target: {fileID: 4724163398147900697, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: m_TagString
-      value: Enemy Torso
+      value: Enemies
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

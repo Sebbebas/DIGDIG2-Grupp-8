@@ -132,7 +132,7 @@ public class SettingManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(GetComponentInChildren<PlayerLook>().mouseSensitivity);
+        //Debug.Log("Sens is " + GetComponentInChildren<PlayerLook>().mouseSensitivity);
 
         if (sceneLoader != null && sceneLoader.GetIsFrozen() == true) 
         {

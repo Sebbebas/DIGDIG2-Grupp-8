@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] float damageAmount = 20f;
     [SerializeField] TextMeshProUGUI healthText;
 
-    private float healAmount = 100f;
+    private float healAmount = 20f;
 
     [Header("Health Stages")]
     [SerializeField] GameObject stage1Image;
@@ -47,8 +47,8 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.H)) Heal(healAmount);
-        //if (Input.GetKeyDown(KeyCode.K)) ApplyDamage(damageAmount);
+        if (Input.GetKeyDown(KeyCode.H)) Heal(healAmount);
+        //if (Input.GetKeyDown(KeyCode.K)) ApplyTorsoDamage(damageAmount);
     }
 
     public void ApplyDamage(float damageAmount)
@@ -103,26 +103,26 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead) return;
 
-        if (currentHealth >= 81)
+        if (100 <= currentHealth && currentHealth >= 81)
         {
             stage2Image.SetActive(false);
         }
-        else if (currentHealth >= 61)
+        else if (80 <= currentHealth && currentHealth >= 61)
         {
             stage2Image.SetActive(true);
             stage3Image.SetActive(false);
         }
-        else if (currentHealth >= 41)
+        else if (60 <= currentHealth && currentHealth >= 41)
         {
             stage3Image.SetActive(true);
             stage4Image.SetActive(false);
         }
-        else if (currentHealth >= 21)
+        else if (40 <= currentHealth && currentHealth >= 21)
         {
             stage4Image.SetActive(true);
             pulseEffect.SetActive(false);
         }
-        else if (currentHealth >= 0)
+        else if (20 <= currentHealth && currentHealth >= 0)
         {
             pulseEffect.SetActive(true);
         }
