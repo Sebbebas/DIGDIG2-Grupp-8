@@ -38,6 +38,8 @@ public class LootDrops : MonoBehaviour
     [Header("Audio Settings")]
     [SerializeField] private AudioClip pickupSound;
 
+    Destroy destroy;
+
     private void Start()
     {
         startPosition = transform.position;
@@ -68,7 +70,14 @@ public class LootDrops : MonoBehaviour
         PlayPickupSound();
         ApplyPowerUp(playerController, playerHealth, weaponManager);
         ShowUIFeedback();
-        Destroy(gameObject);
+
+        destroy = GetComponent<Destroy>();
+        if (destroy != null)
+        {
+            destroy.enabled = true;
+            destroy.Destuct();
+        }
+
     }
 
     private void PlayPickupSound()

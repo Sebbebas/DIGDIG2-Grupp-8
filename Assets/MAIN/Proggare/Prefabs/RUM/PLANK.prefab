@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8584132572283724498}
   m_Layer: 12
   m_Name: PLANK
-  m_TagString: Untagged
+  m_TagString: Plank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,8 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b48aa9555af2aa48b14df833be17284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plankObject: {fileID: 2450947891173053242, guid: 3b34153a2a25c8c40a666155db392391, type: 3}
-  breakSound: {fileID: 0}
+  plankObject: {fileID: 2149484744602610439, guid: 045df5afd68867c46a3c2be990bc389e, type: 3}
+  kickPlankSound: {fileID: 8300000, guid: 4c18e30959dd69743b6e196ea675f9e4, type: 3}
+  shootPlankSound: {fileID: 8300000, guid: dbce8f13b68211541877dbe83d0a1ae7, type: 3}
   hitBox: {fileID: 5473803732412429007}
   plank: {fileID: 5219636941313278989}
   brokenPlank: {fileID: 5116032036724334904}
@@ -84,8 +85,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f997f15cb4d0f97468f747796a48e9a3, type: 3}
-  m_Resource: {fileID: 8300000, guid: f997f15cb4d0f97468f747796a48e9a3, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -388,6 +389,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51dc0f4caa11bcc4d95d375ab185c898, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 51dc0f4caa11bcc4d95d375ab185c898, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 51dc0f4caa11bcc4d95d375ab185c898, type: 3}

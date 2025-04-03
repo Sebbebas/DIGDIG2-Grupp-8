@@ -11,7 +11,7 @@ public class Destroy : MonoBehaviour
 
     //Shrink object after shrinkTime
     [SerializeField, Tooltip("If the object should shrink and then get destroyed")] bool shrink = false;
-    [SerializeField, Tooltip("The time before the object shrinks")] float shrinkTime = 2f;
+    [SerializeField, Tooltip("The time before the object shrinks")] float waitsForShrinkTime = 2f;
 
     [Space]
 
@@ -20,6 +20,11 @@ public class Destroy : MonoBehaviour
     [SerializeField] float expandTime = 2f;
 
     void Start()
+    {
+        Destuct();
+    }
+
+    public void Destuct()
     {
         if (shrink && expand)
         {
@@ -42,7 +47,6 @@ public class Destroy : MonoBehaviour
         {
             Destroy(gameObject, aliveTime);
         }
-
     }
 
     IEnumerator ShrinkRoutine() 
@@ -52,7 +56,7 @@ public class Destroy : MonoBehaviour
         Vector3 originalSize = transform.localScale;
 
         //Wait before the object shrinks
-        yield return new WaitForSeconds(shrinkTime);
+        yield return new WaitForSeconds(waitsForShrinkTime);
 
         //Shrink object over aliveTime
         while (elapsedTime < aliveTime)
@@ -99,7 +103,7 @@ public class Destroy : MonoBehaviour
 
         //SHRINK
         StartCoroutine(ShrinkRoutine());
-        yield return new WaitForSeconds(shrinkTime);
+        yield return new WaitForSeconds(waitsForShrinkTime);
         StopCoroutine(ShrinkRoutine());
 
         //DESTROY

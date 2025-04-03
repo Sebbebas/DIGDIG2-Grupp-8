@@ -161,7 +161,7 @@ public class WeaponManager : MonoBehaviour
                 if (hit.transform.GetComponent<EnemyScript>() != null) { hit.transform.GetComponent<EnemyScript>().Kicked(direction * kickForce); }
                 if (hit.transform.GetComponent<Plank>() != null)
                 {
-                    hit.transform.GetComponent<Plank>().BreakPlanks(direction * kickForce);
+                    hit.transform.GetComponent<Plank>().BreakPlanks(direction * kickForce, 0, 5);
                 }
             }
         }
