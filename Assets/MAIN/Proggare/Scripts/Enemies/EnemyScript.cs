@@ -43,20 +43,17 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] float maxKnockbackVelocity = 5;
     [SerializeField] float damageCooldown = 2f;
 
+    [Header("Enemy Health Values")] // HEALTH FOR BODY PARTS
     [SerializeField] float headHealth = 50f;
     [SerializeField] float torsoHealth = 100f;
     [SerializeField] float leftArmHealth = 30f;
     [SerializeField] float rightArmHealth = 30f;
     [SerializeField] float currentHealth = 100f;
 
+    [Header("Enemy Behaviour")] // ANIMATIONS
     [SerializeField] bool agro = false;
-
-    private Vector3 kickDirection;
-    private float enemySpeedAtStart;
-    private bool isStunned;
-    private float currentStunTime;
-    private bool canDamage = true;
-    private bool isDead = false;
+    [SerializeField] bool attacking = false;
+    [SerializeField] bool inAttackRange = false;
 
     [Header("Body Parts")]
     [SerializeField] GameObject leftArm;
@@ -65,14 +62,9 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] GameObject lostRightArm;
     [SerializeField] ParticleSystem limbLossEffect;
 
-    [Header("Loot Drop Values")]
-    private LootSystem lootSystem;
 
     [Header("Scoring System")]
     [SerializeField] int scoreValue = 10; //Points per enemy killed
-
-    NavMeshAgent agent;
-    Rigidbody myRigidbody;
 
     [Header("Projectile Enemy Settings")]
     [SerializeField] private bool isProjectileEnemy = false;
@@ -85,8 +77,23 @@ public class EnemyScript : MonoBehaviour
     [Header("Texture")]
     [SerializeField] Material[] textures;
 
+    //Private?????
+    [Header("Loot Drop Values")]
+    private LootSystem lootSystem;
+    
+    //Private variables
+    private Vector3 kickDirection;
+    private float enemySpeedAtStart;
+    private bool isStunned;
+    private float currentStunTime;
+    private bool isDead = false;
     private Transform player;
     private bool canShoot = true;
+    private float originalAcceleration;
+
+    //Chaced References
+    NavMeshAgent agent;
+    Rigidbody myRigidbody;
 
     private void Awake()
     {
@@ -105,10 +112,11 @@ public class EnemyScript : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         myRigidbody = GetComponent<Rigidbody>();
-        enemySpeedAtStart = agent.speed;
         lootSystem = GetComponent<LootSystem>();
+        enemySpeedAtStart = agent.speed;
 
         //Find the player
+        originalAcceleration = agent.acceleration;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
@@ -191,25 +199,12 @@ public class EnemyScript : MonoBehaviour
         canShoot = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void TryAttackPlayer()
     {
-        PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-
-        if (playerHealth != null && canDamage)
-        {
-            playerHealth.ApplyDamage(DamageAmount);
-            Debug.Log("Enemy collided with player, damage applied: " + DamageAmount);
-            StartCoroutine(DamageCooldown());
-        }
+        if(!inAttackRange) { return; }
+        PlayerHealth playerHealth = FindFirstObjectByType<PlayerHealth>();
+        playerHealth.ApplyDamage(DamageAmount);
     }
-
-    private IEnumerator DamageCooldown()
-    {
-        canDamage = false;
-        yield return new WaitForSeconds(damageCooldown);
-        canDamage = true;
-    }
-
     public void Kicked(Vector3 direction)
     {
         isStunned = true;
@@ -368,6 +363,8 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    #region Get Set
+    //Attack Agro
     public bool GetAgro()
     {
         return agro;
@@ -376,4 +373,32 @@ public class EnemyScript : MonoBehaviour
     {
         return agro = value;
     }
+
+    //Attack Bool
+    public bool GetAttacking()
+    {
+        return attacking;
+    }
+    public bool SetAttacking(bool value)
+    {
+        return attacking = value;
+    }
+
+    //In Attack Range Bool
+    public bool GetInAttackRange()
+    {
+        return inAttackRange;
+    }
+    public bool SetInAttackRange(bool value)
+    {
+        return inAttackRange = value;
+    }
+
+
+
+    public float GetOriginalAcceleration()
+    {
+        return originalAcceleration;
+    }
+    #endregion
 }

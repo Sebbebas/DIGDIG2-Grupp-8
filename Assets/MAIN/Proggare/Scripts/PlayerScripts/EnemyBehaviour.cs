@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,6 +7,10 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    [SerializeField] float hitRadius = 2; // Radius for the hitbox
+
+    [Space]
+
     [SerializeField, Tooltip("Radius to spawn in prefabList")] float spawnRadius = 15f;
     [SerializeField, Tooltip("Makes so enemies doesn't spawn on player")] float nonSpawnRadius = 2f;
     [SerializeField, Tooltip("Radius for when prefabList see the player")] float sightRadius = 10f;
@@ -97,9 +102,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     void EnemyMovement()
     {
-        // Define a LayerMask that excludes the "Plank" layer
+        //Define a LayerMask that excludes the "Plank" layer
         int plankLayer = LayerMask.NameToLayer("Plank");
-        int layerMask = ~(1 << plankLayer);
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
+        int layerMask = ~(1 << plankLayer | 1 << enemyLayer);
+
 
         foreach (GameObject enemy in prefabList)
         {
@@ -111,25 +118,60 @@ public class EnemyBehaviour : MonoBehaviour
 
                 if (agent != null && enemyScript != null)
                 {
+                    //If the enemy has spotted the player
                     if (enemyScript.GetAgro())
                     {
-                        // If agro is true, move towards the player
+                        //If agro is true, move towards the player
                         float distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
-                        if (distanceToPlayer <= sightRadius)
+
+                        //Check if Enemy is within hitRadius
+                        if (distanceToPlayer <= hitRadius) { enemyScript.SetInAttackRange(true); }
+                        else { enemyScript.SetInAttackRange(false); }
+
+                        //Attack Logic
+                        if (enemyScript.GetAttacking() == true)
                         {
+                            return;
+                        }
+
+                        //In attack range
+                        else if (enemyScript.GetInAttackRange())
+                        {
+                            //If the player is within hitRadius stop moving
+                            agent.ResetPath();
+
+                            //RANDOM ATTACK ANIMATION
+                            int i = Random.Range(0, 1);
+                            if (i == 0)
+                            {
+                                animator.SetTrigger("AttackLeft");
+                            }
+                            else
+                            {
+                                animator.SetTrigger("AttackRight");
+                            }
+
+                            //Attack!
+                            enemyScript.SetAttacking(true);
+
+                            //Start attacking routine aka. wait for animation to finish before dealing damage
+                            StartCoroutine(AttackingRoutine(enemyScript, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
+                        }
+                        else if (distanceToPlayer <= sightRadius && !enemyScript.GetInAttackRange())
+                        {
+                            animator.SetTrigger("Walk");
                             agent.SetDestination(player.position);
+                            agent.acceleration = enemyScript.GetOriginalAcceleration();
                         }
                         else
                         {
-                            if (!agent.pathPending)
-                            {
-                                agent.ResetPath();
-                                animator.SetTrigger("NoSight");
-                            }
+                            agent.ResetPath();
+                            animator.SetTrigger("NoSight");
                         }
                     }
                     else
                     {
+                        //Get direction to the player
                         Vector3 directionToPlayer = (player.position - enemy.transform.position).normalized;
 
                         // Perform a raycast from the enemy to the player, ignoring the "Plank" layer
@@ -138,25 +180,13 @@ public class EnemyBehaviour : MonoBehaviour
                             // Check if the raycast hit the player
                             if (hit.transform == player)
                             {
-                                // Player is visible, set agro to true
-                                enemyScript.SetAgro(true);
-
                                 //Play enemy alert animation
                                 animator.SetTrigger("Alert");
 
-                                // Move towards the player
                                 agent.SetDestination(player.position);
+                                agent.acceleration = 0f;
 
-                                animator.SetTrigger("Walk");
-                            }
-                        }
-                        else
-                        {
-                            // Player is out of sight radius, reset the path
-                            if (!agent.pathPending)
-                            {
-                                agent.ResetPath();
-                                animator.SetTrigger("NoSight");
+                                StartCoroutine(WaitForAlertAnimation(enemyScript, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
                             }
                         }
                     }
@@ -165,8 +195,17 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-
-
+    IEnumerator AttackingRoutine(EnemyScript enemyScript, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        enemyScript.SetAttacking(false);
+        enemyScript.TryAttackPlayer();
+    }
+    IEnumerator WaitForAlertAnimation(EnemyScript enemyScript, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        enemyScript.SetAgro(true);
+    }
 
     void DespawnEnemy()
     {
