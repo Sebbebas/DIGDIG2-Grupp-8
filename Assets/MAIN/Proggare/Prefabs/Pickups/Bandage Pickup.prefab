@@ -106,7 +106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3462599259767663707
 Transform:
   m_ObjectHideFlags: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   speedBoostImage: {fileID: 0}
   ammoBoostText: {fileID: 0}
   uiDisplayDuration: 1.5
-  rotationSpeed: 160
+  rotationSpeed: 0
   floatAmplitude: 0.4
   floatSpeed: 4
   pickupSound: {fileID: 8300000, guid: 82530972e304c0b449a585e1093d834b, type: 3}
