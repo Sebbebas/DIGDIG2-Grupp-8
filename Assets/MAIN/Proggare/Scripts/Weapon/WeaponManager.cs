@@ -27,6 +27,10 @@ public class WeaponManager : MonoBehaviour
     private Vector3 kickOrigin;
     private Vector3 forward;
 
+    [Header("Screen Shake")]
+    [SerializeField] float screenShakeDuration = 0.1f;
+    [SerializeField] float screenShakeIntensity = 0.1f;
+
     [Header("Grenade")]
     [SerializeField, Tooltip("Grenade Prefab")] GameObject grenadePrefab;
     [SerializeField, Tooltip("Grenade spawn offset")] Vector3 spawnOffset;
@@ -46,12 +50,14 @@ public class WeaponManager : MonoBehaviour
     InputAction throwAction;
     InputAction kickAction;
     Transform weaponsParent;
+    ScreenShake screenShake;
 
     #region Base Methods
     void Start()
     {
         //Get Cached References
         weaponsParent = GetComponent<Transform>();
+        screenShake = Camera.main.GetComponent<ScreenShake>();
 
         AntiHierarchySpam();
         UpdateWeaponList();
@@ -162,6 +168,7 @@ public class WeaponManager : MonoBehaviour
                 if (hit.transform.GetComponent<Plank>() != null)
                 {
                     hit.transform.GetComponent<Plank>().BreakPlanks(direction * kickForce, 0, 5);
+                    screenShake.Shake(screenShakeDuration, screenShakeIntensity);
                 }
             }
         }

@@ -200,6 +200,8 @@ MonoBehaviour:
   explosionLight: {fileID: 6837748592123760236}
   fadeIn: 0.1
   fadeOut: 0.1
+  screenShakeDuration: 0.25
+  screenShakeIntensity: 1
   take100: 50
   take50: 80
   take20: 100
@@ -231,8 +233,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2ac902152a8dd9f4fb801ac6dd079165, type: 3}
+  m_Resource: {fileID: 8300000, guid: 2ac902152a8dd9f4fb801ac6dd079165, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -240,7 +242,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

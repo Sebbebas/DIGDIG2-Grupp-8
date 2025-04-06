@@ -19,6 +19,10 @@ public class Explosion : MonoBehaviour
     private float elapsedTime = 0f;
     private float lightRange;
 
+    [Header("Screen Shake")]
+    [SerializeField] float screenShakeDuration = 0.25f;
+    [SerializeField] float screenShakeIntensity = 0.75f;
+
     [Header("damage over % of distance")]
     [SerializeField] float take100;
     [SerializeField] float take50;
@@ -27,8 +31,16 @@ public class Explosion : MonoBehaviour
     //Private Variabels
     private float explosionRadius;
 
+    //Cached References
+    ScreenShake screenShake;
+
     private void Awake()
     {
+        //Get Cached References
+        screenShake = Camera.main.GetComponent<ScreenShake>();
+        screenShake.Shake(screenShakeDuration, screenShakeIntensity);
+
+        //Set the explosion light to the child object if not assigned
         if (explosionLight == null) { explosionLight = GetComponentInChildren<Light>(); }
     }
 

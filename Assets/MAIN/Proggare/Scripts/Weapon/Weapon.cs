@@ -41,6 +41,10 @@ public class Weapon : MonoBehaviour
     [Header("Effects")]
     [Tooltip("When calling a action play the effects with the same EffectType")]public Effects[] effects;
 
+    [Header("Screen Shake")]
+    [SerializeField] float screenShakeDuration = 0.1f;
+    [SerializeField] float screenShakeIntensity = 0.1f;
+
     [System.Serializable]
     public struct Effects
     {
@@ -72,11 +76,15 @@ public class Weapon : MonoBehaviour
     private bool reloading = false;
     private bool waitForReload = false;
 
+    //Chaced References
+    ScreenShake screenShake;
+
     #region Base Methods
     protected void Start()
     {
         //Get Camera
         mainCam = Camera.main;
+        screenShake = mainCam.GetComponent<ScreenShake>();
 
         //Set currentAmmo in start
         if (currentAmmo == 0)
@@ -118,6 +126,9 @@ public class Weapon : MonoBehaviour
         //true
         if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false)
         {
+            //Screen Shake
+            screenShake.Shake(screenShakeDuration, screenShakeIntensity);
+
             //Logic
             currentAmmo--;
             currentFireDelay = firedelay;
