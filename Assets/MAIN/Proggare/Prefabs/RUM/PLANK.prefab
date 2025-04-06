@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8215506822461953376}
   - component: {fileID: 4787238055178502783}
-  - component: {fileID: 5473803732412429007}
+  - component: {fileID: 4879221306295339377}
   - component: {fileID: -8584132572283724498}
+  - component: {fileID: 6659482989579661812}
   m_Layer: 12
   m_Name: PLANK
   m_TagString: Plank
@@ -51,10 +52,10 @@ MonoBehaviour:
   plankObject: {fileID: 2149484744602610439, guid: 045df5afd68867c46a3c2be990bc389e, type: 3}
   kickPlankSound: {fileID: 8300000, guid: 4c18e30959dd69743b6e196ea675f9e4, type: 3}
   shootPlankSound: {fileID: 8300000, guid: dbce8f13b68211541877dbe83d0a1ae7, type: 3}
-  hitBox: {fileID: 5473803732412429007}
+  hitBox: {fileID: 4879221306295339377}
   plank: {fileID: 5219636941313278989}
   brokenPlank: {fileID: 5116032036724334904}
---- !u!65 &5473803732412429007
+--- !u!65 &4879221306295339377
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -69,7 +70,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -172,6 +173,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &6659482989579661812
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529623401455466586}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!1001 &3684199104191868127
 PrefabInstance:
   m_ObjectHideFlags: 0

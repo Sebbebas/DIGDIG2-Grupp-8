@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,6 +6,20 @@ public class MusicManager : MonoBehaviour
 {
     //Configurable Parameters
     [SerializeField] AudioSource audioSource;
+
+    [SerializeField] GameObject[] musicObject;
+
+    [Space]
+
+    [SerializeField] SongStruct[] songsStructs;
+
+    [System.Serializable]
+    public struct SongStruct
+    {
+        public AudioClip song;
+        [Range(0, 1)] public float volume;
+        [Range(0, 256)]public float priority;
+    }
 
     //Private Variables
 
@@ -16,6 +31,35 @@ public class MusicManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         transitionManager = GetComponentInParent<TransitionManager>();
+
+        musicObject = new GameObject[songsStructs.Length];
+
+        for (int i = 0; i < songsStructs.Length; i++)
+        {
+            SongStruct songStruct = songsStructs[i];
+            GameObject songObject = new(songStruct.song.name);
+            songObject.transform.SetParent(FindFirstObjectByType<MusicManager>().transform);
+
+            // Add songObject to musicObject[]
+            musicObject[i] = songObject;
+
+            AudioSource songAudioSource = songObject.AddComponent<AudioSource>();
+            songAudioSource.clip = songStruct.song;
+            songAudioSource.playOnAwake = true;
+            songAudioSource.loop = true;
+
+            songAudioSource.Play();
+        }
+    }
+
+    private void Update()
+    {
+        for(int i = 0; i < musicObject.Length; i++)
+        {
+            AudioSource songAudioSource = musicObject[i].GetComponent<AudioSource>();
+            songAudioSource.volume = songsStructs[i].volume;
+            songAudioSource.priority = (int)songsStructs[i].priority;
+        }
     }
 
     //MUSIC FADE OUT

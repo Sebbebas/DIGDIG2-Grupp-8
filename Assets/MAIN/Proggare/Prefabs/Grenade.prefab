@@ -102,7 +102,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 1064
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   slowdownLayer:
     serializedVersion: 2
     m_Bits: 512
-  speed: 21.6
+  speed: 16
   upwardForce: 3.64
   customGravityMultiplier: 2
   grenadeSlowdownRate: 2.5

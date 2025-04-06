@@ -87,6 +87,32 @@ public class Explosion : MonoBehaviour
             }
         }
     }
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    // If Plank
+    //    if (other.gameObject.layer == LayerMask.NameToLayer("Plank"))
+    //    {
+    //        Debug.Log("Plank hit");
+
+    //        Vector3 direction = (other.transform.position - transform.position).normalized;
+
+    //        other.gameObject.GetComponent<Plank>().BreakPlanks(direction, 1, 10);
+
+    //        Debug.Log(other.gameObject.GetComponent<Plank>());
+    //    }
+
+    //    Debug.Log(other.gameObject.name);
+
+    //    if (((1 << other.gameObject.layer) & effectedObjects) != 0)
+    //    {
+    //        //Add the object to the list if it isn't already in it
+    //        if (!effectedObjectList.Contains(other.transform))
+    //        {
+    //            effectedObjectList.Add(other.transform);
+    //            CalculateDamage(other.transform);
+    //        }
+    //    }
+    //}
 
     private void CalculateDamage(Transform other)
     {
@@ -109,14 +135,28 @@ public class Explosion : MonoBehaviour
             calculatedDamage = maxDamage * 0.3f; // 30% damage
         }
 
+        // If Player
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             other.gameObject.GetComponent<PlayerHealth>().ApplyDamage(calculatedDamage);
         }
 
+        // If Enemy
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemies"))
         {
             other.gameObject.GetComponent<EnemyScript>().TakeDamage("Torso", calculatedDamage);
+        }
+
+        // If Plank
+        if (other.gameObject.layer == LayerMask.NameToLayer("Plank"))
+        {
+            Debug.Log("Plank hit");
+
+            Vector3 direction = (other.transform.position - transform.position).normalized;
+
+            other.gameObject.GetComponent<Plank>().BreakPlanks(direction, 1, 10);
+
+            Debug.Log(other.GetComponent<Plank>());
         }
     }
 

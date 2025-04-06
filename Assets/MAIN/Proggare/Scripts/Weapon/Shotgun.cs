@@ -133,7 +133,7 @@ public class Shotgun : Weapon
                 else if (hit.transform.CompareTag("Plank"))
                 {
                     Plank plank = hit.transform.GetComponent<Plank>();
-                    plank.BreakPlanks(weaponRay.direction, 1, 10);
+                    plank.BreakPlanks(weaponRay.direction, 1, 15);
                 }
                 else
                 {
