@@ -1892,6 +1892,8 @@ MonoBehaviour:
       flashLight: {fileID: 0}
       casing: {fileID: 0}
       hitParticle: {fileID: 0}
+  screenShakeDuration: 0.1
+  screenShakeIntensity: 0.1
   temporaryHitParticel: {fileID: 4240791907686988539, guid: 480a3bb47f1f17949bf1be45374445ae, type: 3}
   spread: 5
   pellets: 24
@@ -5661,6 +5663,8 @@ MonoBehaviour:
   kickLayerMask:
     serializedVersion: 2
     m_Bits: 4160
+  screenShakeDuration: 0.1
+  screenShakeIntensity: 0.1
   grenadePrefab: {fileID: 3165213101292630628, guid: 3f9b1863598a4204f8b4f244c8dd6cdf, type: 3}
   spawnOffset: {x: 0, y: 0.82, z: 0}
   throwCooldownTime: 3
@@ -17539,10 +17543,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1665072741326007332}
+  - {fileID: 7242444688676193617}
   - {fileID: 1779223569790393111}
   - {fileID: 508166364686158601}
   - {fileID: 4526840594097163306}
-  - {fileID: 7242444688676193617}
   - {fileID: 2300164527508967734}
   - {fileID: 211315816130645775}
   m_Father: {fileID: 7789529859971171444}

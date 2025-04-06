@@ -4,12 +4,15 @@ Shader "Custom/PixelateTextSDF_VertexColor"
     {
         _MainTex ("Font Texture", 2D) = "white" {}
         _PixelSize ("Pixel Size", Float) = 64
+        _CullMode ("Cull Mode", Float) = 2 // Needed for Unity/TMP builds
     }
+
     SubShader
     {
         Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
-        Lighting Off ZWrite Off Cull Off Fog { Mode Off }
+        Lighting Off ZWrite Off Fog { Mode Off }
         Blend SrcAlpha OneMinusSrcAlpha
+        Cull [_CullMode] // Make Unity happy
 
         Pass
         {
@@ -22,7 +25,7 @@ Shader "Custom/PixelateTextSDF_VertexColor"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-                float4 color : COLOR; // <- This is the TMP face color
+                float4 color : COLOR; // TMP vertex color (faceColor)
             };
 
             struct v2f
@@ -47,17 +50,20 @@ Shader "Custom/PixelateTextSDF_VertexColor"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // Pixelation logic
+                // Pixelation: snap UVs to pixel grid
                 float2 pixelUV = floor(i.uv * _PixelSize) / _PixelSize;
 
-                // Sample the font texture (SDF alpha)
+                // Sample SDF alpha from font atlas
                 fixed4 texSample = tex2D(_MainTex, pixelUV);
 
-                // Smoothstep for signed distance field sharpness
+                // Smooth edge based on SDF
                 float alpha = smoothstep(0.5 - 0.1, 0.5 + 0.1, texSample.a);
 
-                // Apply TMP face color (with alpha)
-                return fixed4(i.color.rgb, alpha * i.color.a);
+                // Fix: If vertex alpha is too low, bump it slightly (or force to 1)
+                float finalAlpha = alpha * saturate(i.color.a + 0.001);
+
+                // Apply TMP face color
+                return fixed4(i.color.rgb, finalAlpha);
             }
             ENDCG
         }
