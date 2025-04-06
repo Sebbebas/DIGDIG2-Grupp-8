@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] float hitRadius = 2; // Radius for the hitbox
+    [SerializeField] float attackTime = 2f; // Time it takes to attack
 
     [Space]
 
@@ -25,6 +26,9 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] Transform player;
 
     [Tooltip("Instansiate Gameobjects on transform for a clearer Hierarchy")] GameObject antiHierarchySpam;
+
+    [Header("Raycast")]
+    [SerializeField] LayerMask agroIgnoreLayers; // Serialized LayerMask for raycast detection
 
     List<GameObject> prefabList = new List<GameObject>();
     List<GameObject> enemyPrefabs = new List<GameObject>();
@@ -102,12 +106,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     void EnemyMovement()
     {
-        //Define a LayerMask that excludes the "Plank" layer
-        int plankLayer = LayerMask.NameToLayer("Plank");
-        int enemyLayer = LayerMask.NameToLayer("Enemy");
-        int layerMask = ~(1 << plankLayer | 1 << enemyLayer);
-
-
         foreach (GameObject enemy in prefabList)
         {
             if (enemy != null)
@@ -139,9 +137,10 @@ public class EnemyBehaviour : MonoBehaviour
                         {
                             //If the player is within hitRadius stop moving
                             agent.ResetPath();
+                            animator.ResetTrigger("Walk");
 
                             //RANDOM ATTACK ANIMATION
-                            int i = Random.Range(0, 1);
+                            int i = Random.Range(0, 2);
                             if (i == 0)
                             {
                                 animator.SetTrigger("AttackLeft");
@@ -155,7 +154,7 @@ public class EnemyBehaviour : MonoBehaviour
                             enemyScript.SetAttacking(true);
 
                             //Start attacking routine aka. wait for animation to finish before dealing damage
-                            StartCoroutine(AttackingRoutine(enemyScript, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
+                            StartCoroutine(AttackingRoutine(enemyScript, attackTime));
                         }
                         else if (distanceToPlayer <= sightRadius && !enemyScript.GetInAttackRange())
                         {
@@ -174,9 +173,11 @@ public class EnemyBehaviour : MonoBehaviour
                         //Get direction to the player
                         Vector3 directionToPlayer = (player.position - enemy.transform.position).normalized;
 
-                        // Perform a raycast from the enemy to the player, ignoring the "Plank" layer
-                        if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit, sightRadius, layerMask))
+                        // Perform a raycast from the enemy to the player, ignoring the layers specified in agroIgnoreLayers
+                        if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit, sightRadius, ~agroIgnoreLayers))
                         {
+                            Debug.Log("Raycast hit: " + hit.transform.name);
+
                             // Check if the raycast hit the player
                             if (hit.transform == player)
                             {

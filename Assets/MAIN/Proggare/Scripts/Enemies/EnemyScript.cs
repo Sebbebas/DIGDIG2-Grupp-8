@@ -54,6 +54,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] bool agro = false;
     [SerializeField] bool attacking = false;
     [SerializeField] bool inAttackRange = false;
+    [SerializeField] bool b = false;
 
     [Header("Body Parts")]
     [SerializeField] GameObject leftArm;
@@ -201,7 +202,7 @@ public class EnemyScript : MonoBehaviour
 
     public void TryAttackPlayer()
     {
-        if(!inAttackRange) { return; }
+        if(!inAttackRange) { Debug.Log("cant reach player"); return; }
         PlayerHealth playerHealth = FindFirstObjectByType<PlayerHealth>();
         playerHealth.ApplyDamage(DamageAmount);
     }
@@ -394,8 +395,7 @@ public class EnemyScript : MonoBehaviour
         return inAttackRange = value;
     }
 
-
-
+    //Original Speed
     public float GetOriginalAcceleration()
     {
         return originalAcceleration;
