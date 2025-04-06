@@ -54,7 +54,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] bool agro = false;
     [SerializeField] bool attacking = false;
     [SerializeField] bool inAttackRange = false;
-    [SerializeField] bool b = false;
+    [SerializeField] bool alertAnimationStarted = false;
 
     [Header("Body Parts")]
     [SerializeField] GameObject leftArm;
@@ -90,7 +90,7 @@ public class EnemyScript : MonoBehaviour
     private bool isDead = false;
     private Transform player;
     private bool canShoot = true;
-    private float originalAcceleration;
+    private float originalSpeed;
 
     //Chaced References
     NavMeshAgent agent;
@@ -117,7 +117,7 @@ public class EnemyScript : MonoBehaviour
         enemySpeedAtStart = agent.speed;
 
         //Find the player
-        originalAcceleration = agent.acceleration;
+        originalSpeed = agent.speed;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
@@ -395,10 +395,20 @@ public class EnemyScript : MonoBehaviour
         return inAttackRange = value;
     }
 
-    //Original Speed
-    public float GetOriginalAcceleration()
+    //Alert Animation Started
+    public bool GetAlertAnimationStarted()
     {
-        return originalAcceleration;
+        return alertAnimationStarted;
+    }
+    public bool SetAlertAnimationStarted(bool value)
+    {
+        return alertAnimationStarted = value;
+    }
+
+    //Original Speed
+    public float GetOriginalSpeed()
+    {
+        return originalSpeed;
     }
     #endregion
 }

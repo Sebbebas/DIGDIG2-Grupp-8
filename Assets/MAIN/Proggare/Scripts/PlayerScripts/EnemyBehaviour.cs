@@ -156,16 +156,15 @@ public class EnemyBehaviour : MonoBehaviour
                             //Start attacking routine aka. wait for animation to finish before dealing damage
                             StartCoroutine(AttackingRoutine(enemyScript, attackTime));
                         }
-                        else if (distanceToPlayer <= sightRadius && !enemyScript.GetInAttackRange())
+                        else if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Alert" && animator.GetCurrentAnimatorClipInfo(0)[0].clip.empty == false)
                         {
                             animator.SetTrigger("Walk");
-                            agent.SetDestination(player.position);
-                            agent.acceleration = enemyScript.GetOriginalAcceleration();
                         }
-                        else
+                        else if (distanceToPlayer <= sightRadius && !enemyScript.GetInAttackRange() && !enemyScript.GetAttacking() && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AttackLeft" && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AttackRight")
                         {
-                            agent.ResetPath();
-                            animator.SetTrigger("NoSight");
+                            agent.speed = enemyScript.GetOriginalSpeed();
+                            agent.SetDestination(player.position);
+                            animator.SetTrigger("Walk");
                         }
                     }
                     else
@@ -176,8 +175,6 @@ public class EnemyBehaviour : MonoBehaviour
                         // Perform a raycast from the enemy to the player, ignoring the layers specified in agroIgnoreLayers
                         if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit, sightRadius, ~agroIgnoreLayers))
                         {
-                            Debug.Log("Raycast hit: " + hit.transform.name);
-
                             // Check if the raycast hit the player
                             if (hit.transform == player)
                             {
@@ -185,7 +182,7 @@ public class EnemyBehaviour : MonoBehaviour
                                 animator.SetTrigger("Alert");
 
                                 agent.SetDestination(player.position);
-                                agent.acceleration = 0f;
+                                agent.speed = 0f;
 
                                 StartCoroutine(WaitForAlertAnimation(enemyScript, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
                             }
@@ -199,12 +196,13 @@ public class EnemyBehaviour : MonoBehaviour
     IEnumerator AttackingRoutine(EnemyScript enemyScript, float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        enemyScript.SetAttacking(false);
         enemyScript.TryAttackPlayer();
+        enemyScript.SetAttacking(false);
     }
     IEnumerator WaitForAlertAnimation(EnemyScript enemyScript, float waitTime)
     {
-        yield return new WaitForSeconds(waitTime);
+        //Debug.Log(waitTime + " " + waitTime /2);
+        yield return new WaitForSeconds(waitTime/2);
         enemyScript.SetAgro(true);
     }
 
