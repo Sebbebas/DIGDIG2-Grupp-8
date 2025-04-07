@@ -10696,7 +10696,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 44916
+    surfaceParameter: 44920
     meshQueryIndex: 1
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -18727,7 +18727,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 45088
+    surfaceParameter: 45098
     meshQueryIndex: 0
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -26714,7 +26714,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 44916
+    surfaceParameter: 44920
     meshQueryIndex: 1
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -37613,6 +37613,14 @@ PrefabInstance:
     - target: {fileID: 5437528876174760051, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5806952721845082274, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_text
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694750831280635968, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_Name
+      value: Health TEXT
       objectReference: {fileID: 0}
     - target: {fileID: 7789529859971171444, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_LocalPosition.x

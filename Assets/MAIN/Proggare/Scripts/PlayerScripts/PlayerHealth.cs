@@ -106,20 +106,29 @@ public class PlayerHealth : MonoBehaviour
         if (100 <= currentHealth && currentHealth >= 81)
         {
             stage2Image.SetActive(false);
+            stage3Image.SetActive(false);
+            stage4Image.SetActive(false);
+            pulseEffect.SetActive(false);
         }
         else if (80 <= currentHealth && currentHealth >= 61)
         {
             stage2Image.SetActive(true);
+
             stage3Image.SetActive(false);
+            stage4Image.SetActive(false);
+            pulseEffect.SetActive(false);
         }
         else if (60 <= currentHealth && currentHealth >= 41)
         {
             stage3Image.SetActive(true);
+
             stage4Image.SetActive(false);
+            pulseEffect.SetActive(false);
         }
         else if (40 <= currentHealth && currentHealth >= 21)
         {
             stage4Image.SetActive(true);
+            
             pulseEffect.SetActive(false);
         }
         else if (20 <= currentHealth && currentHealth >= 0)
