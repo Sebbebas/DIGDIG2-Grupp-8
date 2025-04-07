@@ -45,10 +45,17 @@ public class Shotgun : Weapon
                 Vector3 hitPosition = hit.point;
                 Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
 
+                if(hit.transform.gameObject.tag == "Enemy Head" || hit.transform.tag == "Enemy Torso" || hit.transform.tag == "Enemy Left Arm" || hit.transform.tag == "Enemy Right Arm")
+                {
+                    Debug.Log("KYS");
+                    hit.transform.SendMessage("PartDetected");
+                }
+
                 if (hit.transform.CompareTag("Grenade"))
                 {
                     hit.transform.GetComponent<Grenade>().Explode();
                 }
+
                 //else if (hit.transform.CompareTag("Enemies"))
                 //{
                 //EnemyScript enemy = hit.transform.GetComponentInParent<EnemyScript>();
@@ -91,44 +98,6 @@ public class Shotgun : Weapon
                 //    }
                 //}
                 //}
-
-                EnemyScript enemy = hit.transform.GetComponentInParent<EnemyScript>();
-                Debug.Log("Hit object on layer " + hit.transform.gameObject.layer);
-
-                int hitLayer = hit.transform.gameObject.layer;
-
-                if (((1 << hitLayer) & headLayer) != 0) // Head Layer
-                {
-                    if (enemy != null)
-                    {
-                        enemy.ApplyDamageHead(pelletDamage);
-                        Debug.Log("Head took " + pelletDamage);
-                    }
-                }
-                else if (((1 << hitLayer) & torsoLayer) != 0) // Torso Layer
-                {
-                    if (enemy != null)
-                    {
-                        enemy.ApplyTorsoDamage(pelletDamage);
-                        Debug.Log("Body took " + pelletDamage);
-                    }
-                }
-                else if (((1 << hitLayer) & leftArmLayer) != 0) // Left Arm Layer
-                {
-                    if (enemy != null)
-                    {
-                        enemy.ApplyLeftArmDamage(pelletDamage);
-                        Debug.Log("Left arm took " + pelletDamage);
-                    }
-                }
-                else if (((1 << hitLayer) & rightArmLayer) != 0) // Right Arm Layer
-                {
-                    if (enemy != null)
-                    {
-                        enemy.ApplyRightArmDamage(pelletDamage);
-                        Debug.Log("Right arm took " + pelletDamage);
-                    }
-                }
 
                 else if (hit.transform.CompareTag("Plank"))
                 {

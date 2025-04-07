@@ -257,7 +257,7 @@ public class EnemyScript : MonoBehaviour
         }
         else if (part.name == "Right Arm")
         {
-            if(rightArmHealth <= 0)
+            if (rightArmHealth <= 0)
             {
                 rightArm.SetActive(false);
                 lostRightArm.SetActive(true);
@@ -279,9 +279,9 @@ public class EnemyScript : MonoBehaviour
         //        Debug.Log("Right arm hit");
         //    }
         //}
-    }
+        }
 
-    public void ApplyDamageHead(float damage)
+        public void ApplyDamageHead(float damage)
     {
         headHealth -= damage;
         Debug.Log(transform.gameObject.name + " took damage: " + damage + ", Current Head Health: " + headHealth);
