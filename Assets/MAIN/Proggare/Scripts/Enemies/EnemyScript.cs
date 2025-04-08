@@ -300,7 +300,7 @@ public class EnemyScript : MonoBehaviour
 
         if (headHealth <= 0)
         {
-            Debug.Log("Headshot");
+            Debug.Log("Head dead");
             //Die();
         }
     }
@@ -314,7 +314,7 @@ public class EnemyScript : MonoBehaviour
 
         if (torsoHealth <= 0)
         {
-            Debug.Log("DIE");
+            Debug.Log("Torso dead");
             //Die();
         }
     }
@@ -326,7 +326,7 @@ public class EnemyScript : MonoBehaviour
 
         if (leftArmHealth <= 0)
         {
-            Debug.Log("Left Arm Hit");
+            Debug.Log("Left Arm Dead");
         }
     }
 
@@ -337,7 +337,7 @@ public class EnemyScript : MonoBehaviour
 
         if (rightArmHealth <= 0)
         {
-            Debug.Log("Right Arm Hit");
+            Debug.Log("Right Arm Dead");
         }
     }
 
