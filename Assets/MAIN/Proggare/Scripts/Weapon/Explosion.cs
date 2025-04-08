@@ -148,15 +148,11 @@ public class Explosion : MonoBehaviour
         }
 
         // If Plank
-        if (other.gameObject.layer == LayerMask.NameToLayer("Plank"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Plank") && other.gameObject.GetComponent<Plank>())
         {
-            Debug.Log("Plank hit");
-
             Vector3 direction = (other.transform.position - transform.position).normalized;
 
             other.gameObject.GetComponent<Plank>().BreakPlanks(direction, 1, 10);
-
-            Debug.Log(other.GetComponent<Plank>());
         }
     }
 

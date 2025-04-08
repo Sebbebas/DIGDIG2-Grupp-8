@@ -12,7 +12,9 @@ public class Plank : MonoBehaviour
 
     [SerializeField] BoxCollider hitBox;
     [SerializeField] MeshRenderer plank, brokenPlank;
-    
+
+    bool isBroken = false;
+
     AudioSource breakSound;
 
     void Start()
@@ -25,7 +27,11 @@ public class Plank : MonoBehaviour
 
     public void BreakPlanks(Vector3 direction, int soundClip, int power)
     {
-        if (soundClip == 0)
+        if (isBroken)
+        {
+            return;
+        }
+        else if (soundClip == 0)
         {
             breakSound.clip = kickPlankSound;
         }
@@ -38,7 +44,12 @@ public class Plank : MonoBehaviour
             Debug.LogError("Invalid sound clip index. Use 0 for kickPlankSound or 1 for shootPlankSound.");
         }
 
+        isBroken = true;
+
         breakSound.Play();
+
+        // Set the layer to default
+        gameObject.layer = 0;
 
         hitBox.enabled = false;
         plank.enabled = false;
@@ -46,7 +57,7 @@ public class Plank : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            GameObject newPlank = Instantiate(plankObject, new Vector3 (transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
+            GameObject newPlank = Instantiate(plankObject, new Vector3(transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
             Rigidbody plankRigidbody = newPlank.GetComponent<Rigidbody>();
 
             if (plankRigidbody != null)

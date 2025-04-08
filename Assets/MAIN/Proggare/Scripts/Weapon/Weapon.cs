@@ -84,7 +84,7 @@ public class Weapon : MonoBehaviour
     {
         //Get Camera
         mainCam = Camera.main;
-        screenShake = mainCam.GetComponent<ScreenShake>();
+        screenShake = FindFirstObjectByType<ScreenShake>();
 
         //Set currentAmmo in start
         if (currentAmmo == 0)
