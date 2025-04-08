@@ -178,13 +178,13 @@ MonoBehaviour:
   agro: 0
   attacking: 0
   inAttackRange: 0
-  b: 0
+  alertAnimationStarted: 0
   leftArm: {fileID: 0}
   lostLeftArm: {fileID: 0}
   rightArm: {fileID: 0}
   lostRightArm: {fileID: 0}
   limbLossEffect: {fileID: 0}
-  scoreValue: 10
+  scoreValue: 100
   isProjectileEnemy: 0
   attackDistance: 10
   minSafeDistance: 4
@@ -353,7 +353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_TagString
-      value: Enemies
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -365,15 +365,27 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -4377140140577612734, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8783930797050025723}
+    - targetCorrespondingSourceObject: {fileID: -4377140140577612734, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5298387009591748252}
     - targetCorrespondingSourceObject: {fileID: -389060815399261467, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2138588228893221691}
+    - targetCorrespondingSourceObject: {fileID: -389060815399261467, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6622803459497945236}
     - targetCorrespondingSourceObject: {fileID: -259972160606440404, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1728934055077545046}
+    - targetCorrespondingSourceObject: {fileID: -259972160606440404, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3485291335126616273}
     - targetCorrespondingSourceObject: {fileID: -741832106251744268, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1401290608498807244}
+    - targetCorrespondingSourceObject: {fileID: -741832106251744268, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8964755676754623515}
   m_SourcePrefab: {fileID: 100100000, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
 --- !u!1 &1265041057624490550 stripped
 GameObject:
@@ -403,6 +415,28 @@ CapsuleCollider:
   m_Height: 0.08
   m_Direction: 1
   m_Center: {x: -0.0133468, y: -0.03, z: 0}
+--- !u!114 &5298387009591748252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265041057624490550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodEffect: {fileID: 0}
+  numberOfGibbs: 5
+  gibbPower: 5
+  heart: {fileID: 0}
+  brain: {fileID: 0}
+  lungs: {fileID: 0}
+  meatOne: {fileID: 0}
+  meatTwo: {fileID: 0}
+  meatThree: {fileID: 0}
+  meatFour: {fileID: 0}
 --- !u!1 &2844983833757488512 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -741832106251744268, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
@@ -431,6 +465,28 @@ CapsuleCollider:
   m_Height: 0.09
   m_Direction: 1
   m_Center: {x: -0.0029161656, y: -0.0111631, z: -0.00003831813}
+--- !u!114 &8964755676754623515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2844983833757488512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodEffect: {fileID: 0}
+  numberOfGibbs: 5
+  gibbPower: 5
+  heart: {fileID: 0}
+  brain: {fileID: 0}
+  lungs: {fileID: 0}
+  meatOne: {fileID: 0}
+  meatTwo: {fileID: 0}
+  meatThree: {fileID: 0}
+  meatFour: {fileID: 0}
 --- !u!1 &2906744976939480209 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -389060815399261467, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
@@ -459,6 +515,28 @@ CapsuleCollider:
   m_Height: 0.06225648
   m_Direction: 1
   m_Center: {x: 0.00016451965, y: 0.024719045, z: 0.028337602}
+--- !u!114 &6622803459497945236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906744976939480209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodEffect: {fileID: 0}
+  numberOfGibbs: 5
+  gibbPower: 5
+  heart: {fileID: 0}
+  brain: {fileID: 0}
+  lungs: {fileID: 0}
+  meatOne: {fileID: 0}
+  meatTwo: {fileID: 0}
+  meatThree: {fileID: 0}
+  meatFour: {fileID: 0}
 --- !u!1 &3362912021538761304 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -259972160606440404, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
@@ -487,6 +565,28 @@ CapsuleCollider:
   m_Height: 0.02592452
   m_Direction: 1
   m_Center: {x: -0.0054042256, y: -0.0049745683, z: 0.0017133662}
+--- !u!114 &3485291335126616273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362912021538761304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodEffect: {fileID: 0}
+  numberOfGibbs: 5
+  gibbPower: 5
+  heart: {fileID: 0}
+  brain: {fileID: 0}
+  lungs: {fileID: 0}
+  meatOne: {fileID: 0}
+  meatTwo: {fileID: 0}
+  meatThree: {fileID: 0}
+  meatFour: {fileID: 0}
 --- !u!4 &6144505718969465247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}

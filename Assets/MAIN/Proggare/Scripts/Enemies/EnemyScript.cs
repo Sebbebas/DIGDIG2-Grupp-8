@@ -281,7 +281,19 @@ public class EnemyScript : MonoBehaviour
         //}
         }
 
-        public void ApplyDamageHead(float damage)
+    public void ApplyDamage(float damage)
+    {
+        currentHealth -= damage;
+        Debug.Log(transform.gameObject.name + " took damage: " + damage + ", Current Head Health: " + currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Die");
+            Die();
+        }
+    }
+
+    public void ApplyDamageHead(float damage)
     {
         headHealth -= damage;
         Debug.Log(transform.gameObject.name + " took damage: " + damage + ", Current Head Health: " + headHealth);
@@ -329,7 +341,7 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
         if (isDead) return;
         isDead = true;

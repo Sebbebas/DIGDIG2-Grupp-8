@@ -32,6 +32,7 @@ public class ZombieBodyParts : MonoBehaviour
 
     [Header("Gibbs")]
     [SerializeField] int numberOfGibbs = 5;
+    [SerializeField] float gibbPower = 5f;
     [SerializeField] GameObject heart;
     [SerializeField] GameObject brain;
     [SerializeField] GameObject lungs;
@@ -52,12 +53,24 @@ public class ZombieBodyParts : MonoBehaviour
         if (transform.tag == "Enemy Head")
         {
             Debug.Log("give Head");
+            enemyScript.Die();
 
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    GameObject newGibb = Instantiate(heart, new Vector3(transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
+            //    Rigidbody gibbRigidbody = newGibb.GetComponent<Rigidbody>();
+
+            //    if (gibbRigidbody != null)
+            //    {
+            //        //gibbRigidbody.AddForce(new Vector3(direction * gibbPower, ForceMode.Impulse));
+            //    }
+            //}
         }
 
         if (transform.tag == "Enemy Torso")
         {
             Debug.Log("Torso shot");
+            enemyScript.Die();
         }
 
         if (transform.tag == "Enemy Left Arm")
