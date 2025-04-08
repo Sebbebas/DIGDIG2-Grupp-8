@@ -1869,7 +1869,7 @@ MonoBehaviour:
   antiHierarchySpam: {fileID: 0}
   hitMask:
     serializedVersion: 2
-    m_Bits: 5056
+    m_Bits: 250816
   weaponRange: 1000
   effects:
   - effectType: 0

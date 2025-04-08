@@ -179,10 +179,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: hitMask.m_Bits
-      value: 250816
-      objectReference: {fileID: 0}
     - target: {fileID: 4327374827836331831, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5978,10 +5974,6 @@ PrefabInstance:
     - target: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
       propertyPath: m_TagString
       value: Enemies
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692774255355478003, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

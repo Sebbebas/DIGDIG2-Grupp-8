@@ -54,12 +54,11 @@ public class Shotgun : Weapon
                 if (hit.transform.CompareTag("Grenade"))
                 {
                     hit.transform.GetComponent<Grenade>().Explode();
-                    Debug.Log("fucko gff");
                 }
                 else if (hit.transform.CompareTag("Enemies"))
                 {
                     EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    Debug.Log("Hit object with tag " + hit.transform.tag + " DÖDA MIG");
+                    Debug.Log("Hit object with tag " + hit.transform.tag);
                     if (enemy != null)
                     {
                         enemy.ApplyDamage(pelletDamage);
