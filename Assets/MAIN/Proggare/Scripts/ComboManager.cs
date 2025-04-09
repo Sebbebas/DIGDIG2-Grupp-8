@@ -6,66 +6,170 @@ public class ComboManager : MonoBehaviour
 {
     public static ComboManager instance;
 
-    public int currentCombo = 0;
+    public int killCount = 0;
+    public int comboMultiplier = 1;
     public float comboTimer = 0f;
-    public float maxComboTime = 5f;
+    public bool isComboActive = false;
+    public int skillPoints = 0;
+    private int comboScore = 0;
 
-    public TextMeshProUGUI comboText;
-    public Slider comboSlider; // Optional: progress bar for timer
+    // UI Elements
+    public TextMeshProUGUI killCountText;
+    public TextMeshProUGUI comboMultiplierText;
+    public Slider comboTimerSlider;
+    public Image multikillImage;
+    public Image timesXImage;
+    public TextMeshProUGUI comboScoreText;
+
+    private float killWindow = 3f;
+    private float lastKillTime = 0f;
 
     private void Awake()
     {
-        if (instance == null) instance = this;
-        else Destroy(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
     {
-        HideComboUI();
+        // Ensure UI is hidden at the start
+        ShowComboUI(false);
     }
 
-    void Update()
+    private void Update()
     {
-        if (currentCombo > 0)
+        if (isComboActive)
         {
             comboTimer -= Time.deltaTime;
-            UpdateComboUI();
-
-            if (comboTimer <= 0)
+            if (comboTimer <= 0f)
             {
-                ResetCombo();
+                EndCombo();
             }
         }
+
+        // Update UI elements
+        UpdateUI();
     }
 
     public void AddKill()
     {
-        currentCombo++;
-        comboTimer = maxComboTime;
-        ShowComboUI();
+        killCount++;
+        float timeSinceLastKill = Time.time - lastKillTime;
+
+        if (timeSinceLastKill <= killWindow)
+        {
+            if (killCount >= 3 && !isComboActive)
+            {
+                StartCombo();
+            }
+            else if (isComboActive)
+            {
+                comboTimer = 3f; // Reset the combo timer
+            }
+        }
+        else
+        {
+            killCount = 1; // Reset kill count if outside the kill window
+        }
+
+        lastKillTime = Time.time;
+
+        if (isComboActive)
+        {
+            comboMultiplier = Mathf.Min(10, 2 + (killCount - 3) / 10);
+            int scoreToAdd = 10 * comboMultiplier;
+            comboScore += scoreToAdd;
+        }
+        else
+        {
+            ScoreManager.Instance.AddScore(10);
+        }
     }
 
-    public void ResetCombo()
+    public void AddSkillPoint()
     {
-        currentCombo = 0;
-        HideComboUI();
+        skillPoints++;
+        comboMultiplier = Mathf.Min(10, comboMultiplier + 1);
     }
 
-    private void UpdateComboUI()
+    private void StartCombo()
     {
-        comboText.text = $"Combo: {currentCombo}";
-        if (comboSlider) comboSlider.value = comboTimer / maxComboTime;
+        isComboActive = true;
+        comboTimer = 3f;
+        comboTimerSlider.maxValue = 3f;
+        comboTimerSlider.value = comboTimer;
+        ShowComboUI(true);
     }
 
-    private void ShowComboUI()
+    private void EndCombo()
     {
-        comboText.gameObject.SetActive(true);
-        if (comboSlider) comboSlider.gameObject.SetActive(true);
+        isComboActive = false;
+        killCount = 0;
+        comboMultiplier = 1;
+        ScoreManager.Instance.AddScore(comboScore);
+        comboScore = 0;
+        ShowComboUI(false);
     }
 
-    private void HideComboUI()
+    private void UpdateUI()
     {
-        comboText.gameObject.SetActive(false);
-        if (comboSlider) comboSlider.gameObject.SetActive(false);
+        if (killCountText != null)
+        {
+            killCountText.text = "Kill Count: " + killCount.ToString();
+        }
+
+        if (comboMultiplierText != null)
+        {
+            comboMultiplierText.text = "Combo Multiplier: x" + comboMultiplier.ToString();
+        }
+
+        if (comboTimerSlider != null)
+        {
+            comboTimerSlider.value = comboTimer;
+        }
+
+        if (comboScoreText != null)
+        {
+            comboScoreText.text = "Combo Score: " + comboScore.ToString();
+        }
+    }
+
+    private void ShowComboUI(bool show)
+    {
+        if (killCountText != null)
+        {
+            killCountText.gameObject.SetActive(show);
+        }
+
+        if (comboMultiplierText != null)
+        {
+            comboMultiplierText.gameObject.SetActive(show);
+        }
+
+        if (comboTimerSlider != null)
+        {
+            comboTimerSlider.gameObject.SetActive(show);
+        }
+
+        if (multikillImage != null)
+        {
+            multikillImage.gameObject.SetActive(show);
+        }
+
+        if (timesXImage != null)
+        {
+            timesXImage.gameObject.SetActive(show);
+        }
+
+        if (comboScoreText != null)
+        {
+            comboScoreText.gameObject.SetActive(show);
+        }
     }
 }

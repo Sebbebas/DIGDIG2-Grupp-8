@@ -63,7 +63,6 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] GameObject lostRightArm;
     [SerializeField] ParticleSystem limbLossEffect;
 
-
     [Header("Scoring System")]
     [SerializeField] int scoreValue = 10; //Points per enemy killed
 
@@ -81,7 +80,7 @@ public class EnemyScript : MonoBehaviour
     //Private?????
     [Header("Loot Drop Values")]
     private LootSystem lootSystem;
-    
+
     //Private variables
     private Vector3 kickDirection;
     private float enemySpeedAtStart;
@@ -169,7 +168,7 @@ public class EnemyScript : MonoBehaviour
         if (textures.Length > 0)
         {
             int randomTexture = UnityEngine.Random.Range(0, textures.Length);
-            
+
             SkinnedMeshRenderer[] renderers = GetComponentsInChildren<SkinnedMeshRenderer>();
 
             for (int i = 0; i < renderers.Length; i++)
@@ -202,7 +201,7 @@ public class EnemyScript : MonoBehaviour
 
     public void TryAttackPlayer()
     {
-        if(!inAttackRange) { Debug.Log("cant reach player"); return; }
+        if (!inAttackRange) { Debug.Log("cant reach player"); return; }
         PlayerHealth playerHealth = FindFirstObjectByType<PlayerHealth>();
         playerHealth.ApplyDamage(DamageAmount);
     }
@@ -279,7 +278,7 @@ public class EnemyScript : MonoBehaviour
         //        Debug.Log("Right arm hit");
         //    }
         //}
-        }
+    }
 
     public void ApplyDamage(float damage)
     {
