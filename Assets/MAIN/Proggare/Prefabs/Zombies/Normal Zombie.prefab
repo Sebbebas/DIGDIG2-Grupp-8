@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1935045369040616864}
   - component: {fileID: 8253850494797052896}
   - component: {fileID: 4662981509462258827}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Normal Zombie
   m_TagString: Enemies
   m_Icon: {fileID: 0}
@@ -76,9 +76,9 @@ MonoBehaviour:
   lootTable:
     LootItems:
     - Prefab: {fileID: 7771517042167347894, guid: c66f5ea85ffbe214aaaf98f5a388c875, type: 3}
-      DropChance: 20
+      DropChance: 30
     - Prefab: {fileID: 7134699567617145357, guid: 90644176ff642254fa5a254be73c6726, type: 3}
-      DropChance: 20
+      DropChance: 30
     - Prefab: {fileID: 7771517042167347894, guid: 9b82b7b6e337dad4aa4454637c745ecf, type: 3}
       DropChance: 10
 --- !u!54 &-4601759358836086800
@@ -208,7 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 10
+  minForce: 5
+  maxForce: 10
   rotation: 5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
@@ -283,9 +284,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8442260486066097913, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8269201970746613233, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -7836109915214537875, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -7836109915214537875, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_TagString
       value: Enemy Torso
+      objectReference: {fileID: 0}
+    - target: {fileID: -6364209268596144979, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -6335937766108612707, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_LocalPosition.x
@@ -323,29 +340,73 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 5.97
       objectReference: {fileID: 0}
+    - target: {fileID: -6165487504884948093, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -5971858390718864987, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -5303180404396645833, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -4377140140577612734, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_Name
       value: Arm_R
       objectReference: {fileID: 0}
     - target: {fileID: -4377140140577612734, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_Layer
-      value: 17
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -4377140140577612734, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_TagString
       value: Enemy Right Arm
       objectReference: {fileID: 0}
+    - target: {fileID: -4144868638135241517, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3420019266473321476, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -3420019266473321476, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_TagString
       value: Enemy Torso
       objectReference: {fileID: 0}
+    - target: {fileID: -3125327896359487661, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2918270209220411271, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2673052743778294883, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1697345906267994801, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1614275284844949042, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -741832106251744268, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_Layer
-      value: 15
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -741832106251744268, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_TagString
       value: Enemy Torso
+      objectReference: {fileID: 0}
+    - target: {fileID: -698324930132769142, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -389060815399261467, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_Name
@@ -353,7 +414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -389060815399261467, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_Layer
-      value: 16
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -389060815399261467, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_TagString
@@ -361,11 +422,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -259972160606440404, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -259972160606440404, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_TagString
       value: Enemy Head
+      objectReference: {fileID: 0}
+    - target: {fileID: 730700882980932929, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 885284574531928182, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_LocalPosition.x
@@ -380,8 +445,52 @@ PrefabInstance:
       value: Digdig zombie modell 2 april, ny
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1362962447974607929, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370341299585647957, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672680367582049864, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687428500220624201, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4294193550965539440, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466579395135762615, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757258102024656778, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6333436135000135420, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046227815519512853, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8399159279129507198, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -455,7 +564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 10
+  minForce: 5
+  maxForce: 10
   rotation: 5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
@@ -511,7 +621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 10
+  minForce: 5
+  maxForce: 10
   rotation: 5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
@@ -567,7 +678,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 10
+  minForce: 5
+  maxForce: 10
   rotation: 5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
@@ -623,7 +735,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 10
+  minForce: 5
+  maxForce: 10
   rotation: 5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6

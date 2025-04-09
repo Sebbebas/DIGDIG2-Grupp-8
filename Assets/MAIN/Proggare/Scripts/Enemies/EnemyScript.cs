@@ -201,7 +201,7 @@ public class EnemyScript : MonoBehaviour
 
     public void TryAttackPlayer()
     {
-        if (!inAttackRange) { Debug.Log("cant reach player"); return; }
+        if (!inAttackRange) { return; }
         PlayerHealth playerHealth = FindFirstObjectByType<PlayerHealth>();
         playerHealth.ApplyDamage(DamageAmount);
     }

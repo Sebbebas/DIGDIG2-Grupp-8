@@ -62,7 +62,6 @@ public class Shotgun : Weapon
                     if (enemy != null)
                     {
                         enemy.ApplyDamage(pelletDamage);
-                        Debug.Log("Fuck you");
                     }
 
                     /*if (hit.transform.CompareTag("Enemy Head"))

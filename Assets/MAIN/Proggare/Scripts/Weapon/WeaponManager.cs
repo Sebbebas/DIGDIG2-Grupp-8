@@ -57,7 +57,7 @@ public class WeaponManager : MonoBehaviour
     {
         //Get Cached References
         weaponsParent = GetComponent<Transform>();
-        screenShake = Camera.main.GetComponent<ScreenShake>();
+        screenShake = FindFirstObjectByType<ScreenShake>();
 
         AntiHierarchySpam();
         UpdateWeaponList();

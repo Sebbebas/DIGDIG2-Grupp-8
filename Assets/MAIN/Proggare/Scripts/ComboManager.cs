@@ -195,7 +195,7 @@ public class ComboManager : MonoBehaviour
 
         if (comboScoreText != null)
         {
-            comboScoreText.text = "Combo Score: " + comboScore.ToString();
+            comboScoreText.text = comboScore.ToString();
         }
     }
 

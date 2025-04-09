@@ -95,7 +95,7 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        Debug.Log("Player has died!");
+        //Debug.Log("Player has died!");
         deathScreen.SetActive(true);
     }
 
