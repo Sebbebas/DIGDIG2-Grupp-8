@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6659482989579661812}
   - component: {fileID: 4879221306295339377}
   - component: {fileID: 8994418553301776090}
+  - component: {fileID: 2022505846030034532}
   m_Layer: 12
   m_Name: PLANK
   m_TagString: Plank
@@ -222,6 +223,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3102813, y: 3.0047808, z: 3.3405764}
   m_Center: {x: -0.0013299137, y: 1.38, z: 0.06}
+--- !u!114 &2022505846030034532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529623401455466586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16a5551c321b7d9429ee5c298d965823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3684199104191868127
 PrefabInstance:
   m_ObjectHideFlags: 0

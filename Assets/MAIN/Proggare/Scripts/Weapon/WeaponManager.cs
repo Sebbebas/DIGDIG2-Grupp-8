@@ -16,16 +16,22 @@ public class WeaponManager : MonoBehaviour
 
     //WIP
     [Header("Kick")]
-    [SerializeField] Animator leg;
-    [SerializeField] float kickCooldown;
-    [SerializeField] float coneAngle = 30f; // Angle of the cone
-    [SerializeField] float maxKickDistance = 10f; // Max distance of the detection
+    [SerializeField] Animator legAnimator;
+    [SerializeField] float kickCooldown = 2f;
     [SerializeField] float kickForce = 10f;
-    [SerializeField] float radius = 2f; // Radius of the sphere cast
+    [SerializeField] float coneAngle = 30f; //Angle of the cone
+    [SerializeField] float maxKickDistance = 10f; //Max distance of the detection
+    [SerializeField] float radius = 2f; //Radius of the sphere cast
     [SerializeField] int coneResolution = 20;
-    [SerializeField] LayerMask kickLayerMask; // Layer mask for collision detection
+    [SerializeField] LayerMask kickLayerMask; //Layer mask for collision detection
     private Vector3 kickOrigin;
     private Vector3 forward;
+
+    [Space]
+
+    [SerializeField] AudioClip kickSound;
+    [SerializeField, Range(0, 1)] float kickSoundVolume = 1f;
+    [SerializeField, Range(0, 256)] int kickSoundPriority = 256;
 
     [Header("Screen Shake")]
     [SerializeField] float screenShakeDuration = 0.1f;
@@ -36,12 +42,20 @@ public class WeaponManager : MonoBehaviour
     [SerializeField, Tooltip("Grenade spawn offset")] Vector3 spawnOffset;
     [SerializeField, Tooltip("Grenade throw cooldown")] float throwCooldownTime = 3f;
 
+    [Space]
+
+    [SerializeField] AudioClip grenadeThrowSound;
+    [SerializeField, Range(0, 1)] float grenadeThrowSoundVolume = 1f;
+    [SerializeField, Range(0, 256)] int grenadeThrowSoundPriority = 256;
+
     //Private Variabels
     private GameObject antiHierarchySpam;
     private float currentThrowCooldownTime;
+    private float currentKickCooldownTime;
     private int currentWeaponInt = 0;
     private int totalWeapons;
     private bool throwCoolodown = false;
+    private bool kickCooldownActive = false;
 
     //Cached References
     InputAction scrollAction;
@@ -69,6 +83,9 @@ public class WeaponManager : MonoBehaviour
 
         if (throwCoolodown && currentThrowCooldownTime > 0) { currentThrowCooldownTime -= Time.deltaTime; }
         else { currentThrowCooldownTime = throwCooldownTime; throwCoolodown = false; }
+
+        if (kickCooldownActive && currentKickCooldownTime > 0) { currentKickCooldownTime -= Time.deltaTime; }
+        else { currentKickCooldownTime = kickCooldown; kickCooldownActive = false; }
     }
     private void OnEnable()
     {
@@ -134,10 +151,24 @@ public class WeaponManager : MonoBehaviour
     #endregion
     public void OnKick(InputAction.CallbackContext context)
     {
+        if (kickCooldownActive) { return; }
+
+        //Kick Cooldown
+        kickCooldownActive = true;
+
+        //Audio
+        GameObject kickSoundObject = new();
+        kickSoundObject.AddComponent<AudioSource>();
+        kickSoundObject.GetComponent<AudioSource>().clip = kickSound;
+        kickSoundObject.GetComponent<AudioSource>().playOnAwake = true;
+        kickSoundObject.GetComponent<AudioSource>().volume = kickSoundVolume;
+        kickSoundObject.GetComponent<AudioSource>().priority = kickSoundPriority;
+        Instantiate(kickSoundObject, transform.position, Quaternion.identity);
+
         //Animation
-        if (leg != null) 
+        if (legAnimator != null) 
         { 
-            leg.SetTrigger("kick");
+            legAnimator.SetTrigger("kick");
         }
 
         //List to hold kicked objects
@@ -172,10 +203,10 @@ public class WeaponManager : MonoBehaviour
                 }
             }
         }
-        foreach (var obj in kickedObjects)
-        {
-            Debug.Log("Kicked Object: " + obj.name);
-        }
+        //foreach (var obj in kickedObjects)
+        //{
+        //    Debug.Log("Kicked Object: " + obj.name);
+        //}
     }
 
     #region Grenade
@@ -191,6 +222,15 @@ public class WeaponManager : MonoBehaviour
 
         //start a new cooldown
         throwCoolodown = true;
+
+        //Audio
+        GameObject grenadeThrowSoundObject = new();
+        grenadeThrowSoundObject.AddComponent<AudioSource>();
+        grenadeThrowSoundObject.GetComponent<AudioSource>().clip = grenadeThrowSound;
+        grenadeThrowSoundObject.GetComponent<AudioSource>().playOnAwake = true;
+        grenadeThrowSoundObject.GetComponent<AudioSource>().volume = grenadeThrowSoundVolume;
+        grenadeThrowSoundObject.GetComponent<AudioSource>().priority = grenadeThrowSoundPriority;
+        Instantiate(grenadeThrowSoundObject, transform.position, Quaternion.identity);
 
         //antiHierarchySpam
         antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam");

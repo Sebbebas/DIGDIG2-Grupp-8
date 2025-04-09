@@ -5025,6 +5025,7 @@ GameObject:
   - component: {fileID: 7580945724979531975}
   - component: {fileID: 392596083299948935}
   - component: {fileID: -1352532723558761699}
+  - component: {fileID: 9034557378029942316}
   m_Layer: 0
   m_Name: SHIT EXPLOSION
   m_TagString: Explosion
@@ -5212,3 +5213,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9034557378029942316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534795929592968429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16a5551c321b7d9429ee5c298d965823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

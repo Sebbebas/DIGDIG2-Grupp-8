@@ -44,6 +44,7 @@ public class MusicManager : MonoBehaviour
             musicObject[i] = songObject;
 
             AudioSource songAudioSource = songObject.AddComponent<AudioSource>();
+            AudioPauseManager songAudioPauseManager = songObject.AddComponent<AudioPauseManager>();
             songAudioSource.clip = songStruct.song;
             songAudioSource.playOnAwake = true;
             songAudioSource.loop = true;

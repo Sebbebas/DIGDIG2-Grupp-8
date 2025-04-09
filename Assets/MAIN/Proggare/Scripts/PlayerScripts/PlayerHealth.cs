@@ -30,10 +30,25 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] GameObject deathScreen;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip[] takeDamageSoundClip;
+    [SerializeField, Range(0, 1)] float takeDamageSoundVolume = 1f;
+    [SerializeField, Range(0, 256)] int takeDamageSoundPriority = 256; // 0-256, 256 is the highest priority
+
+    [Space]
+
+    [SerializeField] AudioClip deathSoundClip;
+    [SerializeField, Range(0, 1)] float deathSoundVolume = 1f;
+    [SerializeField, Range(0, 256)] int deathSoundPriority = 256; 
+
     private bool isImmortal = false;
+
+    ScreenShake screenShake;
 
     void Start()
     {
+        screenShake = FindFirstObjectByType<ScreenShake>();
+
         deathScreen.SetActive(false);
         stage1Image.SetActive(true);
         stage2Image.SetActive(false);
@@ -45,16 +60,33 @@ public class PlayerHealth : MonoBehaviour
         CheckHealthStages();
     }
 
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.H)) Heal(healAmount);
-        //if (Input.GetKeyDown(KeyCode.K)) ApplyTorsoDamage(damageAmount);
-    }
+    //void Update()
+    //{
+    //    //if (Input.GetKeyDown(KeyCode.H)) Heal(healAmount);
+    //    //if (Input.GetKeyDown(KeyCode.K)) ApplyTorsoDamage(damageAmount);
+    //}
 
     public void ApplyDamage(float damageAmount)
     {
         if (isDead || isImmortal)  //Prevent damage if dead or immortal
             return;
+
+        //ScreenShake
+        screenShake.Shake(0.1f, 0.3f);
+
+        //sound effect
+        GameObject damageSound = new();
+        damageSound.AddComponent<AudioSource>();
+        damageSound.GetComponent<AudioSource>().playOnAwake = true;
+        damageSound.GetComponent<AudioSource>().volume = takeDamageSoundVolume;
+        damageSound.GetComponent<AudioSource>().priority = takeDamageSoundPriority;
+
+        //set random clip
+        int randomIndex = Random.Range(0, takeDamageSoundClip.Length);
+        damageSound.GetComponent<AudioSource>().clip = takeDamageSoundClip[randomIndex];
+
+        //instantiate the sound effect
+        Instantiate(damageSound, transform.position, Quaternion.identity);
 
         currentHealth -= damageAmount;
 
@@ -94,8 +126,14 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        GameObject deathSound = new();
+        deathSound.AddComponent<AudioSource>();
+        deathSound.GetComponent<AudioSource>().playOnAwake = true;
+        deathSound.GetComponent<AudioSource>().clip = deathSoundClip;
+        deathSound.GetComponent<AudioSource>().volume = deathSoundVolume;
+        Instantiate(deathSound, transform.position, Quaternion.identity);
+
         isDead = true;
-        //Debug.Log("Player has died!");
         deathScreen.SetActive(true);
     }
 
