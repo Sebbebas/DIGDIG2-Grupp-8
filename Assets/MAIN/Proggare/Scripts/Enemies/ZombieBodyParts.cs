@@ -31,7 +31,7 @@ public class ZombieBodyParts : MonoBehaviour
 
     [SerializeField] float minForce = 5f;
     [SerializeField] float maxForce = 10f;
-    [SerializeField] float rotation = 5f;
+    [SerializeField] float spawnGibbOffset = .5f;
  
     [Header("Gibbs")]
     [SerializeField] int numberOfMinGibbs = 4;
@@ -109,9 +109,10 @@ public class ZombieBodyParts : MonoBehaviour
 
             GameObject spawnedGibb = Instantiate(selectedGibb, new Vector3(transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
 
-            
-
             Vector3 direction = (GameObject.Find("Player").transform.position - transform.position).normalized;
+            Vector3 randomOffset = Random.insideUnitSphere * spawnGibbOffset;
+            direction += randomOffset;
+            direction.Normalize();
             float force = Random.Range(minForce, maxForce);
             gibbRigidbody = spawnedGibb.GetComponent<Rigidbody>();
             gibbRigidbody.AddForce(-direction * force, ForceMode.Impulse);
