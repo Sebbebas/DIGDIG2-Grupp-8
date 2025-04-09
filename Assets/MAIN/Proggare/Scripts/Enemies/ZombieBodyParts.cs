@@ -28,20 +28,25 @@ public class ZombieBodyParts : MonoBehaviour
     //    rightArmHealth.TakeDamage(bodyPartRightArm, GetComponent<Shotgun>().pelletDamage);
     //}*/
 
-    [SerializeField] ParticleSystem bloodEffect;
-
+    [SerializeField] float force = 10f;
+    [SerializeField] float rotation = 5f;
+ 
     [Header("Gibbs")]
-    [SerializeField] int numberOfGibbs = 5;
+    [SerializeField] int numberOfMinGibbs = 4;
+    [SerializeField] int numberOfMaxGibbs = 6;
     [SerializeField] float gibbPower = 5f;
-    [SerializeField] GameObject heart;
-    [SerializeField] GameObject brain;
-    [SerializeField] GameObject lungs;
-    [SerializeField] GameObject meatOne;
-    [SerializeField] GameObject meatTwo;
-    [SerializeField] GameObject meatThree;
-    [SerializeField] GameObject meatFour;
+    [SerializeField] GameObject[] gibbs;
+    [SerializeField] ParticleSystem bloodEffect;
+    //[SerializeField] GameObject heart;
+    //[SerializeField] GameObject brain;
+    //[SerializeField] GameObject lungs;
+    //[SerializeField] GameObject meatOne;
+    //[SerializeField] GameObject meatTwo;
+    //[SerializeField] GameObject meatThree;
+    //[SerializeField] GameObject meatFour;
 
     EnemyScript enemyScript;
+    Destroy destroy;
 
     private void Awake()
     {
@@ -54,17 +59,6 @@ public class ZombieBodyParts : MonoBehaviour
         {
             Debug.Log("give Head");
             enemyScript.Die();
-
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    GameObject newGibb = Instantiate(heart, new Vector3(transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
-            //    Rigidbody gibbRigidbody = newGibb.GetComponent<Rigidbody>();
-
-            //    if (gibbRigidbody != null)
-            //    {
-            //        //gibbRigidbody.AddForce(new Vector3(direction * gibbPower, ForceMode.Impulse));
-            //    }
-            //}
         }
 
         if (transform.tag == "Enemy Torso")
@@ -82,5 +76,45 @@ public class ZombieBodyParts : MonoBehaviour
         {
             Debug.Log("Right Arm shot");
         }
+    }
+
+    public void SpawnGibbs()
+    {
+        int numberOfGibbsSpawned = Random.Range(numberOfMinGibbs, numberOfMaxGibbs);
+
+        for (int i = 0; i < numberOfGibbsSpawned; i++)
+        { 
+            int randomIndex = Random.Range(0, gibbs.Length);
+            GameObject selectedGibb = gibbs[randomIndex];
+
+            GameObject spawnedGibb = Instantiate(selectedGibb, new Vector3(transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
+            Rigidbody gibbRigidbody = spawnedGibb.GetComponent<Rigidbody>();
+
+            if (bloodEffect != null)
+            {
+                Instantiate(bloodEffect); 
+            }
+
+            if (gibbRigidbody != null)
+            {
+                gibbRigidbody.AddForce(transform.forward * force, ForceMode.Impulse);
+                gibbRigidbody.AddTorque(new Vector3(0f, rotation, 0f), ForceMode.Impulse);
+            }
+        }
+
+        destroy = GetComponent<Destroy>();
+        if (destroy != null)
+        {
+            destroy.enabled = true;
+            destroy.Destruct();
+        }
+
+        //GameObject newPlank = Instantiate(plankObject, new Vector3(transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
+        //Rigidbody plankRigidbody = newPlank.GetComponent<Rigidbody>();
+
+        //if (plankRigidbody != null)
+        //{
+        //    plankRigidbody.AddForce(direction * power, ForceMode.Impulse);
+        //}
     }
 }

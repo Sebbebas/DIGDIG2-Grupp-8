@@ -284,7 +284,7 @@ public class EnemyScript : MonoBehaviour
     public void ApplyDamage(float damage)
     {
         currentHealth -= damage;
-        Debug.Log(transform.gameObject.name + " took damage: " + damage + ", Current Head Health: " + currentHealth);
+        //Debug.Log(transform.gameObject.name + " took damage: " + damage + ", Current Health: " + currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -360,6 +360,8 @@ public class EnemyScript : MonoBehaviour
             lootSystem.DropLoot();
         }
 
+        GetComponent<ZombieBodyParts>().SpawnGibbs();
+        Debug.Log("Destroy enemy");
         Destroy(gameObject);
     }
 

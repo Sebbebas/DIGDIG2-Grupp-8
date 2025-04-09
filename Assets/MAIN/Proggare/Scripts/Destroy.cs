@@ -21,10 +21,10 @@ public class Destroy : MonoBehaviour
 
     void Start()
     {
-        Destuct();
+        Destruct();
     }
 
-    public void Destuct()
+    public void Destruct()
     {
         if (shrink && expand)
         {

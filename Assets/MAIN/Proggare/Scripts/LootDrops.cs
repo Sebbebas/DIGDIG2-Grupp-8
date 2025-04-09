@@ -75,9 +75,8 @@ public class LootDrops : MonoBehaviour
         if (destroy != null)
         {
             destroy.enabled = true;
-            destroy.Destuct();
+            destroy.Destruct();
         }
-
     }
 
     private void PlayPickupSound()

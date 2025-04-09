@@ -47,7 +47,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H)) Heal(healAmount);
+        //if (Input.GetKeyDown(KeyCode.H)) Heal(healAmount);
         //if (Input.GetKeyDown(KeyCode.K)) ApplyTorsoDamage(damageAmount);
     }
 

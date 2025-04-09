@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 8692774255355478003}
   - component: {fileID: 1935045369040616864}
   - component: {fileID: 8253850494797052896}
-  m_Layer: 6
+  - component: {fileID: 4662981509462258827}
+  m_Layer: 0
   m_Name: Normal Zombie
   m_TagString: Enemies
   m_Icon: {fileID: 0}
@@ -32,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.4572314, y: 1.9934496, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6144505718969465247}
@@ -124,7 +125,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.35
   m_Height: 1.9
@@ -195,6 +196,34 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 06fd05217f0cf034eb508e2a3b0e5805, type: 2}
   - {fileID: 2100000, guid: 02234f1f664884f44ac04f25fb23caa1, type: 2}
   - {fileID: 2100000, guid: 7c81edf097a5c6e4b97a86179e30780c, type: 2}
+--- !u!114 &4662981509462258827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2410703198815107751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceMagnitude: 10
+  rotation: 5
+  numberOfMinGibbs: 4
+  numberOfMaxGibbs: 6
+  gibbPower: 5
+  gibbs:
+  - {fileID: 919132149155446097, guid: bcc965567d817484eab24ec3e4846d23, type: 3}
+  - {fileID: 919132149155446097, guid: 6aa2cc432d5a6fb4389945e665257594, type: 3}
+  - {fileID: 919132149155446097, guid: 7ead87ef68319c9478e8a45f1fb805eb, type: 3}
+  - {fileID: 919132149155446097, guid: db06fb7cfe6359f4683976fdd6f297c7, type: 3}
+  - {fileID: 919132149155446097, guid: efc81148a15532d4bacaa2e3918adfb5, type: 3}
+  - {fileID: 919132149155446097, guid: 23be379ada222ce4f973d9e55decee8d, type: 3}
+  - {fileID: 919132149155446097, guid: 7f475e7f370e6754c928dcecb51b2533, type: 3}
+  - {fileID: 919132149155446097, guid: defb9ded7f0742248a67284c48dc1f2a, type: 3}
+  - {fileID: 919132149155446097, guid: af8a6bb828c64e345abb872fb27945bc, type: 3}
+  bloodEffect: {fileID: 6928173140111931331, guid: 9d8c13ad4eab5de458b3b88b674c2289, type: 3}
 --- !u!1001 &5967007925665439348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -407,7 +436,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -427,16 +456,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloodEffect: {fileID: 0}
-  numberOfGibbs: 5
+  forceMagnitude: 10
+  rotation: 5
+  numberOfMinGibbs: 4
+  numberOfMaxGibbs: 6
   gibbPower: 5
-  heart: {fileID: 0}
-  brain: {fileID: 0}
-  lungs: {fileID: 0}
-  meatOne: {fileID: 0}
-  meatTwo: {fileID: 0}
-  meatThree: {fileID: 0}
-  meatFour: {fileID: 0}
+  gibbs:
+  - {fileID: 6058186559007422367, guid: 51fe86cf3ade01642994fc2ead49a0dc, type: 3}
+  - {fileID: 3002198907709503071, guid: 23582ab4cc6704a47920eace0ee00a0e, type: 3}
+  - {fileID: 4773798890646259813, guid: 99489238e4674c84b992f7d91884eafe, type: 3}
+  - {fileID: 8192240917278413559, guid: 45621e0034cfaa64a8917516f3fb9941, type: 3}
+  - {fileID: 5155417191814639873, guid: cb098d026de17a44d9677c05e06e91b3, type: 3}
+  - {fileID: 5109563035786174974, guid: 5ec402910d4e3be4b94e82da2ef263bf, type: 3}
+  - {fileID: 854732363421520279, guid: 1a4f3da02da1ee4418505c7290c024a5, type: 3}
+  - {fileID: 6038442937069830, guid: 01fd4f79132e005429c960682e421f86, type: 3}
+  - {fileID: 5007891956064107222, guid: c78dd1eba30c6f94e97c2e128d9285a7, type: 3}
+  bloodEffect: {fileID: 6928173140111931331, guid: 9d8c13ad4eab5de458b3b88b674c2289, type: 3}
 --- !u!1 &2844983833757488512 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -741832106251744268, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
@@ -457,7 +492,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -477,16 +512,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloodEffect: {fileID: 0}
-  numberOfGibbs: 5
+  forceMagnitude: 10
+  rotation: 5
+  numberOfMinGibbs: 4
+  numberOfMaxGibbs: 6
   gibbPower: 5
-  heart: {fileID: 0}
-  brain: {fileID: 0}
-  lungs: {fileID: 0}
-  meatOne: {fileID: 0}
-  meatTwo: {fileID: 0}
-  meatThree: {fileID: 0}
-  meatFour: {fileID: 0}
+  gibbs:
+  - {fileID: 6058186559007422367, guid: 51fe86cf3ade01642994fc2ead49a0dc, type: 3}
+  - {fileID: 3002198907709503071, guid: 23582ab4cc6704a47920eace0ee00a0e, type: 3}
+  - {fileID: 4773798890646259813, guid: 99489238e4674c84b992f7d91884eafe, type: 3}
+  - {fileID: 8192240917278413559, guid: 45621e0034cfaa64a8917516f3fb9941, type: 3}
+  - {fileID: 5155417191814639873, guid: cb098d026de17a44d9677c05e06e91b3, type: 3}
+  - {fileID: 5109563035786174974, guid: 5ec402910d4e3be4b94e82da2ef263bf, type: 3}
+  - {fileID: 854732363421520279, guid: 1a4f3da02da1ee4418505c7290c024a5, type: 3}
+  - {fileID: 6038442937069830, guid: 01fd4f79132e005429c960682e421f86, type: 3}
+  - {fileID: 5007891956064107222, guid: c78dd1eba30c6f94e97c2e128d9285a7, type: 3}
+  bloodEffect: {fileID: 6928173140111931331, guid: 9d8c13ad4eab5de458b3b88b674c2289, type: 3}
 --- !u!1 &2906744976939480209 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -389060815399261467, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
@@ -507,7 +548,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -527,16 +568,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloodEffect: {fileID: 0}
-  numberOfGibbs: 5
+  forceMagnitude: 10
+  rotation: 5
+  numberOfMinGibbs: 4
+  numberOfMaxGibbs: 6
   gibbPower: 5
-  heart: {fileID: 0}
-  brain: {fileID: 0}
-  lungs: {fileID: 0}
-  meatOne: {fileID: 0}
-  meatTwo: {fileID: 0}
-  meatThree: {fileID: 0}
-  meatFour: {fileID: 0}
+  gibbs:
+  - {fileID: 6058186559007422367, guid: 51fe86cf3ade01642994fc2ead49a0dc, type: 3}
+  - {fileID: 3002198907709503071, guid: 23582ab4cc6704a47920eace0ee00a0e, type: 3}
+  - {fileID: 4773798890646259813, guid: 99489238e4674c84b992f7d91884eafe, type: 3}
+  - {fileID: 8192240917278413559, guid: 45621e0034cfaa64a8917516f3fb9941, type: 3}
+  - {fileID: 5155417191814639873, guid: cb098d026de17a44d9677c05e06e91b3, type: 3}
+  - {fileID: 5109563035786174974, guid: 5ec402910d4e3be4b94e82da2ef263bf, type: 3}
+  - {fileID: 854732363421520279, guid: 1a4f3da02da1ee4418505c7290c024a5, type: 3}
+  - {fileID: 6038442937069830, guid: 01fd4f79132e005429c960682e421f86, type: 3}
+  - {fileID: 5007891956064107222, guid: c78dd1eba30c6f94e97c2e128d9285a7, type: 3}
+  bloodEffect: {fileID: 6928173140111931331, guid: 9d8c13ad4eab5de458b3b88b674c2289, type: 3}
 --- !u!1 &3362912021538761304 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -259972160606440404, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}
@@ -557,7 +604,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -577,16 +624,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloodEffect: {fileID: 0}
-  numberOfGibbs: 5
+  forceMagnitude: 10
+  rotation: 5
+  numberOfMinGibbs: 4
+  numberOfMaxGibbs: 6
   gibbPower: 5
-  heart: {fileID: 0}
-  brain: {fileID: 0}
-  lungs: {fileID: 0}
-  meatOne: {fileID: 0}
-  meatTwo: {fileID: 0}
-  meatThree: {fileID: 0}
-  meatFour: {fileID: 0}
+  gibbs:
+  - {fileID: 6058186559007422367, guid: 51fe86cf3ade01642994fc2ead49a0dc, type: 3}
+  - {fileID: 3002198907709503071, guid: 23582ab4cc6704a47920eace0ee00a0e, type: 3}
+  - {fileID: 4773798890646259813, guid: 99489238e4674c84b992f7d91884eafe, type: 3}
+  - {fileID: 8192240917278413559, guid: 45621e0034cfaa64a8917516f3fb9941, type: 3}
+  - {fileID: 5155417191814639873, guid: cb098d026de17a44d9677c05e06e91b3, type: 3}
+  - {fileID: 5109563035786174974, guid: 5ec402910d4e3be4b94e82da2ef263bf, type: 3}
+  - {fileID: 854732363421520279, guid: 1a4f3da02da1ee4418505c7290c024a5, type: 3}
+  - {fileID: 6038442937069830, guid: 01fd4f79132e005429c960682e421f86, type: 3}
+  - {fileID: 5007891956064107222, guid: c78dd1eba30c6f94e97c2e128d9285a7, type: 3}
+  bloodEffect: {fileID: 6928173140111931331, guid: 9d8c13ad4eab5de458b3b88b674c2289, type: 3}
 --- !u!4 &6144505718969465247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3766a2c220fb69b46b7fee8b9dcde018, type: 3}

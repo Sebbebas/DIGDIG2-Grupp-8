@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2050863992510458941}
   - component: {fileID: 1038778945550318040}
   - component: {fileID: -5743900369652418451}
+  - component: {fileID: 2731008455430459528}
   m_Layer: 6
   m_Name: Big Zombie
   m_TagString: Enemies
@@ -125,10 +126,18 @@ MonoBehaviour:
   damageCooldown: 2.5
   headHealth: 50
   torsoHealth: 100
-  armHealth: 30
+  leftArmHealth: 30
+  rightArmHealth: 30
+  currentHealth: 100
   agro: 0
+  attacking: 0
+  inAttackRange: 0
+  alertAnimationStarted: 0
   leftArm: {fileID: 0}
+  lostLeftArm: {fileID: 0}
   rightArm: {fileID: 0}
+  lostRightArm: {fileID: 0}
+  limbLossEffect: {fileID: 0}
   scoreValue: 20
   isProjectileEnemy: 0
   attackDistance: 10
@@ -187,6 +196,34 @@ MonoBehaviour:
       DropChance: 15
     - Prefab: {fileID: 7771517042167347894, guid: 9b82b7b6e337dad4aa4454637c745ecf, type: 3}
       DropChance: 10
+--- !u!114 &2731008455430459528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2279033429783417335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: 10
+  rotation: 5
+  numberOfMinGibbs: 4
+  numberOfMaxGibbs: 6
+  gibbPower: 5
+  gibbs:
+  - {fileID: 919132149155446097, guid: bcc965567d817484eab24ec3e4846d23, type: 3}
+  - {fileID: 919132149155446097, guid: 6aa2cc432d5a6fb4389945e665257594, type: 3}
+  - {fileID: 919132149155446097, guid: 7ead87ef68319c9478e8a45f1fb805eb, type: 3}
+  - {fileID: 919132149155446097, guid: db06fb7cfe6359f4683976fdd6f297c7, type: 3}
+  - {fileID: 919132149155446097, guid: efc81148a15532d4bacaa2e3918adfb5, type: 3}
+  - {fileID: 919132149155446097, guid: 23be379ada222ce4f973d9e55decee8d, type: 3}
+  - {fileID: 919132149155446097, guid: 7f475e7f370e6754c928dcecb51b2533, type: 3}
+  - {fileID: 919132149155446097, guid: defb9ded7f0742248a67284c48dc1f2a, type: 3}
+  - {fileID: 919132149155446097, guid: af8a6bb828c64e345abb872fb27945bc, type: 3}
+  bloodEffect: {fileID: 6928173140111931331, guid: 9d8c13ad4eab5de458b3b88b674c2289, type: 3}
 --- !u!1001 &3392425677665272015
 PrefabInstance:
   m_ObjectHideFlags: 0
