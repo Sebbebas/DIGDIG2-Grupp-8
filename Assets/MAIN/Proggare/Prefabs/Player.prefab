@@ -7458,7 +7458,7 @@ MonoBehaviour:
   notSavedWarning: {fileID: 8859556258851849961}
   revertWarning: {fileID: 2305234792070022606}
   settingsRevertButton: {fileID: 4266773554487563022}
-  backButton: {fileID: 8821052000317749065}
+  backButton: {fileID: 599148608205600355}
   applyButton: {fileID: 4920420715427507328}
   generalSettings: {fileID: 763578295600799665}
   audioSettings: {fileID: 172745057461253945}
