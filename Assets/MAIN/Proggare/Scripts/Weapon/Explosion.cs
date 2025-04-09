@@ -144,7 +144,7 @@ public class Explosion : MonoBehaviour
         // If Enemy
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemies"))
         {
-            other.gameObject.GetComponent<EnemyScript>().TakeDamage("Torso", calculatedDamage);
+            other.gameObject.GetComponent<EnemyScript>().ApplyDamage(calculatedDamage);
         }
 
         // If Plank
