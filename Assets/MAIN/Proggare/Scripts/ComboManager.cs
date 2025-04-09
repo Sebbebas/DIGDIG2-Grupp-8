@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 
+//Alexander
+
 public class ComboManager : MonoBehaviour
 {
     public static ComboManager instance;
@@ -15,14 +17,20 @@ public class ComboManager : MonoBehaviour
     private int comboScore = 0;
     private int maxComboScore = 0;
     private bool isCountingDown = false;
+    private int previousMultiplier = 1;
 
-    // UI Elements
+    //UI Elements
     public TextMeshProUGUI killCountText;
     public TextMeshProUGUI comboMultiplierText;
     public Slider comboTimerSlider;
     public Image multikillImage;
     public Image timesXImage;
     public TextMeshProUGUI comboScoreText;
+
+    //audio Sources
+    public AudioSource countingAudioSource;
+    public AudioSource scoreCompleteAudioSource;
+    public AudioSource multiplierIncreaseAudioSource;
 
     private float killWindow = 3f;
     private float lastKillTime = 0f;
@@ -41,7 +49,6 @@ public class ComboManager : MonoBehaviour
 
     private void Start()
     {
-        // Ensure UI is hidden at the start
         ShowComboUI(false);
     }
 
@@ -56,7 +63,6 @@ public class ComboManager : MonoBehaviour
             }
         }
 
-        // Update UI elements
         UpdateUI();
     }
 
@@ -73,19 +79,29 @@ public class ComboManager : MonoBehaviour
             }
             else if (isComboActive)
             {
-                comboTimer = 3f; // Reset the combo timer
+                comboTimer = 3f;
             }
         }
         else
         {
-            killCount = 1; // Reset kill count if outside the kill window
+            killCount = 1;
         }
 
         lastKillTime = Time.time;
 
         if (isComboActive)
         {
-            comboMultiplier = Mathf.Min(10, 2 + (killCount - 3) / 10);
+            int newMultiplier = Mathf.Min(10, 2 + (killCount - 3) / 10);
+            if (newMultiplier > comboMultiplier)
+            {
+                //Play multiplier increase sound
+                if (multiplierIncreaseAudioSource != null)
+                {
+                    multiplierIncreaseAudioSource.Play();
+                }
+                comboMultiplier = newMultiplier;
+            }
+
             int scoreToAdd = 10 * comboMultiplier;
             comboScore += scoreToAdd;
             maxComboScore = Mathf.Max(maxComboScore, comboScore);
@@ -116,6 +132,7 @@ public class ComboManager : MonoBehaviour
         isComboActive = false;
         killCount = 0;
         comboMultiplier = 1;
+        previousMultiplier = 1;
         if (!isCountingDown)
         {
             StartCoroutine(CountdownComboScore());
@@ -126,20 +143,35 @@ public class ComboManager : MonoBehaviour
     {
         isCountingDown = true;
         int scoreToAdd = maxComboScore;
-        int increment = Mathf.Max(1, scoreToAdd / 10); // Adjust the increment as needed
+        int increment = Mathf.Max(1, scoreToAdd / 25);
+        float delay = 0.1f;
+
+        //Play counting sound
+        if (countingAudioSource != null)
+        {
+            countingAudioSource.Play();
+        }
 
         while (scoreToAdd > 0)
         {
             int addAmount = Mathf.Min(increment, scoreToAdd);
             ScoreManager.Instance.AddScore(addAmount);
-            comboScore = Mathf.Max(0, comboScore - addAmount); // Decrease the combo score
+            comboScore = Mathf.Max(0, comboScore - addAmount);
             scoreToAdd -= addAmount;
-            yield return new WaitForSeconds(0.1f); // Adjust the delay as needed
+
+            yield return new WaitForSeconds(delay);
         }
 
         comboScore = 0;
         maxComboScore = 0;
         isCountingDown = false;
+
+        //Play score complete sound
+        if (scoreCompleteAudioSource != null)
+        {
+            scoreCompleteAudioSource.Play();
+        }
+
         ScoreManager.Instance.HighlightScore();
         ShowComboUI(false);
     }
