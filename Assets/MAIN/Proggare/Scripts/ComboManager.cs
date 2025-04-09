@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class ComboManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class ComboManager : MonoBehaviour
     public bool isComboActive = false;
     public int skillPoints = 0;
     private int comboScore = 0;
+    private int maxComboScore = 0;
+    private bool isCountingDown = false;
 
     // UI Elements
     public TextMeshProUGUI killCountText;
@@ -85,6 +88,7 @@ public class ComboManager : MonoBehaviour
             comboMultiplier = Mathf.Min(10, 2 + (killCount - 3) / 10);
             int scoreToAdd = 10 * comboMultiplier;
             comboScore += scoreToAdd;
+            maxComboScore = Mathf.Max(maxComboScore, comboScore);
         }
         else
         {
@@ -112,8 +116,31 @@ public class ComboManager : MonoBehaviour
         isComboActive = false;
         killCount = 0;
         comboMultiplier = 1;
-        ScoreManager.Instance.AddScore(comboScore);
+        if (!isCountingDown)
+        {
+            StartCoroutine(CountdownComboScore());
+        }
+    }
+
+    private IEnumerator CountdownComboScore()
+    {
+        isCountingDown = true;
+        int scoreToAdd = maxComboScore;
+        int increment = Mathf.Max(1, scoreToAdd / 10); // Adjust the increment as needed
+
+        while (scoreToAdd > 0)
+        {
+            int addAmount = Mathf.Min(increment, scoreToAdd);
+            ScoreManager.Instance.AddScore(addAmount);
+            comboScore = Mathf.Max(0, comboScore - addAmount); // Decrease the combo score
+            scoreToAdd -= addAmount;
+            yield return new WaitForSeconds(0.1f); // Adjust the delay as needed
+        }
+
         comboScore = 0;
+        maxComboScore = 0;
+        isCountingDown = false;
+        ScoreManager.Instance.HighlightScore();
         ShowComboUI(false);
     }
 
@@ -126,7 +153,7 @@ public class ComboManager : MonoBehaviour
 
         if (comboMultiplierText != null)
         {
-            comboMultiplierText.text = "Combo Multiplier: x" + comboMultiplier.ToString();
+            comboMultiplierText.text = "" + comboMultiplier.ToString();
         }
 
         if (comboTimerSlider != null)
