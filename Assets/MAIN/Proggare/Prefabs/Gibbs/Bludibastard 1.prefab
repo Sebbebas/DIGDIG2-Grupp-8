@@ -190,9 +190,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 124117328619038401}
-  - component: {fileID: 3949699625007390529}
-  - component: {fileID: 2941279442944431396}
-  m_Layer: 0
+  - component: {fileID: -8041483079605047919}
+  - component: {fileID: 5475079464850080747}
+  - component: {fileID: -740371379861883022}
+  m_Layer: 14
   m_Name: Bludibastard 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 4845559302729054418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.46392, y: 0, z: 6.5139217}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -218,7 +219,7 @@ Transform:
   - {fileID: 8758816770272669594}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &3949699625007390529
+--- !u!54 &-8041483079605047919
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -245,8 +246,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &2941279442944431396
-SphereCollider:
+--- !u!65 &5475079464850080747
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -264,8 +265,26 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3, y: 2, z: 1}
+  m_Center: {x: 0, y: 1.5, z: 0.35}
+--- !u!114 &-740371379861883022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4845559302729054418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471170f5aa14bc6489d98587337ca533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroy: 1
+  aliveTime: 3
+  shrink: 1
+  waitsForShrinkTime: 2
+  expand: 0
+  expandTime: 2
 --- !u!1 &5331172110004184800
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ZombieBodyParts : MonoBehaviour
@@ -28,7 +29,8 @@ public class ZombieBodyParts : MonoBehaviour
     //    rightArmHealth.TakeDamage(bodyPartRightArm, GetComponent<Shotgun>().pelletDamage);
     //}*/
 
-    [SerializeField] float force = 10f;
+    [SerializeField] float minForce = 5f;
+    [SerializeField] float maxForce = 10f;
     [SerializeField] float rotation = 5f;
  
     [Header("Gibbs")]
@@ -82,39 +84,42 @@ public class ZombieBodyParts : MonoBehaviour
     {
         int numberOfGibbsSpawned = Random.Range(numberOfMinGibbs, numberOfMaxGibbs);
 
-        for (int i = 0; i < numberOfGibbsSpawned; i++)
-        { 
-            int randomIndex = Random.Range(0, gibbs.Length);
+        List<int> availableGibbsIndices = new List<int>();
+        for (int i = 0; i < gibbs.Length; i++)
+        {
+            availableGibbsIndices.Add(i);
+        }
+
+        for (int i = 0; i < availableGibbsIndices.Count; i++)
+        {
+            int temp = availableGibbsIndices[i];
+            int randomIndex = Random.Range(i, availableGibbsIndices.Count);
+            availableGibbsIndices[i] = availableGibbsIndices[randomIndex];
+            availableGibbsIndices[randomIndex] = temp;
+        }
+
+        for (int i = 0; i < numberOfGibbsSpawned && availableGibbsIndices.Count > 0; i++)
+        {
+            int randomIndex = availableGibbsIndices[0];  
+            availableGibbsIndices.RemoveAt(0);  
+
             GameObject selectedGibb = gibbs[randomIndex];
 
+            Rigidbody gibbRigidbody = selectedGibb.GetComponent<Rigidbody>();
+
             GameObject spawnedGibb = Instantiate(selectedGibb, new Vector3(transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
-            Rigidbody gibbRigidbody = spawnedGibb.GetComponent<Rigidbody>();
+
+            
+
+            Vector3 direction = (GameObject.Find("Player").transform.position - transform.position).normalized;
+            float force = Random.Range(minForce, maxForce);
+            gibbRigidbody = spawnedGibb.GetComponent<Rigidbody>();
+            gibbRigidbody.AddForce(-direction * force, ForceMode.Impulse);
 
             if (bloodEffect != null)
             {
-                Instantiate(bloodEffect); 
-            }
-
-            if (gibbRigidbody != null)
-            {
-                gibbRigidbody.AddForce(transform.forward * force, ForceMode.Impulse);
-                gibbRigidbody.AddTorque(new Vector3(0f, rotation, 0f), ForceMode.Impulse);
+                Instantiate(bloodEffect, transform.position, Quaternion.identity);
             }
         }
-
-        destroy = GetComponent<Destroy>();
-        if (destroy != null)
-        {
-            destroy.enabled = true;
-            destroy.Destruct();
-        }
-
-        //GameObject newPlank = Instantiate(plankObject, new Vector3(transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
-        //Rigidbody plankRigidbody = newPlank.GetComponent<Rigidbody>();
-
-        //if (plankRigidbody != null)
-        //{
-        //    plankRigidbody.AddForce(direction * power, ForceMode.Impulse);
-        //}
     }
 }

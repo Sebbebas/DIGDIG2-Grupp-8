@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5321099283154093760}
   - component: {fileID: 5520363101948190909}
   - component: {fileID: 3577068601364366914}
-  - component: {fileID: 8616461650322151999}
-  - component: {fileID: 282133605326599661}
-  m_Layer: 0
+  - component: {fileID: -6792748385135900401}
+  - component: {fileID: 8094915442919991470}
+  - component: {fileID: -5976130673959890358}
+  m_Layer: 14
   m_Name: Digdig Benbrott 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +89,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &8616461650322151999
+--- !u!135 &-6792748385135900401
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2741572064912682012}
+  m_Material: {fileID: 13400000, guid: 2014ae34388eca04e88ae8b0c116056a, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.9773425
+  m_Center: {x: -0.14137973, y: 0.2651435, z: -0.061923802}
+--- !u!54 &8094915442919991470
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,24 +137,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &282133605326599661
-SphereCollider:
+--- !u!114 &-5976130673959890358
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2741572064912682012}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.9773425
-  m_Center: {x: -0.14137973, y: 0.2651435, z: -0.061923802}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471170f5aa14bc6489d98587337ca533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroy: 1
+  aliveTime: 3
+  shrink: 1
+  waitsForShrinkTime: 2
+  expand: 0
+  expandTime: 2

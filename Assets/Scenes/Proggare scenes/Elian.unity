@@ -147,10 +147,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1312168213106435148, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2425930386577910314, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1122,46 +1118,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4662981509462258827, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: gibbs.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662981509462258827, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: 'gibbs.Array.data[0]'
-      value: 
-      objectReference: {fileID: 4845559302729054418, guid: 3ac5c4be35269ee43bc3a5857c52e3fc, type: 3}
-    - target: {fileID: 4662981509462258827, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: 'gibbs.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2741572064912682012, guid: 500a7d096d186784090bddc8825d9af2, type: 3}
-    - target: {fileID: 4662981509462258827, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: 'gibbs.Array.data[2]'
-      value: 
-      objectReference: {fileID: 1987852110078544902, guid: 99489238e4674c84b992f7d91884eafe, type: 3}
-    - target: {fileID: 4662981509462258827, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: 'gibbs.Array.data[3]'
-      value: 
-      objectReference: {fileID: 590709436773872350, guid: f1c0059eee23cf94bbcb73b35bba1824, type: 3}
-    - target: {fileID: 4662981509462258827, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: 'gibbs.Array.data[4]'
-      value: 
-      objectReference: {fileID: 8354656797306574313, guid: ff240dd5499029b4b9f71730098b3b52, type: 3}
-    - target: {fileID: 4662981509462258827, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: 'gibbs.Array.data[5]'
-      value: 
-      objectReference: {fileID: 8524282233098067645, guid: 61e33e4fbbd4f774c98808e7f706cc79, type: 3}
-    - target: {fileID: 4662981509462258827, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: 'gibbs.Array.data[6]'
-      value: 
-      objectReference: {fileID: 7668139737596646487, guid: 8047dabce3a35de4e8e98c1040371bd2, type: 3}
-    - target: {fileID: 4662981509462258827, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: 'gibbs.Array.data[7]'
-      value: 
-      objectReference: {fileID: 5243817737375162398, guid: 94be65ba5dff8114f87989f969acc547, type: 3}
-    - target: {fileID: 4662981509462258827, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
-      propertyPath: 'gibbs.Array.data[8]'
-      value: 
-      objectReference: {fileID: 6095890613348470366, guid: d6959e66bc7b2ea4591e53c7f776c94b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

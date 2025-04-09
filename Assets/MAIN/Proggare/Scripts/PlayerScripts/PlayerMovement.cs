@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float slideDuration = .5f;
     [SerializeField] float slideCooldown = 2f;
     [SerializeField, Tooltip("To change camera height when sliding")] float slideSize = .8f;
-    [SerializeField, Tooltip("Default size of player")] float normalSize = 1f;
+    [SerializeField, Tooltip("Default size of player")] float playerHeight = 1f;
 
     [Header("Ground Check")]
     [SerializeField] Transform groundCheck;
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             if (slideTimer <= 0f)
             {
                 isSliding = false;
-                transform.localScale = new Vector3(normalSize, normalSize, normalSize);
+                transform.localScale = new Vector3(1, playerHeight, 1);
             }
 
             //Move the player in the locked slide direction

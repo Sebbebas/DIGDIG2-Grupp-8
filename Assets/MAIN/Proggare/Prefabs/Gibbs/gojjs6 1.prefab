@@ -353,9 +353,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4196543298298064002}
-  - component: {fileID: 6300158864544930685}
-  - component: {fileID: 6897945741161309267}
-  m_Layer: 0
+  - component: {fileID: -1723725494373503726}
+  - component: {fileID: -728686192281620947}
+  - component: {fileID: -7412228599928813969}
+  m_Layer: 14
   m_Name: gojjs6 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -381,7 +382,28 @@ Transform:
   - {fileID: 6257527555183503836}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &6300158864544930685
+--- !u!135 &-1723725494373503726
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8524282233098067645}
+  m_Material: {fileID: 13400000, guid: 2014ae34388eca04e88ae8b0c116056a, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &-728686192281620947
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -408,24 +430,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &6897945741161309267
-SphereCollider:
+--- !u!114 &-7412228599928813969
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8524282233098067645}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471170f5aa14bc6489d98587337ca533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroy: 1
+  aliveTime: 3
+  shrink: 1
+  waitsForShrinkTime: 2
+  expand: 0
+  expandTime: 2

@@ -12,10 +12,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Space]
 
-    [SerializeField, Tooltip("Radius to spawn in prefabList")] float spawnRadius = 15f;
-    [SerializeField, Tooltip("Makes so enemies doesn't spawn on player")] float nonSpawnRadius = 2f;
-    [SerializeField, Tooltip("Radius for when prefabList see the player")] float sightRadius = 10f;
-    [SerializeField] float despawnRadius = 25f;
+    [SerializeField, Tooltip("Radius to spawn in prefabList RED")] float spawnRadius = 15f;
+    [SerializeField, Tooltip("Makes so enemies doesn't spawn on player BLUE")] float nonSpawnRadius = 2f;
+    [SerializeField, Tooltip("Radius for when prefabList see the player YELLOW")] float sightRadius = 10f;
+    [SerializeField, Tooltip("GREEN")] float despawnRadius = 25f;
     [SerializeField] int numberOfEnemies = 5;
 
     [SerializeField] GameObject enemyZero;

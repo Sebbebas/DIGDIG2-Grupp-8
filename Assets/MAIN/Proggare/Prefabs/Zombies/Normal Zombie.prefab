@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.4572314, y: 1.9934496, z: 2}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6144505718969465247}
@@ -208,21 +208,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMagnitude: 10
+  force: 10
   rotation: 5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
   gibbPower: 5
   gibbs:
-  - {fileID: 919132149155446097, guid: bcc965567d817484eab24ec3e4846d23, type: 3}
-  - {fileID: 919132149155446097, guid: 6aa2cc432d5a6fb4389945e665257594, type: 3}
-  - {fileID: 919132149155446097, guid: 7ead87ef68319c9478e8a45f1fb805eb, type: 3}
-  - {fileID: 919132149155446097, guid: db06fb7cfe6359f4683976fdd6f297c7, type: 3}
-  - {fileID: 919132149155446097, guid: efc81148a15532d4bacaa2e3918adfb5, type: 3}
-  - {fileID: 919132149155446097, guid: 23be379ada222ce4f973d9e55decee8d, type: 3}
-  - {fileID: 919132149155446097, guid: 7f475e7f370e6754c928dcecb51b2533, type: 3}
-  - {fileID: 919132149155446097, guid: defb9ded7f0742248a67284c48dc1f2a, type: 3}
-  - {fileID: 919132149155446097, guid: af8a6bb828c64e345abb872fb27945bc, type: 3}
+  - {fileID: 4845559302729054418, guid: 3ac5c4be35269ee43bc3a5857c52e3fc, type: 3}
+  - {fileID: 2741572064912682012, guid: 500a7d096d186784090bddc8825d9af2, type: 3}
+  - {fileID: 1987852110078544902, guid: 99489238e4674c84b992f7d91884eafe, type: 3}
+  - {fileID: 590709436773872350, guid: f1c0059eee23cf94bbcb73b35bba1824, type: 3}
+  - {fileID: 8354656797306574313, guid: ff240dd5499029b4b9f71730098b3b52, type: 3}
+  - {fileID: 7668139737596646487, guid: 8047dabce3a35de4e8e98c1040371bd2, type: 3}
+  - {fileID: 5243817737375162398, guid: 94be65ba5dff8114f87989f969acc547, type: 3}
+  - {fileID: 6095890613348470366, guid: d6959e66bc7b2ea4591e53c7f776c94b, type: 3}
   bloodEffect: {fileID: 6928173140111931331, guid: 9d8c13ad4eab5de458b3b88b674c2289, type: 3}
 --- !u!1001 &5967007925665439348
 PrefabInstance:
@@ -456,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMagnitude: 10
+  force: 10
   rotation: 5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
@@ -512,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMagnitude: 10
+  force: 10
   rotation: 5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
@@ -568,7 +567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMagnitude: 10
+  force: 10
   rotation: 5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
@@ -624,7 +623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMagnitude: 10
+  force: 10
   rotation: 5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6

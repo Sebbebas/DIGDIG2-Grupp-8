@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 3775264464689094942}
   - component: {fileID: 6495435950850036557}
   - component: {fileID: 2935396892992303603}
-  - component: {fileID: 49234550160780403}
-  - component: {fileID: 5588378347208376532}
-  m_Layer: 0
-  m_Name: "Digdig k\xF6ttl\xE5r Gibb 1"
+  - component: {fileID: -3325447644461595203}
+  - component: {fileID: 4865979369354884766}
+  - component: {fileID: 5045683998031832557}
+  m_Layer: 14
+  m_Name: "Digdig k\xF6ttl\xE5r Gibb "
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +89,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &49234550160780403
+--- !u!135 &-3325447644461595203
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590709436773872350}
+  m_Material: {fileID: 13400000, guid: 2014ae34388eca04e88ae8b0c116056a, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.7733606
+  m_Center: {x: -0.011528552, y: 0.082472414, z: -0.0896371}
+--- !u!54 &4865979369354884766
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,24 +137,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &5588378347208376532
-SphereCollider:
+--- !u!114 &5045683998031832557
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590709436773872350}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.7733606
-  m_Center: {x: -0.011528552, y: 0.082472414, z: -0.0896371}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471170f5aa14bc6489d98587337ca533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroy: 1
+  aliveTime: 3
+  shrink: 1
+  waitsForShrinkTime: 2
+  expand: 0
+  expandTime: 2
