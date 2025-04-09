@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerLook : MonoBehaviour
 {
     //Configurable Parameters
+    [SerializeField] Texture2D cursorTexture;
+    [SerializeField] Vector2 cursorPos;
     public int mouseSensitivity = 5;
-    //public float mouseSensitivity = 5;
 
     //Private Varibels
     Vector2 lookInput = Vector2.zero;
@@ -22,10 +23,13 @@ public class PlayerLook : MonoBehaviour
         playerBody = GetComponentInParent<CharacterController>().GetComponent<Transform>();
         inputActions = new InputActions();
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.SetCursor(cursorTexture, cursorPos, CursorMode.Auto);
     }
 
     private void Update()
     {
+        Cursor.SetCursor(cursorTexture, cursorPos, CursorMode.Auto);
+
         if (GetComponentInParent<SettingManager>().GetGameIsPaused() || GetComponentInParent<PlayerHealth>().isDead)
         {
             Cursor.lockState = CursorLockMode.Confined;
