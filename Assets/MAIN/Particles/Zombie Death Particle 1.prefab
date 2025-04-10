@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6928173140111931331}
   - component: {fileID: 7264201092704797298}
   m_Layer: 0
-  m_Name: Zombie Death Particle
+  m_Name: Zombie Death Particle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
