@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5199678131464524840}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Trashcan
   m_TagString: Untagged
   m_Icon: {fileID: 0}

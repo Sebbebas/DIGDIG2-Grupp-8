@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 3039728525214281533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minIntensity: 0
   maxIntensity: 100
-  flickerSpeed: 0
+  flickerSpeed: 100
 --- !u!1 &4349005517858534585
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,8 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minIntensity: 2
-  maxIntensity: 20
-  flickerSpeed: 0.1
+  maxIntensity: 100
+  flickerSpeed: 1
 --- !u!1001 &6814922750107705862
 PrefabInstance:
   m_ObjectHideFlags: 0
