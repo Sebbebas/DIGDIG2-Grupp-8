@@ -17,21 +17,26 @@ public class ComboManager : MonoBehaviour
     private bool isCountingDown = false;
     private int previousMultiplier = 1;
 
-    //UI Elements
-    public TextMeshProUGUI killCountText;
-    public TextMeshProUGUI comboMultiplierText;
-    public Slider comboTimerSlider;
-    public Image multikillImage;
-    public Image timesXImage;
-    public TextMeshProUGUI comboScoreText;
+    // UI Elements
+    [Header("UI Elements")]
+    [SerializeField] TextMeshProUGUI killCountText;
+    [SerializeField] TextMeshProUGUI comboMultiplierText;
+    [SerializeField] TextMeshProUGUI comboScoreText;
+    [SerializeField] Slider comboTimerSlider;
+    [SerializeField] Image multikillImage;
+    [SerializeField] Image timesXImage;
+    [SerializeField] Image multiplierSplash;
 
-    //audio Sources
+    // Audio Sources
+    [Header("Audio Sources")]
     public AudioSource countingAudioSource;
     public AudioSource scoreCompleteAudioSource;
     public AudioSource multiplierIncreaseAudioSource;
 
     private float killWindow = 3f;
     private float lastKillTime = 0f;
+    private int multiplierKillCount = 0;
+    private float multiplierKillTimer = 0f;
 
     private void Awake()
     {
@@ -48,6 +53,10 @@ public class ComboManager : MonoBehaviour
     private void Start()
     {
         ShowComboUI(false);
+        if (multiplierSplash != null)
+        {
+            multiplierSplash.gameObject.SetActive(false); // Ensure the splash is hidden initially
+        }
     }
 
     private void Update()
@@ -61,11 +70,23 @@ public class ComboManager : MonoBehaviour
             }
         }
 
+        // Update the multiplier kill timer
+        if (multiplierKillTimer > 0)
+        {
+            multiplierKillTimer -= Time.deltaTime;
+        }
+
         UpdateUI();
     }
 
     public void AddKill()
     {
+        if (isCountingDown)
+        {
+            // Prevent new kills from affecting the combo while counting down
+            return;
+        }
+
         killCount++;
         float timeSinceLastKill = Time.time - lastKillTime;
 
@@ -87,19 +108,22 @@ public class ComboManager : MonoBehaviour
 
         lastKillTime = Time.time;
 
+        // Check for multiplier increase
+        multiplierKillCount++;
+        if (multiplierKillCount == 3)
+        {
+            multiplierKillCount = 0;
+            multiplierKillTimer = killWindow;
+            IncreaseMultiplier();
+        }
+        else if (multiplierKillTimer <= 0)
+        {
+            multiplierKillCount = 1;
+            multiplierKillTimer = killWindow;
+        }
+
         if (isComboActive)
         {
-            int newMultiplier = Mathf.Min(10, 2 + (killCount - 3) / 10);
-            if (newMultiplier > comboMultiplier)
-            {
-                //Play multiplier increase sound
-                if (multiplierIncreaseAudioSource != null)
-                {
-                    multiplierIncreaseAudioSource.Play();
-                }
-                comboMultiplier = newMultiplier;
-            }
-
             int scoreToAdd = 10 * comboMultiplier;
             comboScore += scoreToAdd;
             maxComboScore = Mathf.Max(maxComboScore, comboScore);
@@ -112,8 +136,33 @@ public class ComboManager : MonoBehaviour
 
     public void AddSkillPoint()
     {
+        if (isCountingDown)
+        {
+            // Prevent adding skill points while counting down
+            return;
+        }
+
         skillPoints++;
-        comboMultiplier = Mathf.Min(10, comboMultiplier + 1);
+        IncreaseMultiplier();
+    }
+
+    private void IncreaseMultiplier()
+    {
+        int newMultiplier = Mathf.Min(10, comboMultiplier + 1);
+        if (newMultiplier > comboMultiplier)
+        {
+            // Play multiplier increase sound
+            if (multiplierIncreaseAudioSource != null)
+            {
+                multiplierIncreaseAudioSource.Play();
+            }
+            comboMultiplier = newMultiplier;
+
+            if (isComboActive)
+            {
+                StartCoroutine(ShowMultiplierSplash());
+            }
+        }
     }
 
     private void StartCombo()
@@ -144,7 +193,7 @@ public class ComboManager : MonoBehaviour
         int increment = Mathf.Max(1, scoreToAdd / 25);
         float delay = 0.1f;
 
-        //Play counting sound
+        // Play counting sound
         if (countingAudioSource != null)
         {
             countingAudioSource.Play();
@@ -164,14 +213,101 @@ public class ComboManager : MonoBehaviour
         maxComboScore = 0;
         isCountingDown = false;
 
-        //Play score complete sound
+        // Play score complete sound
         if (scoreCompleteAudioSource != null)
         {
             scoreCompleteAudioSource.Play();
         }
 
         ScoreManager.Instance.HighlightScore();
+
+        // Start the flickering effect after counting is done
+        StartCoroutine(FlickerComboUI());
+    }
+
+    private IEnumerator FlickerComboUI()
+    {
+        float flickerDuration = 0.5f; // Total duration for the flickering effect
+        float flickerSpeed = 0.05f; // Time interval for each flicker
+        float timer = 0f;
+
+        while (timer < flickerDuration)
+        {
+            SetComboUIAlpha(0f, true); // Include comboScoreText in the flicker
+            yield return new WaitForSeconds(flickerSpeed);
+            SetComboUIAlpha(1f, true); // Include comboScoreText in the flicker
+            yield return new WaitForSeconds(flickerSpeed);
+            timer += flickerSpeed * 2;
+        }
+
         ShowComboUI(false);
+    }
+
+    private IEnumerator ShowMultiplierSplash()
+    {
+        if (multiplierSplash != null)
+        {
+            multiplierSplash.gameObject.SetActive(true);
+            Vector3 originalScale = multiplierSplash.transform.localScale;
+            float duration = 0.5f; // Duration for the pulsate effect
+            float elapsed = 0f;
+
+            // Pulsate effect
+            while (elapsed < duration)
+            {
+                multiplierSplash.transform.localScale = Vector3.Lerp(originalScale, originalScale * 1.2f, Mathf.PingPong(elapsed / duration, 1f));
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            multiplierSplash.gameObject.SetActive(false);
+            multiplierSplash.transform.localScale = originalScale;
+        }
+    }
+
+    private void SetComboUIAlpha(float alpha, bool includeComboScore)
+    {
+        if (killCountText != null)
+        {
+            Color textColor = killCountText.color;
+            textColor.a = alpha;
+            killCountText.color = textColor;
+        }
+
+        if (comboMultiplierText != null)
+        {
+            Color textColor = comboMultiplierText.color;
+            textColor.a = alpha;
+            comboMultiplierText.color = textColor;
+        }
+
+        if (comboTimerSlider != null)
+        {
+            Color sliderColor = comboTimerSlider.image.color;
+            sliderColor.a = alpha;
+            comboTimerSlider.image.color = sliderColor;
+        }
+
+        if (multikillImage != null)
+        {
+            Color imageColor = multikillImage.color;
+            imageColor.a = alpha;
+            multikillImage.color = imageColor;
+        }
+
+        if (timesXImage != null)
+        {
+            Color imageColor = timesXImage.color;
+            imageColor.a = alpha;
+            timesXImage.color = imageColor;
+        }
+
+        if (includeComboScore && comboScoreText != null)
+        {
+            Color textColor = comboScoreText.color;
+            textColor.a = alpha;
+            comboScoreText.color = textColor;
+        }
     }
 
     public IEnumerator MultiplierBoost(int multiplier, float duration)
