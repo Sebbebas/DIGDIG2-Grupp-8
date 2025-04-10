@@ -37,7 +37,7 @@ public class Explosion : MonoBehaviour
     private void Awake()
     {
         //Get Cached References
-        screenShake = Camera.main.GetComponent<ScreenShake>();
+        screenShake = FindFirstObjectByType<ScreenShake>();
         screenShake.Shake(screenShakeDuration, screenShakeIntensity);
 
         //Set the explosion light to the child object if not assigned
@@ -142,7 +142,7 @@ public class Explosion : MonoBehaviour
         }
 
         // If Enemy
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemies") && other != null)
         {
             other.gameObject.GetComponent<EnemyScript>().ApplyDamage(calculatedDamage);
         }

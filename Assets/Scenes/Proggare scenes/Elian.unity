@@ -131,18 +131,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5260258438860744153, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: kickSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 2251a5d1e07a4a04bb4c914c555ed4d6, type: 3}
-    - target: {fileID: 5260258438860744153, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: legAnimator
-      value: 
-      objectReference: {fileID: 278533538}
-    - target: {fileID: 5260258438860744153, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-      propertyPath: kickCooldown
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7056122614175363245, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -368,11 +356,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 594967822}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &278533538 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7827080611456488827, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
-  m_PrefabInstance: {fileID: 63637923}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
