@@ -68,6 +68,7 @@ public class SettingManager : MonoBehaviour
         GetComponentInChildren<PlayerLook>().mouseSensitivity = PlayerPrefs.GetInt("Sensitivity", defaultSensitivity);
         //Set the slider value
         sensitivitySlider.value = GetComponentInChildren<PlayerLook>().mouseSensitivity;
+        //sensitivitySlider.value = defaultSensitivity;
         //Apply to PlayerLook
         //GetComponentInChildren<PlayerLook>().mouseSensitivity = savedSensitivity;
         //Debug.Log("Loaded sensitivity: " + savedSensitivity);
@@ -76,6 +77,7 @@ public class SettingManager : MonoBehaviour
         int savedMainFOV = PlayerPrefs.GetInt("Main FOV", defaultMainFOV);
         //Set the slider value
         mainCamSlider.value = savedMainFOV;
+        //mainCamSlider.value = defaultMainFOV;
         //Apply to PlayerLook
         mainCamFOV = savedMainFOV;
         //Debug.Log("Loaded main FOV: " + savedMainFOV);
@@ -84,10 +86,13 @@ public class SettingManager : MonoBehaviour
         int savedWeaponFOV = PlayerPrefs.GetInt("Weapon FOV", defaultWeaponFOV);
         //Set the slider value
         weaponCamSlider.value = savedWeaponFOV;
+        //weaponCamSlider.value = defaultWeaponFOV;
         //Apply to PlayerLook
         weaponCamFOV = savedWeaponFOV;
         //Debug.Log("Loaded weapon FOV: " + savedWeaponFOV);
         #endregion
+
+        OnSettingsUIClick(0);
 
         weaponManager = FindFirstObjectByType<WeaponManager>();
 
