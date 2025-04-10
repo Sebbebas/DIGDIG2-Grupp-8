@@ -7309,7 +7309,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c9054b4e3ac12ff438b51f75e6ba6dd9, type: 3}
   takeDamageSoundVolume: 1
   takeDamageSoundPriority: 256
-  deathSoundClip: {fileID: 0}
+  deathSoundClip: {fileID: 8300000, guid: 6e390811f4307234da1377aee54d3bf8, type: 3}
   deathSoundVolume: 1
   deathSoundPriority: 256
 --- !u!114 &1402335104695374376

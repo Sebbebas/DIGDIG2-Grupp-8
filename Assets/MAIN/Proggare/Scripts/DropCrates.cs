@@ -2,15 +2,22 @@ using UnityEngine;
 
 public class DropCrates : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject reinforcedCrates;
+    [SerializeField] Transform[] spawnPoints;
 
-    // Update is called once per frame
-    void Update()
+    bool hasTriggerd = false;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (hasTriggerd) return;
+
+        if (other.CompareTag("Player"))
+        {
+            foreach (Transform t in spawnPoints)
+            { 
+                Instantiate(reinforcedCrates, t.position, t.rotation);
+                hasTriggerd = true;
+            }
+        }
     }
 }
