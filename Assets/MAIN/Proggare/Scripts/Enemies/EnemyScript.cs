@@ -74,6 +74,11 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float shootCooldown = 2f;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip deathSound;
+    [SerializeField, Range(0, 1)] float deathSoundVolume = 1f;
+    [SerializeField, Range(0, 256)] int deathSoundPriority = 256; 
+
     [Header("Texture")]
     [SerializeField] Material[] textures;
 
@@ -345,6 +350,16 @@ public class EnemyScript : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
+        //Audio
+        GameObject deathSoundObject = new();
+        deathSoundObject.AddComponent<AudioSource>();
+        deathSoundObject.GetComponent<AudioSource>().clip = deathSound;
+        deathSoundObject.GetComponent<AudioSource>().playOnAwake = true;
+        deathSoundObject.GetComponent<AudioSource>().volume = deathSoundVolume;
+        deathSoundObject.GetComponent<AudioSource>().priority = deathSoundPriority;
+        Instantiate(deathSoundObject, transform.position, Quaternion.identity);
+
+        //
         OnEnemyDeath?.Invoke(gameObject);
         ScoreManager.Instance.AddScore(scoreValue);
 
