@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Plank : MonoBehaviour
 {
-    [SerializeField] GameObject plankObject;
+    [SerializeField] GameObject[] plankGibs;
+    [SerializeField] int gibAmmout;
 
     [Space]
 
@@ -21,12 +22,14 @@ public class Plank : MonoBehaviour
     {
         breakSound = GetComponent<AudioSource>();
 
-        plank.enabled = true;
-        brokenPlank.enabled = false;
+        if(plank != null) { plank.enabled = true; }
+        if(brokenPlank != null) { brokenPlank.enabled = false; }
     }
 
     public void BreakPlanks(Vector3 direction, int soundClip, int power)
     {
+        Debug.Log("BreakPlanks called with soundClip: " + soundClip + " and power: " + power);
+
         if (isBroken)
         {
             return;
@@ -51,13 +54,15 @@ public class Plank : MonoBehaviour
         // Set the layer to default
         gameObject.layer = 0;
 
-        hitBox.enabled = false;
-        plank.enabled = false;
-        brokenPlank.enabled = true;
+        if (hitBox != null) { hitBox.enabled = false; }
+        if (plank != null) { plank.enabled = false; }
+        if (brokenPlank != null) { brokenPlank.enabled = true; }
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < gibAmmout; i++)
         {
-            GameObject newPlank = Instantiate(plankObject, new Vector3(transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
+            int randomIndex = Random.Range(0, plankGibs.Length);
+
+            GameObject newPlank = Instantiate(plankGibs[randomIndex], new Vector3(transform.position.x, transform.position.y + i, transform.position.z), Quaternion.identity);
             Rigidbody plankRigidbody = newPlank.GetComponent<Rigidbody>();
 
             if (plankRigidbody != null)

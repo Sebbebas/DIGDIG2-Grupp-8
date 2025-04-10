@@ -51,7 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b48aa9555af2aa48b14df833be17284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plankObject: {fileID: 2149484744602610439, guid: 045df5afd68867c46a3c2be990bc389e, type: 3}
+  plankGibs:
+  - {fileID: 2149484744602610439, guid: 045df5afd68867c46a3c2be990bc389e, type: 3}
+  gibAmmout: 3
   kickPlankSound: {fileID: 8300000, guid: 4c18e30959dd69743b6e196ea675f9e4, type: 3}
   shootPlankSound: {fileID: 8300000, guid: dbce8f13b68211541877dbe83d0a1ae7, type: 3}
   hitBox: {fileID: 8994418553301776090}
