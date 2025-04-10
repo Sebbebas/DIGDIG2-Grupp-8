@@ -158,7 +158,10 @@ public class ComboManager : MonoBehaviour
             }
             comboMultiplier = newMultiplier;
 
-            StartCoroutine(ShowMultiplierSplash());
+            if (isComboActive)
+            {
+                StartCoroutine(ShowMultiplierSplash());
+            }
         }
     }
 
@@ -225,14 +228,14 @@ public class ComboManager : MonoBehaviour
     private IEnumerator FlickerComboUI()
     {
         float flickerDuration = 0.5f; // Total duration for the flickering effect
-        float flickerSpeed = 0.05f;
+        float flickerSpeed = 0.05f; // Time interval for each flicker
         float timer = 0f;
 
         while (timer < flickerDuration)
         {
-            SetComboUIAlpha(0f, false);
+            SetComboUIAlpha(0f, true); // Include comboScoreText in the flicker
             yield return new WaitForSeconds(flickerSpeed);
-            SetComboUIAlpha(1f, false);
+            SetComboUIAlpha(1f, true); // Include comboScoreText in the flicker
             yield return new WaitForSeconds(flickerSpeed);
             timer += flickerSpeed * 2;
         }
@@ -246,32 +249,19 @@ public class ComboManager : MonoBehaviour
         {
             multiplierSplash.gameObject.SetActive(true);
             Vector3 originalScale = multiplierSplash.transform.localScale;
-            float duration = 0.5f; // Increase duration for better visibility
+            float duration = 0.5f; // Duration for the pulsate effect
             float elapsed = 0f;
 
+            // Pulsate effect
             while (elapsed < duration)
             {
-                // Increase size
-                multiplierSplash.transform.localScale = Vector3.Lerp(originalScale, originalScale * 1.5f, elapsed / duration);
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-
-            // Fade away
-            Color color = multiplierSplash.color;
-            elapsed = 0f;
-            while (elapsed < duration)
-            {
-                color.a = Mathf.Lerp(1f, 0f, elapsed / duration);
-                multiplierSplash.color = color;
+                multiplierSplash.transform.localScale = Vector3.Lerp(originalScale, originalScale * 1.2f, Mathf.PingPong(elapsed / duration, 1f));
                 elapsed += Time.deltaTime;
                 yield return null;
             }
 
             multiplierSplash.gameObject.SetActive(false);
             multiplierSplash.transform.localScale = originalScale;
-            color.a = 1f;
-            multiplierSplash.color = color;
         }
     }
 
