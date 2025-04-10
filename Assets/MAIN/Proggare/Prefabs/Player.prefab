@@ -6144,8 +6144,8 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   currentWeapon: {fileID: 0}
   WeaponsList: []
-  legAnimator: {fileID: 0}
-  kickCooldown: 0
+  legAnimator: {fileID: 7827080611456488827}
+  kickCooldown: 0.5
   kickForce: 2.4
   coneAngle: 20
   maxKickDistance: 3
@@ -6154,7 +6154,7 @@ MonoBehaviour:
   kickLayerMask:
     serializedVersion: 2
     m_Bits: 4160
-  kickSound: {fileID: 0}
+  kickSound: {fileID: 8300000, guid: 2251a5d1e07a4a04bb4c914c555ed4d6, type: 3}
   kickSoundVolume: 1
   kickSoundPriority: 256
   screenShakeDuration: 0.1
@@ -6162,7 +6162,7 @@ MonoBehaviour:
   grenadePrefab: {fileID: 3165213101292630628, guid: 3f9b1863598a4204f8b4f244c8dd6cdf, type: 3}
   spawnOffset: {x: 0, y: 0.82, z: 0}
   throwCooldownTime: 3
-  grenadeThrowSound: {fileID: 0}
+  grenadeThrowSound: {fileID: 8300000, guid: 379ca7656185bd54b8b1b5ba5151af04, type: 3}
   grenadeThrowSoundVolume: 1
   grenadeThrowSoundPriority: 256
 --- !u!114 &184151071596452005
