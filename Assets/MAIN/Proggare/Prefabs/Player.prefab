@@ -6009,7 +6009,7 @@ MonoBehaviour:
   grenadePrefab: {fileID: 3165213101292630628, guid: 3f9b1863598a4204f8b4f244c8dd6cdf, type: 3}
   spawnOffset: {x: 0, y: 0.82, z: 0}
   throwCooldownTime: 3
-  grenadeThrowSound: {fileID: 8300000, guid: 379ca7656185bd54b8b1b5ba5151af04, type: 3}
+  grenadeThrowSound: {fileID: 8300000, guid: 7009bd290cbc09e4588c93377f595a70, type: 3}
   grenadeThrowSoundVolume: 1
   grenadeThrowSoundPriority: 256
 --- !u!114 &184151071596452005
@@ -14211,10 +14211,11 @@ MonoBehaviour:
   skillPoints: 0
   killCountText: {fileID: 0}
   comboMultiplierText: {fileID: 1506700599370121172}
+  comboScoreText: {fileID: 7865760815707636404}
   comboTimerSlider: {fileID: 8820966901023060403}
   multikillImage: {fileID: 3771909544472108063}
   timesXImage: {fileID: 8809113789448496505}
-  comboScoreText: {fileID: 7865760815707636404}
+  multiplierSplash: {fileID: 0}
   countingAudioSource: {fileID: 8703309124826234496}
   scoreCompleteAudioSource: {fileID: 156854435837262599}
   multiplierIncreaseAudioSource: {fileID: 7193089650046649326}
@@ -17598,7 +17599,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2939712899650408381
 RectTransform:
   m_ObjectHideFlags: 0
