@@ -131,6 +131,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6002864899973768161, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: takeDamageSoundClip.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6002864899973768161, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: 'takeDamageSoundClip.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 1020855ad6f3311439291251708811e3, type: 3}
+    - target: {fileID: 6002864899973768161, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: 'takeDamageSoundClip.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: e4c392988f5b5d1409eaf49d103b5569, type: 3}
+    - target: {fileID: 6002864899973768161, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: 'takeDamageSoundClip.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: ba94694088984594ca6e0d5f30f81323, type: 3}
+    - target: {fileID: 6002864899973768161, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: 'takeDamageSoundClip.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: c9054b4e3ac12ff438b51f75e6ba6dd9, type: 3}
     - target: {fileID: 7056122614175363245, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

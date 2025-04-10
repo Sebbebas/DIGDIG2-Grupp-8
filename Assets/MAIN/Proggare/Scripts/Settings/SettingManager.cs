@@ -116,6 +116,7 @@ public class SettingManager : MonoBehaviour
         #endregion
 
         #region Sliders
+        int sensitivityValue = GetComponentInChildren<PlayerLook>().mouseSensitivity;
         //Makes value of slider decide mouse sensitivity
         sensitivitySlider.onValueChanged.AddListener(sensitivityValue => OnSensitivityChange((int)sensitivityValue));
 
@@ -194,6 +195,8 @@ public class SettingManager : MonoBehaviour
             {
                 applyButton.interactable = true;
             }
+
+            Debug.Log(GetComponentInChildren<PlayerLook>().mouseSensitivity);
         }
 
     }

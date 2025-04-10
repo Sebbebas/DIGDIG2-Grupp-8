@@ -208,9 +208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b6c33c5687d940be96678c24eeb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minForce: 5
-  maxForce: 10
-  rotation: 5
+  minForce: 6
+  maxForce: 12
+  spawnGibbOffset: 1
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
   gibbPower: 5
@@ -566,7 +566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForce: 5
   maxForce: 10
-  rotation: 5
+  spawnGibbOffset: 0.5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
   gibbPower: 5
@@ -623,7 +623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForce: 5
   maxForce: 10
-  rotation: 5
+  spawnGibbOffset: 0.5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
   gibbPower: 5
@@ -680,7 +680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForce: 5
   maxForce: 10
-  rotation: 5
+  spawnGibbOffset: 0.5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
   gibbPower: 5
@@ -737,7 +737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForce: 5
   maxForce: 10
-  rotation: 5
+  spawnGibbOffset: 0.5
   numberOfMinGibbs: 4
   numberOfMaxGibbs: 6
   gibbPower: 5

@@ -287,7 +287,7 @@ public class EnemyScript : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Debug.Log("Die");
+            //Debug.Log("Die");
             Die();
         }
     }

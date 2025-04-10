@@ -210,9 +210,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForce: 5
   maxForce: 10
-  rotation: 5
-  numberOfMinGibbs: 4
-  numberOfMaxGibbs: 6
+  spawnGibbOffset: 1
+  numberOfMinGibbs: 5
+  numberOfMaxGibbs: 7
   gibbPower: 5
   gibbs:
   - {fileID: 4845559302729054418, guid: 3ac5c4be35269ee43bc3a5857c52e3fc, type: 3}
