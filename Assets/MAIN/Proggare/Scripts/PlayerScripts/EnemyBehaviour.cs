@@ -116,6 +116,13 @@ public class EnemyBehaviour : MonoBehaviour
 
                 if (agent != null && enemyScript != null)
                 {
+                    // Ensure the agent is on a NavMesh
+                    if (!agent.isOnNavMesh)
+                    {
+                        Debug.LogWarning($"Enemy {enemy.name} is not on a NavMesh.");
+                        continue;
+                    }
+
                     //If the enemy has spotted the player
                     if (enemyScript.GetAgro())
                     {
