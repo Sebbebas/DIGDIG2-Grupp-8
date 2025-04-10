@@ -3,11 +3,9 @@ using TMPro;
 using System.Collections;
 using UnityEngine.UI;
 
-// Alexander
-
 public class LootDrops : MonoBehaviour
 {
-    public enum PowerUpType { SpeedBoost, HealthBoost, AmmoBoost, Immortal }
+    public enum PowerUpType { SpeedBoost, HealthBoost, AmmoBoost, Immortal, MultiplierBoost }
     public PowerUpType powerUpType;
 
     [Header("General Power-Up Settings")]
@@ -26,6 +24,7 @@ public class LootDrops : MonoBehaviour
     public Image healthBoostImage;
     public Image speedBoostImage;
     public TextMeshProUGUI ammoBoostText;
+    public TextMeshProUGUI multiplierBoostText; // New UI element for multiplier boost
 
     [SerializeField] private float uiDisplayDuration = 3f;
 
@@ -47,6 +46,7 @@ public class LootDrops : MonoBehaviour
         if (healthBoostImage != null) healthBoostImage.gameObject.SetActive(false);
         if (speedBoostImage != null) speedBoostImage.gameObject.SetActive(false);
         if (ammoBoostText != null) ammoBoostText.gameObject.SetActive(false);
+        if (multiplierBoostText != null) multiplierBoostText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -119,6 +119,13 @@ public class LootDrops : MonoBehaviour
                     playerHealth.StartCoroutine(playerHealth.Immortality(duration));
                 }
                 break;
+
+            case PowerUpType.MultiplierBoost:
+                if (ComboManager.instance != null)
+                {
+                    ComboManager.instance.StartCoroutine(ComboManager.instance.MultiplierBoost(100, duration));
+                }
+                break;
         }
     }
 
@@ -144,6 +151,13 @@ public class LootDrops : MonoBehaviour
                 if (ammoBoostText != null)
                 {
                     StartCoroutine(DisplayUI(ammoBoostText.gameObject, uiDisplayDuration));
+                }
+                break;
+
+            case PowerUpType.MultiplierBoost:
+                if (multiplierBoostText != null)
+                {
+                    StartCoroutine(DisplayUI(multiplierBoostText.gameObject, uiDisplayDuration));
                 }
                 break;
         }

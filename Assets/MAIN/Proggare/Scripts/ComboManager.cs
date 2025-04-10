@@ -3,8 +3,6 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 
-//Alexander
-
 public class ComboManager : MonoBehaviour
 {
     public static ComboManager instance;
@@ -174,6 +172,33 @@ public class ComboManager : MonoBehaviour
 
         ScoreManager.Instance.HighlightScore();
         ShowComboUI(false);
+    }
+
+    public IEnumerator MultiplierBoost(int multiplier, float duration)
+    {
+        previousMultiplier = comboMultiplier;
+        comboMultiplier = multiplier;
+        StartCoroutine(AnimateMultiplierText(duration));
+        yield return new WaitForSeconds(duration);
+        comboMultiplier = previousMultiplier;
+        comboMultiplierText.transform.localScale = Vector3.one;
+    }
+
+    private IEnumerator AnimateMultiplierText(float duration)
+    {
+        float elapsed = 0f;
+        float scaleFactor = 1.5f;
+        Vector3 originalScale = comboMultiplierText.transform.localScale;
+
+        while (elapsed < duration)
+        {
+            float scale = Mathf.Lerp(1f, scaleFactor, Mathf.PingPong(elapsed * 5, 1f));
+            comboMultiplierText.transform.localScale = originalScale * scale;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        comboMultiplierText.transform.localScale = originalScale;
     }
 
     private void UpdateUI()
