@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9062553272039780273}
   - component: {fileID: 468494144084178029}
   - component: {fileID: 5475859527005289503}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: "Byr\xE5"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6235906366295625709}
   m_Father: {fileID: 0}

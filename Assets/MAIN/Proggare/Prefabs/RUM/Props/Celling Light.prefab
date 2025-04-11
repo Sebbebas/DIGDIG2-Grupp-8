@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minIntensity: 0
-  maxIntensity: 100
+  maxIntensity: 150
   flickerSpeed: 100
 --- !u!1 &4349005517858534585
 GameObject:
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minIntensity: 2
-  maxIntensity: 100
+  maxIntensity: 150
   flickerSpeed: 1
 --- !u!1001 &6814922750107705862
 PrefabInstance:

@@ -2965,13 +2965,25 @@ PrefabInstance:
       value: Main Menu Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 672028280713275103, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4bd1692a616db0146a6ff3c67d43b901, type: 3}
+    - target: {fileID: 672028280713275103, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2050311619}
     - target: {fileID: 1075167790402571787, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4bd1692a616db0146a6ff3c67d43b901, type: 3}
+    - target: {fileID: 1075167790402571787, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2050311619}
+    - target: {fileID: 4614790375075318082, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4bd1692a616db0146a6ff3c67d43b901, type: 3}
     - target: {fileID: 4614790375075318082, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3451,7 +3463,7 @@ Transform:
   m_GameObject: {fileID: 4640193229753195584}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.3965071, z: -0, w: 0.9180317}
-  m_LocalPosition: {x: -2.47, y: 0.43, z: -2.3999996}
+  m_LocalPosition: {x: -3.054, y: 0.43, z: -3.015}
   m_LocalScale: {x: 0.36, y: 0.36, z: 0.36}
   m_ConstrainProportionsScale: 0
   m_Children:

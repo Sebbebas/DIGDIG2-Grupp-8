@@ -167,8 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc2bad5b06c0f64d9196f74ed1ab1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minIntensity: 20
-  maxIntensity: 80
+  minIntensity: 0
+  maxIntensity: 150
   flickerSpeed: 0.1
 --- !u!1 &4822030811984278007
 GameObject:
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minIntensity: 0
-  maxIntensity: 100
+  maxIntensity: 150
   flickerSpeed: 0
 --- !u!1001 &1889618609164636618
 PrefabInstance:
