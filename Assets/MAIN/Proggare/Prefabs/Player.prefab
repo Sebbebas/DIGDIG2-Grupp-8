@@ -14217,7 +14217,10 @@ MonoBehaviour:
   multiplierSplash: {fileID: 3349598082229943218}
   countingAudioSource: {fileID: 0}
   scoreCompleteAudioSource: {fileID: 0}
-  multiplierIncreaseAudioSource: {fileID: 0}
+  multiplierIncreaseAudioClip:
+  - {fileID: 8300000, guid: ec66c65672c1904408cdb118666c316e, type: 3}
+  - {fileID: 8300000, guid: 9f39cd096f4b1074fa8061cb5e83d08a, type: 3}
+  - {fileID: 8300000, guid: 56b4e9a5577487749a47d97e1ac3b914, type: 3}
 --- !u!1 &6231997287790441080
 GameObject:
   m_ObjectHideFlags: 0

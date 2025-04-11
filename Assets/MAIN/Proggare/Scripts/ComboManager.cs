@@ -31,7 +31,7 @@ public class ComboManager : MonoBehaviour
     [Header("Audio Sources")]
     public AudioSource countingAudioSource;
     public AudioSource scoreCompleteAudioSource;
-    public AudioSource multiplierIncreaseAudioSource;
+    public AudioClip[] multiplierIncreaseAudioClip;
 
     private float killWindow = 3f;
     private float lastKillTime = 0f;
@@ -151,10 +151,16 @@ public class ComboManager : MonoBehaviour
         int newMultiplier = Mathf.Min(10, comboMultiplier + 1);
         if (newMultiplier > comboMultiplier)
         {
+            int randomIndex = Random.Range(0, multiplierIncreaseAudioClip.Length);
+
             // Play multiplier increase sound
-            if (multiplierIncreaseAudioSource != null)
+            if (multiplierIncreaseAudioClip.Length != 0)
             {
-                multiplierIncreaseAudioSource.Play();
+                GameObject multiplierSoundObject = new ();
+                multiplierSoundObject.AddComponent<AudioSource>();
+                multiplierSoundObject.GetComponent<AudioSource>().clip = multiplierIncreaseAudioClip[randomIndex];
+                multiplierSoundObject.GetComponent<AudioSource>().playOnAwake = true;
+                Instantiate(multiplierSoundObject);
             }
             comboMultiplier = newMultiplier;
 
