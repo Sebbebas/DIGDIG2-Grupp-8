@@ -1803,6 +1803,7 @@ MonoBehaviour:
   screenShakeDuration: 0.1
   screenShakeIntensity: 0.35
   temporaryHitParticel: {fileID: 4240791907686988539, guid: 480a3bb47f1f17949bf1be45374445ae, type: 3}
+  hitParticlePrefab: {fileID: 6706222889071973999, guid: 78a7c5d209c8f614c87db42f04b3f5a0, type: 3}
   spread: 5
   pellets: 24
   pelletDamage: 100
@@ -7333,6 +7334,9 @@ MonoBehaviour:
   generalSettings: {fileID: 763578295600799665}
   audioSettings: {fileID: 172745057461253945}
   rebindSettings: {fileID: 4464661667632463224}
+  buttonPressSound: {fileID: 0}
+  buttonSoundVolume: 1
+  buttonSoundPriority: 256
   sensitivitySlider: {fileID: 2020597047549084945}
   sensitivityAmount: {fileID: 6180305415523078711}
   sensitivityMinValue: 1
