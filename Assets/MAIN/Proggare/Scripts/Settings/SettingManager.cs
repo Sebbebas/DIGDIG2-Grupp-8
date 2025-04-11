@@ -203,8 +203,6 @@ public class SettingManager : MonoBehaviour
             {
                 applyButton.interactable = true;
             }
-
-            Debug.Log(GetComponentInChildren<PlayerLook>().mouseSensitivity);
         }
 
     }

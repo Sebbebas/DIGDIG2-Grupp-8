@@ -7,7 +7,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] bool ZombieAgroMusicIntensity = false;
     [SerializeField] float baseVolume = 0.5f;
 
-    //Configurable Parameters
+    // Configurable Parameters
     [SerializeField] AudioSource audioSource;
 
     [SerializeField] GameObject[] musicObject;
@@ -16,21 +16,21 @@ public class MusicManager : MonoBehaviour
 
     [SerializeField] SongStruct[] songsStructs;
 
-    [SerializeField] float maxZombieAgroVolume = 1f; // Maximum volume when all zombies are aggroed
-    [SerializeField] float minZombieAgroVolume = 0.2f; // Minimum volume when no zombies are aggroed
+    // Add serialized variables for thresholds
+    [SerializeField] private int minZombieAggroThreshold = 3;
+    [SerializeField] private int maxZombieAggroThreshold = 7;
 
     [System.Serializable]
     public struct SongStruct
     {
         public AudioClip song;
         [Range(0, 1)] public float volume;
-        [Range(0, 256)]public float priority;
+        [Range(0, 256)] public float priority;
     }
 
-    //Private Variables
+    // Private Variables
 
-
-    //Cached References
+    // Cached References
     TransitionManager transitionManager;
     EnemyBehaviour enemyBehaviour;
 
@@ -72,8 +72,8 @@ public class MusicManager : MonoBehaviour
         AudioSource ambientAudioSource = musicObject[0].GetComponent<AudioSource>();
         ambientAudioSource.volume = songsStructs[0].volume * baseVolume;
 
-        // Disable all other music if there are fewer than 3 aggroed zombies
-        if (zombiesAgro < 3)
+        // Disable all other music if there are fewer than the minimum threshold of aggroed zombies
+        if (zombiesAgro < minZombieAggroThreshold)
         {
             for (int i = 1; i < musicObject.Length; i++)
             {
@@ -85,7 +85,7 @@ public class MusicManager : MonoBehaviour
 
         // Adjust the second sound [1] based on the number of aggroed zombies
         AudioSource secondAudioSource = musicObject[1].GetComponent<AudioSource>();
-        if (zombiesAgro >= 3 && zombiesAgro < 7)
+        if (zombiesAgro >= minZombieAggroThreshold && zombiesAgro < maxZombieAggroThreshold)
         {
             secondAudioSource.volume = baseVolume;
         }
@@ -96,7 +96,7 @@ public class MusicManager : MonoBehaviour
 
         // Adjust the third sound [2] based on the number of aggroed zombies
         AudioSource thirdAudioSource = musicObject[2].GetComponent<AudioSource>();
-        if (zombiesAgro >= 7)
+        if (zombiesAgro >= maxZombieAggroThreshold)
         {
             thirdAudioSource.volume = baseVolume;
             secondAudioSource.volume = 0; // Disable the second sound when the third is active
@@ -107,7 +107,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    //MUSIC FADE OUT
+    // MUSIC FADE OUT
     public void MusicFadeOut()
     {
         StopCoroutine(MusicFadeInRoutine());
@@ -134,7 +134,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    //MUSIC FADE IN
+    // MUSIC FADE IN
     public void MusicFadeIn()
     {
         StopCoroutine(MusicFadeOutRoutine());

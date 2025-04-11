@@ -6002,7 +6002,7 @@ MonoBehaviour:
     m_Bits: 4160
   kickSound: {fileID: 0}
   kickSoundVolume: 1
-  kickSoundPriority: 256
+  kickSoundPriority: 31
   screenShakeDuration: 0.1
   screenShakeIntensity: 0.2
   grenadePrefab: {fileID: 3165213101292630628, guid: 3f9b1863598a4204f8b4f244c8dd6cdf, type: 3}
@@ -6010,7 +6010,7 @@ MonoBehaviour:
   throwCooldownTime: 3
   grenadeThrowSound: {fileID: 8300000, guid: 7009bd290cbc09e4588c93377f595a70, type: 3}
   grenadeThrowSoundVolume: 1
-  grenadeThrowSoundPriority: 10
+  grenadeThrowSoundPriority: 11
 --- !u!114 &184151071596452005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14384,7 +14384,7 @@ Transform:
   m_GameObject: {fileID: 6261873756926268275}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.9990483, z: -0, w: -0.043619405}
-  m_LocalPosition: {x: -0.002643172, y: -0.0034801762, z: -0.01374449}
+  m_LocalPosition: {x: -0.002643172, y: -0.0034801762, z: 0.0137}
   m_LocalScale: {x: 0.044052854, y: 0.044052865, z: 0.044052854}
   m_ConstrainProportionsScale: 0
   m_Children: []
