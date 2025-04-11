@@ -38,7 +38,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] int weaponFOVMaxValue = 120;
 
     [Header("Manually Pause Game")]
-    [SerializeField] GameObject mainMenu;
+    //[SerializeField] GameObject mainMenu;
     [SerializeField] GameObject pauseCanvas;
     [SerializeField] GameObject settingsCanvas;
 
@@ -65,12 +65,12 @@ public class SettingManager : MonoBehaviour
 
         #region Save
         //Load sensitivity from PlayerPrefs defaults to 100
-        GetComponentInChildren<PlayerLook>().mouseSensitivity = PlayerPrefs.GetInt("Sensitivity", defaultSensitivity);
+        int savedSensitivity = PlayerPrefs.GetInt("Sensitivity", defaultSensitivity);
         //Set the slider value
-        sensitivitySlider.value = GetComponentInChildren<PlayerLook>().mouseSensitivity;
+        sensitivitySlider.value = savedSensitivity;
         //sensitivitySlider.value = defaultSensitivity;
         //Apply to PlayerLook
-        //GetComponentInChildren<PlayerLook>().mouseSensitivity = savedSensitivity;
+        GetComponentInChildren<PlayerLook>().mouseSensitivity = savedSensitivity;
         //Debug.Log("Loaded sensitivity: " + savedSensitivity);
 
         //Load main FOV from PlayerPrefs defaults to 60
@@ -107,7 +107,7 @@ public class SettingManager : MonoBehaviour
         notSavedWarning?.SetActive(false);
         revertWarning?.SetActive(false);
 
-        if(mainMenu != null) { mainMenu.SetActive(false); } else { return; }
+        //if(mainMenu != null) { mainMenu.SetActive(false); } else { return; }
 
         #region sliderValues
         sensitivitySlider.minValue = sensitivityMinValue;

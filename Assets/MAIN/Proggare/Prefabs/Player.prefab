@@ -7246,7 +7246,7 @@ MonoBehaviour:
   groundDistance: 0.4
   groundLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 33280
   camTransform: {fileID: 6859200243257892753}
 --- !u!114 &1312168213106435148
 MonoBehaviour:
@@ -7262,10 +7262,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitRadius: 3
   attackTime: 0.75
-  spawnRadius: 24
-  nonSpawnRadius: 20
-  sightRadius: 19
-  despawnRadius: 25
+  spawnRadius: 30
+  nonSpawnRadius: 23
+  sightRadius: 24
+  despawnRadius: 32
   numberOfEnemies: 20
   enemyZero: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
   enemyOne: {fileID: 2279033429783417335, guid: 7ff750e51b37e2741b191111b4724411, type: 3}
