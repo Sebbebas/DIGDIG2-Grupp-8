@@ -17,6 +17,7 @@ TagManager:
   - Floor
   - Plank
   - Enemy Arm
+  - ScoreText
   layers:
   - Default
   - TransparentFX
