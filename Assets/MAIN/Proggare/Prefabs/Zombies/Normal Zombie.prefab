@@ -49,7 +49,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 4
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -175,7 +175,7 @@ MonoBehaviour:
   torsoHealth: 100
   leftArmHealth: 30
   rightArmHealth: 30
-  currentHealth: 100
+  currentHealth: 1000
   agro: 0
   attacking: 0
   inAttackRange: 0

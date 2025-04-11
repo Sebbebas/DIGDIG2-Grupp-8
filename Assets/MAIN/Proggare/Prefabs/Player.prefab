@@ -390,7 +390,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2243813229227983095}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadSceneNumber
         m_Mode: 3
@@ -4304,7 +4304,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2243813229227983095}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadSceneNumber
         m_Mode: 3
@@ -7161,7 +7161,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.55
-  m_Height: 2
+  m_Height: 2.1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &7725862197874590656
@@ -7262,11 +7262,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitRadius: 3
   attackTime: 0.75
-  spawnRadius: 30
-  nonSpawnRadius: 23
-  sightRadius: 24
-  despawnRadius: 32
-  numberOfEnemies: 20
+  spawnRadius: 40
+  nonSpawnRadius: 30
+  sightRadius: 35
+  despawnRadius: 38
+  numberOfEnemies: 10
   enemyZero: {fileID: 2410703198815107751, guid: e9292a3f9d97cdc48885917e20ca106a, type: 3}
   enemyOne: {fileID: 2279033429783417335, guid: 7ff750e51b37e2741b191111b4724411, type: 3}
   enemyTwo: {fileID: 0}
@@ -7349,7 +7349,6 @@ MonoBehaviour:
   weaponCamFOV: 60
   weaponFOVMinValue: 1
   weaponFOVMaxValue: 120
-  mainMenu: {fileID: 0}
   pauseCanvas: {fileID: 460666801099044983}
   settingsCanvas: {fileID: 4213300569081926599}
 --- !u!114 &628109470626065137
