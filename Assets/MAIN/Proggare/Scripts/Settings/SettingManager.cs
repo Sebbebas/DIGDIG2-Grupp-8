@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
+
 public class SettingManager : MonoBehaviour
 {
     [Header("InputActionMap")]
@@ -16,6 +17,9 @@ public class SettingManager : MonoBehaviour
     [SerializeField] Button backButton;
     [SerializeField] Button applyButton;
     [SerializeField] GameObject generalSettings, audioSettings, rebindSettings;
+    [SerializeField] AudioClip buttonPressSound;
+    [SerializeField, Range(0, 1)] float buttonSoundVolume = 1f;
+    [SerializeField, Range(0, 256)] int buttonSoundPriority = 256;
 
     [Header("Mouse Settings")]
     [SerializeField] Slider sensitivitySlider;
@@ -305,6 +309,17 @@ public class SettingManager : MonoBehaviour
     //}
 
     #region UI Buttons
+    public void ButtonPressSound()
+    {
+        GameObject damageSound = new();
+        damageSound.AddComponent<AudioSource>();
+        damageSound.GetComponent<AudioSource>().playOnAwake = true;
+        damageSound.GetComponent<AudioSource>().volume = buttonSoundVolume;
+        damageSound.GetComponent<AudioSource>().priority = buttonSoundPriority;
+
+        Instantiate(damageSound, transform.position, Quaternion.identity);
+    }
+
     //Unpauses game
     public void OnResumeClicks()
     {
