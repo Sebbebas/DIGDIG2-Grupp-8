@@ -138,7 +138,7 @@ public class Explosion : MonoBehaviour
         // If Player
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            other.gameObject.GetComponent<PlayerHealth>().ApplyDamage(calculatedDamage);
+            other.gameObject.GetComponent<PlayerHealth>().ApplyDamage(calculatedDamage / 6);
         }
 
         // If Enemy

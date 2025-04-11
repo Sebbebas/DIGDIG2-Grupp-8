@@ -128,7 +128,7 @@ MonoBehaviour:
   torsoHealth: 100
   leftArmHealth: 30
   rightArmHealth: 30
-  currentHealth: 1500
+  currentHealth: 600
   agro: 0
   attacking: 0
   inAttackRange: 0

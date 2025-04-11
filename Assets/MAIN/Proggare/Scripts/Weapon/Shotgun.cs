@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 // Sebbe
 
@@ -6,6 +7,7 @@ public class Shotgun : Weapon
 {
     [Header("Shotgun")]
     [SerializeField] GameObject temporaryHitParticel;
+    [SerializeField] GameObject hitParticlePrefab;
     [SerializeField] float spread = 5;
     [SerializeField] int pellets = 10;
     public float pelletDamage = 40f;
@@ -58,7 +60,10 @@ public class Shotgun : Weapon
                 else if (hit.transform.CompareTag("Enemies"))
                 {
                     EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    Debug.Log("Hit object with tag " + hit.transform.tag);
+                    Instantiate(hitParticlePrefab, hitPosition, hitRotation);
+                    
+                    //Debug.Log("Hit object with tag " + hit.transform.tag);
+
                     if (enemy != null)
                     {
                         enemy.ApplyDamage(pelletDamage);
