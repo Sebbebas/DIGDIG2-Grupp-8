@@ -114,6 +114,11 @@ public class ComboManager : MonoBehaviour
         {
             multiplierKillCount = 0;
             multiplierKillTimer = killWindow;
+            if (killCount >= 3 && !isComboActive)
+            {
+                StartCombo();
+                //PlayComboSound();
+            }
             IncreaseMultiplier();
         }
         else if (multiplierKillTimer <= 0)
@@ -146,22 +151,26 @@ public class ComboManager : MonoBehaviour
         IncreaseMultiplier();
     }
 
+    //void PlayComboSound()
+    //{
+    //    int randomIndex = Random.Range(0, multiplierIncreaseAudioClip.Length);
+
+    //    // Play multiplier increase sound
+    //    if (multiplierIncreaseAudioClip.Length != 0)
+    //    {
+    //        GameObject multiplierSoundObject = new();
+    //        multiplierSoundObject.AddComponent<AudioSource>();
+    //        multiplierSoundObject.GetComponent<AudioSource>().clip = multiplierIncreaseAudioClip[randomIndex];
+    //        multiplierSoundObject.GetComponent<AudioSource>().playOnAwake = true;
+    //        Instantiate(multiplierSoundObject);
+    //    }
+    //}
+
     private void IncreaseMultiplier()
     {
         int newMultiplier = Mathf.Min(10, comboMultiplier + 1);
         if (newMultiplier > comboMultiplier)
         {
-            int randomIndex = Random.Range(0, multiplierIncreaseAudioClip.Length);
-
-            // Play multiplier increase sound
-            if (multiplierIncreaseAudioClip.Length != 0)
-            {
-                GameObject multiplierSoundObject = new ();
-                multiplierSoundObject.AddComponent<AudioSource>();
-                multiplierSoundObject.GetComponent<AudioSource>().clip = multiplierIncreaseAudioClip[randomIndex];
-                multiplierSoundObject.GetComponent<AudioSource>().playOnAwake = true;
-                Instantiate(multiplierSoundObject);
-            }
             comboMultiplier = newMultiplier;
 
             if (isComboActive)
@@ -173,6 +182,18 @@ public class ComboManager : MonoBehaviour
 
     private void StartCombo()
     {
+        int randomIndex = Random.Range(0, multiplierIncreaseAudioClip.Length);
+
+        // Play multiplier increase sound
+        if (multiplierIncreaseAudioClip.Length != 0)
+        {
+            GameObject multiplierSoundObject = new();
+            multiplierSoundObject.AddComponent<AudioSource>();
+            multiplierSoundObject.GetComponent<AudioSource>().clip = multiplierIncreaseAudioClip[randomIndex];
+            multiplierSoundObject.GetComponent<AudioSource>().playOnAwake = true;
+            Instantiate(multiplierSoundObject);
+        }
+
         isComboActive = true;
         comboTimer = 3f;
         comboTimerSlider.maxValue = 3f;
