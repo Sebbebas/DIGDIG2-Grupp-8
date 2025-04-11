@@ -21601,6 +21601,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3818487943698941974, guid: cf03c73655b1cec47b39528aac60188e, type: 3}
+      propertyPath: ZombieAgroMusicIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818487943698941974, guid: cf03c73655b1cec47b39528aac60188e, type: 3}
       propertyPath: songsStructs.Array.data[0].song
       value: 
       objectReference: {fileID: 8300000, guid: 9715acee2bed22c4584c7633e79b91af, type: 3}
@@ -21618,7 +21622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3818487943698941974, guid: cf03c73655b1cec47b39528aac60188e, type: 3}
       propertyPath: songsStructs.Array.data[1].volume
-      value: 0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3818487943698941974, guid: cf03c73655b1cec47b39528aac60188e, type: 3}
       propertyPath: songsStructs.Array.data[2].volume

@@ -207,8 +207,37 @@ public class EnemyScript : MonoBehaviour
     public void TryAttackPlayer()
     {
         if (!inAttackRange) { return; }
+
         PlayerHealth playerHealth = FindFirstObjectByType<PlayerHealth>();
-        playerHealth.ApplyDamage(DamageAmount);
+        if (playerHealth != null)
+        {
+            // Apply damage to the player
+            playerHealth.ApplyDamage(DamageAmount);
+
+            // Apply knockback to the player
+            CharacterController playerController = playerHealth.GetComponent<CharacterController>();
+            if (playerController != null)
+            {
+                Vector3 knockbackDirection = (playerController.transform.position - transform.position).normalized;
+                Vector3 knockback = knockbackDirection * maxKnockbackVelocity;
+
+                // Use a coroutine to apply knockback over time
+                StartCoroutine(ApplyKnockback(playerController, knockback));
+            }
+        }
+    }
+
+    private IEnumerator ApplyKnockback(CharacterController playerController, Vector3 knockback)
+    {
+        float knockbackDuration = 0.2f; // Duration of the knockback effect
+        float elapsedTime = 0f;
+
+        while (elapsedTime < knockbackDuration)
+        {
+            playerController.Move(knockback * Time.deltaTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
     public void Kicked(Vector3 direction)
     {
@@ -400,7 +429,14 @@ public class EnemyScript : MonoBehaviour
     }
     public bool SetAgro(bool value)
     {
-        return agro = value;
+        if (agro != value)
+        {
+            agro = value;
+
+            // Update the aggro state in EnemyBehaviour
+            EnemyBehaviour.UpdateZombiesAgro(gameObject, value);
+        }
+        return agro;
     }
 
     //Attack Bool
@@ -439,4 +475,6 @@ public class EnemyScript : MonoBehaviour
         return originalSpeed;
     }
     #endregion
+
+
 }
