@@ -33,6 +33,44 @@ public class EnemyBehaviour : MonoBehaviour
     List<GameObject> prefabList = new List<GameObject>();
     List<GameObject> enemyPrefabs = new List<GameObject>();
 
+    // Static list to track which zombies are aggroed
+    private static List<GameObject> agroZombies = new List<GameObject>();
+
+    // Static variable to track the previous count of aggroed zombies
+    private static int previousAgroCount = 0;
+
+    // Public static method to get the count of aggroed zombies
+    public static int GetZombiesAgroCount()
+    {
+        // Recalculate the aggro count by cleaning up the list
+        agroZombies.RemoveAll(zombie => zombie == null || !zombie.GetComponent<EnemyScript>().GetAgro());
+        return agroZombies.Count;
+    }
+
+    // Public static method to get the list of aggroed zombies
+    public static List<GameObject> GetAgroZombies()
+    {
+        // Clean up the list before returning it
+        agroZombies.RemoveAll(zombie => zombie == null || !zombie.GetComponent<EnemyScript>().GetAgro());
+        return agroZombies;
+    }
+
+    // Method to update the agroZombies list
+    public static void UpdateZombiesAgro(GameObject zombie, bool isAgro)
+    {
+        // Add the zombie to the list if it is aggroed and not already in the list
+        if (isAgro && !agroZombies.Contains(zombie))
+        {
+            agroZombies.Add(zombie);
+        }
+
+        // Recalculate the aggro count by cleaning up the list
+        agroZombies.RemoveAll(z => z == null || !z.GetComponent<EnemyScript>().GetAgro());
+
+        // Log the updated aggro count
+        Debug.Log($"Updated aggro count: {agroZombies.Count}");
+    }
+
     void Start()
     {
         if (enemyZero != null) enemyPrefabs.Add(enemyZero);
