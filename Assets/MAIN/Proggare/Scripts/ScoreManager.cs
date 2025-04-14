@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 //Alexander
 
@@ -19,11 +20,22 @@ public class ScoreManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Start()
@@ -41,6 +53,17 @@ public class ScoreManager : MonoBehaviour
     public void HighlightScore()
     {
         StartCoroutine(HighlightScoreRoutine());
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        TextMeshProUGUI newScoreText = GameObject.FindWithTag("ScoreText")?.GetComponent<TextMeshProUGUI>();
+        if (newScoreText != null)
+        {
+            scoreText = newScoreText;
+            UpdateScoreUI();
+            targetFontSize = scoreText.fontSize;
+        }
     }
 
     private IEnumerator HighlightScoreRoutine()

@@ -5,7 +5,7 @@ using System.Collections;
 
 public class FlickeringLight : MonoBehaviour
 {
-    private Light lightSource;
+    [SerializeField] Light lightSource;
     [SerializeField] float minIntensity = 0.5f;
     [SerializeField] float maxIntensity = 2f;
     [SerializeField] float flickerSpeed = 0.1f;

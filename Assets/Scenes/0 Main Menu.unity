@@ -785,6 +785,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a62540025d366e24698567b2ff117cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &625970908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 625970911}
+  - component: {fileID: 625970909}
+  m_Layer: 0
+  m_Name: Cancer hor unge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &625970909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625970908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1981963bbb36946bab6c6113a8298a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 2800000, guid: 041694b18ca14324b85ad8c29d8c0e55, type: 3}
+  cursorPos: {x: 0, y: 0}
+--- !u!4 &625970911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625970908}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -79.59685, y: 6.014426, z: 5.8069324}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1127031852
 GameObject:
   m_ObjectHideFlags: 0
@@ -7724,3 +7770,4 @@ SceneRoots:
   - {fileID: 1536472587}
   - {fileID: 297401507}
   - {fileID: 7365458280965784608}
+  - {fileID: 625970911}

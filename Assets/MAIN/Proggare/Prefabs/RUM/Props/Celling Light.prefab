@@ -215,9 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc2bad5b06c0f64d9196f74ed1ab1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minIntensity: 2
+  minIntensity: 0
   maxIntensity: 150
-  flickerSpeed: 1
+  flickerSpeed: 100
 --- !u!1001 &6814922750107705862
 PrefabInstance:
   m_ObjectHideFlags: 0

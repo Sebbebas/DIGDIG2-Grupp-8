@@ -67,6 +67,11 @@ public class SceneLoader : MonoBehaviour
     }
     #endregion
 
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
     #region OnLevelWasLoaded
     private void OnLevelWasLoaded(int level)
     {
@@ -77,6 +82,17 @@ public class SceneLoader : MonoBehaviour
         isFrozen = onLvlLoad.freeze;
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        int sceneIndex = scene.buildIndex;
+
+        if (sceneIndex == 0 || sceneIndex == 2)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            Debug.Log("Cursor free in scene " + sceneIndex);
+        }
+    }
 
     IEnumerator UnFreezeRoutine(float waitTime)
     {

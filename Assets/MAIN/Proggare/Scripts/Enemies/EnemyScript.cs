@@ -434,7 +434,7 @@ public class EnemyScript : MonoBehaviour
             agro = value;
 
             // Update the aggro state in EnemyBehaviour
-            EnemyBehaviour.UpdateZombiesAgro(gameObject, value);
+            //EnemyBehaviour.UpdateZombiesAgro(gameObject, value);
         }
         return agro;
     }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 // Sebbe
 
@@ -24,6 +25,7 @@ public class PlayerLook : MonoBehaviour
         inputActions = new InputActions();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.SetCursor(cursorTexture, cursorPos, CursorMode.Auto);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Update()
@@ -52,6 +54,22 @@ public class PlayerLook : MonoBehaviour
 
         //Apply horizontal rotation to the player body (left/right)
         playerBody.Rotate(Vector3.up * mouseX);
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        int sceneIndex = scene.buildIndex;
+
+        if (sceneIndex == 0 || sceneIndex == 2)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     #region Input
