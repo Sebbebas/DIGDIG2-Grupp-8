@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.InputSystem;
 
 //Seb Neb
 public enum EffectType
@@ -25,6 +26,8 @@ public class Weapon : MonoBehaviour
     public int magSize = 30;
     public int maxAmmo = 80;
     public TextMeshProUGUI ammoText;
+
+    [Header("BORDE FLYTTA TILL SHOTGUN SCRIPT")]
     public GameObject shellOne, shellTwo;
 
     [Header("Delays")]
@@ -75,13 +78,30 @@ public class Weapon : MonoBehaviour
     private float currentFireDelay;
     private bool reloading = false;
     private bool waitForReload = false;
+    private bool buttonHeld = false;
 
     //Chaced References
+    public PlayerInput playerInput;
     ScreenShake screenShake;
 
     #region Base Methods
     protected void Start()
     {
+        //Get Player Input
+        playerInput = FindFirstObjectByType<PlayerInput>();
+
+        // Ensure playerInput is not null
+        if (playerInput == null)
+        {
+            Debug.LogError("PlayerInput not found in the scene!");
+            return;
+        }
+
+        // Subscribe to the "Fire" action events
+        var fireAction = playerInput.actions["Fire"];
+        fireAction.performed += ctx => { buttonHeld = true; };
+        fireAction.canceled += ctx => { buttonHeld = false; };
+
         //Get Camera
         mainCam = Camera.main;
         screenShake = FindFirstObjectByType<ScreenShake>();
@@ -240,7 +260,10 @@ public class Weapon : MonoBehaviour
                 //Random rotation of the muzzleFlash particle
                 if (effect.fireEffects.muzzleFlashParticle != null) 
                 {
-                    effect.fireEffects.muzzleFlashParticle.startRotation = Random.Range(0f, 365f);
+                    var mainModule = effect.fireEffects.muzzleFlashParticle.main;
+                    mainModule.startRotation = Random.Range(0f, 365f);
+
+                    //effect.fireEffects.muzzleFlashParticle.startRotation = Random.Range(0f, 365f);
                 }
 
                 //Turn on the muzzle flash for set time
@@ -296,6 +319,14 @@ public class Weapon : MonoBehaviour
     public bool GetReloading()
     {
         return reloading;
+    }
+    public bool GetFireHeld()
+    {
+        return buttonHeld;
+    }
+    public float GetCurrentFireDelay()
+    {
+        return currentFireDelay;
     }
     #endregion
 }
