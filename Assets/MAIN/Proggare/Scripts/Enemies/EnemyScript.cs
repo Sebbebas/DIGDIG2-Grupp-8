@@ -404,7 +404,7 @@ public class EnemyScript : MonoBehaviour
         }
 
         GetComponent<ZombieBodyParts>().SpawnGibbs();
-        Debug.Log("Destroy enemy");
+        //Debug.Log("Destroy enemy");
         Destroy(gameObject);
     }
 

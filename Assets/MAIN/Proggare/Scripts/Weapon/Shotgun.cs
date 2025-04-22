@@ -10,7 +10,7 @@ public class Shotgun : Weapon
     [SerializeField] GameObject hitParticlePrefab;
     [SerializeField] float spread = 5;
     [SerializeField] int pellets = 10;
-    public float pelletDamage = 40f;
+    [SerializeField] int pelletDamage = 40;
 
     [SerializeField] private LayerMask headLayer;
     [SerializeField] private LayerMask torsoLayer;
@@ -47,74 +47,7 @@ public class Shotgun : Weapon
                 Vector3 hitPosition = hit.point;
                 Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
 
-                //if(hit.transform.gameObject.tag == "Enemy Head" || hit.transform.tag == "Enemy Torso" || hit.transform.tag == "Enemy Left Arm" || hit.transform.tag == "Enemy Right Arm")
-                //{
-                //    Debug.Log("KYS");
-                //    hit.transform.SendMessage("PartDetected");
-                //}
-
-                if (hit.transform.CompareTag("Grenade"))
-                {
-                    hit.transform.GetComponent<Grenade>().Explode();
-                }
-                else if (hit.transform.CompareTag("Enemies"))
-                {
-                    EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    Instantiate(hitParticlePrefab, hitPosition, hitRotation);
-                    
-                    //Debug.Log("Hit object with tag " + hit.transform.tag);
-
-                    if (enemy != null)
-                    {
-                        enemy.ApplyDamage(pelletDamage);
-                    }
-
-                    /*if (hit.transform.CompareTag("Enemy Head"))
-                    //{
-                    //    //EnemyScript enemy = hit.transform.GetComponentInParent<EnemyScript>();
-                    //    if (enemy != null)
-                    //    {
-                    //        enemy.ApplyDamageHead(pelletDamage);
-                    //        Debug.Log("Head took " + pelletDamage);
-                    //    }
-                    //}
-                    //else if (hit.transform.CompareTag("Enemy Torso"))
-                    //{
-                    //    //EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    //    if (enemy != null)
-                    //    {
-                    //        enemy.ApplyTorsoDamage(pelletDamage);
-                    //        Debug.Log("Body took " + pelletDamage);
-                    //    }
-                    //}
-                    //else if (hit.transform.CompareTag("Enemy Left Arm"))
-                    //{
-                    //    //EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    //    if (enemy != null)
-                    //    {
-                    //        enemy.ApplyLeftArmDamage(pelletDamage);
-                    //        Debug.Log("Left arm took " + pelletDamage);
-                    //    }
-                    //}
-                    //else if (hit.transform.CompareTag("Enemy Right Arm"))
-                    //{
-                    //    //EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-                    //    if (enemy != null)
-                    //    {
-                    //        enemy.ApplyRightArmDamage(pelletDamage);
-                    //        Debug.Log("Right arm took " + pelletDamage);
-                    //    }
-                    //}*/
-                }
-                else if (hit.transform.CompareTag("Plank") && hit.transform.GetComponent<Plank>())
-                {
-                    Plank plank = hit.transform.GetComponent<Plank>();
-                    plank.BreakPlanks(weaponRay.direction, 1, 15);
-                }
-                else
-                {
-                    //Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform);
-                }
+                HitDetection(hit, weaponRay, pelletDamage);
             }
         }
     }

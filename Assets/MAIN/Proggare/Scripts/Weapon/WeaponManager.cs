@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Collections;
 
 //Sebbe
 
@@ -115,6 +116,8 @@ public class WeaponManager : MonoBehaviour
     }
     private void OnDisable()
     {
+        StopAllCoroutines();
+
         //Unsubscribe from the input when the object is disabled
         scrollAction.performed -= OnSwitchWeapon;
         fireAction.performed -= OnFire;
@@ -130,12 +133,35 @@ public class WeaponManager : MonoBehaviour
         if (currentWeapon != null)
         {
             Weapon weaponComponent = currentWeapon.GetComponent<Weapon>();
-            if (weaponComponent != null)
+
+            if (weaponComponent != null && !weaponComponent.GetIsHeldToFire())
             {
                 weaponComponent.Fire();
             }
+            else if (weaponComponent != null && weaponComponent.GetIsHeldToFire())
+            {
+                StartCoroutine(FireHeldToFire(weaponComponent, context));
+            }
         }
     }
+
+    IEnumerator FireHeldToFire(Weapon weaponComponent, InputAction.CallbackContext context)
+    {
+        while (true)
+        {
+            if (!context.performed)
+            {
+                StopCoroutine(FireHeldToFire(weaponComponent, context));
+            }
+            else
+            {
+                weaponComponent.Fire();
+            }
+
+            yield return new WaitForSeconds(weaponComponent.GetFireRate());
+        }
+    }
+
     void OnReload(InputAction.CallbackContext context)
     {
         if (currentWeapon != null)
@@ -285,6 +311,8 @@ public class WeaponManager : MonoBehaviour
         //Set currentWeapon to active
         foreach (Transform weapon in weaponsParent)
         {
+            weapon.gameObject.GetComponent<Weapon>().StopAllWeaponCorutines();
+
             if (weapon.gameObject != currentWeapon) { weapon.gameObject.SetActive(false); }
             else { weapon.gameObject.SetActive(true); }
         }

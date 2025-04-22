@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
-using UnityEngine.InputSystem;
 
-//Seb Neb
+//Seb
+
 public enum EffectType
 {
     fire = 0,
@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
     public int maxAmmo = 80;
     public TextMeshProUGUI ammoText;
 
-    [Header("BORDE FLYTTA TILL SHOTGUN SCRIPT")]
+    [Header("BORDE FLYTTA TILL SHOTGUN SCRIPT???")]
     public GameObject shellOne, shellTwo;
 
     [Header("Delays")]
@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
     protected Camera mainCam = null;
 
     [Header("Effects")]
-    [Tooltip("When calling a action play the effects with the same EffectType")]public Effects[] effects;
+    [Tooltip("When calling a action play the effects with the same EffectType")] public Effects[] effects;
 
     [Header("Screen Shake")]
     [SerializeField] float screenShakeDuration = 0.1f;
@@ -70,7 +70,8 @@ public class Weapon : MonoBehaviour
 
             public Light flashLight;
             public GameObject casing;
-            public ParticleSystem hitParticle;
+            public ParticleSystem enemyHitParticle;
+            public ParticleSystem enviormentHitParticle;
         }
     }
 
@@ -78,30 +79,15 @@ public class Weapon : MonoBehaviour
     private float currentFireDelay;
     private bool reloading = false;
     private bool waitForReload = false;
-    private bool buttonHeld = false;
+
+    private bool holdToFire = false;
 
     //Chaced References
-    public PlayerInput playerInput;
     ScreenShake screenShake;
 
     #region Base Methods
     protected void Start()
     {
-        //Get Player Input
-        playerInput = FindFirstObjectByType<PlayerInput>();
-
-        // Ensure playerInput is not null
-        if (playerInput == null)
-        {
-            Debug.LogError("PlayerInput not found in the scene!");
-            return;
-        }
-
-        // Subscribe to the "Fire" action events
-        var fireAction = playerInput.actions["Fire"];
-        fireAction.performed += ctx => { buttonHeld = true; };
-        fireAction.canceled += ctx => { buttonHeld = false; };
-
         //Get Camera
         mainCam = Camera.main;
         screenShake = FindFirstObjectByType<ScreenShake>();
@@ -154,7 +140,12 @@ public class Weapon : MonoBehaviour
             currentFireDelay = firedelay;
             if (currentAmmo == 0) { Reload(); }
 
-            if (currentAmmo == 2)
+            if (holdToFire) 
+            {
+                //TEMOPRARY TO REMOVE ERROR WHEN USING FUllAUTOMATIC
+                //Shells should be in the shotgun script
+            }
+            else if (currentAmmo == 2)
             {
                 shellOne.SetActive(true);
                 shellTwo.SetActive(true);
@@ -315,18 +306,106 @@ public class Weapon : MonoBehaviour
     }
     #endregion
 
-    #region Get
+    public void HitDetection(RaycastHit hit, Ray weaponRay, int damage)
+    {
+        //if(hit.transform.gameObject.tag == "Enemy Head" || hit.transform.tag == "Enemy Torso" || hit.transform.tag == "Enemy Left Arm" || hit.transform.tag == "Enemy Right Arm")
+        //{
+        //    Debug.Log("KYS");
+        //    hit.transform.SendMessage("PartDetected");
+        //}
+        if (hit.transform.CompareTag("Grenade"))
+        {
+            hit.transform.GetComponent<Grenade>().Explode();
+        }
+        else if (hit.transform.CompareTag("Enemies"))
+        {
+            Instantiate(effects[0].fireEffects.enemyHitParticle, hit.point, Quaternion.LookRotation(hit.normal), antiHierarchySpam.transform);
+
+            EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
+
+            //Debug.Log("Hit object with tag " + hit.transform.tag);
+
+            if (enemy != null)
+            {
+                enemy.ApplyDamage(damage);
+            }
+
+            /*if (hit.transform.CompareTag("Enemy Head"))
+            //{
+            //    //EnemyScript enemy = hit.transform.GetComponentInParent<EnemyScript>();
+            //    if (enemy != null)
+            //    {
+            //        enemy.ApplyDamageHead(pelletDamage);
+            //        Debug.Log("Head took " + pelletDamage);
+            //    }
+            //}
+            //else if (hit.transform.CompareTag("Enemy Torso"))
+            //{
+            //    //EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
+            //    if (enemy != null)
+            //    {
+            //        enemy.ApplyTorsoDamage(pelletDamage);
+            //        Debug.Log("Body took " + pelletDamage);
+            //    }
+            //}
+            //else if (hit.transform.CompareTag("Enemy Left Arm"))
+            //{
+            //    //EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
+            //    if (enemy != null)
+            //    {
+            //        enemy.ApplyLeftArmDamage(pelletDamage);
+            //        Debug.Log("Left arm took " + pelletDamage);
+            //    }
+            //}
+            //else if (hit.transform.CompareTag("Enemy Right Arm"))
+            //{
+            //    //EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
+            //    if (enemy != null)
+            //    {
+            //        enemy.ApplyRightArmDamage(pelletDamage);
+            //        Debug.Log("Right arm took " + pelletDamage);
+            //    }
+            //}*/
+        }
+        else if (hit.transform.CompareTag("Plank") && hit.transform.GetComponent<Plank>())
+        {
+            Plank plank = hit.transform.GetComponent<Plank>();
+            plank.BreakPlanks(weaponRay.direction, 1, 15);
+        }
+        else
+        {
+            //Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform);
+        }
+    }
+    
+    #region Get / Set
     public bool GetReloading()
     {
         return reloading;
-    }
-    public bool GetFireHeld()
-    {
-        return buttonHeld;
     }
     public float GetCurrentFireDelay()
     {
         return currentFireDelay;
     }
+    public float GetFireRate()
+    {
+        return firedelay;
+    }
+
+    //Automatic Fire Get Set Bool. Set in Start 
+    public bool GetIsHeldToFire()
+    {
+        return holdToFire;
+    }
+    public bool SetIsHoldToFire(bool value)
+    {
+        holdToFire = value;
+        return holdToFire;
+    }
     #endregion
+
+    public void StopAllWeaponCorutines()
+    {
+        StopAllCoroutines();
+    }
 }
