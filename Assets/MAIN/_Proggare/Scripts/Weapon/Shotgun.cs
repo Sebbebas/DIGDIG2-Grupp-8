@@ -17,11 +17,11 @@ public class Shotgun : Weapon
     [SerializeField, Tooltip("Add empty and Loaded Shell Objects")] GameObject[] shellOne;
     [SerializeField, Tooltip("Add empty and Loaded Shell Objects")] GameObject[] shellTwo;
 
-    [Header("borde flytta till weapon när man ska implementera")]
-    [SerializeField] private LayerMask headLayer;
-    [SerializeField] private LayerMask torsoLayer;
-    [SerializeField] private LayerMask leftArmLayer;
-    [SerializeField] private LayerMask rightArmLayer;
+    //[Header("borde flytta till weapon när man ska implementera")]
+    //[SerializeField] private LayerMask headLayer;
+    //[SerializeField] private LayerMask torsoLayer;
+    //[SerializeField] private LayerMask leftArmLayer;
+    //[SerializeField] private LayerMask rightArmLayer;
 
     public new void Start()
     {
@@ -35,6 +35,8 @@ public class Shotgun : Weapon
         //Call base Method
         base.OnEnable();
 
+        shellOne[1].SetActive(true);
+        shellTwo[1].SetActive(true);
         UpdateShellGUI();
     }
     public new void OnDisable()

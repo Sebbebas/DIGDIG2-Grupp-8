@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LootDrops : MonoBehaviour
 {
+    //Configurable Variables
     public enum PowerUpType { SpeedBoost, HealthBoost, AmmoBoost, Immortal, MultiplierBoost }
     public PowerUpType powerUpType;
 
@@ -32,15 +33,36 @@ public class LootDrops : MonoBehaviour
     [SerializeField] private float floatAmplitude = 0.4f; // How high it moves
     [SerializeField] private float floatSpeed = 4f;       // How fast it moves
 
-    private Vector3 startPosition;
-
     [Header("Audio Settings")]
     [SerializeField] private AudioClip pickupSound;
 
+    //Private Variables
+    private Vector3 startPosition;
+    private Animator flashEffect;
+
+    //Chached References
     Destroy destroy;
 
     private void Start()
     {
+        // Locate the player object
+        GameObject player = FindFirstObjectByType<PlayerHealth>().gameObject;
+        if (player != null)
+        {
+            // Find the "GUI" child object
+            Transform guiTransform = player.transform.Find("GUI");
+            if (guiTransform != null)
+            {
+                // Find the "PickUp Flash Image" child object under "GUI"
+                Transform flashImageTransform = guiTransform.Find("PickUp Flash Image");
+                if (flashImageTransform != null)
+                {
+                    // Get the Animator component from the "PickUp Flash Image" object
+                    flashEffect = flashImageTransform.GetComponent<Animator>();
+                }
+            }
+        }
+
         startPosition = transform.position;
 
         if (healthBoostImage != null) healthBoostImage.gameObject.SetActive(false);
@@ -60,6 +82,11 @@ public class LootDrops : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+
+        if(flashEffect != null)
+        {
+            flashEffect.SetTrigger("Flash");
+        }
 
         PlayerController playerController = other.GetComponent<PlayerController>();
         PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
@@ -106,7 +133,7 @@ public class LootDrops : MonoBehaviour
                 break;
 
             case PowerUpType.AmmoBoost:
-                Shotgun playerWeapon = weaponManager.GetCurrentWeapon().GetComponent<Shotgun>();
+                Weapon playerWeapon = weaponManager.GetCurrentWeapon().GetComponent<Weapon>();
                 if (playerWeapon != null && playerWeapon.totalAmmo < playerWeapon.maxAmmo)
                 {
                     playerWeapon.AddAmmo(ammoAmount);

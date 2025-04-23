@@ -49,6 +49,8 @@ public class Weapon : MonoBehaviour
         public AudioClip audioClip;
         public Animator animator;
 
+        [Space]
+
         public FireEffects fireEffects;
 
         [System.Serializable]
@@ -102,9 +104,17 @@ public class Weapon : MonoBehaviour
     private void Update()
     {
         //Update the ammo UI when the gun is enabled
-        if (gameObject.activeSelf && ammoText != null) { ammoText.text = totalAmmo.ToString(); }
-
-        //REMOVE THIS WHEN YOU CAN FIND AND PICKUP WEAPON\\
+        if (gameObject.activeSelf && ammoText != null) 
+        {
+            if (GetComponent<Shotgun>())
+            {
+                ammoText.text = totalAmmo.ToString();
+            }
+            else
+            {
+                ammoText.text = currentAmmo + " / " + totalAmmo;
+            }
+        }
         //Dont Spam the Hierarchy
         if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
 
@@ -131,7 +141,7 @@ public class Weapon : MonoBehaviour
     }
     #endregion
 
-    #region Virtual Bools
+    
     public virtual bool Fire()
     {
         //true
@@ -145,27 +155,6 @@ public class Weapon : MonoBehaviour
             currentFireDelay = firedelay;
             if (currentAmmo == 0) { Reload(); }
 
-            if (holdToFire) 
-            {
-                //TEMOPRARY TO REMOVE ERROR WHEN USING FUllAUTOMATIC
-                //Shells should be in the shotgun script
-            }
-            else if (currentAmmo == 2)
-            {
-                //shellOne.SetActive(true);
-                //shellTwo.SetActive(true);
-            }
-            else if (currentAmmo == 1)
-            {
-                //shellOne.SetActive(false);
-                //shellTwo.SetActive(true);
-            }
-            else if (currentAmmo == 0)
-            {
-                //shellOne.SetActive(false);
-                //shellTwo.SetActive(false);
-            }
-
             //Effects
             PlayAnimation(EffectType.fire, "Fire", true);
             PlaySound(EffectType.fire);
@@ -178,9 +167,14 @@ public class Weapon : MonoBehaviour
         if (currentAmmo == 0) { Reload(); }
         return false;
     }
+
+    #region Reload
+    /// <summary>
+    /// Try to initiate a realod
+    /// </summary>
     public virtual bool Reload()
     {
-        //Reload
+        //Check if we can reload
         if (currentAmmo == magSize || totalAmmo == 0 || reloading == true || waitForReload == true)
         {
             return false;
@@ -190,6 +184,9 @@ public class Weapon : MonoBehaviour
         StartCoroutine(ReloadRoutine());
         return true;
     }
+    /// <summary>
+    /// Play the reload animation and sound
+    /// </summary>
     public IEnumerator ReloadRoutine()
     {
         //Reload Delay
@@ -207,10 +204,12 @@ public class Weapon : MonoBehaviour
 
         FinishedReload();
     }
-
+    /// <summary>
+    /// When the reload is finished
+    /// </summary>
     public virtual bool FinishedReload()
     {
-        //Add Ammo
+        //Add Ammo to the mag
         int ammoToAdd = magSize - currentAmmo;
 
         if (totalAmmo >= ammoToAdd)
@@ -224,10 +223,11 @@ public class Weapon : MonoBehaviour
             currentAmmo = 0;
         }
 
-        reloading = false;
+        //Stop Effects
         PlayAnimation(EffectType.reload, "Reload", false);
-        StopCoroutine(ReloadRoutine());
 
+        StopCoroutine(ReloadRoutine());
+        reloading = false;
         return true;
     }
     #endregion
@@ -316,6 +316,7 @@ public class Weapon : MonoBehaviour
     }
     #endregion
 
+    #region Raycast hit logic
     public void HitDetection(RaycastHit hit, Ray weaponRay, int damage)
     {
         //if(hit.transform.gameObject.tag == "Enemy Head" || hit.transform.tag == "Enemy Torso" || hit.transform.tag == "Enemy Left Arm" || hit.transform.tag == "Enemy Right Arm")
@@ -387,7 +388,8 @@ public class Weapon : MonoBehaviour
             //Instantiate(temporaryHitParticel, hitPosition, hitRotation, antiHierarchySpam.transform);
         }
     }
-    
+    #endregion
+
     #region Get / Set
     public bool GetReloading()
     {
@@ -418,7 +420,6 @@ public class Weapon : MonoBehaviour
     {
         totalAmmo += amount;
     }
-
     public void StopAllWeaponCorutines()
     {
         StopAllCoroutines();
