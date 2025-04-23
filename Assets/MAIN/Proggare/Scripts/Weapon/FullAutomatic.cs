@@ -1,8 +1,10 @@
-using System.Collections;
 using UnityEngine;
 
+// Seb
 public class FullAutomatic : Weapon
 {
+    [Header("<color=magenta> Weapon Variabels")]
+
     [Header("Full Automatic")]
     [SerializeField] int damage = 10;
 

@@ -14,10 +14,7 @@ public enum EffectType
 
 public class Weapon : MonoBehaviour
 {
-    public void AddAmmo(int amount)
-    {
-        totalAmmo += amount;
-    }
+    [Header("OBS: <color=yellow> Variabels </color> for each Weapon class are at the <color=yellow> bottom </color> under <color=#03fce3>Effects")]
 
     //Configurable Perameters
     [Header("Ammo")]
@@ -27,26 +24,22 @@ public class Weapon : MonoBehaviour
     public int maxAmmo = 80;
     public TextMeshProUGUI ammoText;
 
-    [Header("BORDE FLYTTA TILL SHOTGUN SCRIPT???")]
-    public GameObject shellOne, shellTwo;
-
     [Header("Delays")]
     public float waitBeforeReload = 0.5f;
     public float reloadTime = 3f;
     public float firedelay = 3f;
 
     [Header("Extra")]
-    [Tooltip("Instansiate Gameobjects on transform for a clearer Hierarchy")] public GameObject antiHierarchySpam;
     public LayerMask hitMask = 0;
     public float weaponRange = 100f;
-    protected Camera mainCam = null;
-
-    [Header("Effects")]
-    [Tooltip("When calling a action play the effects with the same EffectType")] public Effects[] effects;
+    [Tooltip("Instansiate Gameobjects on transform for a clearer Hierarchy")] public GameObject antiHierarchySpam;
 
     [Header("Screen Shake")]
-    [SerializeField] float screenShakeDuration = 0.1f;
-    [SerializeField] float screenShakeIntensity = 0.1f;
+    public float screenShakeDuration = 0.1f;
+    public float screenShakeIntensity = 0.1f;
+
+    [Header("<color=#03fce3> Effects")]
+    [Tooltip("When calling a action play the effects with the same EffectType")] public Effects[] effects;
 
     [System.Serializable]
     public struct Effects
@@ -75,6 +68,9 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    //Protected Variables
+    protected Camera mainCam = null;
+
     //Private Variabels
     private float currentFireDelay;
     private bool reloading = false;
@@ -88,6 +84,11 @@ public class Weapon : MonoBehaviour
     #region Base Methods
     protected void Start()
     {
+        //Warning
+        Debug.LogWarning("Weapon.cs is a base class for all weapons, please use the derived classes instead.");
+
+        if (hitMask == 0) { Debug.Log("The <color=red>" + gameObject.name + "</color> has no <color=red>" + hitMask + "</color> selected"); }
+
         //Get Camera
         mainCam = Camera.main;
         screenShake = FindFirstObjectByType<ScreenShake>();
@@ -114,15 +115,19 @@ public class Weapon : MonoBehaviour
         //Ammo won't go over a certain limit
         if (totalAmmo > maxAmmo) { totalAmmo = maxAmmo; }
     }
-    private void OnEnable()
+    public void OnEnable()
     {
-        // When the weapon is Enabled \\
+        //// When the weapon is Enabled \\\\
 
         //Dont Spam the Hierarchy
         if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
 
-        //Start reload
-        if (reloading) { StartCoroutine(ReloadRoutine()); }
+        //Start reload?
+        if (reloading || currentAmmo == 0) { StartCoroutine(ReloadRoutine()); }
+    }
+    public void OnDisable()
+    {
+        StopAllWeaponCorutines();
     }
     #endregion
 
@@ -130,7 +135,7 @@ public class Weapon : MonoBehaviour
     public virtual bool Fire()
     {
         //true
-        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false)
+        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true)
         {
             //Screen Shake
             screenShake.Shake(screenShakeDuration, screenShakeIntensity);
@@ -147,18 +152,18 @@ public class Weapon : MonoBehaviour
             }
             else if (currentAmmo == 2)
             {
-                shellOne.SetActive(true);
-                shellTwo.SetActive(true);
+                //shellOne.SetActive(true);
+                //shellTwo.SetActive(true);
             }
             else if (currentAmmo == 1)
             {
-                shellOne.SetActive(false);
-                shellTwo.SetActive(true);
+                //shellOne.SetActive(false);
+                //shellTwo.SetActive(true);
             }
             else if (currentAmmo == 0)
             {
-                shellOne.SetActive(false);
-                shellTwo.SetActive(false);
+                //shellOne.SetActive(false);
+                //shellTwo.SetActive(false);
             }
 
             //Effects
@@ -197,14 +202,15 @@ public class Weapon : MonoBehaviour
         PlaySound(EffectType.reload);
         PlayAnimation(EffectType.reload, "Reload", true);
 
-        //wait
+        //Wait
         yield return new WaitForSeconds(reloadTime);
 
-        //GUI
-        shellOne.SetActive(true);
-        shellTwo.SetActive(true);
+        FinishedReload();
+    }
 
-        //After Wait
+    public virtual bool FinishedReload()
+    {
+        //Add Ammo
         int ammoToAdd = magSize - currentAmmo;
 
         if (totalAmmo >= ammoToAdd)
@@ -221,6 +227,8 @@ public class Weapon : MonoBehaviour
         reloading = false;
         PlayAnimation(EffectType.reload, "Reload", false);
         StopCoroutine(ReloadRoutine());
+
+        return true;
     }
     #endregion
 
@@ -276,20 +284,22 @@ public class Weapon : MonoBehaviour
     {
         foreach (var audio in effects)
         {
-            if(audio.effectType == type && audio.audioClip != null)
+            if (audio.effectType == type && audio.audioClip != null)
             {
-                PlaySoundEffect(audio.audioClip);
+                PlaySoundEffect(audio.audioClip, type.ToString());
             }
         }
     }
-    public void PlaySoundEffect(AudioClip clip)
+    public void PlaySoundEffect(AudioClip clip, string type)
     {
         //Create New Object
-        GameObject soundFX = new("SoundEffect");
+        GameObject soundFX = new(type + "Sound");
 
         //Set Transform
         soundFX.transform.position = Camera.main.transform.position;
-        soundFX.transform.SetParent(antiHierarchySpam.transform);
+
+        if (type != "reload") { soundFX.transform.SetParent(antiHierarchySpam.transform); }
+        else { soundFX.transform.SetParent(transform); }
 
         //Add Components
         soundFX.AddComponent<AudioSource>();
@@ -403,6 +413,11 @@ public class Weapon : MonoBehaviour
         return holdToFire;
     }
     #endregion
+
+    public void AddAmmo(int amount)
+    {
+        totalAmmo += amount;
+    }
 
     public void StopAllWeaponCorutines()
     {
