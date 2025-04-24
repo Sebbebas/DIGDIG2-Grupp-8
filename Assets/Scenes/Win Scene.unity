@@ -1068,6 +1068,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1823341316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1823341318}
+  - component: {fileID: 1823341317}
+  m_Layer: 0
+  m_Name: ScoreUIBinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1823341317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823341316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34392aa0c53a0744bb3fcec7eb20eca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1823341318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823341316}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.29751667, y: 0.7129091, z: 12.015344}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1981636149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,7 +1539,7 @@ GameObject:
   - component: {fileID: 2132134261}
   - component: {fileID: 2132134260}
   m_Layer: 5
-  m_Name: Score
+  m_Name: ScoreText
   m_TagString: ScoreText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1521,7 +1565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'SCORE: NOT ENOUGH'
+  m_text: 'SCORE: 0987654321'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
   m_sharedMaterial: {fileID: 7988088336733355111, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
@@ -1630,3 +1674,4 @@ SceneRoots:
   - {fileID: 2095683521}
   - {fileID: 1997317110}
   - {fileID: 1571037493}
+  - {fileID: 1823341318}

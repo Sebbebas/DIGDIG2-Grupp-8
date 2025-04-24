@@ -3,8 +3,6 @@ using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-//Alexander
-
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
@@ -16,7 +14,6 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        //Ensure only one instance exists
         if (Instance == null)
         {
             Instance = this;
@@ -71,13 +68,13 @@ public class ScoreManager : MonoBehaviour
         if (scoreText != null)
         {
             float originalFontSize = scoreText.fontSize;
-            targetFontSize = originalFontSize * 1.2f; //Increase size
-            scoreText.color = Color.yellow; //Change color to yellow
+            targetFontSize = originalFontSize * 1.2f;
+            scoreText.color = Color.yellow;
 
             yield return new WaitForSeconds(1f);
 
-            targetFontSize = originalFontSize; //Reset size
-            scoreText.color = Color.white; //Reset color
+            targetFontSize = originalFontSize;
+            scoreText.color = Color.white;
         }
     }
 
@@ -89,7 +86,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private void UpdateScoreUI()
+    public void UpdateScoreUI()
     {
         if (scoreText != null)
         {
