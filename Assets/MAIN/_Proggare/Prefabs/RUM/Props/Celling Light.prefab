@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 3039728525214281533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.13, z: 0}
+  m_LocalPosition: {x: 0, y: -0.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc2bad5b06c0f64d9196f74ed1ab1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightSource: {fileID: 0}
   minIntensity: 0
   maxIntensity: 150
   flickerSpeed: 100
@@ -215,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc2bad5b06c0f64d9196f74ed1ab1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightSource: {fileID: 0}
   minIntensity: 0
   maxIntensity: 150
   flickerSpeed: 100

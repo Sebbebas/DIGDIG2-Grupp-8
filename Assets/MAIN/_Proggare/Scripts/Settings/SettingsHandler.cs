@@ -21,6 +21,26 @@ public class SettingsHandler : MonoBehaviour
         valueChanged = false;
     }
 
+    public void Revert()
+    {
+        if (valueChanged)
+        {
+            revertWarning.SetActive(true);
+        }
+    }
+
+    public void Back()
+    {
+        if (valueChanged)
+        {
+            noSaveWarning.SetActive(true);
+        }
+        else
+        {
+            //disable settings Canvas
+        }
+    }
+
     public void ActiveSettings(int active)
     {
         switch (active)

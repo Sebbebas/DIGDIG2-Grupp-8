@@ -796,7 +796,7 @@ GameObject:
   - component: {fileID: 625970911}
   - component: {fileID: 625970909}
   m_Layer: 0
-  m_Name: Cancer hor unge
+  m_Name: Cursor Texture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
