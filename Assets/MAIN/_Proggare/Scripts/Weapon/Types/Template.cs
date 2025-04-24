@@ -1,17 +1,18 @@
 using UnityEngine;
 
 // Seb
-public class FullAutomatic : Weapon
+
+public class Template : Weapon
 {
     [Header("<color=magenta> Weapon Variabels")]
 
-    [Header("Full Automatic")]
+    [Header("Template")]
     [SerializeField] int damage = 10;
 
     public new void Start()
     {
         base.Start();
-        SetIsHoldToFire(true);
+        SetIsHoldToFire(true); //Set to true if you want to hold the fire button to shoot
     }
 
     public override bool Fire()
@@ -20,11 +21,11 @@ public class FullAutomatic : Weapon
         {
             return false;
         }
-        AutomaticFire();
+        TemplateFire();
         return true;
     }
 
-    public void AutomaticFire()
+    public void TemplateFire() //Give resonable name to the function
     {
         Ray weaponRay = new Ray(mainCam.transform.position, mainCam.transform.forward);
         RaycastHit hit = new();

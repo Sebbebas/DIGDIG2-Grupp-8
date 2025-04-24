@@ -46,8 +46,12 @@ public class Weapon : MonoBehaviour
     {
         [Header("Audio & Animation Effects")]
         public EffectType effectType;
-        public AudioClip audioClip;
         public Animator animator;
+
+        [Space]
+
+        public AudioClip audioClip;
+        public Vector2 pitch;
 
         [Space]
 
@@ -57,8 +61,8 @@ public class Weapon : MonoBehaviour
         public struct FireEffects
         {
             [Header("Muzzle Flash")]
-            [Tooltip("Reference for enabling the muzzleFlash")] public Light muzzleLight;
-            [Tooltip("Reference for random muzzleFlash particle rotation")] public ParticleSystem muzzleFlashParticle;
+            [Tooltip("Reference for enabling the muzzleFlash")] public Light[] muzzleLight;
+            [Tooltip("Reference for random muzzleFlash particle rotation")] public ParticleSystem[] muzzleFlashParticle;
             [Tooltip("MAN FIGURE IT OUT")] public float muzzleTime;
 
             [Space]
@@ -88,6 +92,14 @@ public class Weapon : MonoBehaviour
     {
         //Warning
         Debug.LogWarning("Weapon.cs is a base class for all weapons, please use the derived classes instead.");
+        
+        foreach (var effect in effects)
+        {
+            if(effect.pitch == Vector2.zero)
+            {
+                Debug.Log("<color=Yellow>" + transform.name.ToString() + " <color=red>" + effect.effectType + " <color=white> Pitch has no value, No sound will be played");
+            }
+        }
 
         if (hitMask == 0) { Debug.Log("The <color=red>" + gameObject.name + "</color> has no <color=red>" + hitMask + "</color> selected"); }
 
@@ -259,16 +271,16 @@ public class Weapon : MonoBehaviour
                 //Random rotation of the muzzleFlash particle
                 if (effect.fireEffects.muzzleFlashParticle != null) 
                 {
-                    var mainModule = effect.fireEffects.muzzleFlashParticle.main;
+                    var mainModule = effect.fireEffects.muzzleFlashParticle[0].main;
                     mainModule.startRotation = Random.Range(0f, 365f);
 
                     //effect.fireEffects.muzzleFlashParticle.startRotation = Random.Range(0f, 365f);
                 }
 
                 //Turn on the muzzle flash for set time
-                effect.fireEffects.muzzleLight?.transform.gameObject.SetActive(true);
+                effect.fireEffects.muzzleLight[0].transform.gameObject.SetActive(true);
                 yield return new WaitForSeconds(effect.fireEffects.muzzleTime);
-                effect.fireEffects.muzzleLight?.transform.gameObject.SetActive(false);
+                effect.fireEffects.muzzleLight[0].transform.gameObject.SetActive(false);
 
                 StopCoroutine(EffectsCoroutine(EffectType.fire));
             }
@@ -286,11 +298,11 @@ public class Weapon : MonoBehaviour
         {
             if (audio.effectType == type && audio.audioClip != null)
             {
-                PlaySoundEffect(audio.audioClip, type.ToString());
+                PlaySoundEffect(audio.audioClip, type.ToString(), audio.pitch);
             }
         }
     }
-    public void PlaySoundEffect(AudioClip clip, string type)
+    public void PlaySoundEffect(AudioClip clip, string type, Vector2 pitch)
     {
         //Create New Object
         GameObject soundFX = new(type + "Sound");
@@ -309,7 +321,9 @@ public class Weapon : MonoBehaviour
         //Edit Components
         soundFX.GetComponent<AudioSource>().playOnAwake = false;
         soundFX.GetComponent<AudioSource>().clip = clip;
-        soundFX.GetComponent<Destroy>().SetAliveTime(clip.length);
+        soundFX.GetComponent<AudioSource>().pitch = Random.Range(pitch.x, pitch.y);
+        soundFX.GetComponent<AudioSource>().priority = 128 + currentAmmo;
+        //soundFX.GetComponent<Destroy>().SetAliveTime(clip.length);
 
         //Destroy
         soundFX.GetComponent<AudioSource>().Play();
