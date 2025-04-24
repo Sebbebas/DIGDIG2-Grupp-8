@@ -28,7 +28,7 @@ public class Plank : MonoBehaviour
 
     public void BreakPlanks(Vector3 direction, int soundClip, int power)
     {
-        Debug.Log("BreakPlanks called with soundClip: " + soundClip + " and power: " + power);
+        //Debug.Log("BreakPlanks called with soundClip: " + soundClip + " and power: " + power);
 
         if (isBroken)
         {

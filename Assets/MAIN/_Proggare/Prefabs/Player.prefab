@@ -1916,7 +1916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5701768387198558271
 Transform:
   m_ObjectHideFlags: 0
@@ -1971,8 +1971,8 @@ MonoBehaviour:
       - {fileID: 1970898355461940966}
       muzzleFlashParticle:
       - {fileID: 2044401147101698815}
-      muzzleTime: 0.005
-      flashLight: {fileID: 0}
+      muzzleTime: 0.075
+      flashLight: {fileID: 5501460580308072972}
       casing: {fileID: 0}
       enemyHitParticle: {fileID: 968539807990024189, guid: 78a7c5d209c8f614c87db42f04b3f5a0, type: 3}
       enviormentHitParticle: {fileID: 0}
@@ -13404,7 +13404,7 @@ Transform:
   m_GameObject: {fileID: 4758360845790196818}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.21000001, y: -0.6600001, z: 0.02}
+  m_LocalPosition: {x: 0, y: -0.68074775, z: 0.249}
   m_LocalScale: {x: 0.06, y: 0.06, z: 0.06}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -24510,7 +24510,7 @@ MonoBehaviour:
       muzzleFlashParticle:
       - {fileID: 29277128564224344}
       - {fileID: 6344678305221125224}
-      muzzleTime: 0.01
+      muzzleTime: 0.025
       flashLight: {fileID: 0}
       casing: {fileID: 0}
       enemyHitParticle: {fileID: 968539807990024189, guid: 78a7c5d209c8f614c87db42f04b3f5a0, type: 3}
@@ -24518,7 +24518,7 @@ MonoBehaviour:
   - effectType: 1
     animator: {fileID: 0}
     audioClip: {fileID: 0}
-    pitch: {x: 0, y: 0}
+    pitch: {x: 1, y: 1}
     fireEffects:
       muzzleLight: []
       muzzleFlashParticle: []
@@ -24677,7 +24677,7 @@ GameObject:
   - component: {fileID: 343610064711910270}
   - component: {fileID: 1732697339637429166}
   m_Layer: 10
-  m_Name: Point Light
+  m_Name: Flash Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25845,7 +25845,7 @@ Transform:
   m_GameObject: {fileID: 7012374578692392244}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12, y: 0.86, z: 2.36}
+  m_LocalPosition: {x: 0.34, y: 0.872, z: 2.0410492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

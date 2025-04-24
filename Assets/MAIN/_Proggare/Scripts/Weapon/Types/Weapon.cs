@@ -265,24 +265,57 @@ public class Weapon : MonoBehaviour
     {
         foreach (var effect in effects)
         {
-            //Muzzle Flash
             if (EffectType.fire == type)
             {
-                //Random rotation of the muzzleFlash particle
-                if (effect.fireEffects.muzzleFlashParticle != null) 
+                // Ensure the muzzleFlashParticle array is not null or empty
+                if (effect.fireEffects.muzzleFlashParticle != null && effect.fireEffects.muzzleFlashParticle.Length > 0)
                 {
-                    var mainModule = effect.fireEffects.muzzleFlashParticle[0].main;
-                    mainModule.startRotation = Random.Range(0f, 365f);
+                    foreach (var particleSystem in effect.fireEffects.muzzleFlashParticle)
+                    {
+                        if (particleSystem != null)
+                        {
+                            // Random rotation for each particle system
+                            var mainModule = particleSystem.main;
+                            mainModule.startRotation = Random.Range(0f, 365f);
 
-                    //effect.fireEffects.muzzleFlashParticle.startRotation = Random.Range(0f, 365f);
+                            // Play the particle system
+                            particleSystem.Play();
+                        }
+                        else
+                        {
+                            Debug.LogWarning("A muzzle flash particle system is null in the effects array.");
+                        }
+                    }
                 }
 
-                //Turn on the muzzle flash for set time
-                effect.fireEffects.muzzleLight[0].transform.gameObject.SetActive(true);
-                yield return new WaitForSeconds(effect.fireEffects.muzzleTime);
-                effect.fireEffects.muzzleLight[0].transform.gameObject.SetActive(false);
+                // Ensure the muzzleLight array is not null or empty
+                if (effect.fireEffects.muzzleLight != null && effect.fireEffects.muzzleLight.Length > 0)
+                {
+                    foreach (var light in effect.fireEffects.muzzleLight)
+                    {
+                        if (light != null)
+                        {
+                            // Enable the light
+                            light.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("A muzzle flash light is null in the effects array.");
+                        }
+                    }
 
-                StopCoroutine(EffectsCoroutine(EffectType.fire));
+                    // Wait for the muzzle flash duration
+                    yield return new WaitForSeconds(effect.fireEffects.muzzleTime);
+
+                    // Disable the light
+                    foreach (var light in effect.fireEffects.muzzleLight)
+                    {
+                        if (light != null)
+                        {
+                            light.gameObject.SetActive(false);
+                        }
+                    }
+                }
             }
         }
     }
