@@ -18,6 +18,7 @@ TagManager:
   - Plank
   - Enemy Arm
   - ScoreText
+  - TotalScoreText
   layers:
   - Default
   - TransparentFX

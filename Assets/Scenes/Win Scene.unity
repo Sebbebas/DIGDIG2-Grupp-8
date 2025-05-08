@@ -300,6 +300,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312732469}
   m_CullTransparentMesh: 1
+--- !u!1 &332639361 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8007115087914236858, guid: 0af2ead80f3842846862fd5a120b0bcf, type: 3}
+  m_PrefabInstance: {fileID: 1571037493}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &332639362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332639361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294ecd173677b1f43b64d1a985b3bf58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalScoreText: {fileID: 2132134260}
 --- !u!1 &534163354
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +945,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2832147586528666049, guid: 0af2ead80f3842846862fd5a120b0bcf, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 2132134260}
     - target: {fileID: 4709635065815902071, guid: 0af2ead80f3842846862fd5a120b0bcf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.0141314
@@ -969,12 +991,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007115087914236858, guid: 0af2ead80f3842846862fd5a120b0bcf, type: 3}
       propertyPath: m_Name
-      value: ScoreManager
+      value: TotalScoreManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2832147586528666049, guid: 0af2ead80f3842846862fd5a120b0bcf, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8007115087914236858, guid: 0af2ead80f3842846862fd5a120b0bcf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 332639362}
   m_SourcePrefab: {fileID: 100100000, guid: 0af2ead80f3842846862fd5a120b0bcf, type: 3}
 --- !u!1 &1762917835
 GameObject:
@@ -1539,8 +1565,8 @@ GameObject:
   - component: {fileID: 2132134261}
   - component: {fileID: 2132134260}
   m_Layer: 5
-  m_Name: ScoreText
-  m_TagString: ScoreText
+  m_Name: TotalScoreText
+  m_TagString: TotalScoreText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1565,7 +1591,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'SCORE: 0987654321'
+  m_text: 'TOTAL SCORE: 0987654321'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
   m_sharedMaterial: {fileID: 7988088336733355111, guid: 0f42f913360f3784bbd15eca2960b056, type: 2}
@@ -1670,8 +1696,8 @@ SceneRoots:
   - {fileID: 1762917838}
   - {fileID: 977000283}
   - {fileID: 55190300}
+  - {fileID: 1571037493}
   - {fileID: 534163357}
   - {fileID: 2095683521}
   - {fileID: 1997317110}
-  - {fileID: 1571037493}
   - {fileID: 1823341318}

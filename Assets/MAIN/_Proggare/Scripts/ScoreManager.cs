@@ -17,7 +17,7 @@ public class ScoreManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this.gameObject); // Keep the score manager alive across scenes
         }
         else
         {
@@ -61,6 +61,12 @@ public class ScoreManager : MonoBehaviour
             UpdateScoreUI();
             targetFontSize = scoreText.fontSize;
         }
+
+        // Reset score if it's the win scene
+        if (scene.name == "WinScene") // <-- Change "WinScene" to your actual win scene name
+        {
+            ResetScore();
+        }
     }
 
     private IEnumerator HighlightScoreRoutine()
@@ -92,5 +98,16 @@ public class ScoreManager : MonoBehaviour
         {
             scoreText.text = "SCORE: " + score;
         }
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
+        UpdateScoreUI();
     }
 }
