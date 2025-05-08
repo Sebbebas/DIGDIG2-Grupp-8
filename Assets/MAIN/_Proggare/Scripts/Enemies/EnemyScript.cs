@@ -241,11 +241,14 @@ public class EnemyScript : MonoBehaviour
     }
     public void Kicked(Vector3 direction)
     {
+        Debug.Log(gameObject.name + " is kicked");
         isStunned = true;
         agent.isStopped = true;
         currentStunTime = stunTime;
         kickDirection = direction;
         agent.speed = 0;
+
+        ApplyDamage(10);
     }
 
     public void TakeDamage(string bodyPartName, float damage)

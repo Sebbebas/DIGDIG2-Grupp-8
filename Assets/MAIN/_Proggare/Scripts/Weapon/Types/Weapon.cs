@@ -28,6 +28,7 @@ public class Weapon : MonoBehaviour
     public float waitBeforeReload = 0.5f;
     public float reloadTime = 3f;
     public float firedelay = 3f;
+    public float switchDelay = 0.5f;
 
     [Header("Extra")]
     public LayerMask hitMask = 0;
@@ -85,11 +86,16 @@ public class Weapon : MonoBehaviour
     private bool holdToFire = false;
 
     //Chaced References
+    WeaponManager weaponManager;
     ScreenShake screenShake;
+    Animator animator;
 
     #region Base Methods
     protected void Start()
     {
+        weaponManager = GetComponentInParent<WeaponManager>();
+        animator = GetComponent<Animator>();
+
         //Warning
         Debug.LogWarning("Weapon.cs is a base class for all weapons, please use the derived classes instead.");
         
@@ -141,6 +147,13 @@ public class Weapon : MonoBehaviour
     {
         //// When the weapon is Enabled \\\\
 
+        //Get pullout animation lenght and set it to switch delay
+        if (animator != null)
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            switchDelay = stateInfo.length;
+        }
+
         //Dont Spam the Hierarchy
         if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
 
@@ -157,7 +170,7 @@ public class Weapon : MonoBehaviour
     public virtual bool Fire()
     {
         //true
-        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true)
+        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false)
         {
             //Screen Shake
             screenShake.Shake(screenShakeDuration, screenShakeIntensity);
@@ -201,9 +214,17 @@ public class Weapon : MonoBehaviour
     /// </summary>
     public IEnumerator ReloadRoutine()
     {
+
         //Reload Delay
         waitForReload = true;
         yield return new WaitForSeconds(waitBeforeReload);
+
+        //Check if we are switching weapons
+        while (weaponManager.GetIsSwitching() == true)
+        {
+            yield return null;
+        }
+
         waitForReload = false;
 
         //Before Wait
@@ -460,6 +481,12 @@ public class Weapon : MonoBehaviour
     {
         holdToFire = value;
         return holdToFire;
+    }
+
+    //Switch
+    public float GetSwitchDelay()
+    {
+        return switchDelay;
     }
     #endregion
 

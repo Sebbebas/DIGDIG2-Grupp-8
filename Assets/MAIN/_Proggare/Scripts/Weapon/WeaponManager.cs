@@ -15,7 +15,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField, Tooltip("Current weapon gameobject")] GameObject currentWeapon;
     [SerializeField, Tooltip("A list of all the weapon gameobjects")] List<GameObject> WeaponsList = new List<GameObject>();
 
-    //WIP
+    ///////////////////////////////////////////////////////////////////////////WIP
     [Header("Kick")]
     [SerializeField] Animator legAnimator;
     [SerializeField] float kickCooldown = 2f;
@@ -25,6 +25,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] float radius = 2f; //Radius of the sphere cast
     [SerializeField] int coneResolution = 20;
     [SerializeField] LayerMask kickLayerMask; //Layer mask for collision detection
+
     private Vector3 kickOrigin;
     private Vector3 forward;
 
@@ -33,6 +34,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] AudioClip kickSound;
     [SerializeField, Range(0, 1)] float kickSoundVolume = 1f;
     [SerializeField, Range(0, 256)] int kickSoundPriority = 256;
+    [SerializeField] Vector2 kickSoundPitch;
+    ////////////////////////////////////////////////////////////////////
 
     [Header("Screen Shake")]
     [SerializeField] float screenShakeDuration = 0.1f;
@@ -51,12 +54,22 @@ public class WeaponManager : MonoBehaviour
 
     //Private Variabels
     private GameObject antiHierarchySpam;
-    private float currentThrowCooldownTime;
-    private float currentKickCooldownTime;
     private int currentWeaponInt = 0;
     private int totalWeapons;
+
+    //Throwing
+    private float currentThrowCooldownTime;
     private bool throwCoolodown = false;
+
+    //Kick
+    private float currentKickCooldownTime;
     private bool kickCooldownActive = false;
+
+    //Switching
+    private float currentSwitchTime;
+    private float switchCooldown;
+    private bool isSwitching = false;
+
 
     //Cached References
     InputAction scrollAction;
@@ -74,6 +87,12 @@ public class WeaponManager : MonoBehaviour
         weaponsParent = GetComponent<Transform>();
         screenShake = FindFirstObjectByType<ScreenShake>();
 
+        if (currentWeapon != null)
+        {
+            switchCooldown = currentWeapon.GetComponent<Weapon>().GetSwitchDelay();
+            currentSwitchTime = switchCooldown;
+        }
+
         AntiHierarchySpam();
         UpdateWeaponList();
     }
@@ -87,6 +106,9 @@ public class WeaponManager : MonoBehaviour
 
         if (kickCooldownActive && currentKickCooldownTime > 0) { currentKickCooldownTime -= Time.deltaTime; }
         else { currentKickCooldownTime = kickCooldown; kickCooldownActive = false; }
+
+        if (currentSwitchTime > 0) { currentSwitchTime -= Time.deltaTime; }
+        else { currentSwitchTime = switchCooldown; isSwitching = false; }
     }
     private void OnEnable()
     {
@@ -182,15 +204,6 @@ public class WeaponManager : MonoBehaviour
         //Kick Cooldown
         kickCooldownActive = true;
 
-        //Audio
-        GameObject kickSoundObject = new();
-        kickSoundObject.AddComponent<AudioSource>();
-        kickSoundObject.GetComponent<AudioSource>().clip = kickSound;
-        kickSoundObject.GetComponent<AudioSource>().playOnAwake = true;
-        kickSoundObject.GetComponent<AudioSource>().volume = kickSoundVolume;
-        kickSoundObject.GetComponent<AudioSource>().priority = kickSoundPriority;
-        Instantiate(kickSoundObject, transform.position, Quaternion.identity);
-
         //Animation
         if (legAnimator != null) 
         { 
@@ -221,7 +234,7 @@ public class WeaponManager : MonoBehaviour
                 kickedObjects.Add(hit.transform.gameObject);
 
                 //Gameobject Logic
-                if (hit.transform.GetComponent<EnemyScript>() != null) { hit.transform.GetComponent<EnemyScript>().Kicked(direction * kickForce); }
+                if (hit.transform.GetComponent<EnemyScript>() != null) { hit.transform.GetComponent<EnemyScript>().Kicked(direction * kickForce); PlayKickSound(); }
                 if (hit.transform.GetComponent<Plank>() != null)
                 {
                     hit.transform.GetComponent<Plank>().BreakPlanks(direction * kickForce, 0, 5);
@@ -233,6 +246,19 @@ public class WeaponManager : MonoBehaviour
         //{
         //    Debug.Log("Kicked Object: " + obj.name);
         //}
+    }
+
+    void PlayKickSound()
+    {
+        //Audio
+        GameObject kickSoundObject = new();
+        kickSoundObject.AddComponent<AudioSource>();
+        kickSoundObject.GetComponent<AudioSource>().clip = kickSound;
+        kickSoundObject.GetComponent<AudioSource>().playOnAwake = true;
+        kickSoundObject.GetComponent<AudioSource>().volume = kickSoundVolume;
+        kickSoundObject.GetComponent<AudioSource>().priority = kickSoundPriority;
+        kickSoundObject.GetComponent<AudioSource>().pitch = Random.Range(kickSoundPitch.x, kickSoundPitch.y);
+        Instantiate(kickSoundObject, transform.position, Quaternion.identity);
     }
 
     #region Grenade
@@ -275,6 +301,8 @@ public class WeaponManager : MonoBehaviour
     #region Switch Weapon
     void OnSwitchWeapon(InputAction.CallbackContext context)
     {
+        if (currentSwitchTime > 0) { return; }
+
         //Get the scroll value (Vector2, using y-axis for scrolling)
         Vector2 scrollValue = context.ReadValue<Vector2>();
 
@@ -307,6 +335,8 @@ public class WeaponManager : MonoBehaviour
         //Change Values based on list
         totalWeapons = WeaponsList.Count;
         currentWeapon = WeaponsList[currentWeaponInt];
+        currentSwitchTime = currentWeapon.GetComponent<Weapon>().GetSwitchDelay();
+        isSwitching = true;
 
         //Set currentWeapon to active
         foreach (Transform weapon in weaponsParent)
@@ -350,7 +380,10 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-
+    public bool GetIsSwitching()
+    {
+        return isSwitching;
+    }
     public GameObject GetCurrentWeapon()
     {
         return currentWeapon;
