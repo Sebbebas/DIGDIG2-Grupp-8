@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Template : Weapon
 {
-    [Header("<color=magenta> Weapon Variabels")]
+    //[Header("<color=magenta> Weapon Variabels")]
+    //USING CUSTOM EDITOR SCRIPT
 
     [Header("Template")]
     [SerializeField] int damage = 10;

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Shotgun : Weapon
 {
-    [Header("<color=magenta> Weapon Variabels")]
+    //[Header("<color=magenta> Weapon Variabels")]
+    //USING CUSTOM EDITOR SCRIPT
 
     [Header("Shotgun")]
     [SerializeField] float spread = 5;

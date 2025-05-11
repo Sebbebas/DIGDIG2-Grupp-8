@@ -15,11 +15,11 @@ public enum EffectType
 public class Weapon : MonoBehaviour
 {
     //[Header("OBS: <color=yellow>Variables</color> for each Weapon class are at the <color=yellow>bottom</color> under <color=#03fce3>Effects</color>")]
-    //DISABLE SINCE USING EDITOR SCRIPT
+    //USING CUSTOM EDITOR SCRIPT
 
-    //EDITOR
-    [SerializeField] bool needsAmmo = true;
-    //EDITOR
+    //CUSTOM EDITOR
+    [SerializeField] bool needsAmmo = true; //IS ALSO USED OUTSIDE OF THE CUSTOM EDITOR SCRIPT, aka this script
+    //CUSTOM EDITOR
 
     //Configurable Perameters
     [Header("Ammo")]
@@ -37,7 +37,8 @@ public class Weapon : MonoBehaviour
     public float firedelay = 3f;
     public float switchDelay = 0.5f;
 
-    [Header("Collision")]
+    //[Header("Collision")]
+    //USING CUSTOM EDITOR SCRIPT
     public LayerMask hitMask = 0;
     public float weaponRange = 100f;
     
@@ -49,9 +50,8 @@ public class Weapon : MonoBehaviour
     public Light flashLight;
     [Tooltip("Instantiate GameObjects on transform for a clearer Hierarchy")] public GameObject antiHierarchySpam;
 
-
     //[Header("<color=#03fce3> Effects")]
-    //DISABLE SINCE USING EDITOR SCRIPT
+    //USING CUSTOM EDITOR SCRIPT
 
     [Tooltip("When calling an action, play the effects with the same EffectType")] public Effects[] effects;
 
@@ -75,16 +75,18 @@ public class Weapon : MonoBehaviour
         [System.Serializable]
         public struct FireEffects
         {
-            [Header("Muzzle Flash")]
+            //[Header("Muzzle Flash")]
+            //USING CUSTOM EDITOR SCRIPT
             [Tooltip("Reference for enabling the muzzleFlash")] public Light[] muzzleLight;
             [Tooltip("Reference for random muzzleFlash particle rotation")] public ParticleSystem[] muzzleFlashParticle;
             [Tooltip("Time the flash is active")] public float muzzleTime;
 
-            [Space]
-
-            public GameObject casing;
+            [Header("Hit Effects")]
             public ParticleSystem enemyHitParticle;
             public ParticleSystem enviormentHitParticle;
+
+            [Header("Extra")]
+            public GameObject casing;
         }
     }
 
@@ -111,7 +113,8 @@ public class Weapon : MonoBehaviour
 
         //Warning
         Debug.LogWarning("Weapon.cs is a base class for all weapons, please use the derived classes instead.");
-        
+
+        //Check if pitch has a value
         foreach (var effect in effects)
         {
             if(effect.pitch == Vector2.zero)
@@ -120,6 +123,7 @@ public class Weapon : MonoBehaviour
             }
         }
 
+        //Check if hitMask is set
         if (hitMask == 0) { Debug.Log("The <color=red>" + gameObject.name + "</color> has no <color=red>" + hitMask + "</color> selected"); }
 
         //Get Camera
@@ -182,8 +186,11 @@ public class Weapon : MonoBehaviour
     
     public virtual bool Fire()
     {
-        //true
-        if(currentAmmo > 0 && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false)
+        //Check ammo requirements
+        if (needsAmmo && currentAmmo == 0) { return false; }
+
+        //Check other requirements
+        if (currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false)
         {
             //Screen Shake
             screenShake.Shake(screenShakeDuration, screenShakeIntensity);
@@ -510,5 +517,12 @@ public class Weapon : MonoBehaviour
     public void StopAllWeaponCorutines()
     {
         StopAllCoroutines();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Draw a line in the scene view to visualize the weapon range
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * weaponRange);
     }
 }

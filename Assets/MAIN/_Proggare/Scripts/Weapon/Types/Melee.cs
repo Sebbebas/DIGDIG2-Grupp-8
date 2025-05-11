@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Melee : Weapon
 {
-    [Header("<color=magenta> Weapon Variabels")]
+    //[Header("<color=magenta> Weapon Variabels")]
+    //USING CUSTOM EDITOR SCRIPT
 
     [Header("Melee")]
     [SerializeField] int damage = 10;

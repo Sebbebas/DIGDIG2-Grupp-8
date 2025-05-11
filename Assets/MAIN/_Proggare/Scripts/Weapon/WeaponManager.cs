@@ -307,13 +307,13 @@ public class WeaponManager : MonoBehaviour
         Vector2 scrollValue = context.ReadValue<Vector2>();
 
         //Switch weapon based on scroll direction
-        if (scrollValue.y > 0)
+        if (scrollValue.y < 0)
         {
             //Scrolling up (next weapon)
             currentWeaponInt = (currentWeaponInt + 1) % totalWeapons;
             currentWeapon = WeaponsList[currentWeaponInt];
         }
-        else if (scrollValue.y < 0)
+        else if (scrollValue.y > 0)
         {
             //Scrolling down (previous weapon)
             currentWeaponInt = (currentWeaponInt - 1 + totalWeapons) % totalWeapons;

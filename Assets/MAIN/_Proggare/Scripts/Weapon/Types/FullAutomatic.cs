@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FullAutomatic : Weapon
 {
-    [Header("<color=magenta> Weapon Variabels")]
+    //[Header("<color=magenta> Weapon Variabels")]
+    //USING CUSTOM EDITOR SCRIPT
 
     [Header("Full Automatic")]
     [SerializeField] int damage = 10;
