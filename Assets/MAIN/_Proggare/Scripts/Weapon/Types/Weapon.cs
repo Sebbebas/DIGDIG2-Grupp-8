@@ -14,7 +14,12 @@ public enum EffectType
 
 public class Weapon : MonoBehaviour
 {
-    [Header("OBS: <color=yellow> Variabels </color> for each Weapon class are at the <color=yellow> bottom </color> under <color=#03fce3>Effects")]
+    //[Header("OBS: <color=yellow>Variables</color> for each Weapon class are at the <color=yellow>bottom</color> under <color=#03fce3>Effects</color>")]
+    //DISABLE SINCE USING EDITOR SCRIPT
+
+    //EDITOR
+    [SerializeField] bool needsAmmo = true;
+    //EDITOR
 
     //Configurable Perameters
     [Header("Ammo")]
@@ -24,29 +29,38 @@ public class Weapon : MonoBehaviour
     public int maxAmmo = 80;
     public TextMeshProUGUI ammoText;
 
-    [Header("Delays")]
+    [Header("Reload")]
     public float waitBeforeReload = 0.5f;
     public float reloadTime = 3f;
+
+    [Header("Delays")]
     public float firedelay = 3f;
     public float switchDelay = 0.5f;
 
-    [Header("Extra")]
+    [Header("Collision")]
     public LayerMask hitMask = 0;
     public float weaponRange = 100f;
-    [Tooltip("Instansiate Gameobjects on transform for a clearer Hierarchy")] public GameObject antiHierarchySpam;
-
+    
     [Header("Screen Shake")]
     public float screenShakeDuration = 0.1f;
     public float screenShakeIntensity = 0.1f;
 
-    [Header("<color=#03fce3> Effects")]
-    [Tooltip("When calling a action play the effects with the same EffectType")] public Effects[] effects;
+    [Header("Extra")]
+    public Light flashLight;
+    [Tooltip("Instantiate GameObjects on transform for a clearer Hierarchy")] public GameObject antiHierarchySpam;
+
+
+    //[Header("<color=#03fce3> Effects")]
+    //DISABLE SINCE USING EDITOR SCRIPT
+
+    [Tooltip("When calling an action, play the effects with the same EffectType")] public Effects[] effects;
 
     [System.Serializable]
     public struct Effects
     {
-        [Header("Audio & Animation Effects")]
         public EffectType effectType;
+
+        [Header("Audio & Animation Effects")]
         public Animator animator;
 
         [Space]
@@ -64,11 +78,10 @@ public class Weapon : MonoBehaviour
             [Header("Muzzle Flash")]
             [Tooltip("Reference for enabling the muzzleFlash")] public Light[] muzzleLight;
             [Tooltip("Reference for random muzzleFlash particle rotation")] public ParticleSystem[] muzzleFlashParticle;
-            [Tooltip("MAN FIGURE IT OUT")] public float muzzleTime;
+            [Tooltip("Time the flash is active")] public float muzzleTime;
 
             [Space]
 
-            public Light flashLight;
             public GameObject casing;
             public ParticleSystem enemyHitParticle;
             public ParticleSystem enviormentHitParticle;
