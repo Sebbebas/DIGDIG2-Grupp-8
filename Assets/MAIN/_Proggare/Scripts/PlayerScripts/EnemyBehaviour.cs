@@ -162,8 +162,10 @@ public class EnemyBehaviour : MonoBehaviour
                     }
 
                     //If the enemy has spotted the player
-                    if (enemyScript.GetAgro())
+                    if (enemyScript.GetAgro() && !enemyScript.GetStunned())
                     {
+                        animator.ResetTrigger("Idel");
+
                         //If agro is true, move towards the player
                         float distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
 
@@ -212,15 +214,22 @@ public class EnemyBehaviour : MonoBehaviour
                             animator.SetTrigger("Walk");
                         }
                     }
+                    else if (enemyScript.GetAgro() && enemyScript.GetStunned())
+                    {
+                        //If the enemy is stunned, stop moving
+                        animator.ResetTrigger("Walk");
+                        animator.SetTrigger("Idel");
+                        agent.ResetPath();
+                    }
                     else
                     {
                         //Get direction to the player
                         Vector3 directionToPlayer = (player.position - enemy.transform.position).normalized;
 
-                        // Perform a raycast from the enemy to the player, ignoring the layers specified in agroIgnoreLayers
+                        //Perform a raycast from the enemy to the player, ignoring the layers specified in agroIgnoreLayers
                         if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit, sightRadius, ~agroIgnoreLayers))
                         {
-                            // Check if the raycast hit the player
+                            //Check if the raycast hit the player
                             if (hit.transform == player)
                             {
                                 //Play enemy alert animation
@@ -241,12 +250,14 @@ public class EnemyBehaviour : MonoBehaviour
     IEnumerator AttackingRoutine(EnemyScript enemyScript, float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        enemyScript.TryAttackPlayer();
-        enemyScript.SetAttacking(false);
+        if (!enemyScript.GetStunned())
+        {
+            enemyScript.TryAttackPlayer();
+            enemyScript.SetAttacking(false);
+        }
     }
     IEnumerator WaitForAlertAnimation(EnemyScript enemyScript, float waitTime)
     {
-        //Debug.Log(waitTime + " " + waitTime /2);
         yield return new WaitForSeconds(waitTime/2);
         enemyScript.SetAgro(true);
     }
@@ -303,5 +314,31 @@ public class EnemyBehaviour : MonoBehaviour
                 }
             }
         }
+    }
+    void ApplyKnockback(GameObject enemy, Vector3 direction, float force)
+    {
+        if (enemy == null) return;
+
+        // Get references to the enemy's components
+        NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+        Rigidbody enemyRigidbody = enemy.GetComponent<Rigidbody>();
+        EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
+
+        if (enemyScript == null || enemyRigidbody == null || agent == null) return;
+
+        // Temporarily disable NavMeshAgent to allow physics-based knockback
+        agent.enabled = false;
+
+        // Apply knockback force
+        enemyRigidbody.AddForce(direction.normalized * force, ForceMode.Impulse);
+
+        // Re-enable NavMeshAgent after a delay
+        StartCoroutine(ReenableNavMeshAgent(agent));
+    }
+
+    IEnumerator ReenableNavMeshAgent(NavMeshAgent agent)
+    {
+        yield return new WaitForSeconds(0.5f); // Adjust delay as needed
+        agent.enabled = true;
     }
 }

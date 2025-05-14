@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyParts: []
   DamageAmount: 20
-  stunTime: 1
+  stunTime: 3
   maxKnockbackVelocity: 5
   damageCooldown: 2
   headHealth: 50

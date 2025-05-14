@@ -39,7 +39,7 @@ public class EnemyScript : MonoBehaviour
 
     [Header("Player Affecting Values")]
     [SerializeField] float DamageAmount = 20f;
-    [SerializeField] float stunTime = 1f;
+    [SerializeField] float stunTime = 5f;
     [SerializeField] float maxKnockbackVelocity = 5;
     [SerializeField] float damageCooldown = 2f;
 
@@ -152,8 +152,6 @@ public class EnemyScript : MonoBehaviour
 
         if (isStunned)
         {
-            myRigidbody.AddForce(kickDirection, ForceMode.Force);
-
             if (currentStunTime > 0)
             {
                 currentStunTime -= Time.deltaTime;
@@ -162,8 +160,7 @@ public class EnemyScript : MonoBehaviour
             {
                 currentStunTime = 0;
                 isStunned = false;
-                agent.isStopped = false;
-                agent.speed = enemySpeedAtStart;
+                Debug.Log("Stun time over");
             }
         }
     }
@@ -206,7 +203,7 @@ public class EnemyScript : MonoBehaviour
 
     public void TryAttackPlayer()
     {
-        if (!inAttackRange) { return; }
+        if (!inAttackRange || isStunned) { return; }
 
         PlayerHealth playerHealth = FindFirstObjectByType<PlayerHealth>();
         if (playerHealth != null)
@@ -241,14 +238,36 @@ public class EnemyScript : MonoBehaviour
     }
     public void Kicked(Vector3 direction)
     {
+        if (isStunned) return;
+
         Debug.Log(gameObject.name + " is kicked");
         isStunned = true;
-        agent.isStopped = true;
         currentStunTime = stunTime;
-        kickDirection = direction;
-        agent.speed = 0;
 
-        ApplyDamage(10);
+        // Temporarily disable NavMeshAgent
+        if (agent != null)
+        {
+            agent.enabled = false;
+        }
+
+        // Apply knockback force
+        if (myRigidbody != null)
+        {
+            myRigidbody.linearVelocity = Vector3.zero; // Reset velocity to avoid stacking forces
+            myRigidbody.AddForce(direction.normalized * maxKnockbackVelocity, ForceMode.Impulse);
+        }
+
+        // Re-enable NavMeshAgent after a delay
+        StartCoroutine(ReenableNavMeshAgent());
+    }
+
+    private IEnumerator ReenableNavMeshAgent()
+    {
+        yield return new WaitForSeconds(0.5f); // Adjust delay as needed
+        if (agent != null)
+        {
+            agent.enabled = true;
+        }
     }
 
     public void TakeDamage(string bodyPartName, float damage)
@@ -395,7 +414,7 @@ public class EnemyScript : MonoBehaviour
         OnEnemyDeath?.Invoke(gameObject);
         ScoreManager.Instance.AddScore(scoreValue);
 
-        // **Lägger till combo-systemet**
+        // **Lï¿½gger till combo-systemet**
         if (ComboManager.instance != null)
         {
             ComboManager.instance.AddKill();
@@ -477,7 +496,11 @@ public class EnemyScript : MonoBehaviour
     {
         return originalSpeed;
     }
+
+    //Stunned
+    public bool GetStunned()
+    {
+        return isStunned;
+    }
     #endregion
-
-
 }

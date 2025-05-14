@@ -17,17 +17,22 @@ public class WeaponManager : MonoBehaviour
 
     ///////////////////////////////////////////////////////////////////////////WIP
     [Header("Kick")]
+    [SerializeField] LayerMask kickLayerMask;
     [SerializeField] Animator legAnimator;
-    [SerializeField] float kickCooldown = 2f;
-    [SerializeField] float kickForce = 10f;
-    [SerializeField] float coneAngle = 30f; //Angle of the cone
-    [SerializeField] float maxKickDistance = 10f; //Max distance of the detection
-    [SerializeField] float radius = 2f; //Radius of the sphere cast
-    [SerializeField] int coneResolution = 20;
-    [SerializeField] LayerMask kickLayerMask; //Layer mask for collision detection
+    [SerializeField] GameObject enemyHitEffect;
 
-    private Vector3 kickOrigin;
-    private Vector3 forward;
+    [Space]
+
+    [SerializeField] float kickDamage = 150f;
+
+    [Space]
+
+    [SerializeField] float kickCooldown = 0.5f;
+    [SerializeField] float kickForce = 2.4f;
+    [SerializeField] float maxKickDistance = 3f; //Max distance of the detection
+    [SerializeField] float coneRadius = 1.5f; //Radius of the sphere cast
+    [SerializeField] float coneAngle = 20f; //Angle of the cone
+    [SerializeField] int coneResolution = 5;
 
     [Space]
 
@@ -62,6 +67,8 @@ public class WeaponManager : MonoBehaviour
     private bool throwCoolodown = false;
 
     //Kick
+    private Vector3 kickOrigin;
+    private Vector3 forward;
     private float currentKickCooldownTime;
     private bool kickCooldownActive = false;
 
@@ -69,7 +76,6 @@ public class WeaponManager : MonoBehaviour
     private float currentSwitchTime;
     private float switchCooldown;
     private bool isSwitching = false;
-
 
     //Cached References
     InputAction scrollAction;
@@ -234,7 +240,14 @@ public class WeaponManager : MonoBehaviour
                 kickedObjects.Add(hit.transform.gameObject);
 
                 //Gameobject Logic
-                if (hit.transform.GetComponent<EnemyScript>() != null) { hit.transform.GetComponent<EnemyScript>().Kicked(direction * kickForce); PlayKickSound(); }
+                if (hit.transform.GetComponent<EnemyScript>() != null) 
+                { 
+                    hit.transform.GetComponent<EnemyScript>().Kicked(direction * kickForce);
+                    hit.transform.GetComponent<EnemyScript>().ApplyDamage(kickDamage);
+
+                    Instantiate(enemyHitEffect, hit.transform.position, Quaternion.identity);
+                    PlayKickSound();
+                }
                 if (hit.transform.GetComponent<Plank>() != null)
                 {
                     hit.transform.GetComponent<Plank>().BreakPlanks(direction * kickForce, 0, 5);
