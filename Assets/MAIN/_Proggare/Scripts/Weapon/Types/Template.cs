@@ -13,7 +13,7 @@ public class Template : Weapon
     public new void Start()
     {
         base.Start();
-        SetIsHoldToFire(true); //Set to true if you want to hold the fire button to shoot
+        SetIsHoldToFire(true); //Set to true if you want to hold the Fire button to shoot
     }
 
     public override bool Fire()

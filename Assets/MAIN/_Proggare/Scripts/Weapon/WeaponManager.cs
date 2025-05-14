@@ -100,7 +100,28 @@ public class WeaponManager : MonoBehaviour
         }
 
         AntiHierarchySpam();
-        UpdateWeaponList();
+
+        //Check if there are any weapons in the list
+        if (WeaponsList.Count > 0) { WeaponsList.Clear(); }
+
+        //Find all child objects under the "weaponsParent" and add them to the list
+        foreach (Transform weapon in weaponsParent)
+        {
+            WeaponsList.Add(weapon.gameObject);
+        }
+
+        //Get the current weapon index
+        totalWeapons = WeaponsList.Count;
+        currentWeapon = WeaponsList[currentWeaponInt];
+
+        //Set currentWeapon to active
+        foreach (Transform weapon in weaponsParent)
+        {
+            weapon.gameObject.GetComponent<Weapon>().StopAllWeaponCorutines();
+
+            if (weapon.gameObject != currentWeapon) { weapon.gameObject.SetActive(false); }
+            else { weapon.gameObject.SetActive(true); }
+        }
     }
     private void FixedUpdate()
     {
@@ -335,11 +356,12 @@ public class WeaponManager : MonoBehaviour
             currentWeapon = WeaponsList[currentWeaponInt];
         }
 
-        UpdateWeaponList();
+        StartCoroutine(UpdateWeaponList());
     }
-    void UpdateWeaponList()
+    IEnumerator UpdateWeaponList()
     {
-        if(WeaponsList.Count > 0) { WeaponsList.Clear(); }
+        //Check if there are any weapons in the list
+        if (WeaponsList.Count > 0) { WeaponsList.Clear(); }
 
         //Find all child objects under the "weaponsParent" and add them to the list
         foreach (Transform weapon in weaponsParent)
@@ -348,10 +370,20 @@ public class WeaponManager : MonoBehaviour
         }
 
         //Change Values based on list
+        isSwitching = true;
+
+        //Get the current weapon index
         totalWeapons = WeaponsList.Count;
         currentWeapon = WeaponsList[currentWeaponInt];
+
+        //Get the switch delay from the current weapon
         currentSwitchTime = currentWeapon.GetComponent<Weapon>().GetSwitchDelay();
-        isSwitching = true;
+
+        //Play Switch Animation
+        StartCoroutine(currentWeapon.GetComponent<Weapon>().EffectsCoroutine(EffectType.Switch));
+
+        //Wait before switching
+        yield return new WaitForSeconds(currentSwitchTime);
 
         //Set currentWeapon to active
         foreach (Transform weapon in weaponsParent)
@@ -361,6 +393,10 @@ public class WeaponManager : MonoBehaviour
             if (weapon.gameObject != currentWeapon) { weapon.gameObject.SetActive(false); }
             else { weapon.gameObject.SetActive(true); }
         }
+
+        isSwitching = false;
+
+        StopCoroutine(UpdateWeaponList());
     }
     #endregion
 

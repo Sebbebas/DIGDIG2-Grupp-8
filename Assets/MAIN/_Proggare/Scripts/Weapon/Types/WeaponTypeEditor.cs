@@ -17,7 +17,9 @@ public class WeaponTypeEditor : Editor
     SerializedProperty ammoText;
     SerializedProperty waitBeforeReload;
     SerializedProperty reloadTime;
+    SerializedProperty chanceToPlayReloadB;
     SerializedProperty firedelay;
+    SerializedProperty pullOutDelay;
     SerializedProperty switchDelay;
     SerializedProperty LayerMask;
     SerializedProperty weaponRange;
@@ -37,8 +39,10 @@ public class WeaponTypeEditor : Editor
         ammoText = serializedObject.FindProperty("ammoText");
         waitBeforeReload = serializedObject.FindProperty("waitBeforeReload");
         reloadTime = serializedObject.FindProperty("reloadTime");
+        chanceToPlayReloadB = serializedObject.FindProperty("chanceToPlayReloadB");
         firedelay = serializedObject.FindProperty("firedelay");
-        switchDelay = serializedObject.FindProperty("switchDelay");
+        switchDelay = serializedObject.FindProperty("pullOutDelay");
+        pullOutDelay = serializedObject.FindProperty("switchDelay");
         LayerMask = serializedObject.FindProperty("hitMask");
         weaponRange = serializedObject.FindProperty("weaponRange");
         screenShakeDuration = serializedObject.FindProperty("screenShakeDuration");
@@ -97,11 +101,14 @@ public class WeaponTypeEditor : Editor
             EditorGUILayout.PropertyField(ammoText);
             EditorGUILayout.PropertyField(waitBeforeReload);
             EditorGUILayout.PropertyField(reloadTime);
+            SerializedProperty altReloadChance = serializedObject.FindProperty("chanceToPlayReloadB");
+            EditorGUILayout.Slider(altReloadChance, 0f, 1f, new GUIContent("Chance To Play Reload B"));
             DrawLine(Color.white, 2, 5);
         }
 
         //Always show these properties
         EditorGUILayout.PropertyField(firedelay);
+        EditorGUILayout.PropertyField(pullOutDelay);
         EditorGUILayout.PropertyField(switchDelay);
 
         EditorGUILayout.Space();
@@ -139,7 +146,7 @@ public class WeaponTypeEditor : Editor
         {
             SerializedProperty effect = effectsProperty.GetArrayElementAtIndex(i);
             SerializedProperty effectType = effect.FindPropertyRelative("effectType");
-            SerializedProperty animator = effect.FindPropertyRelative("animator");
+            SerializedProperty animators = effect.FindPropertyRelative("animators");
             SerializedProperty audioClip = effect.FindPropertyRelative("audioClip");
             SerializedProperty pitch = effect.FindPropertyRelative("pitch");
             SerializedProperty fireEffects = effect.FindPropertyRelative("fireEffects");
@@ -148,12 +155,12 @@ public class WeaponTypeEditor : Editor
             GUIStyle effectLabelStyle = new GUIStyle(EditorStyles.boldLabel) { richText = true };
             EditorGUILayout.LabelField($"<color=#03fce3>Effect {i + 1}</color>", effectLabelStyle);
             EditorGUILayout.PropertyField(effectType);
-            EditorGUILayout.PropertyField(animator);
+            EditorGUILayout.PropertyField(animators, true);
             EditorGUILayout.PropertyField(audioClip);
             EditorGUILayout.PropertyField(pitch);
 
             //Fire Effects foldout
-            if (effectType.enumValueIndex == 0) //fire
+            if (effectType.enumValueIndex == 0) //Fire
             {
                 GUIStyle fireEffectsStyle = new GUIStyle(EditorStyles.foldout) { richText = true };
                 fireEffectsFoldouts[i] = EditorGUILayout.Foldout(fireEffectsFoldouts[i], $"<color=#ff4800>Fire Effects</color>", true, fireEffectsStyle);
@@ -233,7 +240,7 @@ public class WeaponTypeEditor : Editor
                 property.name == "waitBeforeReload" ||
                 property.name == "reloadTime" ||
                 property.name == "firedelay" ||
-                property.name == "switchDelay" ||
+                property.name == "pullOutDelay" ||
                 property.name == "hitMask" ||
                 property.name == "weaponRange" ||
                 property.name == "screenShakeDuration" ||

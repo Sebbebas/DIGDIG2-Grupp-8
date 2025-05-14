@@ -6,10 +6,11 @@ using TMPro;
 
 public enum EffectType
 {
-    fire = 0,
-    reload = 1,
-    pullout = 2,
-    equip = 3,
+    Fire = 0,
+    Reload = 1,
+    Pullout = 2,
+    Equip = 3,
+    Switch = 4,
 }
 
 public class Weapon : MonoBehaviour
@@ -32,16 +33,18 @@ public class Weapon : MonoBehaviour
     [Header("Reload")]
     public float waitBeforeReload = 0.5f;
     public float reloadTime = 3f;
+    [Range(0, 1)] public float chanceToPlayReloadB;
 
     [Header("Delays")]
     public float firedelay = 3f;
+    public float pullOutDelay = 0.5f;
     public float switchDelay = 0.5f;
 
     //[Header("Collision")]
     //USING CUSTOM EDITOR SCRIPT
     public LayerMask hitMask = 0;
     public float weaponRange = 100f;
-    
+
     [Header("Screen Shake")]
     public float screenShakeDuration = 0.1f;
     public float screenShakeIntensity = 0.1f;
@@ -52,7 +55,6 @@ public class Weapon : MonoBehaviour
 
     //[Header("<color=#03fce3> Effects")]
     //USING CUSTOM EDITOR SCRIPT
-
     [Tooltip("When calling an action, play the effects with the same EffectType")] public Effects[] effects;
 
     [System.Serializable]
@@ -61,7 +63,7 @@ public class Weapon : MonoBehaviour
         public EffectType effectType;
 
         [Header("Audio & Animation Effects")]
-        public Animator animator;
+        public Animator[] animators;
 
         [Space]
 
@@ -105,13 +107,14 @@ public class Weapon : MonoBehaviour
     //Chaced References
     WeaponManager weaponManager;
     ScreenShake screenShake;
-    Animator animator;
+    Animator[] animator;
 
     #region Base Methods
     protected void Start()
     {
         weaponManager = GetComponentInParent<WeaponManager>();
-        animator = GetComponent<Animator>();
+        animator = GetComponents<Animator>(); 
+        animator = GetComponentsInChildren<Animator>();
 
         //Warning
         Debug.LogWarning("Weapon.cs is a base class for all weapons, please use the derived classes instead.");
@@ -157,30 +160,33 @@ public class Weapon : MonoBehaviour
 
         //Cooldowns
         if (currentFireDelay > 0) { currentFireDelay -= Time.deltaTime; }
-        else { currentFireDelay = 0; PlayAnimation(EffectType.fire, "Fire", false); }
+        else { currentFireDelay = 0; PlayAnimation(EffectType.Fire, "Fire", false); }
 
-        if (weaponManager.GetIsSwitching() && animator != null) { animator.SetTrigger("Switch"); switchDelay = animator.GetCurrentAnimatorStateInfo(0).length; }
+        if (weaponManager.GetIsSwitching()) { foreach (Animator animators in animator) { animators.SetTrigger("Switch"); pullOutDelay = animators.GetCurrentAnimatorStateInfo(0).length; } }
 
         //Ammo won't go over a certain limit
         if (totalAmmo > maxAmmo) { totalAmmo = maxAmmo; }
 
         //AUTO FIRE
-        if(!buttonIsPressed && animator != null) { animator.SetTrigger("StopFire"); }
+        if(holdToFire && !buttonIsPressed && animator != null) { foreach (Animator animator in animator) { animator.SetTrigger("StopFire"); } }
     }
     public void OnEnable()
     {
         //// When the weapon is Enabled \\\\
 
-        //Get pullout animation lenght and set it to switch delay
+        //Get Pullout animation lenght and set it to switch delay
         if (animator != null)
         {
-            switchDelay = animator.GetCurrentAnimatorStateInfo(0).length;
+            foreach (Animator animator in animator)
+            {
+                pullOutDelay = animator.GetCurrentAnimatorStateInfo(0).length;
+            }
         }
 
         //Dont Spam the Hierarchy
         if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
 
-        //Start reload?
+        //Start Reload?
         if (reloading || currentAmmo == 0) { StartCoroutine(ReloadRoutine()); }
     }
     public void OnDisable()
@@ -196,7 +202,7 @@ public class Weapon : MonoBehaviour
         if (needsAmmo && currentAmmo == 0) { return false; }
 
         //Check other requirements
-        if (currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false)
+        if (!holdToFire && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false)
         {
             //Screen Shake
             screenShake.Shake(screenShakeDuration, screenShakeIntensity);
@@ -207,9 +213,28 @@ public class Weapon : MonoBehaviour
             if (currentAmmo == 0) { Reload(); }
 
             //Effects
-            PlayAnimation(EffectType.fire, "Fire", true);
-            PlaySound(EffectType.fire);
-            StartCoroutine(EffectsCoroutine(EffectType.fire));
+            PlayAnimation(EffectType.Fire, "Fire", true);
+            PlaySound(EffectType.Fire);
+            StartCoroutine(EffectsCoroutine(EffectType.Fire));
+
+            return true;
+        }
+        else if (holdToFire && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false)
+        {
+            //Screen Shake
+            screenShake.Shake(screenShakeDuration, screenShakeIntensity);
+
+            //Logic
+            currentAmmo--;
+            currentFireDelay = firedelay;
+            if (currentAmmo == 0) { Reload(); }
+
+            //Effects
+            if (buttonIsPressed) { PlayAnimation(EffectType.Fire, "Fire", true); }
+            else { foreach (Animator animator in animator) { animator.SetTrigger("StopFire"); } }
+
+            PlaySound(EffectType.Fire);
+            StartCoroutine(EffectsCoroutine(EffectType.Fire));
 
             return true;
         }
@@ -225,7 +250,7 @@ public class Weapon : MonoBehaviour
     /// </summary>
     public virtual bool Reload()
     {
-        //Check if we can reload
+        //Check if we can Reload
         if (currentAmmo == magSize || totalAmmo == 0 || reloading == true || waitForReload == true)
         {
             return false;
@@ -236,7 +261,7 @@ public class Weapon : MonoBehaviour
         return true;
     }
     /// <summary>
-    /// Play the reload animation and sound
+    /// Play the Reload animation and sound
     /// </summary>
     public IEnumerator ReloadRoutine()
     {
@@ -254,8 +279,8 @@ public class Weapon : MonoBehaviour
 
         //Before Wait
         reloading = true;
-        PlaySound(EffectType.reload);
-        PlayAnimation(EffectType.reload, "Reload", true);
+        PlaySound(EffectType.Reload);
+        StartCoroutine(EffectsCoroutine(EffectType.Reload));
 
         //Wait
         yield return new WaitForSeconds(reloadTime);
@@ -263,7 +288,7 @@ public class Weapon : MonoBehaviour
         FinishedReload();
     }
     /// <summary>
-    /// When the reload is finished
+    /// When the Reload is finished
     /// </summary>
     public virtual bool FinishedReload()
     {
@@ -282,9 +307,10 @@ public class Weapon : MonoBehaviour
         }
 
         //Stop Effects
-        PlayAnimation(EffectType.reload, "Reload", false);
-
+        StopCoroutine(EffectsCoroutine(EffectType.Reload));
         StopCoroutine(ReloadRoutine());
+        PlayAnimation(EffectType.Reload, "Reload", false);
+
         reloading = false;
         return true;
     }
@@ -298,9 +324,9 @@ public class Weapon : MonoBehaviour
     {
         foreach (var animation in effects)
         {
-            if (animation.effectType == type && animation.animator != null)
+            foreach (Animator animator in animation.animators)
             {
-                animation.animator.SetBool(boolname, animationBool);
+                animator.SetBool(boolname, animationBool);
             }
         }
     }
@@ -311,7 +337,7 @@ public class Weapon : MonoBehaviour
     {
         foreach (var effect in effects)
         {
-            if (EffectType.fire == type)
+            if (EffectType.Fire == type)
             {
                 // Ensure the muzzleFlashParticle array is not null or empty
                 if (effect.fireEffects.muzzleFlashParticle != null && effect.fireEffects.muzzleFlashParticle.Length > 0)
@@ -363,6 +389,30 @@ public class Weapon : MonoBehaviour
                     }
                 }
             }
+            else if (EffectType.Reload == type)
+            {
+                float f = Random.Range(0f, 1f);
+                int reloadType = (f < chanceToPlayReloadB) ? 1 : 0;
+
+                foreach (Animator animator in effect.animators)
+                {
+                    animator.SetInteger("ReloadType", reloadType);
+
+                    PlayAnimation(EffectType.Reload, "Reload", true);
+
+                    Debug.Log("Reloading with type: " + reloadType);
+                }
+            }
+            else if (EffectType.Pullout == type) { }
+            else if (EffectType.Equip == type) { }
+            else if (EffectType.Switch == type) 
+            {
+                foreach (Animator animator in effect.animators)
+                {
+                    animator.SetTrigger("Switch");
+                    switchDelay = animator.GetCurrentAnimatorStateInfo(0).length;
+                }
+            }
         }
     }
     #endregion
@@ -389,7 +439,7 @@ public class Weapon : MonoBehaviour
         //Set Transform
         soundFX.transform.position = Camera.main.transform.position;
 
-        if (type != "reload") { soundFX.transform.SetParent(antiHierarchySpam.transform); }
+        if (type != "Reload") { soundFX.transform.SetParent(antiHierarchySpam.transform); }
         else { soundFX.transform.SetParent(transform); }
 
         //Add Components
