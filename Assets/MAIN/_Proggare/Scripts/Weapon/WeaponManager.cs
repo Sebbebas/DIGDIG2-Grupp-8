@@ -179,10 +179,12 @@ public class WeaponManager : MonoBehaviour
         {
             if (!context.performed)
             {
+                weaponComponent.SetButtonPressed(false);
                 StopCoroutine(FireHeldToFire(weaponComponent, context));
             }
             else
             {
+                weaponComponent.SetButtonPressed(true);
                 weaponComponent.Fire();
             }
 

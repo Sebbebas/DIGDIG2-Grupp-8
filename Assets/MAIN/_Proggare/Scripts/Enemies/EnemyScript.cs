@@ -55,6 +55,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] bool attacking = false;
     [SerializeField] bool inAttackRange = false;
     [SerializeField] bool alertAnimationStarted = false;
+    [SerializeField] bool isStunned;
 
     [Header("Body Parts")]
     [SerializeField] GameObject leftArm;
@@ -89,7 +90,6 @@ public class EnemyScript : MonoBehaviour
     //Private variables
     private Vector3 kickDirection;
     private float enemySpeedAtStart;
-    private bool isStunned;
     private float currentStunTime;
     private bool isDead = false;
     private Transform player;

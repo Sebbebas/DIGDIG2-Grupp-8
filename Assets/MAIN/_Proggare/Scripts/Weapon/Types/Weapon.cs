@@ -98,7 +98,9 @@ public class Weapon : MonoBehaviour
     private bool reloading = false;
     private bool waitForReload = false;
 
+    //Hold Fire
     private bool holdToFire = false;
+    private bool buttonIsPressed = false;
 
     //Chaced References
     WeaponManager weaponManager;
@@ -157,8 +159,13 @@ public class Weapon : MonoBehaviour
         if (currentFireDelay > 0) { currentFireDelay -= Time.deltaTime; }
         else { currentFireDelay = 0; PlayAnimation(EffectType.fire, "Fire", false); }
 
+        if (weaponManager.GetIsSwitching() && animator != null) { animator.SetTrigger("Switch"); switchDelay = animator.GetCurrentAnimatorStateInfo(0).length; }
+
         //Ammo won't go over a certain limit
         if (totalAmmo > maxAmmo) { totalAmmo = maxAmmo; }
+
+        //AUTO FIRE
+        if(!buttonIsPressed && animator != null) { animator.SetTrigger("StopFire"); }
     }
     public void OnEnable()
     {
@@ -167,8 +174,7 @@ public class Weapon : MonoBehaviour
         //Get pullout animation lenght and set it to switch delay
         if (animator != null)
         {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            switchDelay = stateInfo.length;
+            switchDelay = animator.GetCurrentAnimatorStateInfo(0).length;
         }
 
         //Dont Spam the Hierarchy
@@ -234,7 +240,6 @@ public class Weapon : MonoBehaviour
     /// </summary>
     public IEnumerator ReloadRoutine()
     {
-
         //Reload Delay
         waitForReload = true;
         yield return new WaitForSeconds(waitBeforeReload);
@@ -479,6 +484,12 @@ public class Weapon : MonoBehaviour
     #endregion
 
     #region Get / Set
+    public bool SetButtonPressed(bool value)
+    {
+        buttonIsPressed = value;
+        return buttonIsPressed;
+    }
+
     public bool GetReloading()
     {
         return reloading;
