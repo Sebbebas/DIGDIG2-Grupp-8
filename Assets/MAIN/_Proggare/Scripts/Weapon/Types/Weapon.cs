@@ -199,7 +199,7 @@ public class Weapon : MonoBehaviour
     public virtual bool Fire()
     {
         //Check ammo requirements
-        if (needsAmmo && currentAmmo == 0) { return false; }
+        if (needsAmmo && currentAmmo == 0 && reloading == false && waitForReload == false && weaponManager.GetIsSwitching() == false) { return false; }
 
         //Check other requirements
         if (!holdToFire && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false)
@@ -268,6 +268,7 @@ public class Weapon : MonoBehaviour
         //Reload Delay
         waitForReload = true;
         yield return new WaitForSeconds(waitBeforeReload);
+        waitForReload = false;
 
         //Check if we are switching weapons
         while (weaponManager.GetIsSwitching() == true)
@@ -275,12 +276,19 @@ public class Weapon : MonoBehaviour
             yield return null;
         }
 
-        waitForReload = false;
-
         //Before Wait
         reloading = true;
         PlaySound(EffectType.Reload);
         StartCoroutine(EffectsCoroutine(EffectType.Reload));
+
+        //Get Reload time
+        if (animator != null)
+        {
+            foreach (Animator animator in animator)
+            {
+                reloadTime = animator.GetCurrentAnimatorStateInfo(0).length;
+            }
+        }
 
         //Wait
         yield return new WaitForSeconds(reloadTime);
@@ -292,18 +300,19 @@ public class Weapon : MonoBehaviour
     /// </summary>
     public virtual bool FinishedReload()
     {
-        //Add Ammo to the mag
+        //Max ammo needed
         int ammoToAdd = magSize - currentAmmo;
 
-        if (totalAmmo >= ammoToAdd)
+        //Check if we have enough ammo
+        if (totalAmmo > ammoToAdd)
         {
             currentAmmo = magSize;
             totalAmmo -= ammoToAdd;
         }
         else
         {
-            currentAmmo += currentAmmo;
-            currentAmmo = 0;
+            currentAmmo += totalAmmo;
+            totalAmmo = 0;
         }
 
         //Stop Effects
@@ -339,6 +348,8 @@ public class Weapon : MonoBehaviour
         {
             if (EffectType.Fire == type)
             {
+                if()
+
                 // Ensure the muzzleFlashParticle array is not null or empty
                 if (effect.fireEffects.muzzleFlashParticle != null && effect.fireEffects.muzzleFlashParticle.Length > 0)
                 {
