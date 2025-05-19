@@ -267,14 +267,21 @@ public class Weapon : MonoBehaviour
     {
         //Reload Delay
         waitForReload = true;
-        yield return new WaitForSeconds(waitBeforeReload);
+        if (weaponManager.GetIsSwitching() || weaponManager.GetSwitchCurrentDelay() > 0) 
+        { 
+            yield return new WaitForSeconds(waitBeforeReload + switchDelay); 
+        }
+        else 
+        { 
+            yield return new WaitForSeconds(waitBeforeReload);
+        }
         waitForReload = false;
 
         //Check if we are switching weapons
-        while (weaponManager.GetIsSwitching() == true)
-        {
-            yield return null;
-        }
+        //while (weaponManager.GetIsSwitching() == true)
+        //{
+        //    yield return null;
+        //}
 
         //Before Wait
         reloading = true;
@@ -286,12 +293,13 @@ public class Weapon : MonoBehaviour
         {
             foreach (Animator animator in animator)
             {
+                yield return new WaitForSeconds(0.001f);
                 reloadTime = animator.GetCurrentAnimatorStateInfo(0).length;
             }
         }
 
         //Wait
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(reloadTime) ;
 
         FinishedReload();
     }
@@ -348,7 +356,7 @@ public class Weapon : MonoBehaviour
         {
             if (EffectType.Fire == type)
             {
-                if()
+                //if()
 
                 // Ensure the muzzleFlashParticle array is not null or empty
                 if (effect.fireEffects.muzzleFlashParticle != null && effect.fireEffects.muzzleFlashParticle.Length > 0)
@@ -410,8 +418,6 @@ public class Weapon : MonoBehaviour
                     animator.SetInteger("ReloadType", reloadType);
 
                     PlayAnimation(EffectType.Reload, "Reload", true);
-
-                    Debug.Log("Reloading with type: " + reloadType);
                 }
             }
             else if (EffectType.Pullout == type) { }

@@ -134,8 +134,8 @@ public class WeaponManager : MonoBehaviour
         if (kickCooldownActive && currentKickCooldownTime > 0) { currentKickCooldownTime -= Time.deltaTime; }
         else { currentKickCooldownTime = kickCooldown; kickCooldownActive = false; }
 
-        if (currentSwitchTime > 0) { currentSwitchTime -= Time.deltaTime; }
-        else { currentSwitchTime = switchCooldown; isSwitching = false; }
+        if (currentSwitchTime > 0) { currentSwitchTime -= Time.deltaTime; Debug.Log("Current switch time" + currentSwitchTime); }
+        else if (currentSwitchTime == 0 && isSwitching){ currentSwitchTime = 0; isSwitching = false; }
     }
     private void OnEnable()
     {
@@ -430,7 +430,11 @@ public class WeaponManager : MonoBehaviour
             Gizmos.DrawLine(kickOrigin, kickOrigin + direction * maxKickDistance);
         }
     }
-
+    
+    public float GetSwitchCurrentDelay()
+    {
+        return currentSwitchTime;
+    }
     public bool GetIsSwitching()
     {
         return isSwitching;

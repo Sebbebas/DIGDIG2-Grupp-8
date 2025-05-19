@@ -11347,7 +11347,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 47654
+    surfaceParameter: 47074
     meshQueryIndex: 1
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -19512,7 +19512,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 48022
+    surfaceParameter: 47446
     meshQueryIndex: 0
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -27810,7 +27810,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 47654
+    surfaceParameter: 47074
     meshQueryIndex: 1
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -38759,6 +38759,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 207147542}
     - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: reloadTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: effects.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -38988,6 +38992,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7857722470122994707, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: switchDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857722470122994707, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: waitBeforeReload
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7857722470122994707, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
