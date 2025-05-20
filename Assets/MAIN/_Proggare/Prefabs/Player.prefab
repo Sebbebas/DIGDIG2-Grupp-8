@@ -1916,7 +1916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5701768387198558271
 Transform:
   m_ObjectHideFlags: 0
@@ -5150,7 +5150,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4451777848638890961}
   m_Father: {fileID: 3089606794737801456}
@@ -5176,20 +5176,69 @@ MonoBehaviour:
   waitBeforeReload: 0.5
   reloadTime: 3
   chanceToPlayReloadB: 0
-  firedelay: 3
+  firedelay: 0.7
   pullOutDelay: 0
   switchDelay: 0
   hitMask:
     serializedVersion: 2
     m_Bits: 4160
-  weaponRange: 100
+  weaponRange: 6
   screenShakeDuration: 0.1
   screenShakeIntensity: 0.1
   flashLight: {fileID: 0}
   antiHierarchySpam: {fileID: 0}
   effects:
   - effectType: 0
-    animators: []
+    animators:
+    - {fileID: 5592211720894863163}
+    audioClip: {fileID: 0}
+    pitch: {x: 1, y: 1}
+    fireEffects:
+      muzzleLight: []
+      muzzleFlashParticle: []
+      muzzleTime: 0
+      enemyHitParticle: {fileID: 0}
+      enviormentHitParticle: {fileID: 0}
+      casing: {fileID: 0}
+  - effectType: 1
+    animators:
+    - {fileID: 5592211720894863163}
+    audioClip: {fileID: 0}
+    pitch: {x: 1, y: 1}
+    fireEffects:
+      muzzleLight: []
+      muzzleFlashParticle: []
+      muzzleTime: 0
+      enemyHitParticle: {fileID: 0}
+      enviormentHitParticle: {fileID: 0}
+      casing: {fileID: 0}
+  - effectType: 2
+    animators:
+    - {fileID: 5592211720894863163}
+    audioClip: {fileID: 0}
+    pitch: {x: 1, y: 1}
+    fireEffects:
+      muzzleLight: []
+      muzzleFlashParticle: []
+      muzzleTime: 0
+      enemyHitParticle: {fileID: 0}
+      enviormentHitParticle: {fileID: 0}
+      casing: {fileID: 0}
+  - effectType: 3
+    animators:
+    - {fileID: 5592211720894863163}
+    audioClip: {fileID: 0}
+    pitch: {x: 1, y: 1}
+    fireEffects:
+      muzzleLight: []
+      muzzleFlashParticle: []
+      muzzleTime: 0
+      enemyHitParticle: {fileID: 0}
+      enviormentHitParticle: {fileID: 0}
+      casing: {fileID: 0}
+  - effectType: 4
+    animators:
+    - {fileID: 5592211720894863163}
     audioClip: {fileID: 0}
     pitch: {x: 1, y: 1}
     fireEffects:
@@ -11451,9 +11500,9 @@ MonoBehaviour:
     m_Bits: 4160
   legAnimator: {fileID: 7827080611456488827}
   enemyHitEffect: {fileID: 6706222889071973999, guid: 78a7c5d209c8f614c87db42f04b3f5a0, type: 3}
-  kickDamage: 50
-  kickCooldown: 0.5
-  kickForce: 2.4
+  kickDamage: 25
+  kickCooldown: 1.75
+  kickForce: 50
   maxKickDistance: 5
   coneRadius: 1.5
   coneAngle: 20
@@ -24636,7 +24685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &789434258140467142
 Transform:
   m_ObjectHideFlags: 0
@@ -29803,6 +29852,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d1bcdf2e4cfef5c4bbbd97b9ebab1175, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d1bcdf2e4cfef5c4bbbd97b9ebab1175, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: d1bcdf2e4cfef5c4bbbd97b9ebab1175, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

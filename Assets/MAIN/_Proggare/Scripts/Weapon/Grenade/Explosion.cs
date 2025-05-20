@@ -142,7 +142,7 @@ public class Explosion : MonoBehaviour
         }
 
         // If Enemy
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemies") && other != null)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemies") && other != null && other.gameObject.activeSelf)
         {
             other.gameObject.GetComponent<EnemyScript>().ApplyDamage(calculatedDamage);
         }

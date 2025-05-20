@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2222186313149272669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6323463752244950216}
+  - component: {fileID: 2753181603239397173}
+  m_Layer: 6
+  m_Name: Trigger Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6323463752244950216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222186313149272669}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8490984561574893533}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2753181603239397173
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222186313149272669}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.1611156
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.042630278, z: 0}
 --- !u!1 &2279033429783417335
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,9 +66,8 @@ GameObject:
   - component: {fileID: 8490984561574893533}
   - component: {fileID: 63763936894920111}
   - component: {fileID: -6219590773927338158}
-  - component: {fileID: 6626324303365333022}
-  - component: {fileID: 2050863992510458941}
   - component: {fileID: 1038778945550318040}
+  - component: {fileID: 2050863992510458941}
   - component: {fileID: -5743900369652418451}
   - component: {fileID: 2731008455430459528}
   m_Layer: 6
@@ -37,6 +91,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2927032252805834532}
+  - {fileID: 6323463752244950216}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &63763936894920111
@@ -84,74 +139,6 @@ CapsuleCollider:
   m_Height: 2.1611156
   m_Direction: 1
   m_Center: {x: 0, y: -0.042630278, z: 0}
---- !u!136 &6626324303365333022
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2279033429783417335}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2.1611156
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.042630278, z: 0}
---- !u!114 &2050863992510458941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2279033429783417335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad8c95614220ac14f9fdbb20899cbe51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bodyParts: []
-  DamageAmount: 20
-  stunTime: 3
-  maxKnockbackVelocity: 5
-  damageCooldown: 2.5
-  headHealth: 50
-  torsoHealth: 100
-  leftArmHealth: 30
-  rightArmHealth: 30
-  currentHealth: 600
-  agro: 0
-  attacking: 0
-  inAttackRange: 0
-  alertAnimationStarted: 0
-  leftArm: {fileID: 0}
-  lostLeftArm: {fileID: 0}
-  rightArm: {fileID: 0}
-  lostRightArm: {fileID: 0}
-  limbLossEffect: {fileID: 0}
-  scoreValue: 20
-  isProjectileEnemy: 0
-  attackDistance: 10
-  minSafeDistance: 4
-  projectilePrefab: {fileID: 0}
-  shootPoint: {fileID: 0}
-  shootCooldown: 2
-  deathSound: {fileID: 8300000, guid: 9f8e108e64886254ea0c4e6f1ec5949f, type: 3}
-  deathSoundVolume: 1
-  deathSoundPriority: 18
-  textures:
-  - {fileID: 2100000, guid: 06fd05217f0cf034eb508e2a3b0e5805, type: 2}
-  - {fileID: 2100000, guid: 02234f1f664884f44ac04f25fb23caa1, type: 2}
-  - {fileID: 2100000, guid: 7c81edf097a5c6e4b97a86179e30780c, type: 2}
 --- !u!54 &1038778945550318040
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -175,10 +162,56 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 80
   m_CollisionDetection: 1
+--- !u!114 &2050863992510458941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2279033429783417335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8c95614220ac14f9fdbb20899cbe51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyParts: []
+  DamageAmount: 20
+  stunTime: 0.6
+  maxKnockbackVelocity: 5
+  damageCooldown: 2.5
+  headHealth: 50
+  torsoHealth: 100
+  leftArmHealth: 30
+  rightArmHealth: 30
+  currentHealth: 600
+  agro: 0
+  attacking: 0
+  inAttackRange: 0
+  alertAnimationStarted: 0
+  isStunned: 0
+  leftArm: {fileID: 0}
+  lostLeftArm: {fileID: 0}
+  rightArm: {fileID: 0}
+  lostRightArm: {fileID: 0}
+  limbLossEffect: {fileID: 0}
+  scoreValue: 20
+  isProjectileEnemy: 0
+  attackDistance: 10
+  minSafeDistance: 4
+  projectilePrefab: {fileID: 0}
+  shootPoint: {fileID: 0}
+  shootCooldown: 2
+  deathSound: {fileID: 8300000, guid: 9f8e108e64886254ea0c4e6f1ec5949f, type: 3}
+  deathSoundVolume: 1
+  deathSoundPriority: 18
+  textures:
+  - {fileID: 2100000, guid: 06fd05217f0cf034eb508e2a3b0e5805, type: 2}
+  - {fileID: 2100000, guid: 02234f1f664884f44ac04f25fb23caa1, type: 2}
+  - {fileID: 2100000, guid: 7c81edf097a5c6e4b97a86179e30780c, type: 2}
 --- !u!114 &-5743900369652418451
 MonoBehaviour:
   m_ObjectHideFlags: 0

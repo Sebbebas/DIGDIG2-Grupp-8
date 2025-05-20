@@ -155,6 +155,8 @@ public class EnemyScript : MonoBehaviour
             if (currentStunTime > 0)
             {
                 currentStunTime -= Time.deltaTime;
+                
+                
             }
             else
             {
@@ -242,34 +244,34 @@ public class EnemyScript : MonoBehaviour
     {
         if (isStunned) return;
 
-        Debug.Log(gameObject.name + " is kicked");
         isStunned = true;
         currentStunTime = stunTime;
 
-        // Temporarily disable NavMeshAgent
+        // Disable NavMeshAgent, enable Rigidbody physics
         if (agent != null)
-        {
             agent.enabled = false;
-        }
+        if (myRigidbody != null)
+            myRigidbody.isKinematic = false;
 
         // Apply knockback force
         if (myRigidbody != null)
         {
-            myRigidbody.linearVelocity = Vector3.zero; // Reset velocity to avoid stacking forces
+            myRigidbody.linearVelocity = Vector3.zero; // Reset velocity
             myRigidbody.AddForce(direction.normalized * maxKnockbackVelocity, ForceMode.Impulse);
         }
 
-        // Re-enable NavMeshAgent after a delay
+        // Re-enable NavMeshAgent after delay
         StartCoroutine(ReenableNavMeshAgent());
     }
 
     private IEnumerator ReenableNavMeshAgent()
     {
-        yield return new WaitForSeconds(0.5f); // Adjust delay as needed
+        yield return new WaitForSeconds(0.5f); // Adjust as needed
+
         if (agent != null)
-        {
             agent.enabled = true;
-        }
+        if (myRigidbody != null)
+            myRigidbody.isKinematic = true;
     }
 
     public void TakeDamage(string bodyPartName, float damage)

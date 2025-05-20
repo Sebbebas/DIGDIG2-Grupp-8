@@ -219,9 +219,8 @@ public class Weapon : MonoBehaviour
     public virtual bool Fire()
     {
         //Check ammo requirements
-        if (needsAmmo && currentAmmo == 0 && reloading == false && waitForReload == false && weaponManager.GetIsSwitching() == false) { Debug.Log("Ammo Needed"); return false; }
-        else if (!needsAmmo && weaponManager.GetIsSwitching() == false) { Debug.Log("No Ammo Needed"); }
-        else { Debug.Log("bug"); }
+        if (needsAmmo && currentAmmo == 0 && reloading == false && waitForReload == false && weaponManager.GetIsSwitching() == false) { /*Debug.Log("Ammo Needed"); */ return false; }
+        else if (!needsAmmo && weaponManager.GetIsSwitching() == false) { /*Debug.Log("No Ammo Needed"); */ }
 
         //Check other requirements
         if (!holdToFire && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false && currentPullOutDelay <= 0)
@@ -636,7 +635,7 @@ public class Weapon : MonoBehaviour
     {
         // Draw a line in the scene view to visualize the weapon range
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * weaponRange);
+        Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.position + transform.forward * weaponRange);
     }
     #endregion
 }
