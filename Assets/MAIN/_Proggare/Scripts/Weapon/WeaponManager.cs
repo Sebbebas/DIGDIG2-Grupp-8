@@ -346,18 +346,18 @@ public class WeaponManager : MonoBehaviour
         if (scrollValue.y < 0)
         {
             //Scrolling up (next weapon)
+            currentWeapon.GetComponent<Weapon>().CancelReload();
+
             currentWeaponInt = (currentWeaponInt + 1) % totalWeapons;
             currentWeapon = WeaponsList[currentWeaponInt];
-
-            currentWeapon.GetComponent<Weapon>().CancelReload();
         }
         else if (scrollValue.y > 0)
         {
             //Scrolling down (previous weapon)
+            currentWeapon.GetComponent<Weapon>().CancelReload();
+
             currentWeaponInt = (currentWeaponInt - 1 + totalWeapons) % totalWeapons;
             currentWeapon = WeaponsList[currentWeaponInt];
-
-            currentWeapon.GetComponent<Weapon>().CancelReload();
         }
 
         StartCoroutine(UpdateWeaponList());

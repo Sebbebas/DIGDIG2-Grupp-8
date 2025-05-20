@@ -28,6 +28,8 @@ public class Melee : Weapon
 
     public void MeleeAttack()
     {
+        return;
+
         Ray weaponRay = new Ray(mainCam.transform.position, mainCam.transform.forward);
         RaycastHit hit = new();
 

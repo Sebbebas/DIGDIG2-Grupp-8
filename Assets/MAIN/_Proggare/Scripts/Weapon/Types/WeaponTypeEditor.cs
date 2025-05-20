@@ -241,6 +241,7 @@ public class WeaponTypeEditor : Editor
                 property.name == "chanceToPlayReloadB" ||
                 property.name == "firedelay" ||
                 property.name == "pullOutDelay" ||
+                property.name == "switchDelay" ||
                 property.name == "hitMask" ||
                 property.name == "weaponRange" ||
                 property.name == "screenShakeDuration" ||

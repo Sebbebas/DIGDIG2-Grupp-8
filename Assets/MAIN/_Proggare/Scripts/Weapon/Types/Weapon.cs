@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.Profiling;
 
 //Seb
 
@@ -97,7 +98,12 @@ public class Weapon : MonoBehaviour
     protected Camera mainCam = null;
 
     //Private Variabels
+    private GameObject soundObject;
+
     private float currentFireDelay;
+    private float currentPullOutDelay; 
+    private float currentSwitchDelay; //Kan legit hämta med weaponManager.GetSwitchCurrentDelay();
+
     private bool reloading = false;
     private bool waitForReload = false;
 
@@ -171,13 +177,16 @@ public class Weapon : MonoBehaviour
         if (currentFireDelay > 0) { currentFireDelay -= Time.deltaTime; }
         else { currentFireDelay = 0; PlayAnimation(EffectType.Fire, "Fire", false); }
 
-        if (weaponManager.GetIsSwitching()) { foreach (Animator animators in animator) { animators.SetTrigger("Switch"); } }
+        if (weaponManager.GetIsSwitching()) { foreach (Animator animators in animator) { animators.SetTrigger("Switch"); currentSwitchDelay = weaponManager.GetSwitchCurrentDelay(); } }
+
+        if (currentPullOutDelay > 0) { currentPullOutDelay -= Time.deltaTime; }
+        else { currentPullOutDelay = 0; }
 
         //Ammo won't go over a certain limit
         if (totalAmmo > maxAmmo) { totalAmmo = maxAmmo; }
 
         //AUTO FIRE
-        if(holdToFire && !buttonIsPressed && animator != null) { foreach (Animator animator in animator) { animator.SetTrigger("StopFire"); } }
+        if(holdToFire && !buttonIsPressed || holdToFire && currentAmmo == 0) { foreach (Animator animator in animator) { if (animator != null) { animator.SetTrigger("StopFire"); } } }
     }
     public void OnEnable()
     {
@@ -190,6 +199,8 @@ public class Weapon : MonoBehaviour
             {
                 pullOutDelay = animator.GetCurrentAnimatorStateInfo(0).length;
             }
+
+            currentPullOutDelay = pullOutDelay;
         }
 
         //Dont Spam the Hierarchy
@@ -204,13 +215,16 @@ public class Weapon : MonoBehaviour
     }
     #endregion
 
+    #region Fire
     public virtual bool Fire()
     {
         //Check ammo requirements
-        if (needsAmmo && currentAmmo == 0 && reloading == false && waitForReload == false && weaponManager.GetIsSwitching() == false) { return false; }
+        if (needsAmmo && currentAmmo == 0 && reloading == false && waitForReload == false && weaponManager.GetIsSwitching() == false) { Debug.Log("Ammo Needed"); return false; }
+        else if (!needsAmmo && weaponManager.GetIsSwitching() == false) { Debug.Log("No Ammo Needed"); }
+        else { Debug.Log("bug"); }
 
         //Check other requirements
-        if (!holdToFire && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false)
+        if (!holdToFire && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false && currentPullOutDelay <= 0)
         {
             //Screen Shake
             screenShake.Shake(screenShakeDuration, screenShakeIntensity);
@@ -227,7 +241,7 @@ public class Weapon : MonoBehaviour
 
             return true;
         }
-        else if (holdToFire && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false)
+        else if (holdToFire && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false && currentPullOutDelay <= 0)
         {
             //Screen Shake
             screenShake.Shake(screenShakeDuration, screenShakeIntensity);
@@ -251,6 +265,7 @@ public class Weapon : MonoBehaviour
         if (currentAmmo == 0) { Reload(); }
         return false;
     }
+    #endregion
 
     #region Reload
     /// <summary>
@@ -335,22 +350,13 @@ public class Weapon : MonoBehaviour
     }
     public void CancelReload()
     {
-        Debug.Log("Reload Cancelled");
-
         //Stop Effects
-        StopCoroutine(EffectsCoroutine(EffectType.Reload));
-        StopCoroutine(ReloadRoutine());
+        StopAllCoroutines();
         reloading = false;
         waitForReload = false;
 
         //Disable the reload sound
-        Transform reloadSoundTransform = transform.Find("ReloadSound");
-        if (reloadSoundTransform != null)
-        {
-            ////////////////////////////////////////////////////////Debug.Log(reloadSoundTransform.gameObject.name);
-            reloadSoundTransform.GetComponent<AudioSource>().Stop();
-            reloadSoundTransform.gameObject.SetActive(false);
-        }
+        Destroy(soundObject);
     }
     #endregion
 
@@ -494,6 +500,8 @@ public class Weapon : MonoBehaviour
 
         //Destroy
         soundFX.GetComponent<AudioSource>().Play();
+
+        soundObject = soundFX;
     }
     #endregion
 
@@ -502,7 +510,6 @@ public class Weapon : MonoBehaviour
     {
         //if(hit.transform.gameObject.tag == "Enemy Head" || hit.transform.tag == "Enemy Torso" || hit.transform.tag == "Enemy Left Arm" || hit.transform.tag == "Enemy Right Arm")
         //{
-        //    Debug.Log("KYS");
         //    hit.transform.SendMessage("PartDetected");
         //}
         if (hit.transform.CompareTag("Grenade"))
@@ -571,14 +578,6 @@ public class Weapon : MonoBehaviour
     }
     #endregion
 
-    public void UpdateSwitchDelay()
-    {
-        if (animator != null)
-        {
-            foreach (Animator animators in animator) { switchDelay = animators.GetCurrentAnimatorStateInfo(0).length; }
-        }
-    }
-
     #region Get / Set
     public bool SetButtonPressed(bool value)
     {
@@ -617,6 +616,7 @@ public class Weapon : MonoBehaviour
     }
     #endregion
 
+    #region Other
     public void AddAmmo(int amount)
     {
         totalAmmo += amount;
@@ -625,11 +625,18 @@ public class Weapon : MonoBehaviour
     {
         StopAllCoroutines();
     }
-
+    public void UpdateSwitchDelay()
+    {
+        if (animator != null)
+        {
+            foreach (Animator animators in animator) { switchDelay = animators.GetCurrentAnimatorStateInfo(0).length; }
+        }
+    }
     private void OnDrawGizmosSelected()
     {
         // Draw a line in the scene view to visualize the weapon range
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * weaponRange);
     }
+    #endregion
 }
