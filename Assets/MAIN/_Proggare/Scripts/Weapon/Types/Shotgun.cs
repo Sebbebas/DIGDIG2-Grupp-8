@@ -18,12 +18,6 @@ public class Shotgun : Weapon
     [SerializeField, Tooltip("Add empty and Loaded Shell Objects")] GameObject[] shellOne;
     [SerializeField, Tooltip("Add empty and Loaded Shell Objects")] GameObject[] shellTwo;
 
-    //[Header("borde flytta till weapon när man ska implementera")]
-    //[SerializeField] private LayerMask headLayer;
-    //[SerializeField] private LayerMask torsoLayer;
-    //[SerializeField] private LayerMask leftArmLayer;
-    //[SerializeField] private LayerMask rightArmLayer;
-
     public new void Start()
     {
         //Call base Method

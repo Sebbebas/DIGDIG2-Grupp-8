@@ -80,12 +80,12 @@ public class WeaponTypeEditor : Editor
         }
 
         //OBS message
-        GUIStyle OBSHeader = new GUIStyle(EditorStyles.boldLabel) { richText = true };
+        GUIStyle OBSHeader = new(EditorStyles.boldLabel) { richText = true };
         EditorGUILayout.LabelField("OBS: <color=yellow>Variables</color> for each Weapon class are at the <color=yellow>bottom</color> under <color=#03fce3>Effects</color>", OBSHeader);
         EditorGUILayout.Space();
 
         //Needs Ammo toggle with color
-        GUIStyle toggleStyle = new GUIStyle(EditorStyles.label) { richText = true };
+        GUIStyle toggleStyle = new(EditorStyles.label) { richText = true };
         string labelColor = needsAmmo.boolValue ? "green" : "red";
         needsAmmo.boolValue = EditorGUILayout.ToggleLeft($"<b><color={labelColor}>Requires Ammo?</color></b>", needsAmmo.boolValue, toggleStyle);
 
@@ -101,8 +101,7 @@ public class WeaponTypeEditor : Editor
             EditorGUILayout.PropertyField(ammoText);
             EditorGUILayout.PropertyField(waitBeforeReload);
             EditorGUILayout.PropertyField(reloadTime);
-            SerializedProperty altReloadChance = serializedObject.FindProperty("chanceToPlayReloadB");
-            EditorGUILayout.Slider(altReloadChance, 0f, 1f, new GUIContent("Chance To Play Reload B"));
+            EditorGUILayout.PropertyField(chanceToPlayReloadB);
             DrawLine(Color.white, 2, 5);
         }
 
@@ -113,7 +112,7 @@ public class WeaponTypeEditor : Editor
 
         EditorGUILayout.Space();
 
-        GUIStyle CollisonHeader = new GUIStyle(EditorStyles.boldLabel) { richText = true };
+        GUIStyle CollisonHeader = new(EditorStyles.boldLabel) { richText = true };
         EditorGUILayout.LabelField("Collision", CollisonHeader);
         Color originalColor = GUI.contentColor;
         GUI.contentColor = LayerMask.intValue == 0 ? Color.red : Color.white;
@@ -152,7 +151,7 @@ public class WeaponTypeEditor : Editor
             SerializedProperty fireEffects = effect.FindPropertyRelative("fireEffects");
 
             //Effect header
-            GUIStyle effectLabelStyle = new GUIStyle(EditorStyles.boldLabel) { richText = true };
+            GUIStyle effectLabelStyle = new(EditorStyles.boldLabel) { richText = true };
             EditorGUILayout.LabelField($"<color=#03fce3>Effect {i + 1}</color>", effectLabelStyle);
             EditorGUILayout.PropertyField(effectType);
             EditorGUILayout.PropertyField(animators, true);
@@ -162,13 +161,13 @@ public class WeaponTypeEditor : Editor
             //Fire Effects foldout
             if (effectType.enumValueIndex == 0) //Fire
             {
-                GUIStyle fireEffectsStyle = new GUIStyle(EditorStyles.foldout) { richText = true };
+                GUIStyle fireEffectsStyle = new(EditorStyles.foldout) { richText = true };
                 fireEffectsFoldouts[i] = EditorGUILayout.Foldout(fireEffectsFoldouts[i], $"<color=#ff4800>Fire Effects</color>", true, fireEffectsStyle);
 
                 if (fireEffectsFoldouts[i])
                 {
                     //"Muzzle Flash" header in yellow
-                    GUIStyle yellowHeaderStyle = new GUIStyle(EditorStyles.boldLabel) { richText = true };
+                    GUIStyle yellowHeaderStyle = new(EditorStyles.boldLabel) { richText = true };
                     EditorGUILayout.LabelField("<color=#ffffff>Muzzle Flash</color>", yellowHeaderStyle);
 
                     //Child properties
@@ -223,7 +222,7 @@ public class WeaponTypeEditor : Editor
         EditorGUILayout.Space();
 
         //Header
-        GUIStyle RR = new GUIStyle(EditorStyles.boldLabel) { richText = true };
+        GUIStyle RR = new(EditorStyles.boldLabel) { richText = true };
         EditorGUILayout.LabelField("<color=magenta> Weapon Variabels", RR);
 
         //Draw all remaining properties (including those from derived classes) that haven't been explicitly drawn
@@ -239,6 +238,7 @@ public class WeaponTypeEditor : Editor
                 property.name == "ammoText" ||
                 property.name == "waitBeforeReload" ||
                 property.name == "reloadTime" ||
+                property.name == "chanceToPlayReloadB" ||
                 property.name == "firedelay" ||
                 property.name == "pullOutDelay" ||
                 property.name == "hitMask" ||

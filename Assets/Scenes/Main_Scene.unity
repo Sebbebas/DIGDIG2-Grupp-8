@@ -11347,7 +11347,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 47074
+    surfaceParameter: 45050
     meshQueryIndex: 1
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -19512,7 +19512,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 47446
+    surfaceParameter: 45460
     meshQueryIndex: 0
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -27810,7 +27810,7 @@ MonoBehaviour:
     meshQuery:
       layers: 33554440
       maskAndChannels: 8
-    surfaceParameter: 47074
+    surfaceParameter: 45050
     meshQueryIndex: 1
     subMeshQueryIndex: 0
     geometryHashValue: 6697303756994825227
@@ -35582,6 +35582,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1873851060454115382, guid: fbbba7c137014dc488b32263b37b7e7b, type: 3}
   m_PrefabInstance: {fileID: 429445789}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1960946066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6141799852556155939, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+  m_PrefabInstance: {fileID: 7552374383914894191}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1960946069
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960946066}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1965371440
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38758,6 +38785,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 207147542}
+    - target: {fileID: 2739033125524869843, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3993436576512176914, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: reloadTime
       value: 1
@@ -38988,7 +39019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7857722470122994707, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: totalAmmo
-      value: 49
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 7857722470122994707, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: switchDelay
@@ -39138,10 +39169,37 @@ PrefabInstance:
       propertyPath: effects.Array.data[4].fireEffects.enemyHitParticle
       value: 
       objectReference: {fileID: 968539807990024189, guid: 78a7c5d209c8f614c87db42f04b3f5a0, type: 3}
+    - target: {fileID: 8830894055059705938, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: switchDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830894055059705938, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: pullOutDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830894055059705938, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: hitMask.m_Bits
+      value: 4160
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830894055059705938, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: effects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830894055059705938, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: effects.Array.data[0].pitch.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830894055059705938, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: effects.Array.data[0].pitch.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6141799852556155939, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1960946069}
     - targetCorrespondingSourceObject: {fileID: 4190044825643255530, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1756836838}

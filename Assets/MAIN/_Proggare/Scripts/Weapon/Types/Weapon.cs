@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 
 //Seb
 
@@ -109,10 +110,18 @@ public class Weapon : MonoBehaviour
     ScreenShake screenShake;
     Animator[] animator;
 
+    //[SerializeField] private LayerMask headLayer;
+    //[SerializeField] private LayerMask torsoLayer;
+    //[SerializeField] private LayerMask leftArmLayer;
+    //[SerializeField] private LayerMask rightArmLayer;
+
     #region Base Methods
     protected void Start()
     {
         weaponManager = GetComponentInParent<WeaponManager>();
+
+        if(weaponManager == null) { Debug.LogError("WeaponManager not found in parent object"); }
+
         animator = GetComponents<Animator>(); 
         animator = GetComponentsInChildren<Animator>();
 
@@ -162,7 +171,7 @@ public class Weapon : MonoBehaviour
         if (currentFireDelay > 0) { currentFireDelay -= Time.deltaTime; }
         else { currentFireDelay = 0; PlayAnimation(EffectType.Fire, "Fire", false); }
 
-        if (weaponManager.GetIsSwitching()) { foreach (Animator animators in animator) { animators.SetTrigger("Switch"); pullOutDelay = animators.GetCurrentAnimatorStateInfo(0).length; } }
+        if (weaponManager.GetIsSwitching()) { foreach (Animator animators in animator) { animators.SetTrigger("Switch"); } }
 
         //Ammo won't go over a certain limit
         if (totalAmmo > maxAmmo) { totalAmmo = maxAmmo; }
@@ -187,7 +196,19 @@ public class Weapon : MonoBehaviour
         if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
 
         //Start Reload?
-        if (reloading || currentAmmo == 0) { StartCoroutine(ReloadRoutine()); }
+        if (reloading || currentAmmo == 0) { StartCoroutine(ReloadAfterPullout()); }
+    }
+    IEnumerator ReloadAfterPullout()
+    {
+        yield return new WaitForSeconds(pullOutDelay);
+        StartCoroutine(ReloadRoutine());
+    }
+    public void UpdateSwitchDelay()
+    {
+        if(animator != null)
+        {
+            foreach (Animator animators in animator) { switchDelay = animators.GetCurrentAnimatorStateInfo(0).length; }
+        }
     }
     public void OnDisable()
     {
@@ -267,21 +288,10 @@ public class Weapon : MonoBehaviour
     {
         //Reload Delay
         waitForReload = true;
-        if (weaponManager.GetIsSwitching() || weaponManager.GetSwitchCurrentDelay() > 0) 
-        { 
-            yield return new WaitForSeconds(waitBeforeReload + switchDelay); 
-        }
-        else 
-        { 
-            yield return new WaitForSeconds(waitBeforeReload);
-        }
-        waitForReload = false;
 
-        //Check if we are switching weapons
-        //while (weaponManager.GetIsSwitching() == true)
-        //{
-        //    yield return null;
-        //}
+        yield return new WaitForSeconds(waitBeforeReload);
+
+        waitForReload = false;
 
         //Before Wait
         reloading = true;

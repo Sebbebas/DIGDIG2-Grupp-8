@@ -134,7 +134,7 @@ public class WeaponManager : MonoBehaviour
         if (kickCooldownActive && currentKickCooldownTime > 0) { currentKickCooldownTime -= Time.deltaTime; }
         else { currentKickCooldownTime = kickCooldown; kickCooldownActive = false; }
 
-        if (currentSwitchTime > 0) { currentSwitchTime -= Time.deltaTime; Debug.Log("Current switch time" + currentSwitchTime); }
+        if (currentSwitchTime > 0) { currentSwitchTime -= Time.deltaTime; }
         else if (currentSwitchTime == 0 && isSwitching){ currentSwitchTime = 0; isSwitching = false; }
     }
     private void OnEnable()
@@ -372,6 +372,14 @@ public class WeaponManager : MonoBehaviour
         //Change Values based on list
         isSwitching = true;
 
+        //Disable the reload sound
+        Transform reloadSoundTransform = currentWeapon.transform.Find("ReloadSound");
+        if (reloadSoundTransform != null)
+        {
+            Debug.Log(reloadSoundTransform.gameObject.name);    
+            reloadSoundTransform.gameObject.SetActive(false);
+        }
+
         //Get the current weapon index
         totalWeapons = WeaponsList.Count;
         currentWeapon = WeaponsList[currentWeaponInt];
@@ -393,6 +401,8 @@ public class WeaponManager : MonoBehaviour
             if (weapon.gameObject != currentWeapon) { weapon.gameObject.SetActive(false); }
             else { weapon.gameObject.SetActive(true); }
         }
+
+        currentWeapon.GetComponent<Weapon>().UpdateSwitchDelay();
 
         isSwitching = false;
 
