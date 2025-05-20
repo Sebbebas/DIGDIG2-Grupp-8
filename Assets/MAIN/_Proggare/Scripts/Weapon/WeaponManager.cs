@@ -348,12 +348,16 @@ public class WeaponManager : MonoBehaviour
             //Scrolling up (next weapon)
             currentWeaponInt = (currentWeaponInt + 1) % totalWeapons;
             currentWeapon = WeaponsList[currentWeaponInt];
+
+            currentWeapon.GetComponent<Weapon>().CancelReload();
         }
         else if (scrollValue.y > 0)
         {
             //Scrolling down (previous weapon)
             currentWeaponInt = (currentWeaponInt - 1 + totalWeapons) % totalWeapons;
             currentWeapon = WeaponsList[currentWeaponInt];
+
+            currentWeapon.GetComponent<Weapon>().CancelReload();
         }
 
         StartCoroutine(UpdateWeaponList());
@@ -371,14 +375,6 @@ public class WeaponManager : MonoBehaviour
 
         //Change Values based on list
         isSwitching = true;
-
-        //Disable the reload sound
-        Transform reloadSoundTransform = currentWeapon.transform.Find("ReloadSound");
-        if (reloadSoundTransform != null)
-        {
-            Debug.Log(reloadSoundTransform.gameObject.name);    
-            reloadSoundTransform.gameObject.SetActive(false);
-        }
 
         //Get the current weapon index
         totalWeapons = WeaponsList.Count;

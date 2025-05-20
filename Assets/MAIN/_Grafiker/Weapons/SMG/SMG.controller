@@ -297,7 +297,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SMG_right
+  m_Name: SMG
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Fire
@@ -401,13 +401,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -2871030895954784854}
-    m_Position: {x: 80, y: 580, z: 0}
+    m_Position: {x: 170, y: 560, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6448262064816736995}
-    m_Position: {x: -40, y: 360, z: 0}
+    m_Position: {x: -170, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5466490515331528772}
-    m_Position: {x: 280, y: 410, z: 0}
+    m_Position: {x: 60, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8849172180094307292}
     m_Position: {x: 270, y: 180, z: 0}
@@ -416,15 +416,15 @@ AnimatorStateMachine:
     m_Position: {x: 290, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6844381057747324831}
-    m_Position: {x: 710, y: 260, z: 0}
+    m_Position: {x: 580, y: 320, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -120, y: 160, z: 0}
-  m_EntryPosition: {x: -120, y: 120, z: 0}
-  m_ExitPosition: {x: -120, y: 80, z: 0}
+  m_AnyStatePosition: {x: -170, y: 150, z: 0}
+  m_EntryPosition: {x: -170, y: 110, z: 0}
+  m_ExitPosition: {x: -170, y: 70, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -352830567499795045}
 --- !u!1101 &5732097040825160809

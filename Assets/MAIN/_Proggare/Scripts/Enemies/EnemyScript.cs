@@ -203,6 +203,8 @@ public class EnemyScript : MonoBehaviour
 
     public void TryAttackPlayer()
     {
+        if (isDead || this == null) return;
+
         if (!inAttackRange || isStunned) { return; }
 
         PlayerHealth playerHealth = FindFirstObjectByType<PlayerHealth>();

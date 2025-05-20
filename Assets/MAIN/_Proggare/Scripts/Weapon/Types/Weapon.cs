@@ -126,7 +126,7 @@ public class Weapon : MonoBehaviour
         animator = GetComponentsInChildren<Animator>();
 
         //Warning
-        Debug.LogWarning("Weapon.cs is a base class for all weapons, please use the derived classes instead.");
+        //Debug.LogWarning("Weapon.cs is a base class for all weapons, please use the derived classes instead.");
 
         //Check if pitch has a value
         foreach (var effect in effects)
@@ -198,25 +198,12 @@ public class Weapon : MonoBehaviour
         //Start Reload?
         if (reloading || currentAmmo == 0) { StartCoroutine(ReloadAfterPullout()); }
     }
-    IEnumerator ReloadAfterPullout()
-    {
-        yield return new WaitForSeconds(pullOutDelay);
-        StartCoroutine(ReloadRoutine());
-    }
-    public void UpdateSwitchDelay()
-    {
-        if(animator != null)
-        {
-            foreach (Animator animators in animator) { switchDelay = animators.GetCurrentAnimatorStateInfo(0).length; }
-        }
-    }
     public void OnDisable()
     {
         StopAllWeaponCorutines();
     }
     #endregion
 
-    
     public virtual bool Fire()
     {
         //Check ammo requirements
@@ -340,6 +327,30 @@ public class Weapon : MonoBehaviour
 
         reloading = false;
         return true;
+    }
+    IEnumerator ReloadAfterPullout()
+    {
+        yield return new WaitForSeconds(pullOutDelay);
+        StartCoroutine(ReloadRoutine());
+    }
+    public void CancelReload()
+    {
+        Debug.Log("Reload Cancelled");
+
+        //Stop Effects
+        StopCoroutine(EffectsCoroutine(EffectType.Reload));
+        StopCoroutine(ReloadRoutine());
+        reloading = false;
+        waitForReload = false;
+
+        //Disable the reload sound
+        Transform reloadSoundTransform = transform.Find("ReloadSound");
+        if (reloadSoundTransform != null)
+        {
+            ////////////////////////////////////////////////////////Debug.Log(reloadSoundTransform.gameObject.name);
+            reloadSoundTransform.GetComponent<AudioSource>().Stop();
+            reloadSoundTransform.gameObject.SetActive(false);
+        }
     }
     #endregion
 
@@ -559,6 +570,14 @@ public class Weapon : MonoBehaviour
         }
     }
     #endregion
+
+    public void UpdateSwitchDelay()
+    {
+        if (animator != null)
+        {
+            foreach (Animator animators in animator) { switchDelay = animators.GetCurrentAnimatorStateInfo(0).length; }
+        }
+    }
 
     #region Get / Set
     public bool SetButtonPressed(bool value)
