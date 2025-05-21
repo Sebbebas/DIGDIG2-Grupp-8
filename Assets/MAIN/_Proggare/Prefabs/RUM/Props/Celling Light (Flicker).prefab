@@ -170,7 +170,7 @@ MonoBehaviour:
   lightSource: {fileID: 0}
   minIntensity: 0
   maxIntensity: 150
-  flickerSpeed: 0
+  flickerSpeed: 2
 --- !u!1 &4822030811984278007
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   lightSource: {fileID: 4699732702864966110}
   minIntensity: 0
   maxIntensity: 150
-  flickerSpeed: 0
+  flickerSpeed: 2
 --- !u!1001 &1889618609164636618
 PrefabInstance:
   m_ObjectHideFlags: 0

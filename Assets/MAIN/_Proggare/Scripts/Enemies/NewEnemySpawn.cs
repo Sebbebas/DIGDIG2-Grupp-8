@@ -6,12 +6,12 @@ using UnityEngine.AI;
 public class NewEnemySpawn : MonoBehaviour
 {
     [SerializeField] GameObject[] enemies;
-    [SerializeField] GameObject[] spawnsPositions;
     [SerializeField] Transform player;
 
-    [SerializeField] int spawnCount;
-    [SerializeField] int spawnRadius;
-    [SerializeField] float agroRange;
+    [SerializeField] int minSpawnCount = 2;
+    [SerializeField] int maxSpawnCount = 5;
+    [SerializeField] float spawnRadius = 5f;
+    [SerializeField] float sightRadius = 35f;
     [SerializeField, Tooltip("Radius for the hitbox")] float hitRadius = 2; 
     [SerializeField, Tooltip("Time it takes to attack")] float attackTime = 2f; 
 
@@ -59,9 +59,28 @@ public class NewEnemySpawn : MonoBehaviour
         Debug.Log($"Updated aggro count: {agroZombies.Count}");
     }
 
+    private void Start()
+    {
+        SpawnEnemies();
+    }
+
+    void SpawnEnemies()
+    {
+        if (enemies == null || enemies.Length == 0) { return; }
+
+        int enemyCount = Random.Range(minSpawnCount, maxSpawnCount + 1);
+
+        for (int i = 0; i < enemyCount; i++)
+        {
+            Vector3 randomPosition = GetRandomPos();
+            GameObject randomEnemy = GetRandomEnemyPrefab();
+            Instantiate(randomEnemy, randomPosition, Quaternion.identity);
+        }
+    }
+
     void EnemyMovement()
     {
-        foreach (GameObject enemy in zombieList)
+        foreach (GameObject enemy in enemies)
         {
             if (enemy != null)
             {
@@ -79,8 +98,10 @@ public class NewEnemySpawn : MonoBehaviour
                     }
 
                     //If the enemy has spotted the player
-                    if (enemyScript.GetAgro())
+                    if (enemyScript.GetAgro() && !enemyScript.GetStunned())
                     {
+                        animator.ResetTrigger("Idel");
+
                         //If agro is true, move towards the player
                         float distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
 
@@ -122,22 +143,29 @@ public class NewEnemySpawn : MonoBehaviour
                         {
                             animator.SetTrigger("Walk");
                         }
-                        else if (distanceToPlayer <= agroRange && !enemyScript.GetInAttackRange() && !enemyScript.GetAttacking() && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AttackLeft" && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AttackRight")
+                        else if (distanceToPlayer <= sightRadius && !enemyScript.GetInAttackRange() && !enemyScript.GetAttacking() && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AttackLeft" && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AttackRight")
                         {
                             agent.speed = enemyScript.GetOriginalSpeed();
                             agent.SetDestination(player.position);
                             animator.SetTrigger("Walk");
                         }
                     }
+                    else if (enemyScript.GetAgro() && enemyScript.GetStunned())
+                    {
+                        //If the enemy is stunned, stop moving
+                        animator.ResetTrigger("Walk");
+                        animator.SetTrigger("Idel");
+                        agent.ResetPath();
+                    }
                     else
                     {
                         //Get direction to the player
                         Vector3 directionToPlayer = (player.position - enemy.transform.position).normalized;
 
-                        // Perform a raycast from the enemy to the player, ignoring the layers specified in agroIgnoreLayers
-                        if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit, agroRange, ~agroIgnoreLayers))
+                        //Perform a raycast from the enemy to the player, ignoring the layers specified in agroIgnoreLayers
+                        if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit, sightRadius, ~agroIgnoreLayers))
                         {
-                            // Check if the raycast hit the player
+                            //Check if the raycast hit the player
                             if (hit.transform == player)
                             {
                                 //Play enemy alert animation
@@ -155,6 +183,21 @@ public class NewEnemySpawn : MonoBehaviour
         }
     }
 
+    Vector3 GetRandomPos()
+    {
+        Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
+        Vector3 spawnPos = new Vector3(randomCircle.x, 0, randomCircle.y);
+        spawnPos += transform.position;
+        return spawnPos;
+    }
+
+    GameObject GetRandomEnemyPrefab()
+    {
+        int index = Random.Range(0, enemies.Length);
+        return enemies[index];
+
+    }
+
     IEnumerator AttackingRoutine(EnemyScript enemyScript, float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -167,13 +210,39 @@ public class NewEnemySpawn : MonoBehaviour
         yield return new WaitForSeconds(waitTime / 2);
         enemyScript.SetAgro(true);
     }
-    void spawnRandomEnemy()
+
+    void ApplyKnockback(GameObject enemy, Vector3 direction, float force)
     {
-        
+        if (enemy == null) return;
+
+        // Get references to the enemy's components
+        NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+        Rigidbody enemyRigidbody = enemy.GetComponent<Rigidbody>();
+        EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
+
+        if (enemyScript == null || enemyRigidbody == null || agent == null) return;
+
+        // Temporarily disable NavMeshAgent to allow physics-based knockback
+        agent.enabled = false;
+
+        // Apply knockback force
+        enemyRigidbody.AddForce(direction.normalized * force, ForceMode.Impulse);
+
+        // Re-enable NavMeshAgent after a delay
+        StartCoroutine(ReenableNavMeshAgent(agent));
+    }
+
+    IEnumerator ReenableNavMeshAgent(NavMeshAgent agent)
+    {
+        yield return new WaitForSeconds(0.5f); // Adjust delay as needed
+        agent.enabled = true;
     }
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
+
         // Draw raycasts for each enemy
         Gizmos.color = Color.magenta;
         foreach (GameObject enemy in zombieList)
@@ -181,7 +250,7 @@ public class NewEnemySpawn : MonoBehaviour
             if (enemy != null)
             {
                 Vector3 directionToPlayer = (player.position - enemy.transform.position).normalized;
-                if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit, agroRange))
+                if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit, sightRadius))
                 {
                     // Draw a line from the enemy to the hit point
                     Gizmos.DrawLine(enemy.transform.position, hit.point);
