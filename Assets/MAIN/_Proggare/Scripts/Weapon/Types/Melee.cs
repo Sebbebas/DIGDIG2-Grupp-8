@@ -36,26 +36,14 @@ public class Melee : Weapon
 
         if (Physics.Raycast(weaponRay, out hit, weaponRange, hitMask))
         {
-            Vector3 hitPosition = hit.point;
             Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
+            Vector3 direction = (hitRotation * Vector3.forward).normalized;
 
             // Apply damage (existing logic)
-            HitDetection(hit, weaponRay, damage);
-
-            // --- Begin Kick Logic Integration ---
+            base.HitDetection(hit, weaponRay, damage);
 
             // Apply force if the hit object has a Rigidbody
-            Rigidbody rb = hit.collider.attachedRigidbody;
-            if (rb != null && !rb.isKinematic)
-            {
-                // Use a force value similar to kickForce from WeaponManager, or define your own
-                float meleeForce = 2.4f; // You can expose this as a [SerializeField] if needed
-                rb.AddForce(mainCam.transform.forward * meleeForce, ForceMode.Impulse);
-            }
-
-            // Optionally, you can implement a cooldown for melee attacks here if desired
-            // (not shown, as your Weapon base class may already handle fire delays)
-            // --- End Kick Logic Integration ---
+            if (hit.transform.GetComponent<EnemyScript>()) { hit.transform.GetComponent<EnemyScript>().TakeKnockback(-direction); }
         }
     }
 }

@@ -20,19 +20,20 @@ public class WeaponTypeEditor : Editor
     SerializedProperty reloadTime;
     SerializedProperty chanceToPlayReloadB;
     SerializedProperty firedelay;
-    SerializedProperty pullOutDelay;
     SerializedProperty switchDelay;
+    SerializedProperty pullOutDelay;
     SerializedProperty LayerMask;
     SerializedProperty weaponRange;
-    SerializedProperty flashLight;
-    SerializedProperty antiHierarchySpam;
     SerializedProperty screenShakeDuration;
     SerializedProperty screenShakeIntensity;
+    SerializedProperty flashLight;
+    SerializedProperty antiHierarchySpam;
     #endregion
 
     #region OnEnable
     private void OnEnable()
     {
+        needsAmmo = serializedObject.FindProperty("needsAmmo");
         currentAmmo = serializedObject.FindProperty("currentAmmo");
         totalAmmo = serializedObject.FindProperty("totalAmmo");
         magSize = serializedObject.FindProperty("magSize");
@@ -50,7 +51,6 @@ public class WeaponTypeEditor : Editor
         screenShakeIntensity = serializedObject.FindProperty("screenShakeIntensity");
         flashLight = serializedObject.FindProperty("flashLight");
         antiHierarchySpam = serializedObject.FindProperty("antiHierarchySpam");
-        needsAmmo = serializedObject.FindProperty("needsAmmo");
     }
     #endregion
 

@@ -5177,8 +5177,8 @@ MonoBehaviour:
   reloadTime: 3
   chanceToPlayReloadB: 0
   firedelay: 0.7
-  pullOutDelay: 0
-  switchDelay: 0
+  pullOutDelay: 0.5
+  switchDelay: 0.5
   hitMask:
     serializedVersion: 2
     m_Bits: 4160
@@ -5197,7 +5197,7 @@ MonoBehaviour:
       muzzleLight: []
       muzzleFlashParticle: []
       muzzleTime: 0
-      enemyHitParticle: {fileID: 0}
+      enemyHitParticle: {fileID: 968539807990024189, guid: 78a7c5d209c8f614c87db42f04b3f5a0, type: 3}
       enviormentHitParticle: {fileID: 0}
       casing: {fileID: 0}
   - effectType: 1
@@ -5248,7 +5248,7 @@ MonoBehaviour:
       enemyHitParticle: {fileID: 0}
       enviormentHitParticle: {fileID: 0}
       casing: {fileID: 0}
-  damage: 10
+  damage: 150
 --- !u!95 &5592211720894863163
 Animator:
   serializedVersion: 7
@@ -12647,7 +12647,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4327374827836331831}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -12726,13 +12726,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 2.5
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!114 &688838284348425957
 MonoBehaviour:
   m_ObjectHideFlags: 0

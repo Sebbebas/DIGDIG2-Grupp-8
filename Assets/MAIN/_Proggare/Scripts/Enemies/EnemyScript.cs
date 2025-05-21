@@ -223,12 +223,12 @@ public class EnemyScript : MonoBehaviour
                 Vector3 knockback = knockbackDirection * maxKnockbackVelocity;
 
                 // Use a coroutine to apply knockback over time
-                StartCoroutine(ApplyKnockback(playerController, knockback));
+                StartCoroutine(ApplyKnockbackPlayer(playerController, knockback));
             }
         }
     }
 
-    private IEnumerator ApplyKnockback(CharacterController playerController, Vector3 knockback)
+    private IEnumerator ApplyKnockbackPlayer(CharacterController playerController, Vector3 knockback)
     {
         float knockbackDuration = 0.2f; // Duration of the knockback effect
         float elapsedTime = 0f;
@@ -240,7 +240,7 @@ public class EnemyScript : MonoBehaviour
             yield return null;
         }
     }
-    public void Kicked(Vector3 direction)
+    public void TakeKnockback(Vector3 direction)
     {
         if (isStunned) return;
 
@@ -256,7 +256,7 @@ public class EnemyScript : MonoBehaviour
         // Apply knockback force
         if (myRigidbody != null)
         {
-            myRigidbody.linearVelocity = Vector3.zero; // Reset velocity
+            myRigidbody.linearVelocity = Vector3.zero;
             myRigidbody.AddForce(direction.normalized * maxKnockbackVelocity, ForceMode.Impulse);
         }
 

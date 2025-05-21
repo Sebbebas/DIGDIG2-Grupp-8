@@ -265,7 +265,7 @@ public class WeaponManager : MonoBehaviour
                 //Gameobject Logic
                 if (hit.transform.GetComponent<EnemyScript>() != null) 
                 { 
-                    hit.transform.GetComponent<EnemyScript>().Kicked(direction * kickForce);
+                    hit.transform.GetComponent<EnemyScript>().TakeKnockback(direction * kickForce);
                     hit.transform.GetComponent<EnemyScript>().ApplyDamage(kickDamage);
 
                     Instantiate(enemyHitEffect, hit.transform.position, Quaternion.identity);
@@ -280,7 +280,7 @@ public class WeaponManager : MonoBehaviour
         }
         //foreach (var obj in kickedObjects)
         //{
-        //    Debug.Log("Kicked Object: " + obj.name);
+        //    Debug.Log("TakeKnockback Object: " + obj.name);
         //}
     }
 

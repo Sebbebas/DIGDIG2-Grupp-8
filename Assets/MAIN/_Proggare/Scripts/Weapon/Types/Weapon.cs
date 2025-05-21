@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
-using Unity.Profiling;
 
 //Seb
 
@@ -158,6 +156,8 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
+        Debug.Log(needsAmmo);
+
         //Update the ammo UI when the gun is enabled
         if (gameObject.activeSelf && ammoText != null) 
         {
@@ -165,9 +165,13 @@ public class Weapon : MonoBehaviour
             {
                 ammoText.text = totalAmmo.ToString();
             }
-            else
+            else if (needsAmmo)
             {
                 ammoText.text = currentAmmo + " / " + totalAmmo;
+            }
+            else
+            {
+                ammoText.text = " ";
             }
         }
         //Dont Spam the Hierarchy
