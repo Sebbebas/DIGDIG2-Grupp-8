@@ -276,8 +276,8 @@ public class WeaponTypeEditor : Editor
                 property.name == "switchDelay" ||
                 property.name == "hitMask" ||
                 property.name == "weaponRange" ||
-                property.name == "screshakeOnFire" ||
-                property.name == "screenShakeOnHit" ||
+                property.name == "shakeOnFire" ||
+                property.name == "shakeOnHit" ||
                 property.name == "screenShakeDuration" ||
                 property.name == "screenShakeIntensity" ||
                 property.name == "flashLight" ||

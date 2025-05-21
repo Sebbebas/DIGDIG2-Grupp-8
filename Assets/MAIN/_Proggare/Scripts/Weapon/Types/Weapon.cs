@@ -320,11 +320,11 @@ public class Weapon : MonoBehaviour
         }
     }
     #endregion
-
-        #region Reload
-        /// <summary>
-        /// Try to initiate a realod
-        /// </summary>
+    
+    #region Reload
+    /// <summary>
+    /// Try to initiate a realod
+    /// </summary>
     public virtual bool Reload()
     {
         //Check if we can Reload
@@ -677,10 +677,18 @@ public class Weapon : MonoBehaviour
     #endregion
 
     #region Other
+    //Used in loot drops
     public void AddAmmo(int amount)
     {
         totalAmmo += amount;
     }
+
+    public void StartShake(float duration, float intensity)
+    {
+        screenShake.Shake(duration, intensity);
+    }
+
+    //Used in WeaponManager
     public void StopAllWeaponCorutines()
     {
         StopAllCoroutines();
@@ -692,6 +700,8 @@ public class Weapon : MonoBehaviour
             foreach (Animator animators in animator) { switchDelay = animators.GetCurrentAnimatorStateInfo(0).length; }
         }
     }
+
+    //Draw Gizmos
     private void OnDrawGizmosSelected()
     {
         // Draw a line in the scene view to visualize the weapon range

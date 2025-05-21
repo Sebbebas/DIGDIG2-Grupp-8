@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Collections;
 
-//Sebbe
+//Seb
 
 public class WeaponManager : MonoBehaviour
 {
@@ -224,6 +224,8 @@ public class WeaponManager : MonoBehaviour
         }
     }
     #endregion
+
+    #region Kick
     public void OnKick(InputAction.CallbackContext context)
     {
         if (kickCooldownActive) { return; }
@@ -294,6 +296,7 @@ public class WeaponManager : MonoBehaviour
         kickSoundObject.GetComponent<AudioSource>().pitch = Random.Range(kickSoundPitch.x, kickSoundPitch.y);
         Instantiate(kickSoundObject, transform.position, Quaternion.identity);
     }
+    #endregion
 
     #region Grenade
     void OnThrow(InputAction.CallbackContext context)
@@ -434,7 +437,8 @@ public class WeaponManager : MonoBehaviour
             Gizmos.DrawLine(kickOrigin, kickOrigin + direction * maxKickDistance);
         }
     }
-    
+
+    #region Get / Set
     public float GetSwitchCurrentDelay()
     {
         return currentSwitchTime;
@@ -451,5 +455,5 @@ public class WeaponManager : MonoBehaviour
     {
         return WeaponsList;
     }
-
+    #endregion
 }

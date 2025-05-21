@@ -402,7 +402,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2243813229227983095}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadSceneNumber
         m_Mode: 3
@@ -4705,7 +4705,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2243813229227983095}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadSceneNumber
         m_Mode: 3
@@ -5254,7 +5254,7 @@ MonoBehaviour:
       enemyHitParticle: {fileID: 0}
       enviormentHitParticle: {fileID: 0}
       casing: {fileID: 0}
-  hitSound: {fileID: 0}
+  meleeHitSound: {fileID: 8300000, guid: 9f8e108e64886254ea0c4e6f1ec5949f, type: 3}
   damage: 150
 --- !u!95 &5592211720894863163
 Animator:

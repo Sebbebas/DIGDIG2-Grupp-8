@@ -1,7 +1,7 @@
 using UnityEngine;
-using TMPro;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class LootDrops : MonoBehaviour
 {
@@ -42,11 +42,11 @@ public class LootDrops : MonoBehaviour
 
     //Chached References
     Destroy destroy;
-    WeaponManager WeaponManager;
+    WeaponManager weaponManager;
 
     private void Start()
     {
-        WeaponManager = FindFirstObjectByType<WeaponManager>();
+        weaponManager = FindFirstObjectByType<WeaponManager>();
 
         // Locate the player object
         GameObject player = FindFirstObjectByType<PlayerHealth>().gameObject;
@@ -93,7 +93,6 @@ public class LootDrops : MonoBehaviour
 
         PlayerController playerController = other.GetComponent<PlayerController>();
         PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-        WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
 
         if (playerHealth == null) return;
 
@@ -139,12 +138,12 @@ public class LootDrops : MonoBehaviour
                 //Add ammo to all Weapon's
                 foreach (var weapon in weaponManager.GetCurrentWeaponList())
                 {
-                    Weapon weaponComponent = weapon.GetComponent<Weapon>();
+                    Weapon weaponComp = weapon.GetComponent<Weapon>();
 
-                    if (weapon != null && weaponComponent && weaponComponent && weaponComponent.needsAmmo)
+                    if (weapon != null && weaponComp && weaponComp.needsAmmo)
                     {
-                        if (weaponComponent.maxAmmo >= weaponComponent.totalAmmo + weaponComponent.ammoFromPickup) { weaponComponent.AddAmmo(weaponComponent.ammoFromPickup); }
-                        else { weaponComponent.AddAmmo(weaponComponent.maxAmmo - weaponComponent.totalAmmo); }
+                        if (weaponComp.maxAmmo >= weaponComp.totalAmmo + weaponComp.ammoFromPickup) { weaponComp.AddAmmo(weaponComp.ammoFromPickup); }
+                        else { weaponComp.AddAmmo(weaponComp.maxAmmo - weaponComp.totalAmmo); }
                     }
                 }
                 break;

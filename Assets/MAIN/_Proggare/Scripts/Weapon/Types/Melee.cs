@@ -8,18 +8,13 @@ public class Melee : Weapon
     //USING CUSTOM EDITOR SCRIPT
 
     [Header("Melee")]
-    [SerializeField] AudioClip hitSound;
+    [SerializeField] AudioClip meleeHitSound;
     [SerializeField] int damage = 10;
-
-    //Chaced References
-    ScreenShake screenShake;
 
     public new void Start()
     {
         base.Start();
         SetIsHoldToFire(false);
-
-        screenShake = FindFirstObjectByType<ScreenShake>();
     }
 
     public override bool Fire()
@@ -53,18 +48,18 @@ public class Melee : Weapon
             { 
                 hit.transform.GetComponent<EnemyScript>().TakeKnockback(-direction);
 
-                if (shakeOnHit) { screenShake.Shake(screenShakeDuration, screenShakeIntensity); }
+                if (shakeOnHit) { StartShake(screenShakeDuration, screenShakeIntensity); }
 
                 //Object
                 GameObject hitSpawnSoundObject = new();
 
                 //Destroy
                 hitSpawnSoundObject.AddComponent<Destroy>();
-                hitSpawnSoundObject.GetComponent<Destroy>().SetAliveTime(hitSound.length);
+                hitSpawnSoundObject.GetComponent<Destroy>().SetAliveTime(meleeHitSound.length);
 
                 //Audio
                 hitSpawnSoundObject.AddComponent<AudioSource>();
-                hitSpawnSoundObject.GetComponent<AudioSource>().clip = hitSound;
+                hitSpawnSoundObject.GetComponent<AudioSource>().clip = meleeHitSound;
                 hitSpawnSoundObject.GetComponent<AudioSource>().Play();
 
                 //Spawn Object
