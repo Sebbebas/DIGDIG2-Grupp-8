@@ -76,7 +76,7 @@ public class WeaponMovement : MonoBehaviour
         // Only apply bobbing when the player is moving
         if (moveSpeed > 0.1f)
         {
-            // Increase the timer based on time and bob frequency
+            // Increase the invisTimer based on time and bob frequency
             timer += Time.deltaTime * bobFrequency;
             float bobOffset = Mathf.Sin(timer) * bobAmplitude;
 

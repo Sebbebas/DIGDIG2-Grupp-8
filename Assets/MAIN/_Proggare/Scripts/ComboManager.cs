@@ -70,7 +70,7 @@ public class ComboManager : MonoBehaviour
             }
         }
 
-        // Update the multiplier kill timer
+        // Update the multiplier kill invisTimer
         if (multiplierKillTimer > 0)
         {
             multiplierKillTimer -= Time.deltaTime;

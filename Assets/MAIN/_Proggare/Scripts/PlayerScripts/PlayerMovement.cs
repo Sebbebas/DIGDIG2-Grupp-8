@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
             jumpVelocity.y = -2f;
         }
 
-        //Decreases the sliding cooldown timer
+        //Decreases the sliding cooldown invisTimer
         if (slideCooldownTimer > 0f)
         {
             slideCooldownTimer -= Time.deltaTime;

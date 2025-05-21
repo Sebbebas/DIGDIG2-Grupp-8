@@ -402,7 +402,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2243813229227983095}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadSceneNumber
         m_Mode: 3
@@ -4704,7 +4704,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2243813229227983095}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadSceneNumber
         m_Mode: 3
@@ -5187,8 +5187,8 @@ MonoBehaviour:
   weaponRange: 6
   shakeOnFire: 1
   shakeOnHit: 0
-  screenShakeDuration: 0.1
-  screenShakeIntensity: 0.1
+  screenShakeDuration: 0
+  screenShakeIntensity: 0
   flashLight: {fileID: 0}
   antiHierarchySpam: {fileID: 0}
   effects:
@@ -12804,7 +12804,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4327374827836331831}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 998281363c820874489c70bdcef46117, type: 3}
   m_Name: 
@@ -12849,7 +12849,7 @@ MonoBehaviour:
   stage3Image: {fileID: 5611483598402526755}
   stage4Image: {fileID: 9035714726967299972}
   pulseEffect: {fileID: 962146397369349844}
-  timer: 0.3
+  invisTimer: 0.75
   deathScreen: {fileID: 1599361559161808016}
   takeDamageSoundClip:
   - {fileID: 8300000, guid: 1020855ad6f3311439291251708811e3, type: 3}
@@ -27770,7 +27770,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 261111
+    m_Bits: 195575
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8600000, guid: a0ece16564e6b9e4f8b3378914892a89, type: 2}
   m_TargetDisplay: 0

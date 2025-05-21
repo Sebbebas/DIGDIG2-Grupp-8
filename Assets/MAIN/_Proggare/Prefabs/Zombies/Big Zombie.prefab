@@ -204,7 +204,7 @@ MonoBehaviour:
   minSafeDistance: 4
   projectilePrefab: {fileID: 0}
   shootPoint: {fileID: 0}
-  shootCooldown: 2
+  shootCooldown: 1.5
   deathSound: {fileID: 8300000, guid: 9f8e108e64886254ea0c4e6f1ec5949f, type: 3}
   deathSoundVolume: 1
   deathSoundPriority: 18

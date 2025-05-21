@@ -64,6 +64,11 @@ public class NewEnemySpawn : MonoBehaviour
         SpawnEnemies();
     }
 
+    private void Update()
+    {
+        EnemyMovement();
+    }
+
     void SpawnEnemies()
     {
         if (enemies == null || enemies.Length == 0) { return; }
@@ -74,13 +79,15 @@ public class NewEnemySpawn : MonoBehaviour
         {
             Vector3 randomPosition = GetRandomPos();
             GameObject randomEnemy = GetRandomEnemyPrefab();
-            Instantiate(randomEnemy, randomPosition, Quaternion.identity);
+            GameObject newEnemy = Instantiate(randomEnemy, randomPosition, Quaternion.identity);
+
+            zombieList.Add(newEnemy);
         }
     }
 
     void EnemyMovement()
     {
-        foreach (GameObject enemy in enemies)
+        foreach (GameObject enemy in zombieList)
         {
             if (enemy != null)
             {

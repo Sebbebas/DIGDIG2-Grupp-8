@@ -49,7 +49,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 8.5
+  m_Speed: 8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -169,7 +169,7 @@ MonoBehaviour:
   minSafeDistance: 4
   projectilePrefab: {fileID: 0}
   shootPoint: {fileID: 0}
-  shootCooldown: 2
+  shootCooldown: 1
   deathSound: {fileID: 8300000, guid: 9f8e108e64886254ea0c4e6f1ec5949f, type: 3}
   deathSoundVolume: 1
   deathSoundPriority: 26

@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject stage4Image;
     [SerializeField] GameObject pulseEffect;
 
-    [SerializeField] float timer = 60f;
+    [SerializeField] float invisTimer = 60f;
 
     [SerializeField] GameObject deathScreen;
 
@@ -213,7 +213,7 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator TakeDamageTimer()
     {
         takesDamage = true;
-        yield return new WaitForSeconds(timer);
+        yield return new WaitForSeconds(invisTimer);
         takesDamage = false;
     }
     public bool GetTakeDamage()
