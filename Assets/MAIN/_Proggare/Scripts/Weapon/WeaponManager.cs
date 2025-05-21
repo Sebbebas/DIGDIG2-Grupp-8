@@ -15,7 +15,6 @@ public class WeaponManager : MonoBehaviour
     [SerializeField, Tooltip("Current weapon gameobject")] GameObject currentWeapon;
     [SerializeField, Tooltip("A list of all the weapon gameobjects")] List<GameObject> WeaponsList = new List<GameObject>();
 
-    ///////////////////////////////////////////////////////////////////////////WIP
     [Header("Kick")]
     [SerializeField] LayerMask kickLayerMask;
     [SerializeField] Animator legAnimator;
@@ -29,9 +28,9 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] float kickCooldown = 0.5f;
     [SerializeField] float kickForce = 2.4f;
-    [SerializeField] float maxKickDistance = 3f; //Max distance of the detection
-    [SerializeField] float coneRadius = 1.5f; //Radius of the sphere cast
-    [SerializeField] float coneAngle = 20f; //Angle of the cone
+    [SerializeField] float maxKickDistance = 3f;
+    [SerializeField] float coneRadius = 1.5f;
+    [SerializeField] float coneAngle = 20f;
     [SerializeField] int coneResolution = 5;
 
     [Space]
@@ -40,7 +39,6 @@ public class WeaponManager : MonoBehaviour
     [SerializeField, Range(0, 1)] float kickSoundVolume = 1f;
     [SerializeField, Range(0, 256)] int kickSoundPriority = 256;
     [SerializeField] Vector2 kickSoundPitch;
-    ////////////////////////////////////////////////////////////////////
 
     [Header("Screen Shake")]
     [SerializeField] float screenShakeDuration = 0.1f;

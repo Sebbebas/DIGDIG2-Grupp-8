@@ -49132,7 +49132,7 @@ MonoBehaviour:
     meshQuery:
       layers: 16777223
       maskAndChannels: 234881031
-    surfaceParameter: 45458
+    surfaceParameter: 45464
     meshQueryIndex: 0
     subMeshQueryIndex: 0
     geometryHashValue: -5677804606063320333
@@ -54027,6 +54027,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7789529859971171444, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830894055059705938, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: screenShakeDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830894055059705938, guid: 6b9e158f75474ac49817cf5a5ad91056, type: 3}
+      propertyPath: screenShakeIntensity
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

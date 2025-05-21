@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using TMPro;
 
@@ -46,6 +46,8 @@ public class Weapon : MonoBehaviour
     public float weaponRange = 100f;
 
     [Header("Screen Shake")]
+    public bool shakeOnFire = true;
+    public bool shakeOnHit = false;
     public float screenShakeDuration = 0.1f;
     public float screenShakeIntensity = 0.1f;
 
@@ -100,7 +102,7 @@ public class Weapon : MonoBehaviour
 
     private float currentFireDelay;
     private float currentPullOutDelay; 
-    private float currentSwitchDelay; //Kan legit h�mta med weaponManager.GetSwitchCurrentDelay();
+    private float currentSwitchDelay; //Kan legit hämta med weaponManager.GetSwitchCurrentDelay();
 
     private bool reloading = false;
     private bool waitForReload = false;
@@ -156,10 +158,8 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(needsAmmo);
-
         //Update the ammo UI when the gun is enabled
-        if (gameObject.activeSelf && ammoText != null) 
+        if (gameObject.activeSelf && ammoText != null)
         {
             if (GetComponent<Shotgun>())
             {
@@ -171,9 +171,19 @@ public class Weapon : MonoBehaviour
             }
             else
             {
-                ammoText.text = " ";
+                ammoText.text = "";
+            }
+
+            if (ammoText.GetComponentInParent<Animator>() != null && weaponManager.GetIsSwitching())
+            {
+                ammoText.GetComponentInParent<Animator>().SetBool("State", true);
+            }
+            else if (ammoText.GetComponentInParent<Animator>() != null && !weaponManager.GetIsSwitching())
+            {
+                ammoText.GetComponentInParent<Animator>().SetBool("State", false);
             }
         }
+
         //Dont Spam the Hierarchy
         if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
 
@@ -230,7 +240,7 @@ public class Weapon : MonoBehaviour
         if (!holdToFire && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false && currentPullOutDelay <= 0)
         {
             //Screen Shake
-            screenShake.Shake(screenShakeDuration, screenShakeIntensity);
+            if (shakeOnFire) { screenShake.Shake(screenShakeDuration, screenShakeIntensity); }
 
             //Logic
             currentAmmo--;
@@ -247,7 +257,7 @@ public class Weapon : MonoBehaviour
         else if (holdToFire && currentFireDelay == 0 && reloading == false && waitForReload == false && gameObject.activeSelf == true && weaponManager.GetIsSwitching() == false && currentPullOutDelay <= 0)
         {
             //Screen Shake
-            screenShake.Shake(screenShakeDuration, screenShakeIntensity);
+            if (shakeOnFire) { screenShake.Shake(screenShakeDuration, screenShakeIntensity); }
 
             //Logic
             currentAmmo--;

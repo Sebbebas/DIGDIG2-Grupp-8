@@ -16,16 +16,24 @@ public class WeaponTypeEditor : Editor
     SerializedProperty magSize;
     SerializedProperty maxAmmo;
     SerializedProperty ammoText;
+
     SerializedProperty waitBeforeReload;
     SerializedProperty reloadTime;
     SerializedProperty chanceToPlayReloadB;
+    
     SerializedProperty firedelay;
     SerializedProperty switchDelay;
     SerializedProperty pullOutDelay;
+    
     SerializedProperty LayerMask;
     SerializedProperty weaponRange;
+
+    SerializedProperty screshakeOnFire;
+    SerializedProperty screenShakeOnHit;
     SerializedProperty screenShakeDuration;
     SerializedProperty screenShakeIntensity;
+    
+
     SerializedProperty flashLight;
     SerializedProperty antiHierarchySpam;
     #endregion
@@ -39,16 +47,23 @@ public class WeaponTypeEditor : Editor
         magSize = serializedObject.FindProperty("magSize");
         maxAmmo = serializedObject.FindProperty("maxAmmo");
         ammoText = serializedObject.FindProperty("ammoText");
+
         waitBeforeReload = serializedObject.FindProperty("waitBeforeReload");
         reloadTime = serializedObject.FindProperty("reloadTime");
         chanceToPlayReloadB = serializedObject.FindProperty("chanceToPlayReloadB");
+
         firedelay = serializedObject.FindProperty("firedelay");
         switchDelay = serializedObject.FindProperty("pullOutDelay");
         pullOutDelay = serializedObject.FindProperty("switchDelay");
+
         LayerMask = serializedObject.FindProperty("hitMask");
         weaponRange = serializedObject.FindProperty("weaponRange");
+
+        screshakeOnFire = serializedObject.FindProperty("screshakeOnFire");
+        screenShakeOnHit = serializedObject.FindProperty("screenShakeOnHit");
         screenShakeDuration = serializedObject.FindProperty("screenShakeDuration");
         screenShakeIntensity = serializedObject.FindProperty("screenShakeIntensity");
+        
         flashLight = serializedObject.FindProperty("flashLight");
         antiHierarchySpam = serializedObject.FindProperty("antiHierarchySpam");
     }
@@ -112,6 +127,8 @@ public class WeaponTypeEditor : Editor
         EditorGUILayout.PropertyField(switchDelay);
 
         EditorGUILayout.Space();
+        DrawLine(Color.white, 2, 5);
+        EditorGUILayout.Space();
 
         GUIStyle CollisonHeader = new(EditorStyles.boldLabel) { richText = true };
         EditorGUILayout.LabelField("Collision", CollisonHeader);
@@ -126,8 +143,20 @@ public class WeaponTypeEditor : Editor
         }
 
         EditorGUILayout.PropertyField(weaponRange);
+
+        EditorGUILayout.Space();
+        DrawLine(Color.white, 2, 5);
+        EditorGUILayout.Space();
+
+
+        //EditorGUILayout.PropertyField(screshakeOnFire);
+        //EditorGUILayout.PropertyField(screenShakeOnHit);
         EditorGUILayout.PropertyField(screenShakeDuration);
         EditorGUILayout.PropertyField(screenShakeIntensity);
+
+        EditorGUILayout.Space();
+        DrawLine(Color.white, 2, 5);
+
         EditorGUILayout.PropertyField(flashLight);
         EditorGUILayout.PropertyField(antiHierarchySpam);
 
@@ -245,6 +274,8 @@ public class WeaponTypeEditor : Editor
                 property.name == "switchDelay" ||
                 property.name == "hitMask" ||
                 property.name == "weaponRange" ||
+                property.name == "screshakeOnFire" ||
+                property.name == "screenShakeOnHit" ||
                 property.name == "screenShakeDuration" ||
                 property.name == "screenShakeIntensity" ||
                 property.name == "flashLight" ||
