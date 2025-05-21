@@ -42,9 +42,12 @@ public class LootDrops : MonoBehaviour
 
     //Chached References
     Destroy destroy;
+    WeaponManager WeaponManager;
 
     private void Start()
     {
+        WeaponManager = FindFirstObjectByType<WeaponManager>();
+
         // Locate the player object
         GameObject player = FindFirstObjectByType<PlayerHealth>().gameObject;
         if (player != null)
@@ -133,10 +136,16 @@ public class LootDrops : MonoBehaviour
                 break;
 
             case PowerUpType.AmmoBoost:
-                Weapon playerWeapon = weaponManager.GetCurrentWeapon().GetComponent<Weapon>();
-                if (playerWeapon != null && playerWeapon.totalAmmo < playerWeapon.maxAmmo)
+                //Add ammo to all Weapon's
+                foreach (var weapon in weaponManager.GetCurrentWeaponList())
                 {
-                    playerWeapon.AddAmmo(ammoAmount);
+                    Weapon weaponComponent = weapon.GetComponent<Weapon>();
+
+                    if (weapon != null && weaponComponent && weaponComponent && weaponComponent.needsAmmo)
+                    {
+                        if (weaponComponent.maxAmmo >= weaponComponent.totalAmmo + weaponComponent.ammoFromPickup) { weaponComponent.AddAmmo(weaponComponent.ammoFromPickup); }
+                        else { weaponComponent.AddAmmo(weaponComponent.maxAmmo - weaponComponent.totalAmmo); }
+                    }
                 }
                 break;
 

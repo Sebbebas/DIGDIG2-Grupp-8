@@ -85,8 +85,6 @@ public class Shotgun : Weapon
                 Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
 
                 HitDetection(hit, weaponRay, pelletDamage);
-
-                Debug.Log("Hit: " + hit.transform);
             }
         }
     }

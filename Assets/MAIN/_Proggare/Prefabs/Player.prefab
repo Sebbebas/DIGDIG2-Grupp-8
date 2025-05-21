@@ -1951,6 +1951,7 @@ MonoBehaviour:
   totalAmmo: 16
   magSize: 2
   maxAmmo: 64
+  ammoFromPickup: 6
   ammoText: {fileID: 5806952721845082274}
   waitBeforeReload: 0.5
   reloadTime: 1
@@ -5174,7 +5175,8 @@ MonoBehaviour:
   totalAmmo: 0
   magSize: 0
   maxAmmo: 0
-  ammoText: {fileID: 0}
+  ammoFromPickup: 0
+  ammoText: {fileID: 5806952721845082274}
   waitBeforeReload: 0.5
   reloadTime: 3
   chanceToPlayReloadB: 0
@@ -5185,10 +5187,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4160
   weaponRange: 6
-  shakeOnFire: 1
-  shakeOnHit: 0
-  screenShakeDuration: 0
-  screenShakeIntensity: 0
+  shakeOnFire: 0
+  shakeOnHit: 1
+  screenShakeDuration: 0.2
+  screenShakeIntensity: 0.2
   flashLight: {fileID: 0}
   antiHierarchySpam: {fileID: 0}
   effects:
@@ -24727,6 +24729,7 @@ MonoBehaviour:
   totalAmmo: 120
   magSize: 30
   maxAmmo: 210
+  ammoFromPickup: 30
   ammoText: {fileID: 5806952721845082274}
   waitBeforeReload: 0.5
   reloadTime: 1
@@ -26580,7 +26583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 211315816130645775}
-  - component: {fileID: 3461364197008795380}
+  - component: {fileID: 5503818403485060768}
   m_Layer: 5
   m_Name: Ammo
   m_TagString: Untagged
@@ -26610,7 +26613,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &3461364197008795380
+--- !u!95 &5503818403485060768
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0

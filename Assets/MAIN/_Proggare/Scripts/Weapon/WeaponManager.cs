@@ -447,4 +447,9 @@ public class WeaponManager : MonoBehaviour
     {
         return currentWeapon;
     }
+    public List<GameObject> GetCurrentWeaponList()
+    {
+        return WeaponsList;
+    }
+
 }

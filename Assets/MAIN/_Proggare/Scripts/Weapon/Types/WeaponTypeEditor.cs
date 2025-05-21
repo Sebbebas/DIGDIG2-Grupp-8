@@ -15,6 +15,7 @@ public class WeaponTypeEditor : Editor
     SerializedProperty totalAmmo;
     SerializedProperty magSize;
     SerializedProperty maxAmmo;
+    SerializedProperty ammoFromPickup;
     SerializedProperty ammoText;
 
     SerializedProperty waitBeforeReload;
@@ -28,8 +29,8 @@ public class WeaponTypeEditor : Editor
     SerializedProperty LayerMask;
     SerializedProperty weaponRange;
 
-    SerializedProperty screshakeOnFire;
-    SerializedProperty screenShakeOnHit;
+    SerializedProperty shakeOnFire;
+    SerializedProperty shakeOnHit;
     SerializedProperty screenShakeDuration;
     SerializedProperty screenShakeIntensity;
 
@@ -44,7 +45,9 @@ public class WeaponTypeEditor : Editor
         currentAmmo = serializedObject.FindProperty("currentAmmo");
         totalAmmo = serializedObject.FindProperty("totalAmmo");
         magSize = serializedObject.FindProperty("magSize");
+        ammoFromPickup = serializedObject.FindProperty("ammoFromPickup");
         maxAmmo = serializedObject.FindProperty("maxAmmo");
+
         ammoText = serializedObject.FindProperty("ammoText");
 
         waitBeforeReload = serializedObject.FindProperty("waitBeforeReload");
@@ -58,8 +61,8 @@ public class WeaponTypeEditor : Editor
         LayerMask = serializedObject.FindProperty("hitMask");
         weaponRange = serializedObject.FindProperty("weaponRange");
 
-        screshakeOnFire = serializedObject.FindProperty("screshakeOnFire");
-        screenShakeOnHit = serializedObject.FindProperty("screenShakeOnHit");
+        shakeOnFire = serializedObject.FindProperty("shakeOnFire");
+        shakeOnHit = serializedObject.FindProperty("shakeOnHit");
         screenShakeDuration = serializedObject.FindProperty("screenShakeDuration");
         screenShakeIntensity = serializedObject.FindProperty("screenShakeIntensity");
         
@@ -113,7 +116,9 @@ public class WeaponTypeEditor : Editor
             EditorGUILayout.PropertyField(totalAmmo);
             EditorGUILayout.PropertyField(magSize);
             EditorGUILayout.PropertyField(maxAmmo);
+            EditorGUILayout.PropertyField(ammoFromPickup);
             EditorGUILayout.PropertyField(ammoText);
+
             EditorGUILayout.PropertyField(waitBeforeReload);
             EditorGUILayout.PropertyField(reloadTime);
             EditorGUILayout.PropertyField(chanceToPlayReloadB);
@@ -143,13 +148,10 @@ public class WeaponTypeEditor : Editor
 
         EditorGUILayout.PropertyField(weaponRange);
 
-        EditorGUILayout.Space();
         DrawLine(Color.white, 2, 5);
-        EditorGUILayout.Space();
 
-
-        //EditorGUILayout.PropertyField(screshakeOnFire);
-        //EditorGUILayout.PropertyField(screenShakeOnHit);
+        EditorGUILayout.PropertyField(shakeOnFire);
+        EditorGUILayout.PropertyField(shakeOnHit);
         EditorGUILayout.PropertyField(screenShakeDuration);
         EditorGUILayout.PropertyField(screenShakeIntensity);
 
@@ -264,6 +266,7 @@ public class WeaponTypeEditor : Editor
                 property.name == "totalAmmo" ||
                 property.name == "magSize" ||
                 property.name == "maxAmmo" ||
+                property.name == "ammoFromPickup" ||
                 property.name == "ammoText" ||
                 property.name == "waitBeforeReload" ||
                 property.name == "reloadTime" ||

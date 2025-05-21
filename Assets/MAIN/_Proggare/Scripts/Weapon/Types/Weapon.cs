@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
     //USING CUSTOM EDITOR SCRIPT
 
     //CUSTOM EDITOR
-    [SerializeField] bool needsAmmo = true; //IS ALSO USED OUTSIDE OF THE CUSTOM EDITOR SCRIPT, aka this script
+    public bool needsAmmo = true; //IS ALSO USED OUTSIDE OF THE CUSTOM EDITOR SCRIPT, aka this script
     //CUSTOM EDITOR
 
     //Configurable Perameters
@@ -28,6 +28,7 @@ public class Weapon : MonoBehaviour
     public int totalAmmo = 90;
     public int magSize = 30;
     public int maxAmmo = 80;
+    public int ammoFromPickup = 30;
     public TextMeshProUGUI ammoText;
 
     [Header("Reload")]
@@ -565,11 +566,11 @@ public class Weapon : MonoBehaviour
         //{
         //    hit.transform.SendMessage("PartDetected");
         //}
+
+        /////////////////////////////Non Walkable///////////////////////////Walkable///////////////////////////////No Spawn Walkable///////////////
         if (hit.transform.gameObject.layer == 7 || hit.transform.gameObject.layer == 9 || hit.transform.gameObject.layer == 15)
         {
             Instantiate(effects[0].fireEffects.enviormentHitParticle, hit.point, Quaternion.LookRotation(hit.normal), antiHierarchySpam.transform);
-
-            Debug.Log("probably hit wall");
         }
         else if (hit.transform.CompareTag("Grenade"))
         {
