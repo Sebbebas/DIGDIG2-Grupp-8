@@ -230,6 +230,8 @@ public class SettingManager : MonoBehaviour
 
         if (gamePausedManually || stopGame)
         {
+            currentweapon.CancelFire();
+
             currentweapon.enabled = false;
 
             weaponManager.enabled = false;

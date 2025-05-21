@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Destroy : MonoBehaviour
 {
@@ -49,28 +50,56 @@ public class Destroy : MonoBehaviour
         }
     }
 
-    IEnumerator ShrinkRoutine() 
+    IEnumerator ShrinkRoutine()
     {
-        //Private Variables
         float elapsedTime = 0f;
         Vector3 originalSize = transform.localScale;
 
         //Wait before the object shrinks
         yield return new WaitForSeconds(waitsForShrinkTime);
 
-        //Shrink object over aliveTime
-        while (elapsedTime < aliveTime)
+        if (gameObject.TryGetComponent<DecalProjector>(out var decal))
         {
-            float t = elapsedTime / aliveTime;
-            transform.localScale = Vector3.Lerp(originalSize, Vector3.zero, t);
-            elapsedTime += Time.deltaTime;
-            yield return null; 
-
-            //Destroy object?
-            if (elapsedTime > aliveTime)
+            Vector3 originalDecalSize = decal.size;
+            // Shrink object and decal over aliveTime
+            while (elapsedTime < aliveTime)
             {
-                transform.localScale = Vector3.zero;
-                Destroy(gameObject);
+                float t = elapsedTime / aliveTime;
+                transform.localScale = Vector3.Lerp(originalSize, Vector3.zero, t);
+
+                // Shrink decal width and height
+                decal.size = new Vector3(
+                    Mathf.Lerp(originalDecalSize.x, 0f, t),
+                    Mathf.Lerp(originalDecalSize.y, 0f, t),
+                    originalDecalSize.z // Keep depth unchanged
+                );
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+
+                if (elapsedTime > aliveTime)
+                {
+                    transform.localScale = Vector3.zero;
+                    decal.size = new Vector3(0f, 0f, originalDecalSize.z);
+                    Destroy(gameObject);
+                }
+            }
+        }
+        else
+        {
+            // Shrink object over aliveTime (original code)
+            while (elapsedTime < aliveTime)
+            {
+                float t = elapsedTime / aliveTime;
+                transform.localScale = Vector3.Lerp(originalSize, Vector3.zero, t);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+
+                if (elapsedTime > aliveTime)
+                {
+                    transform.localScale = Vector3.zero;
+                    Destroy(gameObject);
+                }
             }
         }
     }

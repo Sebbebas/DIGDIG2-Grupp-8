@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7867249596570241171}
   - component: {fileID: 968539807990024189}
   - component: {fileID: 8867330797683255939}
+  - component: {fileID: -6761802570826641045}
   m_Layer: 0
   m_Name: Zombie Hit Particle
   m_TagString: Untagged
@@ -4834,3 +4835,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-6761802570826641045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6706222889071973999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471170f5aa14bc6489d98587337ca533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroy: 1
+  aliveTime: 3
+  shrink: 0
+  waitsForShrinkTime: 2
+  expand: 0
+  expandTime: 2

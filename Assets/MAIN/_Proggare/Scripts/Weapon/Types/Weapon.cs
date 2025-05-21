@@ -87,7 +87,7 @@ public class Weapon : MonoBehaviour
 
             [Header("Hit Effects")]
             public ParticleSystem enemyHitParticle;
-            public ParticleSystem enviormentHitParticle;
+            public GameObject enviormentHitParticle;
 
             [Header("Extra")]
             public GameObject casing;
@@ -278,12 +278,52 @@ public class Weapon : MonoBehaviour
         if (currentAmmo == 0) { Reload(); }
         return false;
     }
+    public void CancelFire()
+    {
+        StopAllCoroutines();
+
+        foreach (Animator animator in animator)
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger("StopFire");
+            }
+        }
+
+        // Disable muzzle flash particles and lights
+        foreach (var effect in effects)
+        {
+            // Stop and clear all muzzle flash particles
+            if (effect.fireEffects.muzzleFlashParticle != null)
+            {
+                foreach (var particleSystem in effect.fireEffects.muzzleFlashParticle)
+                {
+                    if (particleSystem != null)
+                    {
+                        particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                    }
+                }
+            }
+
+            // Disable all muzzle flash lights
+            if (effect.fireEffects.muzzleLight != null)
+            {
+                foreach (var light in effect.fireEffects.muzzleLight)
+                {
+                    if (light != null)
+                    {
+                        light.gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+    }
     #endregion
 
-    #region Reload
-    /// <summary>
-    /// Try to initiate a realod
-    /// </summary>
+        #region Reload
+        /// <summary>
+        /// Try to initiate a realod
+        /// </summary>
     public virtual bool Reload()
     {
         //Check if we can Reload
@@ -525,7 +565,13 @@ public class Weapon : MonoBehaviour
         //{
         //    hit.transform.SendMessage("PartDetected");
         //}
-        if (hit.transform.CompareTag("Grenade"))
+        if (hit.transform.gameObject.layer == 7 || hit.transform.gameObject.layer == 9 || hit.transform.gameObject.layer == 15)
+        {
+            Instantiate(effects[0].fireEffects.enviormentHitParticle, hit.point, Quaternion.LookRotation(hit.normal), antiHierarchySpam.transform);
+
+            Debug.Log("probably hit wall");
+        }
+        else if (hit.transform.CompareTag("Grenade"))
         {
             hit.transform.GetComponent<Grenade>().Explode();
         }

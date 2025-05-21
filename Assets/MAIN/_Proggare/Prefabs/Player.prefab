@@ -1960,7 +1960,7 @@ MonoBehaviour:
   switchDelay: 0.5
   hitMask:
     serializedVersion: 2
-    m_Bits: 5056
+    m_Bits: 37824
   weaponRange: 50
   shakeOnFire: 1
   shakeOnHit: 0
@@ -1981,7 +1981,7 @@ MonoBehaviour:
       - {fileID: 2044401147101698815}
       muzzleTime: 0.075
       enemyHitParticle: {fileID: 968539807990024189, guid: 78a7c5d209c8f614c87db42f04b3f5a0, type: 3}
-      enviormentHitParticle: {fileID: 0}
+      enviormentHitParticle: {fileID: 5500451504269281250, guid: 2bd266c0c69554146935972fff4df435, type: 3}
       casing: {fileID: 0}
   - effectType: 1
     animators:
@@ -24736,7 +24736,7 @@ MonoBehaviour:
   switchDelay: 0.5
   hitMask:
     serializedVersion: 2
-    m_Bits: 5056
+    m_Bits: 37824
   weaponRange: 50
   shakeOnFire: 1
   shakeOnHit: 0
@@ -24760,7 +24760,7 @@ MonoBehaviour:
       - {fileID: 6344678305221125224}
       muzzleTime: 0.025
       enemyHitParticle: {fileID: 968539807990024189, guid: 78a7c5d209c8f614c87db42f04b3f5a0, type: 3}
-      enviormentHitParticle: {fileID: 0}
+      enviormentHitParticle: {fileID: 5500451504269281250, guid: 2bd266c0c69554146935972fff4df435, type: 3}
       casing: {fileID: 0}
   - effectType: 1
     animators:

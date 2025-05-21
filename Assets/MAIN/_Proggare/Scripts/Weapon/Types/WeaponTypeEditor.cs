@@ -32,7 +32,6 @@ public class WeaponTypeEditor : Editor
     SerializedProperty screenShakeOnHit;
     SerializedProperty screenShakeDuration;
     SerializedProperty screenShakeIntensity;
-    
 
     SerializedProperty flashLight;
     SerializedProperty antiHierarchySpam;
