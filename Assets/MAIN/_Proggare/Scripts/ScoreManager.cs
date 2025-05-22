@@ -38,7 +38,8 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         UpdateScoreUI();
-        targetFontSize = scoreText.fontSize;
+        if (scoreText != null)
+            targetFontSize = scoreText.fontSize;
     }
 
     public void AddScore(int points)
@@ -62,11 +63,8 @@ public class ScoreManager : MonoBehaviour
             targetFontSize = scoreText.fontSize;
         }
 
-        // Reset score if it's the win scene
-        if (scene.name == "WinScene") // <-- Change "WinScene" to your actual win scene name
-        {
-            ResetScore();
-        }
+        // Removed automatic score reset to allow showing score in WinScene
+        // You can manually reset score when starting a new game
     }
 
     private IEnumerator HighlightScoreRoutine()
@@ -109,5 +107,12 @@ public class ScoreManager : MonoBehaviour
     {
         score = 0;
         UpdateScoreUI();
+    }
+
+    //button to reset and restart the game
+    public void RestartGame(string sceneName)
+    {
+        ResetScore();
+        SceneManager.LoadScene(sceneName);
     }
 }
