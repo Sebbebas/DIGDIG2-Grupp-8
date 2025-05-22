@@ -33,7 +33,6 @@ public class MusicManager : MonoBehaviour
     // Cached References
     TransitionManager transitionManager;
     EnemyBehaviour enemyBehaviour;
-    private Coroutine[] fadeCoroutines;
 
     void Start()
     {
@@ -58,11 +57,6 @@ public class MusicManager : MonoBehaviour
             songAudioSource.playOnAwake = true;
             songAudioSource.loop = true;
 
-            if (i == 0)
-                songAudioSource.volume = songsStructs[0].volume * baseVolume;
-            else
-                songAudioSource.volume = 0f;
-
             songAudioSource.Play();
         }
     }
@@ -71,50 +65,45 @@ public class MusicManager : MonoBehaviour
     {
         if (!ZombieAgroMusicIntensity) { return; }
 
-        EnemyScript[] allEnemies = FindObjectsByType<EnemyScript>(FindObjectsSortMode.None);
+        // Get the number of aggroed zombies
+        int zombiesAgro = EnemyBehaviour.GetZombiesAgroCount();
 
-        int zombiesAgro = 0;
-        foreach (var enemy in allEnemies)
-        {
-            if (enemy.GetAgro())
-            {
-                zombiesAgro++;
-            }
-        }
-
-        float fadeDuration = 0.5f;
-
-        // Ambient music always plays
+        // Ensure the first sound [0] (ambient music) always plays
         AudioSource ambientAudioSource = musicObject[0].GetComponent<AudioSource>();
-        FadeToVolume(ambientAudioSource, songsStructs[0].volume * baseVolume, fadeDuration);
+        ambientAudioSource.volume = songsStructs[0].volume * baseVolume;
 
+        // Disable all other music if there are fewer than the minimum threshold of aggroed zombies
         if (zombiesAgro < minZombieAggroThreshold)
         {
             for (int i = 1; i < musicObject.Length; i++)
             {
                 AudioSource otherAudioSource = musicObject[i].GetComponent<AudioSource>();
-                FadeToVolume(otherAudioSource, 0f, fadeDuration);
+                otherAudioSource.volume = 0;
             }
             return;
         }
 
+        // Adjust the second sound [1] based on the number of aggroed zombies
         AudioSource secondAudioSource = musicObject[1].GetComponent<AudioSource>();
-        AudioSource thirdAudioSource = musicObject[2].GetComponent<AudioSource>();
-
         if (zombiesAgro >= minZombieAggroThreshold && zombiesAgro < maxZombieAggroThreshold)
         {
-            FadeToVolume(secondAudioSource, baseVolume, fadeDuration);
-            FadeToVolume(thirdAudioSource, 0f, fadeDuration);
-        }
-        else if (zombiesAgro >= maxZombieAggroThreshold)
-        {
-            FadeToVolume(secondAudioSource, 0f, fadeDuration);
-            FadeToVolume(thirdAudioSource, baseVolume, fadeDuration);
+            secondAudioSource.volume = baseVolume;
         }
         else
         {
-            FadeToVolume(secondAudioSource, 0f, fadeDuration);
-            FadeToVolume(thirdAudioSource, 0f, fadeDuration);
+            secondAudioSource.volume = 0;
+        }
+
+        // Adjust the third sound [2] based on the number of aggroed zombies
+        AudioSource thirdAudioSource = musicObject[2].GetComponent<AudioSource>();
+        if (zombiesAgro >= maxZombieAggroThreshold)
+        {
+            thirdAudioSource.volume = baseVolume;
+            secondAudioSource.volume = 0; // Disable the second sound when the third is active
+        }
+        else
+        {
+            thirdAudioSource.volume = 0;
         }
     }
 
@@ -177,31 +166,5 @@ public class MusicManager : MonoBehaviour
     public void SetAudioSourceVolume(int volume)
     {
         audioSource.volume = volume;
-    }
-
-    private void FadeToVolume(AudioSource source, float targetVolume, float duration)
-    {
-        if (fadeCoroutines == null)
-            fadeCoroutines = new Coroutine[musicObject.Length];
-
-        int index = Array.IndexOf(musicObject, source.gameObject);
-        if (index >= 0 && fadeCoroutines[index] != null)
-            StopCoroutine(fadeCoroutines[index]);
-
-        fadeCoroutines[index] = StartCoroutine(FadeVolumeRoutine(source, targetVolume, duration, index));
-    }
-
-    private IEnumerator FadeVolumeRoutine(AudioSource source, float targetVolume, float duration, int index)
-    {
-        float startVolume = source.volume;
-        float time = 0f;
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            source.volume = Mathf.Lerp(startVolume, targetVolume, time / duration);
-            yield return null;
-        }
-        source.volume = targetVolume;
-        fadeCoroutines[index] = null;
     }
 }
