@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 // Seb
 
@@ -9,7 +9,7 @@ public class Melee : Weapon
 
     [Header("Melee")]
     [SerializeField] AudioClip meleeHitSound;
-    [SerializeField] int damage = 100;
+    [SerializeField] int damage = 10;
 
     public new void Start()
     {
