@@ -5186,7 +5186,7 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 4160
-  weaponRange: 6
+  weaponRange: 8
   shakeOnFire: 0
   shakeOnHit: 1
   screenShakeDuration: 0.2
@@ -5255,7 +5255,7 @@ MonoBehaviour:
       enviormentHitParticle: {fileID: 0}
       casing: {fileID: 0}
   meleeHitSound: {fileID: 8300000, guid: 9f8e108e64886254ea0c4e6f1ec5949f, type: 3}
-  damage: 150
+  damage: 400
 --- !u!95 &5592211720894863163
 Animator:
   serializedVersion: 7
