@@ -105,6 +105,8 @@ public class ScoreManager : MonoBehaviour
             UpdateScoreUI();
             targetFontSize = scoreText.fontSize;
         }
+
+        DisplayStats();
     }
 
     private static void DisplayStats()
