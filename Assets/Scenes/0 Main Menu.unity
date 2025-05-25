@@ -3071,6 +3071,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Menu Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 275943282147231487, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 45083ba559e9a354e961c51d5db3b220, type: 2}
+    - target: {fileID: 275943282147231487, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7988088336733355111, guid: 45083ba559e9a354e961c51d5db3b220, type: 2}
+    - target: {fileID: 275943282147231487, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 672028280713275103, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
@@ -3198,6 +3210,18 @@ PrefabInstance:
     - target: {fileID: 1075167790402571787, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2040290080068771400, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 45083ba559e9a354e961c51d5db3b220, type: 2}
+    - target: {fileID: 2040290080068771400, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7988088336733355111, guid: 45083ba559e9a354e961c51d5db3b220, type: 2}
+    - target: {fileID: 2040290080068771400, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4614790375075318082, guid: f4c9da9b76b9dc845831e959b4c1cf59, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
