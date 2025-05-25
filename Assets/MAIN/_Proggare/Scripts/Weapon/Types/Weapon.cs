@@ -254,7 +254,7 @@ public class Weapon : MonoBehaviour
             currentAmmo--;
             currentFireDelay = firedelay;
             if (currentAmmo == 0) { Reload(); }
-            scoreManager.SetStat(StatType.ShotsFired, 1);
+            scoreManager.AddStatValues(StatType.ShotsFired, 1);
 
 
             //Effects
@@ -598,8 +598,8 @@ public class Weapon : MonoBehaviour
 
             if (enemy != null)
             {
-                scoreManager.SetStat(StatType.ShotsHit, 1);
-                scoreManager.SetStat(StatType.DamageDealt, damage);
+                scoreManager.AddStatValues(StatType.ShotsHit, 1);
+                scoreManager.AddStatValues(StatType.DamageDealt, damage);
 
                 enemy.ApplyDamage(damage);
             }

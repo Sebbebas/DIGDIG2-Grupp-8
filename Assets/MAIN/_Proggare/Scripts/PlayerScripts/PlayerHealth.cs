@@ -73,7 +73,7 @@ public class PlayerHealth : MonoBehaviour
         if (isDead || isImmortal)  //Prevent damage if dead or immortal
             return;
 
-        scoreManager.SetStat(StatType.DamageDealt, Mathf.RoundToInt(damageAmount));
+        scoreManager.AddStatValues(StatType.DamageTaken, Mathf.RoundToInt(damageAmount));
 
         //ScreenShake
         screenShake.Shake(0.1f, 0.3f);

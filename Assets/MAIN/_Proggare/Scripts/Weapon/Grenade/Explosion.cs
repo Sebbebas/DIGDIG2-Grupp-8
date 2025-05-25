@@ -141,14 +141,14 @@ public class Explosion : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             other.gameObject.GetComponent<PlayerHealth>().ApplyDamage(calculatedDamage / 6);
-            scoreManager.SetStat(StatType.DamageTaken, Mathf.RoundToInt(calculatedDamage / 6));
+            scoreManager.AddStatValues(StatType.DamageTaken, Mathf.RoundToInt(calculatedDamage / 6));
         }
 
         // If Enemy
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemies") && other != null && other.gameObject.activeSelf)
         {
             other.gameObject.GetComponent<EnemyScript>().ApplyDamage(calculatedDamage);
-            scoreManager.SetStat(StatType.DamageDealt, Mathf.RoundToInt(calculatedDamage));
+            scoreManager.AddStatValues(StatType.DamageDealt, Mathf.RoundToInt(calculatedDamage));
         }
 
         // If Plank

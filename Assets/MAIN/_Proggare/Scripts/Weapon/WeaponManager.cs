@@ -272,7 +272,7 @@ public class WeaponManager : MonoBehaviour
 
                     Instantiate(enemyHitEffect, hit.transform.position, Quaternion.identity);
 
-                    scoreManager.SetStat(StatType.DamageDealt, kickDamage);
+                    scoreManager.AddStatValues(StatType.DamageDealt, kickDamage);
 
                     PlayKickSound();
                 }

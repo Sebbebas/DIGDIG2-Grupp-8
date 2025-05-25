@@ -115,15 +115,14 @@ public class EnemyScript : MonoBehaviour
 
     private void Start()
     {
-        RandomEnemyTexture();
-
         scoreManager = FindFirstObjectByType<ScoreManager>();
+
         agent = GetComponent<NavMeshAgent>();
         myRigidbody = GetComponent<Rigidbody>();
         lootSystem = GetComponent<LootSystem>();
         enemySpeedAtStart = agent.speed;
 
-        scoreManager.SetStat(StatType.TotalEnemies, 1);
+        RandomEnemyTexture();
 
         //Find the player
         originalSpeed = agent.speed;
@@ -176,6 +175,8 @@ public class EnemyScript : MonoBehaviour
     {
         if (textures.Length > 0)
         {
+            scoreManager.AddStatValues(StatType.TotalEnemies, 1);
+
             int randomTexture = UnityEngine.Random.Range(0, textures.Length);
 
             SkinnedMeshRenderer[] renderers = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -348,7 +349,7 @@ public class EnemyScript : MonoBehaviour
     public void ApplyDamage(float damage)
     {
         currentHealth -= damage;
-        scoreManager.SetStat(StatType.DamageDealt, Mathf.RoundToInt(damage));
+        scoreManager.AddStatValues(StatType.DamageDealt, Mathf.RoundToInt(damage));
         //Debug.Log(transform.gameObject.name + " took damage: " + damage + ", Current Health: " + currentHealth);
 
         if (currentHealth <= 0)
@@ -411,7 +412,7 @@ public class EnemyScript : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
-        scoreManager.SetStat(StatType.EnemiesKilled, 1);
+        scoreManager.AddStatValues(StatType.EnemiesKilled, 1);
 
         //Audio
         GameObject deathSoundObject = new();

@@ -54,6 +54,7 @@ public class ScoreManager : MonoBehaviour
     //Private Variables
     private float targetFontSize;
     private float smoothTime = 2f;
+    private bool resetOnNextLoad;
 
     private void Awake()
     {
@@ -107,6 +108,25 @@ public class ScoreManager : MonoBehaviour
         }
 
         DisplayStats();
+
+        if (resetOnNextLoad)
+        {
+            score = 0;
+            time = 0;
+            enemiesKilled = 0;
+            totalEnemies = 0;
+            damageTaken = 0;
+            damageDealt = 0;
+            killCombos = 0;
+            HighestCombo = 0;
+            longestKillCombo = 0;
+            longestKillComboTime = 0;
+            accuracy = 0;
+            shotsFired = 0;
+            shotsHit = 0;
+
+            resetOnNextLoad = false;
+        }
     }
 
     private static void DisplayStats()
@@ -114,7 +134,6 @@ public class ScoreManager : MonoBehaviour
         int score = Instance.GetStatValue(StatType.ScoreText);
         int enemiesKilled = Instance.GetStatValue(StatType.EnemiesKilled);
         int totalEnemies = Instance.GetStatValue(StatType.TotalEnemies);
-        int accuracy = Instance.GetStatValue(StatType.Accuracy);
         int totalShotsFired = Instance.GetStatValue(StatType.ShotsFired);
         int shotsHit = Instance.GetStatValue(StatType.ShotsHit);
 
@@ -122,6 +141,11 @@ public class ScoreManager : MonoBehaviour
         {
             string statName = stat.ToString();
             GameObject obj = GameObject.Find(statName);
+
+            if (obj == null && stat != StatType.ScoreText)
+            {
+                Instance.resetOnNextLoad = true;
+            }
 
             if (obj == null)
             {
@@ -145,16 +169,12 @@ public class ScoreManager : MonoBehaviour
                 case StatType.EnemiesKilled:
                     statText.text = $"ENEMIES: {enemiesKilled} / {totalEnemies}";
                     break;
-
-                case StatType.TotalEnemies:
-                    // Do nothing — it's shown as part of EnemiesKilled above
-                    obj.SetActive(false); // Optionally hide it
-                    break;
-
                 case StatType.Accuracy:
-                    statText.text = $"ACCURACY: {accuracy}%";
+                    int acc = (totalShotsFired > 0)
+                        ? Mathf.RoundToInt(((float)shotsHit / totalShotsFired) * 100f)
+                        : 0;
+                    statText.text = $"ACCURACY: {acc}%";
                     break;
-
                 case StatType.ShotsFired:
                     statText.text = $"SHOTS HIT: {shotsHit} / {totalShotsFired}";
                     break;
@@ -212,49 +232,49 @@ public class ScoreManager : MonoBehaviour
         ResetScore();
         SceneManager.LoadScene(sceneName);
     }
-    public void SetStat(StatType stat, int value)
+    public void AddStatValues(StatType stat, int value)
     {
         switch (stat)
         {
             case StatType.ScoreText:
-                score = value;
+                score += value;
                 UpdateScoreUI();
                 break;
             case StatType.Time:
-                time = value;
+                time += value;
                 break;
             case StatType.EnemiesKilled:
-                enemiesKilled = value;
+                enemiesKilled += value;
                 break;
             case StatType.TotalEnemies:
-                totalEnemies = value;
+                totalEnemies += value;
                 break;
             case StatType.DamageTaken:
-                damageTaken = value;
+                damageTaken += value;
                 break;
             case StatType.DamageDealt:
-                damageDealt = value;
+                damageDealt += value;
                 break;
             case StatType.KillCombos:
-                killCombos = value;
+                killCombos += value;
                 break;
             case StatType.HighestCombo:
-                HighestCombo = value;
+                HighestCombo += value;
                 break;
             case StatType.LongestKillCombo:
-                longestKillCombo = value;
+                longestKillCombo += value;
                 break;
             case StatType.LongestKillComboTime:
-                longestKillComboTime = value;
+                longestKillComboTime += value;
                 break;
             case StatType.Accuracy:
-                accuracy = value;
+                accuracy += value;
                 break;
             case StatType.ShotsFired:
-                shotsFired = value;
+                shotsFired += value;
                 break;
             case StatType.ShotsHit:
-                shotsHit = value;
+                shotsHit += value;
                 break;
             default:
                 Debug.LogWarning("Unknown stat type: " + stat);
