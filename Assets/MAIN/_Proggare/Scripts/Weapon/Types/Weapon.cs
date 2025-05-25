@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TMPro;
+using static UnityEngine.Rendering.DebugUI;
 
 //Seb
 
@@ -115,6 +116,7 @@ public class Weapon : MonoBehaviour
     //Chaced References
     WeaponManager weaponManager;
     ScreenShake screenShake;
+    ScoreManager scoreManager;
     Animator[] animator;
 
     //[SerializeField] private LayerMask headLayer;
@@ -125,6 +127,9 @@ public class Weapon : MonoBehaviour
     #region Base Methods
     protected void Start()
     {
+        StartCoroutine(EffectsCoroutine(EffectType.Pullout));
+
+        scoreManager = FindFirstObjectByType<ScoreManager>();
         weaponManager = GetComponentInParent<WeaponManager>();
 
         if(weaponManager == null) { Debug.LogError("WeaponManager not found in parent object"); }
@@ -217,6 +222,8 @@ public class Weapon : MonoBehaviour
 
             currentPullOutDelay = pullOutDelay;
         }
+        StartCoroutine(EffectsCoroutine(EffectType.Pullout));
+
 
         //Dont Spam the Hierarchy
         if (antiHierarchySpam == null) { antiHierarchySpam = GameObject.FindGameObjectWithTag("antiHierarchySpam"); }
@@ -247,6 +254,8 @@ public class Weapon : MonoBehaviour
             currentAmmo--;
             currentFireDelay = firedelay;
             if (currentAmmo == 0) { Reload(); }
+            scoreManager.SetStat(StatType.ShotsFired, 1);
+
 
             //Effects
             PlayAnimation(EffectType.Fire, "Fire", true);
@@ -501,7 +510,10 @@ public class Weapon : MonoBehaviour
                     PlayAnimation(EffectType.Reload, "Reload", true);
                 }
             }
-            else if (EffectType.Pullout == type) { }
+            else if (EffectType.Pullout == type) 
+            {
+                PlaySound(EffectType.Pullout);
+            }
             else if (EffectType.Equip == type) { }
             else if (EffectType.Switch == type) 
             {
@@ -586,6 +598,9 @@ public class Weapon : MonoBehaviour
 
             if (enemy != null)
             {
+                scoreManager.SetStat(StatType.ShotsHit, 1);
+                scoreManager.SetStat(StatType.DamageDealt, damage);
+
                 enemy.ApplyDamage(damage);
             }
 

@@ -22,7 +22,7 @@ public class WeaponManager : MonoBehaviour
 
     [Space]
 
-    [SerializeField] float kickDamage = 150f;
+    [SerializeField] int kickDamage = 25;
 
     [Space]
 
@@ -83,6 +83,7 @@ public class WeaponManager : MonoBehaviour
     InputAction kickAction;
     Transform weaponsParent;
     ScreenShake screenShake;
+    ScoreManager scoreManager;
 
     #region Base Methods
     void Start()
@@ -90,6 +91,7 @@ public class WeaponManager : MonoBehaviour
         //Get Cached References
         weaponsParent = GetComponent<Transform>();
         screenShake = FindFirstObjectByType<ScreenShake>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
 
         if (currentWeapon != null)
         {
@@ -269,6 +271,9 @@ public class WeaponManager : MonoBehaviour
                     hit.transform.GetComponent<EnemyScript>().ApplyDamage(kickDamage);
 
                     Instantiate(enemyHitEffect, hit.transform.position, Quaternion.identity);
+
+                    scoreManager.SetStat(StatType.DamageDealt, kickDamage);
+
                     PlayKickSound();
                 }
                 if (hit.transform.GetComponent<Plank>() != null)

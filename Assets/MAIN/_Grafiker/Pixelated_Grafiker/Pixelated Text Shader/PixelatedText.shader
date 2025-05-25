@@ -1,10 +1,18 @@
-Shader "Custom/PixelateTextSDF_VertexColor"
+Shader "Custom/PixelateTextSDF_VertexColor_Stencil"
 {
     Properties
     {
         _MainTex ("Font Texture", 2D) = "white" {}
         _PixelSize ("Pixel Size", Float) = 64
-        _CullMode ("Cull Mode", Float) = 2 // Needed for Unity/TMP builds
+        _CullMode ("Cull Mode", Float) = 2
+
+        // Add these for TextMeshPro stencil masking
+        _Stencil ("Stencil ID", Float) = 0
+        _StencilComp ("Stencil Comparison", Float) = 8
+        _StencilOp ("Stencil Operation", Float) = 0
+        _StencilWriteMask ("Stencil Write Mask", Float) = 255
+        _StencilReadMask ("Stencil Read Mask", Float) = 255
+        _ColorMask ("Color Mask", Float) = 15
     }
 
     SubShader
@@ -12,7 +20,18 @@ Shader "Custom/PixelateTextSDF_VertexColor"
         Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
         Lighting Off ZWrite Off Fog { Mode Off }
         Blend SrcAlpha OneMinusSrcAlpha
-        Cull [_CullMode] // Make Unity happy
+        Cull [_CullMode]
+
+        // TMP Stencil support
+        Stencil
+        {
+            Ref [_Stencil]
+            Comp [_StencilComp]
+            Pass [_StencilOp]
+            ReadMask [_StencilReadMask]
+            WriteMask [_StencilWriteMask]
+        }
+        ColorMask [_ColorMask]
 
         Pass
         {
@@ -25,7 +44,7 @@ Shader "Custom/PixelateTextSDF_VertexColor"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-                float4 color : COLOR; // TMP vertex color (faceColor)
+                float4 color : COLOR;
             };
 
             struct v2f
@@ -50,19 +69,10 @@ Shader "Custom/PixelateTextSDF_VertexColor"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // Pixelation: snap UVs to pixel grid
                 float2 pixelUV = floor(i.uv * _PixelSize) / _PixelSize;
-
-                // Sample SDF alpha from font atlas
                 fixed4 texSample = tex2D(_MainTex, pixelUV);
-
-                // Smooth edge based on SDF
                 float alpha = smoothstep(0.5 - 0.1, 0.5 + 0.1, texSample.a);
-
-                // Fix: If vertex alpha is too low, bump it slightly (or force to 1)
                 float finalAlpha = alpha * saturate(i.color.a + 0.001);
-
-                // Apply TMP face color
                 return fixed4(i.color.rgb, finalAlpha);
             }
             ENDCG

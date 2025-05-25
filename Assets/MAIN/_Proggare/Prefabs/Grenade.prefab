@@ -155,8 +155,8 @@ MonoBehaviour:
   slowdownLayer:
     serializedVersion: 2
     m_Bits: 512
-  speed: 16
-  upwardForce: 3.64
+  speed: 14
+  upwardForce: 3.5
   customGravityMultiplier: 2
   grenadeSlowdownRate: 2.5
   aliveTime: 3

@@ -33,11 +33,13 @@ public class Explosion : MonoBehaviour
 
     //Cached References
     ScreenShake screenShake;
+    ScoreManager scoreManager;
 
     private void Awake()
     {
         //Get Cached References
         screenShake = FindFirstObjectByType<ScreenShake>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
         screenShake.Shake(screenShakeDuration, screenShakeIntensity);
 
         //Set the explosion light to the child object if not assigned
@@ -139,12 +141,14 @@ public class Explosion : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             other.gameObject.GetComponent<PlayerHealth>().ApplyDamage(calculatedDamage / 6);
+            scoreManager.SetStat(StatType.DamageTaken, Mathf.RoundToInt(calculatedDamage / 6));
         }
 
         // If Enemy
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemies") && other != null && other.gameObject.activeSelf)
         {
             other.gameObject.GetComponent<EnemyScript>().ApplyDamage(calculatedDamage);
+            scoreManager.SetStat(StatType.DamageDealt, Mathf.RoundToInt(calculatedDamage));
         }
 
         // If Plank

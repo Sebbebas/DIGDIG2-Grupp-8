@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 //Alexander
 
@@ -99,6 +100,7 @@ public class EnemyScript : MonoBehaviour
     //Chaced References
     NavMeshAgent agent;
     Rigidbody myRigidbody;
+    ScoreManager scoreManager;
 
     private void Awake()
     {
@@ -115,10 +117,13 @@ public class EnemyScript : MonoBehaviour
     {
         RandomEnemyTexture();
 
+        scoreManager = FindFirstObjectByType<ScoreManager>();
         agent = GetComponent<NavMeshAgent>();
         myRigidbody = GetComponent<Rigidbody>();
         lootSystem = GetComponent<LootSystem>();
         enemySpeedAtStart = agent.speed;
+
+        scoreManager.SetStat(StatType.TotalEnemies, 1);
 
         //Find the player
         originalSpeed = agent.speed;
@@ -343,6 +348,7 @@ public class EnemyScript : MonoBehaviour
     public void ApplyDamage(float damage)
     {
         currentHealth -= damage;
+        scoreManager.SetStat(StatType.DamageDealt, Mathf.RoundToInt(damage));
         //Debug.Log(transform.gameObject.name + " took damage: " + damage + ", Current Health: " + currentHealth);
 
         if (currentHealth <= 0)
@@ -404,6 +410,8 @@ public class EnemyScript : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
+
+        scoreManager.SetStat(StatType.EnemiesKilled, 1);
 
         //Audio
         GameObject deathSoundObject = new();
