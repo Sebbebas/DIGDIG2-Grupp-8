@@ -11,7 +11,6 @@ public class ComboManager : MonoBehaviour
     public int comboMultiplier = 1;
     public float comboTimer = 0f;
     public bool isComboActive = false;
-    public int skillPoints = 0;
     private int comboScore = 0;
     private int maxComboScore = 0;
     private bool isCountingDown = false;
@@ -79,13 +78,17 @@ public class ComboManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void AddKill()
+    public void AddKill(string weaponUsed)
     {
         if (isCountingDown)
         {
             // Prevent new kills from affecting the combo while counting down
             return;
         }
+        //if (weaponUsed == "BaseballBat")
+      //  {
+      //      SkillPointManager.Instance.AddSkillPoint();
+       // }
 
         killCount++;
         float timeSinceLastKill = Time.time - lastKillTime;
@@ -137,18 +140,6 @@ public class ComboManager : MonoBehaviour
         {
             ScoreManager.Instance.AddScore(10);
         }
-    }
-
-    public void AddSkillPoint()
-    {
-        if (isCountingDown)
-        {
-            // Prevent adding skill points while counting down
-            return;
-        }
-
-        skillPoints++;
-        IncreaseMultiplier();
     }
 
     //void PlayComboSound()

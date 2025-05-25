@@ -234,4 +234,8 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(duration);
         isImmortal = false;
     }
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
 }

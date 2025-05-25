@@ -418,15 +418,14 @@ public class EnemyScript : MonoBehaviour
         OnEnemyDeath?.Invoke(gameObject);
         ScoreManager.Instance.AddScore(scoreValue);
 
-        // **L�gger till combo-systemet**
-        if (ComboManager.instance != null)
-        {
-            ComboManager.instance.AddKill();
-        }
-
         if (lootSystem != null)
         {
             lootSystem.DropLoot();
+        }
+        SkillPointTracker tracker = FindFirstObjectByType<SkillPointTracker>();
+        if (tracker != null)
+        {
+            tracker.RegisterKill();
         }
 
         GetComponent<ZombieBodyParts>().SpawnGibbs();

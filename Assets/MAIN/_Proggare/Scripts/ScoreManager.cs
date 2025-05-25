@@ -17,7 +17,7 @@ public class ScoreManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject); // Keep the score manager alive across scenes
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -62,9 +62,6 @@ public class ScoreManager : MonoBehaviour
             UpdateScoreUI();
             targetFontSize = scoreText.fontSize;
         }
-
-        // Removed automatic score reset to allow showing score in WinScene
-        // You can manually reset score when starting a new game
     }
 
     private IEnumerator HighlightScoreRoutine()
